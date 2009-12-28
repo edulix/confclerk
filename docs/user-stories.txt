@@ -1,0 +1,22 @@
+
+As an user I would like to have following features available in FOSDEM application:
+o   I’d like to see all events for current day (default: current time)
+o   I’d like to see all events for other days 
+o   I’d like to see all events grouped by activity
+o   I’d like to see all events grouped by room
+o   I’d like to see all details about selected event
+o   In detail view, I’d like to have option  to show room on the map
+o   If there are some links in the event detail, I’d like to have option to open link in browser
+o   In detail view, I’d like to add/remove event to/from favorites
+o   I’d like to search events by title/abstract, speaker name, tags, activity category, room number/name
+o   I’d like to see my favorite events
+o   I’d like to be noticed when some of my favorite events are overlapping
+o   I’d like to add reminder into calendar for selected event
+o   I’d like to see which events are added to calendar or to favorites
+o   I’d like to option to update list of events through the web 
+--------------------------------------------------------------------
+o   I'd like to have "my track" -- the personal schedule of events the user would like to attend.
+o   I wish to have "now button" to show me what's ongoing now.
+====================================================================
+o   I'd like to have possibility to post to eg. twitter or facebook -- some button to easy post on twitter "I'm attending now this". 
+
