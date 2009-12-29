@@ -1,4 +1,4 @@
 TEMPLATE = subdirs
-SUBDIRS  = model gui app test
+SUBDIRS  = orm model gui app test
 CONFIG += ordered
 

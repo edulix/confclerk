@@ -1,7 +1,6 @@
 #include "event.h"
 
-Event Event::getById(int id, int conferenceId)
-{
-    Event newEvent;
-    return newEvent;
-}
+QStringList const Event::sColNames = QStringList()
+    << "id" << "xid_conference" << "start" << "duration" << "xid_activity" << "type" << "language";
+
+QString const Event::sTableName = QString("event");
