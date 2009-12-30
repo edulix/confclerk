@@ -15,44 +15,33 @@ class NoSuchEventException
 {
 };
 
-class Event : public OrmRecord <Event>
+class Event : public OrmRecord<Event>
 {
 public:
-    // column definition
-    enum Column
-    {
-        Id = 0,
-        Conference,
-        Start,
-        Duration,
-        Activity,
-        Type,
-        Language
-    };
-
-    static QStringList const sColNames;
-
+    static QSqlRecord const sColumns;
     static QString const sTableName;
 
 public:
-    static Event getById(int id, int conferenceId) { return Event(); } //EventTable::selectOne("id=1"); }
+    static Event getById(int id, int conferenceId);
 
 public:
-    int id() const { return value(Id).toInt(); }
-    int conferenceId() const { return value(Conference).toInt(); }
-    QDateTime start() const { return value(Start).toDateTime(); }
-    int duration() const { return value(Duration).toInt(); }
-    int activityId() const { return value(Activity).toInt(); }
-    int typeId() const { return value(Type).toInt(); }
-    int languageId() const { return value(Language).toInt(); }
+    int id() const { return value("id").toInt(); }
+    int conferenceId() const { return value("xid_conference").toInt(); }
+    QDateTime start() const { return value("start").toDateTime(); }
+    int duration() const { return value("duration").toInt(); }
+    int activityId() const { return value("xid_activity").toInt(); }
+    int typeId() const { return value("type").toInt(); }
+    int languageId() const { return value("language").toInt(); }
 
-    void setId(int id) { setValue(Id, id); }
-    void setConferenceId(int conferenceId) { setValue(Conference, conferenceId); }
-    void setStart(const QDateTime& start) { setValue(Start, start); }
-    void setDuration(int duration) { setValue(Duration, duration); }
-    void setActivityId(int activityId) { setValue(Activity, activityId); }
-    void setTypeId(int typeId) { setValue(Type, typeId); }
-    void setLanguageId(int languageId) { setValue(Language, languageId); }
+    void setId(int id) { setValue("id", id); }
+    void setConferenceId(int conferenceId) { setValue("xid_conference", conferenceId); }
+    void setStart(const QDateTime& start) { setValue("start", start); }
+    void setDuration(int duration) { setValue("duration", duration); }
+    void setActivityId(int activityId) { setValue("xid_activity", activityId); }
+    void setTypeId(int typeId) { setValue("type", typeId); }
+    void setLanguageId(int languageId) { setValue("language", languageId); }
+
+friend class EventTest;
 };
 
 

@@ -1,42 +1,173 @@
+#ifndef ORMRECORD_H
+#define ORMRECORD_H
+
+#include <QSqlQuery>
 #include <QSqlRecord>
 #include <QSqlField>
+#include <QSqlError>
+#include <QStringList>
+#include <QDateTime>
+#include <QDebug>
+
+class OrmException
+{
+};
+
+class OrmNoObjectException : OrmException
+{
+};
+
+class OrmSqlException : OrmException
+{
+public:
+    OrmSqlException(const QString& text) : mText(text) {}
+    QString text() const { return mText; }
+
+private:
+    QString mText;
+};
 
 template <typename T>
 class OrmRecord : protected QSqlRecord
 {
 public:
-    static QString colName(int col);
+    OrmRecord();
+    static T hydrate(const QSqlRecord& record);
 
 protected:
-    QVariant value(int col) const;
-    void setValue(int col, QVariant value);
+    QVariant value(QString col) const;
+    void setValue(QString col, QVariant value);
+
+    static T loadOne(QSqlQuery query);
+    static QList<T> load(QSqlQuery query);
+
+    // auxiliary methods
+    static QString columnsForSelect(const QString& prefix = QString());
+    static QString selectQuery();
+    static QSqlRecord toRecord(const QList<QSqlField> & columnList);
+
+    static QVariant convertToC(QVariant value, QVariant::Type colType);
+    static QVariant convertToDb(QVariant value, QVariant::Type colType);
 };
 
 template <typename T>
-QString OrmRecord<T>::colName(int col)
+OrmRecord<T>::OrmRecord()
 {
-    return T::sColNames.at(col);
+    QSqlRecord::operator=(T::sColumns);
 }
 
 template <typename T>
-QVariant OrmRecord<T>::value(int col) const
+T OrmRecord<T>::hydrate(const QSqlRecord& record)
 {
-    Q_ASSERT(col >= 0 && col < T::sColNames.count());
-
-    return QSqlRecord::value(T::sColNames.at(col));
+    T object;
+    object.QSqlRecord::operator=(record);
+    return object;
 }
 
 template <typename T>
-void OrmRecord<T>::setValue(int col, QVariant value)
+QVariant OrmRecord<T>::value(QString col) const
 {
-    Q_ASSERT(col >= 0 && col < T::sColNames.count());
+    return convertToC(QSqlRecord::value(col), T::sColumns.field(col).type());
+}
 
-    QString fieldName = T::sColNames.at(col);
+template <typename T>
+void OrmRecord<T>::setValue(QString col, QVariant value)
+{
+    QSqlRecord::setValue(col, convertToDb(value, T::sColumns.field(col).type()));
+}
 
-    if (!contains(fieldName))
+template <typename T>
+T OrmRecord<T>::loadOne(QSqlQuery query)
+{
+    if (!query.isActive())
     {
-        append(QSqlField(fieldName, value.type()));
+        if (!query.exec())
+        {
+            throw new OrmSqlException(query.lastError().text());
+        }
     }
 
-    QSqlRecord::setValue(fieldName, value);
+    if (!query.next())
+    {
+        throw new OrmNoObjectException();
+    }
+
+    return hydrate(query.record());
 }
+
+template <typename T>
+QList<T> OrmRecord<T>::load(QSqlQuery query)
+{
+    if (!query.isActive())
+    {
+        if (!query.exec())
+        {
+            throw new OrmSqlException(query.lastError().text());
+        }
+    }
+
+    QList<T> objects;
+    while (query.next())
+    {
+        objects << hydrate(query.record());
+    }
+
+    return objects;
+}
+
+template <typename T>
+QString OrmRecord<T>::columnsForSelect(const QString& prefix)
+{
+    QStringList prefixedColumns;
+    for (int i=0; i<T::sColumns.count(); i++)
+    {
+        prefixedColumns.append(prefix.isEmpty() ?
+            T::sColumns.field(i).name() :
+            QString("%1.%2").arg(prefix, T::sColumns.field(i).name()));
+    }
+    return prefixedColumns.join(",");
+}
+
+template <typename T>
+QString OrmRecord<T>::selectQuery()
+{
+    return QString("SELECT %1 FROM %2 ").arg(columnsForSelect(), T::sTableName);
+}
+
+template <typename T>
+QSqlRecord OrmRecord<T>::toRecord(const QList<QSqlField> & columnList)
+{
+    QSqlRecord record;
+    foreach (const QSqlField & col, columnList)
+    {
+        record.append(col);
+    }
+    return record;
+}
+
+template <typename T>
+QVariant OrmRecord<T>::convertToC(QVariant value, QVariant::Type colType)
+{
+    if (colType == QVariant::DateTime &&
+        (value.type() == QVariant::UInt || value.type() == QVariant::Int))
+    {
+        QDateTime date;
+        date.setTime_t(value.toUInt());
+        return date;
+    }
+
+    return value;
+}
+
+template <typename T>
+QVariant OrmRecord<T>::convertToDb(QVariant value, QVariant::Type colType)
+{
+    if (colType == QVariant::DateTime && value.type() == QVariant::DateTime)
+    {
+        return value.toDateTime().toTime_t();
+    }
+
+    return value;
+}
+
+#endif // ORMRECORD_H

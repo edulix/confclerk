@@ -11,8 +11,10 @@ private slots:
     void initTestCase();
 
     void getById();
-    void colNames();
     void storingValues();
+    void hydrate();
+    void columnsForSelect();
+    void selectQuery();
 };
 
 
