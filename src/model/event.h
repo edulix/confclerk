@@ -30,16 +30,16 @@ public:
     QDateTime start() const { return value("start").toDateTime(); }
     int duration() const { return value("duration").toInt(); }
     int activityId() const { return value("xid_activity").toInt(); }
-    int typeId() const { return value("type").toInt(); }
-    int languageId() const { return value("language").toInt(); }
+    QString type() const { return value("type").toString(); }
+    QString language() const { return value("language").toString(); }
 
     void setId(int id) { setValue("id", id); }
     void setConferenceId(int conferenceId) { setValue("xid_conference", conferenceId); }
     void setStart(const QDateTime& start) { setValue("start", start); }
     void setDuration(int duration) { setValue("duration", duration); }
     void setActivityId(int activityId) { setValue("xid_activity", activityId); }
-    void setTypeId(int typeId) { setValue("type", typeId); }
-    void setLanguageId(int languageId) { setValue("language", languageId); }
+    void setType(const QString& type) { setValue("type", type); }
+    void setLanguage(const QString& language) { setValue("language", language); }
 
 friend class EventTest;
 };

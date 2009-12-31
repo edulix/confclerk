@@ -148,10 +148,10 @@ QSqlRecord OrmRecord<T>::toRecord(const QList<QSqlField> & columnList)
 template <typename T>
 QVariant OrmRecord<T>::convertToC(QVariant value, QVariant::Type colType)
 {
-    if (colType == QVariant::DateTime &&
-        (value.type() == QVariant::UInt || value.type() == QVariant::Int))
+    if (colType == QVariant::DateTime && value.canConvert<uint>())
     {
         QDateTime date;
+        date.setTimeSpec(Qt::UTC);
         date.setTime_t(value.toUInt());
         return date;
     }

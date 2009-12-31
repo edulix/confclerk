@@ -18,13 +18,14 @@ void EventTest::initTestCase()
 void EventTest::getById()
 {
     Event event = Event::getById(500, 1);
+
     QCOMPARE(event.id(), 500);
-    QCOMPARE(event.start(), QDateTime::fromString("Sat Feb 7 11:30:00 2009"));
+    QCOMPARE(event.start(), QDateTime(QDate(2009, 2, 7), QTime(11, 30, 0), Qt::UTC));
     QCOMPARE(event.activityId(), 123);
 
     // !!! TODO: typeId and languageId
-    QCOMPARE(event.typeId(), 0);
-    QCOMPARE(event.languageId(), 0);
+    QCOMPARE(event.type(), QString("Podium"));
+    QCOMPARE(event.language(), QString("English"));
 }
 
 void EventTest::storingValues()
@@ -36,18 +37,17 @@ void EventTest::storingValues()
     event.setStart(QDateTime::fromString("Sat Feb 7 11:30:00 2009"));
     event.setDuration(30);
     event.setActivityId(40);
-    event.setTypeId(50);
-    event.setLanguageId(60);
+    event.setType(QString("type"));
+    event.setLanguage(QString("language"));
 
     QCOMPARE(event.id(), 10);
     QCOMPARE(event.conferenceId(), 20);
     QCOMPARE(event.start(), QDateTime::fromString("Sat Feb 7 11:30:00 2009"));
     QCOMPARE(event.duration(), 30);
     QCOMPARE(event.activityId(), 40);
-    QCOMPARE(event.typeId(), 50);
-    QCOMPARE(event.languageId(), 60);
+    QCOMPARE(event.type(), QString("type"));
+    QCOMPARE(event.language(), QString("language"));
 }
-
 
 void EventTest::hydrate()
 {
