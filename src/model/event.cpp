@@ -13,11 +13,20 @@ QString const Event::sTableName = QString("event");
 
 Event Event::getById(int id, int conferenceId)
 {
-    QString query = selectQuery() + "WHERE id = :id AND xid_conference = :conf";
+    QSqlQuery query;
+    query.prepare(selectQuery() + "WHERE id = :id AND xid_conference = :conf");
+    query.bindValue(":id", id);
+    query.bindValue(":conf", conferenceId);
+    return loadOne(query);
+}
 
-    QSqlQuery q;
-    q.prepare(query);
-    q.bindValue(":id", id);
-    q.bindValue(":conf", conferenceId);
-    return loadOne(q);
+QList<Event> Event::getByDate(const QDate& date, int conferenceId)
+{
+    QSqlQuery query;
+    query.prepare(selectQuery() + "WHERE xid_conference = :conf AND start >= :start AND start < :end ORDER BY start");
+    query.bindValue(":conf", conferenceId);
+    query.bindValue(":start", convertToDb(date, QVariant::DateTime));
+    query.bindValue(":end", convertToDb(date.addDays(1), QVariant::DateTime));
+
+    return load(query);
 }

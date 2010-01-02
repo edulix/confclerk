@@ -28,6 +28,12 @@ void EventTest::getById()
     QCOMPARE(event.language(), QString("English"));
 }
 
+void EventTest::getByDate()
+{
+    QCOMPARE(Event::getByDate(QDate(2009, 2, 7), 1).count(), 127);
+    QCOMPARE(Event::getByDate(QDate(2009, 2, 8), 1).count(), 154);
+}
+
 void EventTest::storingValues()
 {
     Event event;

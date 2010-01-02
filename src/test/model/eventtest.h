@@ -11,6 +11,7 @@ private slots:
     void initTestCase();
 
     void getById();
+    void getByDate();
     void storingValues();
     void hydrate();
     void columnsForSelect();

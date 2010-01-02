@@ -162,7 +162,7 @@ QVariant OrmRecord<T>::convertToC(QVariant value, QVariant::Type colType)
 template <typename T>
 QVariant OrmRecord<T>::convertToDb(QVariant value, QVariant::Type colType)
 {
-    if (colType == QVariant::DateTime && value.type() == QVariant::DateTime)
+    if (colType == QVariant::DateTime && value.canConvert<QDateTime>())
     {
         return value.toDateTime().toTime_t();
     }

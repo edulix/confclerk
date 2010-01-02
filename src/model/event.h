@@ -23,6 +23,7 @@ public:
 
 public:
     static Event getById(int id, int conferenceId);
+    static QList<Event> getByDate(const QDate& date, int conferenceId);
 
 public:
     int id() const { return value("id").toInt(); }

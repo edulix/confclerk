@@ -1,6 +1,7 @@
 TEMPLATE = app
 TARGET = fosdem
 DESTDIR = ../bin
+QT += sql
 
 # module dependencies
 LIBS += -L$$DESTDIR -lgui -lmodel
