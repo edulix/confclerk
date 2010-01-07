@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 
 #include <QTreeView>
+#include <QDirModel>
 
 #include <eventmodel.h>
 
@@ -12,8 +13,8 @@ MainWindow::MainWindow(QWidget *parent)
     db.setDatabaseName("fosdem-test.sqlite");
     db.open();
 
-    QTreeView * view = new QTreeView(parent);
-    this->setCentralWidget(view);
-
-    view->setModel(new EventModel());
+    setupUi(this);
+    //TODO Palo: continue
+    //treeView->setModel(new QDirModel);
+    treeView->setModel(new EventModel());
 }
