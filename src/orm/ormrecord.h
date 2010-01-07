@@ -102,6 +102,12 @@ QList<T> OrmRecord<T>::load(QSqlQuery query)
     {
         if (!query.exec())
         {
+            //TODO Palo: exception handling !
+        	QString start = "START\n";
+        	QString end = "\nEND\n";
+        	QString message = start + query.lastError().text() + end;
+        	const char *data = message.toLatin1().data();
+        	qDebug(data);
             throw new OrmSqlException(query.lastError().text());
         }
     }
