@@ -2,13 +2,13 @@ TEMPLATE = lib
 TARGET = gui
 DESTDIR = ../bin
 CONFIG += static
-QT += sql
+QT += sql xml
 
 # module dependencies
-LIBS += -L$$DESTDIR -lmodel -orm
-INCLUDEPATH += ../orm ../model
-DEPENDPATH += . ../orm ../model
-TARGETDEPS += $$DESTDIR/liborm.a $$DESTDIR/libmodel.a
+LIBS += -L$$DESTDIR -lmodel -lorm -lsql
+INCLUDEPATH += ../orm ../model ../sql
+DEPENDPATH += . ../orm ../model ../sql
+TARGETDEPS += $$DESTDIR/liborm.a $$DESTDIR/libmodel.a $$DESTDIR/libsql.a
 
 
 # A shamelessly long list of sources, headers and forms.

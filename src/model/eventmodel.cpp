@@ -1,7 +1,7 @@
 #include "eventmodel.h"
 
 EventModel::EventModel() :
-        mEvents(Event::getByDate(QDate(2009, 2, 7), 1))
+    mEvents(Event::getByDate(QDate(2009, 2, 7), 1))
 {
     createTimeGroups();
 }
@@ -116,3 +116,11 @@ int EventModel::rowCount (const QModelIndex & parent) const
 
     return 0;
 }
+
+void EventModel::reload()
+{
+    mEvents.clear();
+    mEvents=Event::getByDate(QDate(2009, 2, 7), 1);
+    createTimeGroups();
+}
+
