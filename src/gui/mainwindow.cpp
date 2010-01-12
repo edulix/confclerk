@@ -4,6 +4,7 @@
 #include <QDirModel>
 
 #include <eventmodel.h>
+#include <delegate.h>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -15,6 +16,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     setupUi(this);
     //TODO Palo: continue
-    //treeView->setModel(new QDirModel);
+    treeView->setHeaderHidden(true);
+    treeView->setRootIsDecorated(false);
+    treeView->setIndentation(0);
+    treeView->setAnimated(true);
     treeView->setModel(new EventModel());
+    treeView->setItemDelegate(new Delegate(treeView));
 }
+

@@ -1,0 +1,10 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+    <file>icons/favourite-on.png</file>
+    <file>icons/favourite-off.png</file>
+    <file>icons/alarm-on.png</file>
+    <file>icons/alarm-off.png</file>
+    <file>icons/expand.png</file>
+    <file>icons/collapse.png</file>
+</qresource>
+</RCC>

@@ -11,3 +11,5 @@ TARGETDEPS += $$DESTDIR/libmodel.a $$DESTDIR/libgui.a
 
 SOURCES += main.cpp
 
+RESOURCES += ../icons.qrc
+
