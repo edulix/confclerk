@@ -3,8 +3,7 @@
 
 EventModel::EventModel()
 {
-
-    loadEvents();
+    mEvents.clear();
 }
 
 void EventModel::createTimeGroups()
@@ -118,19 +117,16 @@ int EventModel::rowCount (const QModelIndex & parent) const
     return 0;
 }
 
-void EventModel::loadEvents()
+void EventModel::loadEvents(const QDate &aDate, int aConferenceId)
 {
     mEvents.clear();
 
-    mConfId = 1; // current conference selected: we have only one DB so far
-    // check for existence of conference in the DB
+    // check for existence of the conference in the DB
     if(Conference::getAll().count())
     {
-        mCurrentDate = Conference::getById(mConfId).start();
-        qDebug() << "Loading Conference Data: [" << Conference::getById(mConfId).title() << "] " << mCurrentDate;
-        mEvents = Event::getByDate(QDate(mCurrentDate.year(), mCurrentDate.month(), mCurrentDate.day()), mConfId);
+        qDebug() << "Loading Conference Data: [" << Conference::getById(aConferenceId).title() << "] " << aDate;
+        mEvents = Event::getByDate(QDate(aDate.year(), aDate.month(), aDate.day()), aConferenceId);
     }
-    mEvents = Event::getByDate(QDate(mCurrentDate.year(), mCurrentDate.month(), mCurrentDate.day()), mConfId);
     createTimeGroups();
 }
 

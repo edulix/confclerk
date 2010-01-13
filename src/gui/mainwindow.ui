@@ -27,67 +27,7 @@
         <item row="0" column="0" >
          <layout class="QVBoxLayout" name="verticalLayout" >
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_2" >
-            <item>
-             <widget class="QToolButton" name="buttonPrevDay" >
-              <property name="text" >
-               <string>&lt;|</string>
-              </property>
-              <property name="autoRaise" >
-               <bool>true</bool>
-              </property>
-              <property name="arrowType" >
-               <enum>Qt::LeftArrow</enum>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer" >
-              <property name="orientation" >
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0" >
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QLabel" name="label" >
-              <property name="text" >
-               <string>Selected Date Goes Here</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_2" >
-              <property name="orientation" >
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0" >
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QToolButton" name="buttonNextDay" >
-              <property name="text" >
-               <string>|></string>
-              </property>
-              <property name="autoRaise" >
-               <bool>true</bool>
-              </property>
-              <property name="arrowType" >
-               <enum>Qt::RightArrow</enum>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <widget class="DayNavigatorWidget" native="1" name="dayNavigator" />
           </item>
           <item>
            <widget class="TreeView" name="treeView" >
@@ -159,6 +99,12 @@
    <class>TreeView</class>
    <extends>QTreeView</extends>
    <header>../model/treeview.h</header>
+  </customwidget>
+  <customwidget>
+   <class>DayNavigatorWidget</class>
+   <extends>QWidget</extends>
+   <header>daynavigatorwidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>
