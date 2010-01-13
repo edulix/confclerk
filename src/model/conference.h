@@ -23,11 +23,8 @@ public:
     QString subtitle() const { return value("subtitle").toString(); }
     QString venue() const { return value("venue").toString(); }
     QString city() const { return value("city").toString(); }
-    // TODO: there is some problem with converting "Time_t" to QDateTime: had to manually add 1 day
-    // NEEDS TO BE FIXED
-    QDate start() const { return value("start").toDateTime().addDays(1).date(); }
-    QDate end() const { return value("end").toDateTime().addDays(1).date(); }
-    //
+    QDate start() const { return value("start").toDate(); }
+    QDate end() const { return value("end").toDate(); }
     int days() const { return value("days").toInt(); }
     int dayChange() const { return value("day_change").toInt(); } // in seconds from 00:00
     int timeslotDuration() const { return value("timeslot_duration").toInt(); } // in seconds

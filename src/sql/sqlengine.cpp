@@ -67,8 +67,8 @@ void SqlEngine::addConferenceToDB(QHash<QString,QString> &aConference)
                          .arg(aConference["subtitle"]) \
                          .arg(aConference["venue"]) \
                          .arg(aConference["city"]) \
-                         .arg(QDateTime(QDate::fromString(aConference["start"],DATE_FORMAT)).toTime_t()) \
-                         .arg(QDateTime(QDate::fromString(aConference["end"],DATE_FORMAT)).toTime_t()) \
+                         .arg(QDateTime(QDate::fromString(aConference["start"],DATE_FORMAT),QTime(0,0),Qt::UTC).toTime_t()) \
+                         .arg(QDateTime(QDate::fromString(aConference["end"],DATE_FORMAT),QTime(0,0),Qt::UTC).toTime_t()) \
                          .arg(aConference["days"]) \
                          .arg(-QTime::fromString(aConference["day_change"],TIME_FORMAT).secsTo(QTime(0,0))) \
                          .arg(-QTime::fromString(aConference["timeslot_duration"],TIME_FORMAT).secsTo(QTime(0,0)));
