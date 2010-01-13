@@ -15,7 +15,8 @@ TARGETDEPS += $$DESTDIR/liborm.a $$DESTDIR/libmodel.a $$DESTDIR/libsql.a
 # Please note that resources MUST be added to the app module
 # (which means they need to be added to the test module as well,
 # but I am sure you can live with that for the time being).
-FORMS += mainwindow.ui
+FORMS += mainwindow.ui \
+         about.ui
 SOURCES += mainwindow.cpp
 HEADERS += mainwindow.h
 

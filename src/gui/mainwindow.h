@@ -17,9 +17,11 @@ public:
 private slots:
     void importSchedule();
     void showParsingProgress(int aStatus);
+    void aboutApp();
 private:
     SqlEngine *mSqlEngine;
     ScheduleXmlParser *mXmlParser;
 };
 
 #endif // MAINWINDOW_H
+

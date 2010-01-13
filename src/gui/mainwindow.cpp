@@ -9,11 +9,18 @@
 #include <eventmodel.h>
 #include <delegate.h>
 
+#include <QDialog>
+#include "ui_about.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
     setupUi(this);
+
+    // connect Menu actions
+    connect(actionImportSchedule, SIGNAL(triggered()), SLOT(importSchedule()));
+    connect(actionAboutQt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
+    connect(actionAboutApplication, SIGNAL(triggered()), SLOT(aboutApp()));
 
     // create "SQLITE" DB instance/connection
     // opens DB connection (needed for EventModel)
@@ -23,8 +30,6 @@ MainWindow::MainWindow(QWidget *parent)
     mXmlParser = new ScheduleXmlParser(this);
     connect(mXmlParser, SIGNAL(progressStatus(int)), this, SLOT(showParsingProgress(int)));
     statusBar()->showMessage(tr("Ready"));
-
-    connect(actionImportSchedule, SIGNAL(triggered()), SLOT(importSchedule()));
 
     treeView->setHeaderHidden(true);
     treeView->setRootIsDecorated(false);
@@ -67,5 +72,13 @@ void MainWindow::showParsingProgress(int aStatus)
 {
     QString msg = QString("Parsing completed: %1\%").arg(aStatus);
     statusBar()->showMessage(msg,1000);
+}
+
+void MainWindow::aboutApp()
+{
+    QDialog dialog(this);
+    Ui::AboutDialog ui;
+    ui.setupUi(&dialog);
+    dialog.exec();
 }
 

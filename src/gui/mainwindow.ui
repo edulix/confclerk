@@ -27,6 +27,69 @@
         <item row="0" column="0" >
          <layout class="QVBoxLayout" name="verticalLayout" >
           <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_2" >
+            <item>
+             <widget class="QToolButton" name="buttonPrevDay" >
+              <property name="text" >
+               <string>&lt;|</string>
+              </property>
+              <property name="autoRaise" >
+               <bool>true</bool>
+              </property>
+              <property name="arrowType" >
+               <enum>Qt::LeftArrow</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer" >
+              <property name="orientation" >
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0" >
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QLabel" name="label" >
+              <property name="text" >
+               <string>Selected Date Goes Here</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_2" >
+              <property name="orientation" >
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0" >
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QToolButton" name="buttonNextDay" >
+              <property name="text" >
+               <string>|></string>
+              </property>
+              <property name="autoRaise" >
+               <bool>true</bool>
+              </property>
+              <property name="arrowType" >
+               <enum>Qt::RightArrow</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
            <widget class="TreeView" name="treeView" >
             <property name="maximumSize" >
              <size>
@@ -64,12 +127,30 @@
     </property>
     <addaction name="actionImportSchedule" />
    </widget>
+   <widget class="QMenu" name="menuAbout" >
+    <property name="title" >
+     <string>Help</string>
+    </property>
+    <addaction name="actionAboutQt" />
+    <addaction name="actionAboutApplication" />
+   </widget>
    <addaction name="menuFile" />
+   <addaction name="menuAbout" />
   </widget>
   <widget class="QStatusBar" name="statusbar" />
   <action name="actionImportSchedule" >
    <property name="text" >
     <string>Import Schedule</string>
+   </property>
+  </action>
+  <action name="actionAboutQt" >
+   <property name="text" >
+    <string>About Qt</string>
+   </property>
+  </action>
+  <action name="actionAboutApplication" >
+   <property name="text" >
+    <string>About application</string>
    </property>
   </action>
  </widget>
