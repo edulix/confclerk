@@ -6,5 +6,6 @@
     <file>icons/alarm-off.png</file>
     <file>icons/expand.png</file>
     <file>icons/collapse.png</file>
+    <file>icons/fosdem.png</file>
 </qresource>
 </RCC>
