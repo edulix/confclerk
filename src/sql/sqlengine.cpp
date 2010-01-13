@@ -67,11 +67,11 @@ void SqlEngine::addConferenceToDB(QHash<QString,QString> &aConference)
                          .arg(aConference["subtitle"]) \
                          .arg(aConference["venue"]) \
                          .arg(aConference["city"]) \
-                         .arg(aConference["start"]) \
-                         .arg(aConference["end"]) \
+                         .arg(QDateTime(QDate::fromString(aConference["start"],DATE_FORMAT)).toTime_t()) \
+                         .arg(QDateTime(QDate::fromString(aConference["end"],DATE_FORMAT)).toTime_t()) \
                          .arg(aConference["days"]) \
-                         .arg(aConference["day_change"]) \
-                         .arg(aConference["timeslot_duration"]);
+                         .arg(-QTime::fromString(aConference["day_change"],TIME_FORMAT).secsTo(QTime(0,0))) \
+                         .arg(-QTime::fromString(aConference["timeslot_duration"],TIME_FORMAT).secsTo(QTime(0,0)));
 
         QString query = QString("INSERT INTO CONFERENCE (id,title,subtitle,venue,city,start,end,days,day_change,timeslot_duration) VALUES (%1)").arg(values);
         QSqlQuery result (query, db);
@@ -89,13 +89,12 @@ void SqlEngine::addEventToDB(QHash<QString,QString> &aEvent)
     {
         // The items of the Event are divided into the two tables EVENT and VIRTUAL_EVENT
         // VIRTUAL_EVENT is for Full-Text-Serach Support
-        QTime duration = QTime::fromString(aEvent["duration"],TIME_FORMAT);
         QDateTime startDateTime = QDateTime(QDate::fromString(aEvent["date"],DATE_FORMAT),QTime::fromString(aEvent["start"],TIME_FORMAT));
         QString values = QString("'%1', '%2', '%3', '%4', '%5', '%6', '%7'") \
                          .arg(aEvent["conference_id"]) \
                          .arg(aEvent["id"]) \
                          .arg(QString::number(startDateTime.toTime_t())) \
-                         .arg(QString::number(duration.hour()*3600 + duration.minute()*60 + duration.second())) \
+                         .arg(-QTime::fromString(aEvent["duration"],TIME_FORMAT).secsTo(QTime(0,0))) \
                          .arg("123456") \
                          .arg(aEvent["type"]) \
                          .arg(aEvent["language"]);
@@ -200,11 +199,11 @@ bool SqlEngine::createTables(QSqlDatabase &aDatabase)
             subtitle VARCHAR, \
             venue VARCHAR, \
             city VARCHAR NOT NULL , \
-            start DATETIME NOT NULL , \
-            end DATETIME NOT NULL , \
+            start INTEGER NOT NULL , \
+            end INTEGER NOT NULL , \
             days INTEGER, \
-            day_change DATETIME, \
-            timeslot_duration DATETIME)");
+            day_change INTEGER, \
+            timeslot_duration INTEGER)");
 
         query.exec("CREATE TABLE ACTIVITY ( \
             id INTEGER  PRIMARY KEY AUTOINCREMENT  NOT NULL , \

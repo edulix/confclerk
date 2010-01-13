@@ -12,11 +12,13 @@ TARGETDEPS += $$DESTDIR/liborm.a
 
 HEADERS += \
     event.h \
+    conference.h \
     delegate.h \
     eventmodel.h \
     treeview.h
 SOURCES += \
     event.cpp \
+    conference.cpp \
     delegate.cpp \
     eventmodel.cpp \
     treeview.cpp

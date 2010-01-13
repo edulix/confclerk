@@ -64,7 +64,7 @@ void MainWindow::importSchedule()
 
     QByteArray data = file.readAll();
     mXmlParser->parseData(data,mSqlEngine);
-    static_cast<EventModel*>(treeView->model())->reload();
+    static_cast<EventModel*>(treeView->model())->loadEvents();
     treeView->reset();
 }
 

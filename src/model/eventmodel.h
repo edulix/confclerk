@@ -14,7 +14,7 @@ public:
     QModelIndex parent ( const QModelIndex & index ) const;
     int columnCount ( const QModelIndex & parent = QModelIndex() ) const;
     int rowCount ( const QModelIndex & parent = QModelIndex() ) const;
-    void reload(); // reloads Events from the DB
+    void loadEvents(); // loads Events from the DB
 
 private:
     struct Group
@@ -39,6 +39,9 @@ private:
     QList<Event> mEvents;
     QList<Group> mGroups;
     QHash<int, int> mParents;
+    QDate mCurrentDate;
+    int mConfId;
 };
 
 #endif // EVENTMODEL_H
+
