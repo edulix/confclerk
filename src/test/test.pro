@@ -5,14 +5,14 @@ CONFIG += qtestlib console
 QT += sql
 
 # module dependencies
-LIBS += -L$$DESTDIR -lgui -lmodel
-INCLUDEPATH += ../gui ../model ../orm
-DEPENDPATH += . ../gui ../model ../orm
-TARGETDEPS += $$DESTDIR/libmodel.a $$DESTDIR/libgui.a $$DESTDIR/liborm.a
+LIBS += -L$$DESTDIR -lgui -lmvc
+INCLUDEPATH += ../gui ../mvc ../orm
+DEPENDPATH += . ../gui ../mvc ../orm
+TARGETDEPS += $$DESTDIR/libmvc.a $$DESTDIR/libgui.a $$DESTDIR/liborm.a
 
 SOURCES += main.cpp \
-    model/EventTest.cpp
+    mvc/EventTest.cpp
 
 HEADERS += \
-    model/EventTest.h
+    mvc/EventTest.h
 

@@ -5,10 +5,10 @@ CONFIG += static
 QT += sql xml
 
 # module dependencies
-LIBS += -L$$DESTDIR -lmodel -lorm -lsql
-INCLUDEPATH += ../orm ../model ../sql
-DEPENDPATH += . ../orm ../model ../sql
-TARGETDEPS += $$DESTDIR/liborm.a $$DESTDIR/libmodel.a $$DESTDIR/libsql.a
+LIBS += -L$$DESTDIR -lmvc -lorm -lsql
+INCLUDEPATH += ../orm ../mvc ../sql
+DEPENDPATH += . ../orm ../mvc ../sql
+TARGETDEPS += $$DESTDIR/liborm.a $$DESTDIR/libmvc.a $$DESTDIR/libsql.a
 
 
 # A shamelessly long list of sources, headers and forms.

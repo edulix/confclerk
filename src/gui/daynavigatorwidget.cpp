@@ -15,7 +15,7 @@ DayNavigatorWidget::DayNavigatorWidget(QWidget *aParent)
 
 void DayNavigatorWidget::setDates(const QDate &aStartDate, const QDate &aEndDate)
 {
-    Q_ASSERT(aStartDate>=aEndDate);
+    Q_ASSERT(aStartDate<=aEndDate);
 
     //qDebug() << "DayNavigatorWidget::setDates(): " << aStartDate << ", " << aEndDate;
     mStartDate = aStartDate;

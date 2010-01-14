@@ -1,6 +1,6 @@
 #include <QtTest>
 
-#include "model/eventtest.h"
+#include "mvc/eventtest.h"
 
 int main(int argc, char *argv[])
 {

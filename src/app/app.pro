@@ -4,10 +4,10 @@ DESTDIR = ../bin
 QT += sql xml
 
 # module dependencies
-LIBS += -L$$DESTDIR -lgui -lmodel -lsql
+LIBS += -L$$DESTDIR -lgui -lmvc -lsql
 INCLUDEPATH += ../gui
 DEPENDPATH += . ../gui
-TARGETDEPS += $$DESTDIR/libmodel.a $$DESTDIR/libgui.a $$DESTDIR/libsql.a
+TARGETDEPS += $$DESTDIR/libmvc.a $$DESTDIR/libgui.a $$DESTDIR/libsql.a
 
 SOURCES += main.cpp
 

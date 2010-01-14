@@ -1,5 +1,5 @@
 TEMPLATE = lib
-TARGET = model
+TARGET = mvc
 DESTDIR = ../bin
 CONFIG += static
 QT += sql

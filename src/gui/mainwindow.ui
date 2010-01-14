@@ -19,9 +19,9 @@
       <property name="currentIndex" >
        <number>0</number>
       </property>
-      <widget class="QWidget" name="tab" >
+      <widget class="QWidget" name="dayViewTab" >
        <attribute name="title" >
-        <string>Tab 1</string>
+        <string>Day View</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_2" >
         <item row="0" column="0" >
@@ -43,9 +43,9 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_2" >
+      <widget class="QWidget" name="favouritiesTab" >
        <attribute name="title" >
-        <string>Tab 2</string>
+        <string>Favourities</string>
        </attribute>
       </widget>
      </widget>
@@ -96,15 +96,15 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>TreeView</class>
-   <extends>QTreeView</extends>
-   <header>../model/treeview.h</header>
-  </customwidget>
-  <customwidget>
    <class>DayNavigatorWidget</class>
    <extends>QWidget</extends>
    <header>daynavigatorwidget.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>TreeView</class>
+   <extends>QTreeView</extends>
+   <header>../mvc/treeview.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
