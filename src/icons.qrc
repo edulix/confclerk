@@ -7,5 +7,6 @@
     <file>icons/expand.png</file>
     <file>icons/collapse.png</file>
     <file>icons/fosdem.png</file>
+    <file>icons/compass.png</file>
 </qresource>
 </RCC>

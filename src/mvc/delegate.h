@@ -15,7 +15,8 @@ class Delegate : public QItemDelegate
         {
             ControlNone = 0,
             FavouriteControl,
-            AlarmControl
+            AlarmControl,
+            MapControl
         };
 
         class Control

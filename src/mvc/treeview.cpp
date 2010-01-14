@@ -42,6 +42,12 @@ void TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
                 qDebug() << "ALARM CLICKED: " << qVariantValue<QString>(aIndex.data());
             }
             break;
+        case Delegate::MapControl:
+            {
+                // handle Alarm Control clicked
+                qDebug() << "MAP CLICKED: " << qVariantValue<QString>(aIndex.data());
+            }
+        break;
         case Delegate::ControlNone:
         default:
             {

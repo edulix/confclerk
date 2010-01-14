@@ -85,6 +85,7 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         // draw Controls
         painter->drawImage(mControls[FavouriteControl]->drawPoint(option.rect),*mControls[FavouriteControl]->image());
         painter->drawImage(mControls[AlarmControl]->drawPoint(option.rect),*mControls[AlarmControl]->image());
+        painter->drawImage(mControls[MapControl]->drawPoint(option.rect),*mControls[MapControl]->image());
     }
     else // doesn't have parent - time-groups' elements (top items)
     {
@@ -208,6 +209,12 @@ void Delegate::defineControls()
     control = new Control(AlarmControl,QString(":icons/alarm-on.png"));
     control->setDrawPoint(QPoint(-mControls[FavouriteControl]->image()->width()-control->image()->width()-2*SPACER,SPACER));
     mControls.insert(AlarmControl,control);
+
+    // MAP ICON
+    control = new Control(MapControl,QString(":icons/compass.png"));
+    control->setDrawPoint(QPoint(-mControls[AlarmControl]->image()->width()-control->image()->width()
+                                 -mControls[FavouriteControl]->image()->width()-3*SPACER,SPACER));
+    mControls.insert(MapControl,control);
 }
 
 bool Delegate::isPointFromRect(const QPoint &aPoint, const QRect &aRect) const
