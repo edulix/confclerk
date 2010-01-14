@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow" >
-  <property name="geometry" >
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,29 +10,29 @@
     <height>558</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget" >
-   <layout class="QGridLayout" name="gridLayout" >
-    <item row="0" column="0" >
-     <widget class="QTabWidget" name="tabWidget" >
-      <property name="currentIndex" >
-       <number>0</number>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>4</number>
       </property>
-      <widget class="QWidget" name="dayViewTab" >
-       <attribute name="title" >
+      <widget class="QWidget" name="dayViewTab">
+       <attribute name="title">
         <string>Day View</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_2" >
-        <item row="0" column="0" >
-         <layout class="QVBoxLayout" name="verticalLayout" >
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0">
+         <layout class="QVBoxLayout" name="verticalLayout">
           <item>
-           <widget class="DayNavigatorWidget" native="1" name="dayNavigator" />
+           <widget class="DayNavigatorWidget" name="dayNavigator" native="true"/>
           </item>
           <item>
-           <widget class="TreeView" name="treeView" >
-            <property name="maximumSize" >
+           <widget class="TreeView" name="treeView">
+            <property name="maximumSize">
              <size>
               <width>16777215</width>
               <height>16777215</height>
@@ -43,53 +44,68 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="favouritiesTab" >
-       <attribute name="title" >
-        <string>Favourities</string>
+      <widget class="QWidget" name="activitiesTab">
+       <attribute name="title">
+        <string>Activities</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="favouritesTab">
+       <attribute name="title">
+        <string>Favourites</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="searchTab">
+       <attribute name="title">
+        <string>Search</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="mapTab">
+       <attribute name="title">
+        <string>Map</string>
        </attribute>
       </widget>
      </widget>
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menubar" >
-   <property name="geometry" >
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
      <width>856</width>
-     <height>26</height>
+     <height>24</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuFile" >
-    <property name="title" >
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionImportSchedule" />
+    <addaction name="actionImportSchedule"/>
    </widget>
-   <widget class="QMenu" name="menuAbout" >
-    <property name="title" >
+   <widget class="QMenu" name="menuAbout">
+    <property name="title">
      <string>Help</string>
     </property>
-    <addaction name="actionAboutQt" />
-    <addaction name="actionAboutApplication" />
+    <addaction name="actionAboutQt"/>
+    <addaction name="actionAboutApplication"/>
    </widget>
-   <addaction name="menuFile" />
-   <addaction name="menuAbout" />
+   <addaction name="menuFile"/>
+   <addaction name="menuAbout"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar" />
-  <action name="actionImportSchedule" >
-   <property name="text" >
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionImportSchedule">
+   <property name="text">
     <string>Import Schedule</string>
    </property>
   </action>
-  <action name="actionAboutQt" >
-   <property name="text" >
+  <action name="actionAboutQt">
+   <property name="text">
     <string>About Qt</string>
    </property>
   </action>
-  <action name="actionAboutApplication" >
-   <property name="text" >
+  <action name="actionAboutApplication">
+   <property name="text">
     <string>About application</string>
    </property>
   </action>
