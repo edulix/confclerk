@@ -33,6 +33,7 @@ class OrmRecord : protected QSqlRecord
 public:
     OrmRecord();
     static T hydrate(const QSqlRecord& record);
+    void update(QString col, QVariant value = QVariant()); // updates specified column 'col'
 
 protected:
     QVariant value(QString col) const;
@@ -44,6 +45,7 @@ protected:
     // auxiliary methods
     static QString columnsForSelect(const QString& prefix = QString());
     static QString selectQuery();
+    static QString updateQuery();
     static QSqlRecord toRecord(const QList<QSqlField> & columnList);
 
     static QVariant convertToC(QVariant value, QVariant::Type colType);
@@ -62,6 +64,24 @@ T OrmRecord<T>::hydrate(const QSqlRecord& record)
     T object;
     object.QSqlRecord::operator=(record);
     return object;
+}
+
+// updates specified column 'col'
+// if the value is not specified  as an argument,
+// it's taken from the reford itself
+// see also: setValue() method for more details
+template <typename T>
+void OrmRecord<T>::update(QString col, QVariant value)
+{
+    QSqlQuery query;
+    query.prepare(QString(updateQuery() + "SET %1 = :col WHERE id = :id").arg(col));
+    if(value.isValid()) // take 'col' value from the method's arguments
+        query.bindValue(":col", value);
+    else // take 'col' value from the record; see setValue()
+        query.bindValue(":col", convertToDb(this->value(col), this->value(col).type()));
+    query.bindValue(":id", this->value("id"));
+    //query.bindValue(":id", convertToDb(value("id"), QVariant::Int));
+    query.exec();
 }
 
 template <typename T>
@@ -102,12 +122,6 @@ QList<T> OrmRecord<T>::load(QSqlQuery query)
     {
         if (!query.exec())
         {
-            //TODO Palo: exception handling !
-        	QString start = "START\n";
-        	QString end = "\nEND\n";
-        	QString message = start + query.lastError().text() + end;
-                const char *data = message.toLatin1().data();
-                qDebug(data);
             throw new OrmSqlException(query.lastError().text());
         }
     }
@@ -138,6 +152,12 @@ template <typename T>
 QString OrmRecord<T>::selectQuery()
 {
     return QString("SELECT %1 FROM %2 ").arg(columnsForSelect(), T::sTableName);
+}
+
+template <typename T>
+QString OrmRecord<T>::updateQuery()
+{
+    return QString("UPDATE %1 ").arg(T::sTableName);
 }
 
 template <typename T>

@@ -14,8 +14,10 @@ class Delegate : public QItemDelegate
         enum ControlId
         {
             ControlNone = 0,
-            FavouriteControl,
-            AlarmControl,
+            FavouriteControlOn,
+            FavouriteControlOff,
+            AlarmControlOn,
+            AlarmControlOff,
             MapControl
         };
 

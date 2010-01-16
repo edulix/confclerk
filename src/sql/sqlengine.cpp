@@ -90,16 +90,17 @@ void SqlEngine::addEventToDB(QHash<QString,QString> &aEvent)
         // The items of the Event are divided into the two tables EVENT and VIRTUAL_EVENT
         // VIRTUAL_EVENT is for Full-Text-Serach Support
         QDateTime startDateTime = QDateTime(QDate::fromString(aEvent["date"],DATE_FORMAT),QTime::fromString(aEvent["start"],TIME_FORMAT));
-        QString values = QString("'%1', '%2', '%3', '%4', '%5', '%6', '%7'") \
+        QString values = QString("'%1', '%2', '%3', '%4', '%5', '%6', '%7', '%8'") \
                          .arg(aEvent["conference_id"]) \
                          .arg(aEvent["id"]) \
                          .arg(QString::number(startDateTime.toTime_t())) \
                          .arg(-QTime::fromString(aEvent["duration"],TIME_FORMAT).secsTo(QTime(0,0))) \
                          .arg("123456") \
                          .arg(aEvent["type"]) \
-                         .arg(aEvent["language"]);
+                         .arg(aEvent["language"]) \
+                         .arg("0"); // not favourite when added
 
-        QString query = QString("INSERT INTO EVENT (xid_conference, id, start, duration, xid_activity, type, language) VALUES (%1)").arg(values);
+        QString query = QString("INSERT INTO EVENT (xid_conference, id, start, duration, xid_activity, type, language, favourite) VALUES (%1)").arg(values);
         QSqlQuery result (query, db);
         //LOG_AUTOTEST(query);
 
@@ -226,6 +227,7 @@ bool SqlEngine::createTables(QSqlDatabase &aDatabase)
             xid_activity INTEGER NOT NULL REFERENCES ACTIVITY(id), \
             type VARCHAR, \
             language VARCHAR, \
+            favourite INTEGER DEFAULT 0, \
             PRIMARY KEY (xid_conference,id), \
             FOREIGN KEY(xid_conference) REFERENCES CONFERENCE(id) \
             FOREIGN KEY(xid_activity) REFERENCES ACTIVITY(id))");

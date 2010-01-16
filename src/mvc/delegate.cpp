@@ -83,8 +83,11 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         }
 
         // draw Controls
-        painter->drawImage(mControls[FavouriteControl]->drawPoint(option.rect),*mControls[FavouriteControl]->image());
-        painter->drawImage(mControls[AlarmControl]->drawPoint(option.rect),*mControls[AlarmControl]->image());
+        if(static_cast<Event*>(index.internalPointer())->isFavourite())
+            painter->drawImage(mControls[FavouriteControlOn]->drawPoint(option.rect),*mControls[FavouriteControlOn]->image());
+        else
+            painter->drawImage(mControls[FavouriteControlOff]->drawPoint(option.rect),*mControls[FavouriteControlOff]->image());
+        painter->drawImage(mControls[AlarmControlOn]->drawPoint(option.rect),*mControls[AlarmControlOn]->image());
         painter->drawImage(mControls[MapControl]->drawPoint(option.rect),*mControls[MapControl]->image());
     }
     else // doesn't have parent - time-groups' elements (top items)
@@ -200,20 +203,30 @@ Delegate::ControlId Delegate::whichControlClicked(const QModelIndex &aIndex, con
 void Delegate::defineControls()
 {
     Control *control;
-    // FAVOURITE ICON
-    control = new Control(FavouriteControl,QString(":icons/favourite-on.png"));
+    // FAVOURITE ICONs
+    // on
+    control = new Control(FavouriteControlOn,QString(":icons/favourite-on.png"));
     control->setDrawPoint(QPoint(-control->image()->width()-SPACER,SPACER));
-    mControls.insert(FavouriteControl,control);
+    mControls.insert(FavouriteControlOn,control);
+    // off
+    control = new Control(FavouriteControlOff,QString(":icons/favourite-off.png"));
+    control->setDrawPoint(QPoint(-control->image()->width()-SPACER,SPACER));
+    mControls.insert(FavouriteControlOff,control);
 
-    // ALARM ICON
-    control = new Control(AlarmControl,QString(":icons/alarm-on.png"));
-    control->setDrawPoint(QPoint(-mControls[FavouriteControl]->image()->width()-control->image()->width()-2*SPACER,SPACER));
-    mControls.insert(AlarmControl,control);
+    // ALARM ICONs
+    // on
+    control = new Control(AlarmControlOn,QString(":icons/alarm-on.png"));
+    control->setDrawPoint(QPoint(-mControls[FavouriteControlOn]->image()->width()-control->image()->width()-2*SPACER,SPACER));
+    mControls.insert(AlarmControlOn,control);
+    // off
+    control = new Control(AlarmControlOff,QString(":icons/alarm-off.png"));
+    control->setDrawPoint(QPoint(-mControls[FavouriteControlOff]->image()->width()-control->image()->width()-2*SPACER,SPACER));
+    mControls.insert(AlarmControlOff,control);
 
     // MAP ICON
     control = new Control(MapControl,QString(":icons/compass.png"));
-    control->setDrawPoint(QPoint(-mControls[AlarmControl]->image()->width()-control->image()->width()
-                                 -mControls[FavouriteControl]->image()->width()-3*SPACER,SPACER));
+    control->setDrawPoint(QPoint(-mControls[AlarmControlOn]->image()->width()-control->image()->width()
+                                 -mControls[FavouriteControlOn]->image()->width()-3*SPACER,SPACER));
     mControls.insert(MapControl,control);
 }
 

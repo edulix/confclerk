@@ -7,7 +7,6 @@
 
 #include <ormrecord.h>
 
-
 /**
   NoSuchEventException is thrown when required event does not exist.
 */
@@ -33,6 +32,7 @@ public:
     int activityId() const { return value("xid_activity").toInt(); }
     QString type() const { return value("type").toString(); }
     QString language() const { return value("language").toString(); }
+    bool isFavourite() const { return value("favourite").toBool(); }
 
     void setId(int id) { setValue("id", id); }
     void setConferenceId(int conferenceId) { setValue("xid_conference", conferenceId); }
@@ -41,10 +41,10 @@ public:
     void setActivityId(int activityId) { setValue("xid_activity", activityId); }
     void setType(const QString& type) { setValue("type", type); }
     void setLanguage(const QString& language) { setValue("language", language); }
+    void setFavourite(bool favourite) { setValue("favourite", favourite); }
 
 friend class EventTest;
 };
 
-
-
 #endif // EVENT_H
+

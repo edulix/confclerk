@@ -7,7 +7,8 @@ QSqlRecord const Event::sColumns = Event::toRecord(QList<QSqlField>()
     << QSqlField("duration", QVariant::Int)
     << QSqlField("xid_activity", QVariant::Int)
     << QSqlField("type", QVariant::String)
-    << QSqlField("language", QVariant::String));
+    << QSqlField("language", QVariant::String)
+    << QSqlField("favourite", QVariant::Bool));
 
 QString const Event::sTableName = QString("event");
 
@@ -30,3 +31,4 @@ QList<Event> Event::getByDate(const QDate& date, int conferenceId)
 
     return load(query);
 }
+

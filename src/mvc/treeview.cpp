@@ -2,6 +2,7 @@
 
 #include "treeview.h"
 #include "delegate.h"
+#include "event.h"
 
 #include <QDebug>
 
@@ -30,13 +31,32 @@ void TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
     Delegate *delegate = static_cast<Delegate*>(itemDelegate(aIndex));
     switch(delegate->whichControlClicked(aIndex,aPoint))
     {
-        case Delegate::FavouriteControl:
+        case Delegate::FavouriteControlOn:
+        case Delegate::FavouriteControlOff:
             {
                 // handle Favourite Control clicked
-                qDebug() << "FAVOURITE CLICKED: " << qVariantValue<QString>(aIndex.data());
+                Event event = Event::getById(aIndex.data().toInt(),1);
+                if(event.isFavourite())
+                {
+                    static_cast<Event*>(aIndex.internalPointer())->setFavourite(false); // list of events
+                    event.setFavourite(false); // update DB
+                }
+                else
+                {
+                    static_cast<Event*>(aIndex.internalPointer())->setFavourite(true); // list of events
+                    event.setFavourite(true);
+                }
+                qDebug() << " FAVOURITE [" << qVariantValue<QString>(aIndex.data()) << "] -> " << event.isFavourite();
+                event.update("favourite");
+                // TODO: since the Favourite icon has changed, update TreeView accordingly
+                // not really working solution is the following
+                // maybe the call to MainWindow->update() fix the problem ???
+                QTreeView::update();
+                update();
             }
             break;
-        case Delegate::AlarmControl:
+        case Delegate::AlarmControlOn:
+        case Delegate::AlarmControlOff:
             {
                 // handle Alarm Control clicked
                 qDebug() << "ALARM CLICKED: " << qVariantValue<QString>(aIndex.data());
