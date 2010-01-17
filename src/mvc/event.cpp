@@ -29,7 +29,9 @@ QSqlRecord const Event::sColumns = Event::toRecord(QList<QSqlField>()
 Event Event::getById(int id, int conferenceId)
 {
     QSqlQuery query;
-    query.prepare(selectQueryJoin2T("id") + "WHERE event.id = :id AND event.xid_conference = :conf");
+    query.prepare(
+            selectQueryJoin2T("id")
+            + QString("WHERE %1.id = :id AND %1.xid_conference = :conf").arg(sTable1Name));
     query.bindValue(":id", id);
     query.bindValue(":conf", conferenceId);
 
@@ -39,7 +41,9 @@ Event Event::getById(int id, int conferenceId)
 QList<Event> Event::getByDate(const QDate& date, int conferenceId)
 {
     QSqlQuery query;
-    query.prepare(selectQueryJoin2T("id") + "WHERE event.xid_conference = :conf AND event.start >= :start AND event.start < :end ORDER BY event.start");
+    query.prepare(
+            selectQueryJoin2T("id")
+            + QString("WHERE %1.xid_conference = :conf AND %1.start >= :start AND %1.start < :end ORDER BY %1.start").arg(sTable1Name));
     query.bindValue(":conf", conferenceId);
     query.bindValue(":start", convertToDb(date, QVariant::DateTime));
     query.bindValue(":end", convertToDb(date.addDays(1), QVariant::DateTime));
@@ -50,7 +54,9 @@ QList<Event> Event::getByDate(const QDate& date, int conferenceId)
 QList<Event> Event::getFavByDate(const QDate& date, int conferenceId)
 {
     QSqlQuery query;
-    query.prepare(selectQueryJoin2T("id") + "WHERE event.xid_conference = :conf AND event.start >= :start AND event.start < :end AND event.favourite = 1 ORDER BY event.start");
+    query.prepare(
+            selectQueryJoin2T("id")
+            + QString("WHERE %1.xid_conference = :conf AND %1.start >= :start AND %1.start < :end AND %1.favourite = 1 ORDER BY %1.start").arg(sTable1Name));
     query.bindValue(":conf", conferenceId);
     query.bindValue(":start", convertToDb(date, QVariant::DateTime));
     query.bindValue(":end", convertToDb(date.addDays(1), QVariant::DateTime));
