@@ -136,8 +136,12 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         //painter->fillRect(option.rect, option.palette.highlight());
 
     // draw title
-    QPointF titlePointF(option.rect.x(),option.rect.y()+option.rect.height()-10);
-    QString text = qVariantValue<QString>(index.data());
+    QPointF titlePointF(option.rect.x()+SPACER,option.rect.y()+option.rect.height()-10);
+    QString text;
+    if(index.parent().isValid()) // event
+        text = qVariantValue<QString>(index.data()) + ": " + static_cast<Event*>(index.internalPointer())->title();
+    else // group
+        text = qVariantValue<QString>(index.data());
     painter->drawText(titlePointF,text);
 
     painter->restore();
