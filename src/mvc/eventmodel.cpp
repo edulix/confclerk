@@ -143,3 +143,8 @@ void EventModel::loadFavEvents(const QDate &aDate, int aConferenceId)
     createTimeGroups();
 }
 
+void EventModel::emitDataChangedSignal(const QModelIndex &aTopLeft, const QModelIndex &aBottomRight)
+{
+    emit(dataChanged(aTopLeft,aBottomRight));
+}
+

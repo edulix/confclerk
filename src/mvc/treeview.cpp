@@ -3,6 +3,7 @@
 #include "treeview.h"
 #include "delegate.h"
 #include "event.h"
+#include "eventmodel.h"
 
 #include <QDebug>
 
@@ -48,11 +49,8 @@ void TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
                 }
                 qDebug() << " FAVOURITE [" << qVariantValue<QString>(aIndex.data()) << "] -> " << event.isFavourite();
                 event.update("favourite");
-                // TODO: since the Favourite icon has changed, update TreeView accordingly
-                // not really working solution is the following
-                // maybe the call to MainWindow->update() fix the problem ???
-                QTreeView::update();
-                update();
+                // since the Favourite icon has changed, update TreeView accordingly
+                static_cast<EventModel*>(model())->emitDataChangedSignal(aIndex,aIndex);
             }
             break;
         case Delegate::AlarmControlOn:
