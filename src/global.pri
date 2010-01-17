@@ -1,0 +1,15 @@
+# This is 'global.pri' file which defines
+# GLOBAL definitions for the project
+# include this file in each "*.pro" file, where it's needed
+# USAGE: include(./global.pri)
+
+# Define 'MAEMO' specific CONFIG/DEFINE
+# To handle 'MAEMO' specific soruces/code
+DISTRO = $$system(cat /etc/issue)
+contains( DISTRO, [Mm]aemo) {
+    # for 'MAEMO' specific source code parts
+    DEFINES += MAEMO
+    # for eg. including 'MAEMO' specific files
+    CONFIG += maemo
+}
+
