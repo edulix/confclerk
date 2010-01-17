@@ -27,6 +27,7 @@ public:
 public:
     static Event getById(int id, int conferenceId);
     static QList<Event> getByDate(const QDate& date, int conferenceId);
+    static QList<Event> getFavByDate(const QDate& date, int conferenceId); // get Favourities by Date
 
 public:
     // Table 1
@@ -53,7 +54,7 @@ public:
     void setActivityId(int activityId) { setValue("xid_activity", activityId); }
     void setType(const QString& type) { setValue("type", type); }
     void setLanguage(const QString& language) { setValue("language", language); }
-    void setFavourite(bool favourite) { setValue("favourite", favourite); }
+    void setFavourite(bool favourite) { setValue("favourite", (int)favourite); }
     // Table 2 : virtual table for FTS (Full Text Search)
     void setTag(const QString& tag) { setValue("tag", tag); }
     void setTitle(const QString& title) { setValue("title", title); }

@@ -47,3 +47,14 @@ QList<Event> Event::getByDate(const QDate& date, int conferenceId)
     return load(query);
 }
 
+QList<Event> Event::getFavByDate(const QDate& date, int conferenceId)
+{
+    QSqlQuery query;
+    query.prepare(selectQueryJoin2T("id") + "WHERE event.xid_conference = :conf AND event.start >= :start AND event.start < :end AND event.favourite = 1 ORDER BY event.start");
+    query.bindValue(":conf", conferenceId);
+    query.bindValue(":start", convertToDb(date, QVariant::DateTime));
+    query.bindValue(":end", convertToDb(date.addDays(1), QVariant::DateTime));
+
+    return load(query);
+}
+

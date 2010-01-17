@@ -15,6 +15,7 @@ public:
     int columnCount ( const QModelIndex & parent = QModelIndex() ) const;
     int rowCount ( const QModelIndex & parent = QModelIndex() ) const;
     void loadEvents(const QDate &aDate, int aConferenceId); // loads Events from the DB
+    void loadFavEvents(const QDate &aDate, int aConferenceId); // loads Favourite events from the DB
 
 private:
     struct Group

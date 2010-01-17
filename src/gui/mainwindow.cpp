@@ -36,12 +36,28 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(dayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateDayView(const QDate &)));
 
-    treeView->setHeaderHidden(true);
-    treeView->setRootIsDecorated(false);
-    treeView->setIndentation(0);
-    treeView->setAnimated(true);
-    treeView->setModel(new EventModel());
-    treeView->setItemDelegate(new Delegate(treeView));
+    // DAY EVENTS View
+    dayTreeView->setHeaderHidden(true);
+    dayTreeView->setRootIsDecorated(false);
+    dayTreeView->setIndentation(0);
+    dayTreeView->setAnimated(true);
+    dayTreeView->setModel(new EventModel());
+    dayTreeView->setItemDelegate(new Delegate(dayTreeView));
+
+    // FAVOURITIES View
+    favTreeView->setHeaderHidden(true);
+    favTreeView->setRootIsDecorated(false);
+    favTreeView->setIndentation(0);
+    favTreeView->setAnimated(true);
+    favTreeView->setModel(new EventModel());
+    favTreeView->setItemDelegate(new Delegate(favTreeView));
+    // TESTING: load some 'fav' data
+    if(Conference::getAll().count()) // no conference(s) in the DB
+    {
+        int confId = 1;
+        static_cast<EventModel*>(favTreeView->model())->loadFavEvents(Conference::getById(confId).start(),confId);
+        favTreeView->reset();
+    }
 
     if(!Conference::getAll().count()) // no conference(s) in the DB
         dayNavigator->hide(); // hide DayNavigatorWidget
@@ -103,8 +119,8 @@ void MainWindow::aboutApp()
 void MainWindow::updateDayView(const QDate &aDate)
 {
     int confId = 1;
-    static_cast<EventModel*>(treeView->model())->loadEvents(aDate,confId);
-    treeView->reset();
+    static_cast<EventModel*>(dayTreeView->model())->loadEvents(aDate,confId);
+    dayTreeView->reset();
     dayNavigator->show();
 }
 

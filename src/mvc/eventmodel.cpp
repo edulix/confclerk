@@ -130,3 +130,16 @@ void EventModel::loadEvents(const QDate &aDate, int aConferenceId)
     createTimeGroups();
 }
 
+void EventModel::loadFavEvents(const QDate &aDate, int aConferenceId)
+{
+    mEvents.clear();
+
+    // check for existence of the conference in the DB
+    if(Conference::getAll().count())
+    {
+        qDebug() << "Loading FAV Conference Data: [" << Conference::getById(aConferenceId).title() << "] " << aDate;
+        mEvents = Event::getFavByDate(QDate(aDate.year(), aDate.month(), aDate.day()), aConferenceId);
+    }
+    createTimeGroups();
+}
+
