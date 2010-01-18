@@ -1,3 +1,4 @@
+include(global.pri)
 TEMPLATE = lib
 TARGET = gui
 DESTDIR = ../bin
@@ -9,6 +10,12 @@ LIBS += -L$$DESTDIR -lmvc -lorm -lsql -lqalarm
 INCLUDEPATH += ../orm ../mvc ../sql ../alarm
 DEPENDPATH += . ../orm ../mvc ../sql ../alarm
 TARGETDEPS += $$DESTDIR/liborm.a $$DESTDIR/libmvc.a $$DESTDIR/libsql.a $$DESTDIR/libqalarm.a
+maemo {
+    LIBS += -L$$DESTDIR -lqalarm
+    INCLUDEPATH += ../alarm
+    DEPENDPATH +=  ../alarm
+    TARGETDEPS +=  $$DESTDIR/libqalarm.a
+}
 
 
 # A shamelessly long list of sources, headers and forms.
@@ -18,14 +25,17 @@ TARGETDEPS += $$DESTDIR/liborm.a $$DESTDIR/libmvc.a $$DESTDIR/libsql.a $$DESTDIR
 
 FORMS += mainwindow.ui \
          daynavigatorwidget.ui \
-         about.ui \
-	 alarmdialog.ui
+         about.ui
 
 HEADERS += mainwindow.h \
-           daynavigatorwidget.h \
-	   alarmdialog.h
+           daynavigatorwidget.h
 
 SOURCES += mainwindow.cpp \
-           daynavigatorwidget.cpp \
-	   alarmdialog.cpp
+           daynavigatorwidget.cpp
+
+maemo {
+    FORMS += alarmdialog.ui
+    HEADERS += alarmdialog.h
+    SOURCES += alarmdialog.cpp
+}
 
