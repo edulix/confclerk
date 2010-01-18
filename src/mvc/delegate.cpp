@@ -5,7 +5,7 @@
 #include <QPainter>
 
 const int RADIUS = 10;
-const int SPACER = RADIUS;
+const int SPACER = 15;
 
 Delegate::Delegate(QTreeView *aParent)
     : QItemDelegate(aParent)
@@ -135,6 +135,24 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         QFont font = option.font;
         font.setBold(true);
         painter->setFont(font);
+
+        // draw icons 
+        QPoint drawPoint =
+            option.rect.topRight()
+            - QPoint(
+                    SPACER + mControls[FavouriteControlOn]->image()->width(),
+                    - option.rect.height()/2 + mControls[FavouriteControlOn]->image()->height()/2);
+        painter->drawImage(drawPoint,*mControls[FavouriteControlOn]->image());
+        painter->drawText(drawPoint+QPoint(mControls[FavouriteControlOn]->image()->width()+2, option.rect.height()/2),
+                QString::number(numberOfFavourities(index)));
+        drawPoint.setX(drawPoint.x() - SPACER - mControls[FavouriteControlOn]->image()->width());
+        painter->drawImage(drawPoint,*mControls[AlarmControlOn]->image());
+        painter->drawText(drawPoint+QPoint(mControls[FavouriteControlOn]->image()->width()+2, option.rect.height()/2),
+                QString::number(numberOfAlarms(index)));
+        // draw texts
+        drawPoint.setX(drawPoint.x() - SPACER -mControls[AlarmControlOn]->image()->width() - 20);
+        drawPoint.setY(drawPoint.y() + option.rect.height()/2);
+        painter->drawText(drawPoint,QString("Events: ") + QString::number(index.model()->rowCount(index)));
     }
 
     //// HIGHLIGHTING SELECTED ITEM
@@ -217,13 +235,13 @@ void Delegate::defineControls()
     // FAVOURITE ICONs
     // on
     control = new Control(FavouriteControlOn,QString(":icons/favourite-on.png"));
-    p = QPoint(0,0);
+    p = QPoint(0,SPACER);
     p.setX(p.x()-control->image()->width()-SPACER);
     control->setDrawPoint(p);
     mControls.insert(FavouriteControlOn,control);
     // off
     control = new Control(FavouriteControlOff,QString(":icons/favourite-off.png"));
-    p = QPoint(0,0);
+    p = QPoint(0,SPACER);
     p.setX(p.x()-control->image()->width()-SPACER);
     control->setDrawPoint(p);
     mControls.insert(FavouriteControlOff,control);
@@ -256,5 +274,31 @@ bool Delegate::isPointFromRect(const QPoint &aPoint, const QRect &aRect) const
         return true;
 
     return false;
+}
+
+int Delegate::numberOfFavourities(const QModelIndex &index) const
+{
+    if(index.parent().isValid()) // it's event, not time-group
+        return 0;
+
+    int nrofFavs = 0;
+    for(int i=0; i<index.model()->rowCount(index); i++)
+        if(static_cast<Event*>(index.child(i,0).internalPointer())->isFavourite())
+            nrofFavs++;
+
+    return nrofFavs;
+}
+
+int Delegate::numberOfAlarms(const QModelIndex &index) const
+{
+    if(index.parent().isValid()) // it's event, not time-group
+        return 0;
+
+    int nrofAlarms = 0;
+    for(int i=0; i<index.model()->rowCount(index); i++)
+        if(static_cast<Event*>(index.child(i,0).internalPointer())->hasAlarm())
+            nrofAlarms++;
+
+    return nrofAlarms;
 }
 

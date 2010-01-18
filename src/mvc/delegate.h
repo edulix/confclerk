@@ -62,6 +62,13 @@ class Delegate : public QItemDelegate
         bool isLast( const QModelIndex &index ) const;
         bool isExpanded( const QModelIndex &index ) const;
         void defineControls();
+        // TODO: the better place for these methods would be 'eventmodel'
+        // they are used in 'paint' method and so it's better to obtain number of
+        // favourities/alarms once when the data has changed and not to call
+        // these methods which iterate over all Events in corresponding group
+        // every time it requires them
+        int numberOfFavourities(const QModelIndex &index) const;
+        int numberOfAlarms(const QModelIndex &index) const;
 
     private:
         QPointer<QTreeView> mViewPtr;
