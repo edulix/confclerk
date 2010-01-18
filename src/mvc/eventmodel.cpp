@@ -42,6 +42,33 @@ void EventModel::createTimeGroups()
     mGroups.last().mChildCount = mEvents.count() - mGroups.last().mFirstEventIndex;
 }
 
+void EventModel::createActivityGroups() {
+    mGroups.clear();
+    mParents.clear();
+    if (mEvents.empty())
+    {
+        return;
+    }
+    int activityId = mEvents.first().activityId();
+    //TODO korinpa: get activity name
+    mGroups << EventModel::Group(QString("activity %1").arg(activityId), 0);
+    int nextActivityId = activityId;
+
+    for (int i=0; i<mEvents.count(); i++)
+    {
+        activityId = mEvents.at(i).activityId();
+        if (nextActivityId != activityId)
+        {
+            mGroups.last().mChildCount = i - mGroups.last().mFirstEventIndex;
+            mGroups << EventModel::Group(QString("activity %1").arg(activityId), 0);
+            int nextActivityId = activityId;
+        }
+        // add parent-child relation
+        mParents[mEvents.at(i).id()] = mGroups.count() - 1;
+    }
+    mGroups.last().mChildCount = mEvents.count() - mGroups.last().mFirstEventIndex;
+}
+
 QVariant EventModel::data(const QModelIndex& index, int role) const
 {
     if (index.isValid() && role == Qt::DisplayRole)
@@ -117,20 +144,25 @@ int EventModel::rowCount (const QModelIndex & parent) const
     return 0;
 }
 
-void EventModel::loadEvents(const QDate &aDate, int aConferenceId)
+void EventModel::clearModel()
 {
-    for(int i=0; i<mGroups.count(); i++)
-    {
-        QModelIndex idx = index(i,0);
+/*
+    for(int i = 0;i < mGroups.count();i++){
+        QModelIndex idx = index(i, 0);
         Group group = mGroups[i];
-        beginRemoveRows(idx,0,group.mChildCount-1);
-        removeRows(0,group.mChildCount,idx);
+        beginRemoveRows(idx, 0, group.mChildCount - 1);
+        bool ok = removeRows(0, group.mChildCount, idx);
         endRemoveRows();
         //qDebug() << "removing " << group.mChildCount << " events from group:" << i << idx.data() << ":" << ok;
     }
-
+*/
+    mGroups.clear();
     mEvents.clear();
+}
 
+void EventModel::loadEvents(const QDate &aDate, int aConferenceId)
+{
+    clearModel();
     // check for existence of the conference in the DB
     if(Conference::getAll().count())
     {
@@ -142,18 +174,7 @@ void EventModel::loadEvents(const QDate &aDate, int aConferenceId)
 
 void EventModel::loadFavEvents(const QDate &aDate, int aConferenceId)
 {
-    for(int i=0; i<mGroups.count(); i++)
-    {
-        QModelIndex idx = index(i,0);
-        Group group = mGroups[i];
-        beginRemoveRows(idx,0,group.mChildCount-1);
-        removeRows(0,group.mChildCount,idx);
-        endRemoveRows();
-        //qDebug() << "removing " << group.mChildCount << " events from group:" << i << idx.data() << ":" << ok;
-    }
-
-    mEvents.clear();
-
+    clearModel();
     // check for existence of the conference in the DB
     if(Conference::getAll().count())
     {
@@ -161,6 +182,17 @@ void EventModel::loadFavEvents(const QDate &aDate, int aConferenceId)
         mEvents = Event::getFavByDate(QDate(aDate.year(), aDate.month(), aDate.day()), aConferenceId);
     }
     createTimeGroups();
+}
+
+void EventModel::loadEventsByActivities(const QDate &aDate, int aConferenceId)
+{
+    clearModel();
+    if(Conference::getAll().count())
+        {
+            qDebug() << "Loading Conference Data (by Activities): [" << Conference::getById(aConferenceId).title() << "] " << aDate;
+            mEvents = Event::getByDate(QDate(aDate.year(), aDate.month(), aDate.day()), aConferenceId);
+        }
+    createActivityGroups();
 }
 
 void EventModel::emitDataChangedSignal(const QModelIndex &aTopLeft, const QModelIndex &aBottomRight)

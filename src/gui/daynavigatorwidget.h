@@ -5,13 +5,14 @@
 #include <QObject>
 #include <QDate>
 
-class DayNavigatorWidget : public QWidget, Ui::DayNavigatorWidget
+class DayNavigatorWidget : public QWidget, private Ui::DayNavigatorWidget
 {
     Q_OBJECT
     public:
         DayNavigatorWidget(QWidget *aParent = NULL);
         ~DayNavigatorWidget() {}
         void setDates(const QDate &aStartDate, const QDate &aEndDate);
+        QDate getCurrentDate();
     private slots:
         void prevDayButtonClicked();
         void nextDayButtonClicked();

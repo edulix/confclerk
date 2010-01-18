@@ -35,7 +35,8 @@ MainWindow::MainWindow(QWidget *parent)
     statusBar()->showMessage(tr("Ready"));
 
     connect(dayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateDayView(const QDate &)));
-
+    connect(activityDayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateActivitiesDayView(const QDate &)));
+    connect(tabWidget, SIGNAL(currentChanged(int)), SLOT(updateView(int)));
 
     // DAY EVENTS View
     dayTreeView->setHeaderHidden(true);
@@ -104,7 +105,7 @@ void MainWindow::importSchedule()
     {
         int confId = 1;
         // 'dayNavigator' emits signal 'dateChanged' after setting valid START:END dates
-        dayNavigator->setDates(Conference::getById(confId).start(),Conference::getById(confId).end());
+        dayNavigator->setDates(Conference::getById(confId).start(), Conference::getById(confId).end());
     }
 }
 
@@ -144,3 +145,23 @@ void MainWindow::updateFavViewComplete()
     updateFavView();
     updateDayView(Conference::getById(confId).start());
 }
+
+void MainWindow::updateActivitiesDayView(const QDate &aDate)
+{
+    int confId = 1;
+    static_cast<EventModel*>(activityDayTreeView->model())->loadEventsByActivities(aDate,confId);
+    activityDayTreeView->reset();
+    activityDayNavigator->show();
+}
+
+void MainWindow::updateView(int tabIndex)
+{
+    //TODO korinpa: skraslit ! aj pre ine taby
+    qDebug() << "updateView index: " << tabIndex;
+    if (tabIndex == 2)
+    {
+        QDate date = activityDayNavigator->getCurrentDate();
+        updateActivitiesDayView(date);
+    }
+}
+
