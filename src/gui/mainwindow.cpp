@@ -36,6 +36,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(dayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateDayView(const QDate &)));
 
+
     // DAY EVENTS View
     dayTreeView->setHeaderHidden(true);
     dayTreeView->setRootIsDecorated(false);
@@ -66,6 +67,9 @@ MainWindow::MainWindow(QWidget *parent)
         int confId = 1;
         dayNavigator->setDates(Conference::getById(confId).start(),Conference::getById(confId).end());
     }
+
+    connect(static_cast<EventModel*>(dayTreeView->model()), SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &)), SLOT(updateFavView()));
+    connect(static_cast<EventModel*>(favTreeView->model()), SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &)), SLOT(updateFavView()));
 }
 
 MainWindow::~MainWindow()
@@ -126,3 +130,10 @@ void MainWindow::updateDayView(const QDate &aDate)
     dayNavigator->show();
 }
 
+void MainWindow::updateFavView()
+{
+    int confId = 1;
+    static_cast<EventModel*>(favTreeView->model())->loadFavEvents(Conference::getById(confId).start(),confId);
+    favTreeView->reset();
+    updateDayView(Conference::getById(confId).start());
+}

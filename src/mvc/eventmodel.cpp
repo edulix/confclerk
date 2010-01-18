@@ -47,16 +47,11 @@ QVariant EventModel::data(const QModelIndex& index, int role) const
     if (index.isValid() && role == Qt::DisplayRole)
     {
         if (index.internalId() == 0)
-        {   //range of time data
-            //qDebug() << qVariantValue<QString>(mGroups.at(index.row()).mTitle);
+        {
             return mGroups.at(index.row()).mTitle;
         }
         else //event data
         {
-            //qDebug() << qVariantValue<QString>(static_cast<Event*>(index.internalPointer())->id());
-            //return static_cast<Event*>(index.internalPointer())->id();
-            //qDebug() << Event::getVirtualById(static_cast<Event*>(index.internalPointer())->id(), 1).title();// Id Conference is 1 by now
-            //return 1;
             return static_cast<Event*>(index.internalPointer())->id();
         }
     }

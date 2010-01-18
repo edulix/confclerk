@@ -26,7 +26,6 @@ public:
 
 public:
     static Event getById(int id, int conferenceId);
-    static Event getVirtualById(int id, int conferenceId);
     static QList<Event> getByDate(const QDate& date, int conferenceId);
     static QList<Event> getFavByDate(const QDate& date, int conferenceId); // get Favourities by Date
 

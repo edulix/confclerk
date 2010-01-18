@@ -19,6 +19,7 @@ private slots:
     void showParsingProgress(int aStatus);
     void aboutApp();
     void updateDayView(const QDate &aDate);
+    void updateFavView();
 private:
     SqlEngine *mSqlEngine;
     ScheduleXmlParser *mXmlParser;
