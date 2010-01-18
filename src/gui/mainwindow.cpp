@@ -87,6 +87,8 @@ void MainWindow::importSchedule()
     QFile file("../schedule.en.xml");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
+        QString currPath = QDir::currentPath();
+        qDebug() << "current path: " << currPath;
         qDebug() << "can't open " << file.fileName();
         return;
     }
