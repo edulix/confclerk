@@ -69,7 +69,7 @@ MainWindow::MainWindow(QWidget *parent)
     }
 
     connect(static_cast<EventModel*>(dayTreeView->model()), SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &)), SLOT(updateFavView()));
-    connect(static_cast<EventModel*>(favTreeView->model()), SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &)), SLOT(updateFavView()));
+    connect(static_cast<EventModel*>(favTreeView->model()), SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &)), SLOT(updateFavViewComplete()));
 }
 
 MainWindow::~MainWindow()
@@ -134,6 +134,13 @@ void MainWindow::updateFavView()
 {
     int confId = 1;
     static_cast<EventModel*>(favTreeView->model())->loadFavEvents(Conference::getById(confId).start(),confId);
-    favTreeView->reset();
+    favTreeView->reset(); //Necessary reset:
+                        //  if favourite event unselected as favourite is the only one in its time, and reset is not produced, crashed
+}
+
+void MainWindow::updateFavViewComplete()
+{
+    int confId = 1;
+    updateFavView();
     updateDayView(Conference::getById(confId).start());
 }

@@ -20,6 +20,7 @@ private slots:
     void aboutApp();
     void updateDayView(const QDate &aDate);
     void updateFavView();
+    void updateFavViewComplete();
 private:
     SqlEngine *mSqlEngine;
     ScheduleXmlParser *mXmlParser;
