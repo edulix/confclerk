@@ -27,7 +27,7 @@ void EventModel::createTimeGroups()
     {
         QTime eventTime = mEvents.at(i).start().time();
 
-        if (nextGroupTime < eventTime)
+        if (nextGroupTime <= eventTime)
         {
             mGroups.last().mChildCount = i - mGroups.last().mFirstEventIndex;
             mGroups << EventModel::Group(QString("%1 - %2").arg(nextGroupTime.toString("HH:mm"),

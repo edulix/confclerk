@@ -22,7 +22,6 @@ private slots:
     void updateFavView();
     /*void updateFavViewComplete();*/
     void updateActivitiesDayView(const QDate &aDate);
-    void updateView(int tabIndex);
 private:
     SqlEngine *mSqlEngine;
     ScheduleXmlParser *mXmlParser;

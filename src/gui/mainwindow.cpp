@@ -120,7 +120,10 @@ void MainWindow::importSchedule()
     {
         int confId = 1;
         // 'dayNavigator' emits signal 'dateChanged' after setting valid START:END dates
-        dayNavigator->setDates(Conference::getById(confId).start(), Conference::getById(confId).end());
+        QDate aStartDate = Conference::getById(confId).start();
+        QDate aEndDate = Conference::getById(confId).end();
+        dayNavigator->setDates(aStartDate, aEndDate);
+        activityDayNavigator->setDates(aStartDate, aEndDate);
     }
 }
 
@@ -172,24 +175,3 @@ void MainWindow::updateActivitiesDayView(const QDate &aDate)
     activityDayTreeView->reset();
     activityDayNavigator->show();
 }
-
-void MainWindow::updateView(int tabIndex)
-{
-    //TODO korinpa: change to enum or names ?
-    qDebug() << "updateView index: " << tabIndex;
-    if (tabIndex == 0)
-    {
-        QDate date = dayNavigator->getCurrentDate();
-        updateDayView(date);
-    }
-    else if (tabIndex == 1)
-    {
-        updateFavView();
-    }
-    else if (tabIndex == 2)
-    {
-        QDate date = activityDayNavigator->getCurrentDate();
-        updateActivitiesDayView(date);
-    }
-}
-
