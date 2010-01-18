@@ -17,7 +17,7 @@
     <item row="0" column="0" >
      <widget class="QTabWidget" name="tabWidget" >
       <property name="currentIndex" >
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="dayViewTab" >
        <attribute name="title" >
@@ -64,7 +64,7 @@
            <widget class="DayNavigatorWidget" native="1" name="activityDayNavigator" />
           </item>
           <item>
-           <widget class="TreeView" name="activityDayTreeView" >
+           <widget class="TreeView" name="actTreeView" >
             <property name="maximumSize" >
              <size>
               <width>16777215</width>

@@ -13,6 +13,7 @@
 
 #include <QDialog>
 #include "ui_about.h"
+#include "eventdialog.h"
 #include "daynavigatorwidget.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -55,12 +56,16 @@ MainWindow::MainWindow(QWidget *parent)
     favTreeView->setItemDelegate(new Delegate(favTreeView));
 
     //ACTIVITIES View
-    activityDayTreeView->setHeaderHidden(true);
-    activityDayTreeView->setRootIsDecorated(false);
-    activityDayTreeView->setIndentation(0);
-    activityDayTreeView->setAnimated(true);
-    activityDayTreeView->setModel(new EventModel());
-    activityDayTreeView->setItemDelegate(new Delegate(activityDayTreeView));
+    actTreeView->setHeaderHidden(true);
+    actTreeView->setRootIsDecorated(false);
+    actTreeView->setIndentation(0);
+    actTreeView->setAnimated(true);
+    actTreeView->setModel(new EventModel());
+    actTreeView->setItemDelegate(new Delegate(actTreeView));
+
+    connect(dayTreeView, SIGNAL(doubleClicked(const QModelIndex &)), SLOT(itemDoubleClicked(const QModelIndex &)));
+    connect(favTreeView, SIGNAL(doubleClicked(const QModelIndex &)), SLOT(itemDoubleClicked(const QModelIndex &)));
+    connect(actTreeView, SIGNAL(doubleClicked(const QModelIndex &)), SLOT(itemDoubleClicked(const QModelIndex &)));
 
     // TESTING: load some 'fav' data
     if(Conference::getAll().count()) // no conference(s) in the DB
@@ -171,7 +176,18 @@ void MainWindow::updateFavViewComplete()
 void MainWindow::updateActivitiesDayView(const QDate &aDate)
 {
     int confId = 1;
-    static_cast<EventModel*>(activityDayTreeView->model())->loadEventsByActivities(aDate,confId);
-    activityDayTreeView->reset();
+    static_cast<EventModel*>(actTreeView->model())->loadEventsByActivities(aDate,confId);
+    actTreeView->reset();
     activityDayNavigator->show();
 }
+
+void MainWindow::itemDoubleClicked(const QModelIndex &aIndex)
+{
+    // have to handle only events, not time-groups
+    if(!aIndex.parent().isValid()) // time-group
+        return;
+
+    EventDialog dialog(aIndex,this);
+    dialog.exec();
+}
+
