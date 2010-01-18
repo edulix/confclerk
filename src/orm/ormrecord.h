@@ -188,6 +188,7 @@ QString OrmRecord<T>::selectQuery()
     return QString("SELECT %1 FROM %2 ").arg(columnsForSelect(), T::sTableName);
 }
 
+
 template <typename T>
 QString OrmRecord<T>::selectQueryJoin2T(const QString &key)
 {

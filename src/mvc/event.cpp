@@ -64,3 +64,4 @@ QList<Event> Event::getFavByDate(const QDate& date, int conferenceId)
     return load(query);
 }
 
+

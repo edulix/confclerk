@@ -51,7 +51,7 @@ void SqlEngine::initialize()
     if(!QDir::home().exists(".fosdem"))
         QDir::home().mkdir(".fosdem");
     databaseName = QDir::homePath() + "/.fosdem/" + "fosdem.sqlite";
-
+qDebug()<<databaseName;
     login("QSQLITE",databaseName);
 }
 
@@ -119,6 +119,7 @@ void SqlEngine::addEventToDB(QHash<QString,QString> &aEvent)
         //LOG_AUTOTEST(query2);
     }
 }
+
 
 void SqlEngine::addPersonToDB(QHash<QString,QString> &aPerson)
 {
@@ -232,7 +233,17 @@ bool SqlEngine::createTables(QSqlDatabase &aDatabase)
             FOREIGN KEY(xid_conference) REFERENCES CONFERENCE(id) \
             FOREIGN KEY(xid_activity) REFERENCES ACTIVITY(id))");
 
-        query.exec("CREATE VIRTUAL TABLE VIRTUAL_EVENT using fts3 ( \
+        // TBD Virtual tables compatibility (waiting for Marek). Temporary non virtual VIRTUAL_TABLE below: To be deleted
+/*        query.exec("CREATE VIRTUAL TABLE VIRTUAL_EVENT using fts3 ( \
+            xid_conference INTEGER  NOT NULL, \
+            id INTEGER NOT NULL , \
+            tag VARCHAR,title VARCHAR NOT NULL , \
+            subtitle VARCHAR, \
+            abstract VARCHAR, \
+            description VARCHAR, \
+            PRIMARY KEY (xid_conference,id))");
+*/
+        query.exec("CREATE TABLE VIRTUAL_EVENT ( \
             xid_conference INTEGER  NOT NULL, \
             id INTEGER NOT NULL , \
             tag VARCHAR,title VARCHAR NOT NULL , \
