@@ -105,18 +105,23 @@ void SqlEngine::addEventToDB(QHash<QString,QString> &aEvent)
         //LOG_AUTOTEST(query);
 
         // add some(text related) Event's items to VIRTUAL_EVENT table
-        QString values2 = QString("'%1', '%2', '%3', '%4', '%5', '%6', '%7'") \
+        QString values2 = QString("'%1', '%2', '%3', ? , ? , ? , ? ") \
                           .arg(aEvent["conference_id"]) \
                           .arg(aEvent["id"]) \
-                          .arg(aEvent["tag"]) \
-                          .arg(aEvent["title"]) \
-                          .arg(aEvent["subtitle"]) \
-                          .arg(aEvent["abstract"]) \
-                          .arg(aEvent["description"]);
+                          .arg(aEvent["tag"]);
 
         QString query2 = QString("INSERT INTO VIRTUAL_EVENT (xid_conference, id, tag, title, subtitle, abstract, description) VALUES (%1)").arg(values2);
-        QSqlQuery result2 (query2, db);
-        //LOG_AUTOTEST(query2);
+
+        QSqlQuery result2;
+        result2.prepare(query2);
+        result2.bindValue(0,aEvent["title"]);
+        result2.bindValue(1,aEvent["subtitle"]);
+        result2.bindValue(2,aEvent["abstract"]);
+        result2.bindValue(3,aEvent["description"]);
+        result2.exec();
+
+         //LOG_AUTOTEST(query2);
+        qDebug() << query2;
     }
 }
 
@@ -233,10 +238,16 @@ bool SqlEngine::createTables(QSqlDatabase &aDatabase)
             FOREIGN KEY(xid_conference) REFERENCES CONFERENCE(id) \
             FOREIGN KEY(xid_activity) REFERENCES ACTIVITY(id))");
 
-#ifdef MAEMO
-        // TBD: MAEMO Virtual tables compatibility (waiting for Marek).
-        // MAEMO sqlite Qt driver doesn't provide FTS support by default - use the following HACK
-        qDebug() << "MAEMO: Creating 'general', not 'virtual' table 'VIRTUAL_EVENT'";
+        // TBD Virtual tables compatibility (waiting for Marek). Temporary non virtual VIRTUAL_TABLE below: To be deleted
+/*        query.exec("CREATE VIRTUAL TABLE VIRTUAL_EVENT using fts3 ( \
+            xid_conference INTEGER  NOT NULL, \
+            id INTEGER NOT NULL , \
+            tag VARCHAR,title VARCHAR NOT NULL , \
+            subtitle VARCHAR, \
+            abstract VARCHAR, \
+            description VARCHAR, \
+            PRIMARY KEY (xid_conference,id))");
+*/
         query.exec("CREATE TABLE VIRTUAL_EVENT ( \
             xid_conference INTEGER  NOT NULL, \
             id INTEGER NOT NULL , \
@@ -245,16 +256,6 @@ bool SqlEngine::createTables(QSqlDatabase &aDatabase)
             abstract VARCHAR, \
             description VARCHAR, \
             PRIMARY KEY (xid_conference,id))");
-#else
-        query.exec("CREATE VIRTUAL TABLE VIRTUAL_EVENT using fts3 ( \
-            xid_conference INTEGER  NOT NULL, \
-            id INTEGER NOT NULL , \
-            tag VARCHAR,title VARCHAR NOT NULL , \
-            subtitle VARCHAR, \
-            abstract VARCHAR, \
-            description VARCHAR, \
-            PRIMARY KEY (xid_conference,id))");
-#endif
 
         query.exec("CREATE TABLE EVENT_PERSON ( \
             xid_conference INTEGER NOT NULL , \
