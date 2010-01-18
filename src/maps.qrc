@@ -1,0 +1,29 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+    <file>maps/campus.png</file>
+    <file>maps/rooms/aw1105.png</file>
+    <file>maps/rooms/aw1115.png</file>
+    <file>maps/rooms/aw1117.png</file>
+    <file>maps/rooms/aw1120.png</file>
+    <file>maps/rooms/aw1121.png</file>
+    <file>maps/rooms/aw1124.png</file>
+    <file>maps/rooms/aw1125.png</file>
+    <file>maps/rooms/aw1126.png</file>
+    <file>maps/rooms/chavanne.png</file>
+    <file>maps/rooms/ferrer.png</file>
+    <file>maps/rooms/guillissen.png</file>
+    <file>maps/rooms/h1301.png</file>
+    <file>maps/rooms/h1302.png</file>
+    <file>maps/rooms/h1308.png</file>
+    <file>maps/rooms/h1309.png</file>
+    <file>maps/rooms/h2111.png</file>
+    <file>maps/rooms/h2213.png</file>
+    <file>maps/rooms/h2214.png</file>
+    <file>maps/rooms/H-WC.png</file>
+    <file>maps/rooms/infodesk.png</file>
+    <file>maps/rooms/janson.png</file>
+    <file>maps/rooms/lameere.png</file>
+    <file>maps/rooms/ua2114.png</file>
+</qresource>
+</RCC>
+

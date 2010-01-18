@@ -11,5 +11,6 @@ TARGETDEPS += $$DESTDIR/libmvc.a $$DESTDIR/libgui.a $$DESTDIR/libsql.a
 
 SOURCES += main.cpp
 
-RESOURCES += ../icons.qrc
+RESOURCES += ../icons.qrc \
+             ../maps.qrc
 
