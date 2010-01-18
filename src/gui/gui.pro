@@ -6,10 +6,10 @@ CONFIG += static
 QT += sql xml
 
 # module dependencies
-LIBS += -L$$DESTDIR -lmvc -lorm -lsql -lqalarm
-INCLUDEPATH += ../orm ../mvc ../sql ../alarm
-DEPENDPATH += . ../orm ../mvc ../sql ../alarm
-TARGETDEPS += $$DESTDIR/liborm.a $$DESTDIR/libmvc.a $$DESTDIR/libsql.a $$DESTDIR/libqalarm.a
+LIBS += -L$$DESTDIR -lmvc -lorm -lsql
+INCLUDEPATH += ../orm ../mvc ../sql
+DEPENDPATH += . ../orm ../mvc ../sql
+TARGETDEPS += $$DESTDIR/liborm.a $$DESTDIR/libmvc.a $$DESTDIR/libsql.a
 maemo {
     LIBS += -L$$DESTDIR -lqalarm
     INCLUDEPATH += ../alarm
