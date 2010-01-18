@@ -26,15 +26,18 @@ maemo {
 FORMS += mainwindow.ui \
          daynavigatorwidget.ui \
          about.ui \
-         eventdialog.ui
+         eventdialog.ui \
+         mapwindow.ui
 
 HEADERS += mainwindow.h \
            daynavigatorwidget.h \
-           eventdialog.h
+           eventdialog.h \
+           mapwindow.h
 
 SOURCES += mainwindow.cpp \
            daynavigatorwidget.cpp \
-           eventdialog.cpp
+           eventdialog.cpp \
+           mapwindow.cpp
 
 maemo {
     FORMS += alarmdialog.ui

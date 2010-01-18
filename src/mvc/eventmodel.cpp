@@ -61,7 +61,7 @@ void EventModel::createActivityGroups() {
         {
             mGroups.last().mChildCount = i - mGroups.last().mFirstEventIndex;
             mGroups << EventModel::Group(QString("activity %1").arg(activityId), 0);
-            int nextActivityId = activityId;
+            //int nextActivityId = activityId;
         }
         // add parent-child relation
         mParents[mEvents.at(i).id()] = mGroups.count() - 1;
@@ -150,7 +150,7 @@ void EventModel::clearModel()
         QModelIndex idx = index(i, 0);
         Group group = mGroups[i];
         beginRemoveRows(idx, 0, group.mChildCount - 1);
-        bool ok = removeRows(0, group.mChildCount, idx);
+        /*bool ok =*/ removeRows(0, group.mChildCount, idx);
         endRemoveRows();
         //qDebug() << "removing " << group.mChildCount << " events from group:" << i << idx.data() << ":" << ok;
     }

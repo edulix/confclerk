@@ -23,6 +23,7 @@ private slots:
     /*void updateFavViewComplete();*/
     void updateActivitiesDayView(const QDate &aDate);
     void itemDoubleClicked(const QModelIndex &aIndex);
+    void displayMap(const QModelIndex &aIndex);
 private:
     SqlEngine *mSqlEngine;
     ScheduleXmlParser *mXmlParser;

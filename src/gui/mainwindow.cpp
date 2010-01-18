@@ -15,6 +15,7 @@
 #include "ui_about.h"
 #include "eventdialog.h"
 #include "daynavigatorwidget.h"
+#include "mapwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -63,9 +64,15 @@ MainWindow::MainWindow(QWidget *parent)
     actTreeView->setModel(new EventModel());
     actTreeView->setItemDelegate(new Delegate(actTreeView));
 
+    // event double clicked
     connect(dayTreeView, SIGNAL(doubleClicked(const QModelIndex &)), SLOT(itemDoubleClicked(const QModelIndex &)));
     connect(favTreeView, SIGNAL(doubleClicked(const QModelIndex &)), SLOT(itemDoubleClicked(const QModelIndex &)));
     connect(actTreeView, SIGNAL(doubleClicked(const QModelIndex &)), SLOT(itemDoubleClicked(const QModelIndex &)));
+    // request for map to be displayed
+    connect(dayTreeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
+    connect(favTreeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
+    connect(actTreeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
+
 
     // TESTING: load some 'fav' data
     if(Conference::getAll().count()) // no conference(s) in the DB
@@ -112,8 +119,6 @@ void MainWindow::importSchedule()
     QFile file("../schedule.en.xml");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        QString currPath = QDir::currentPath();
-        qDebug() << "current path: " << currPath;
         qDebug() << "can't open " << file.fileName();
         return;
     }
@@ -189,5 +194,12 @@ void MainWindow::itemDoubleClicked(const QModelIndex &aIndex)
 
     EventDialog dialog(aIndex,this);
     dialog.exec();
+}
+
+void MainWindow::displayMap(const QModelIndex &aIndex)
+{
+    QPixmap map(":/maps/rooms/janson.png");
+    MapWindow window(map,this);
+    window.exec();
 }
 

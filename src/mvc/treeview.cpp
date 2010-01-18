@@ -79,6 +79,7 @@ void TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
             {
                 // handle Alarm Control clicked
                 qDebug() << "MAP CLICKED: " << qVariantValue<QString>(aIndex.data());
+                emit(requestForMap(aIndex));
             }
         break;
         case Delegate::ControlNone:
