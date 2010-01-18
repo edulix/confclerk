@@ -5,7 +5,7 @@
 // two table names + corresponding parameters/methods, see bellow
 QString const Event::sTable1Name = QString("event");
 QString const Event::sTable2Name = QString("virtual_event");
-int const Event::sTable1ColCount = 8; // see 'toRecord()' for more details
+int const Event::sTable1ColCount = 9; // see 'toRecord()' for more details
 int const Event::sTable2ColCount = 5; // see 'toRecord()' for more details
 
 QSqlRecord const Event::sColumns = Event::toRecord(QList<QSqlField>()
@@ -18,6 +18,7 @@ QSqlRecord const Event::sColumns = Event::toRecord(QList<QSqlField>()
     << QSqlField("type", QVariant::String)
     << QSqlField("language", QVariant::String)
     << QSqlField("favourite", QVariant::Bool)
+    << QSqlField("alarm", QVariant::Bool)
     /* 'columns' from Table2 */
     << QSqlField("tag", QVariant::String)
     << QSqlField("title", QVariant::String)

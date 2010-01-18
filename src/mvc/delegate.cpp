@@ -83,11 +83,17 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         }
 
         // draw Controls
+        // favourite
         if(static_cast<Event*>(index.internalPointer())->isFavourite())
             painter->drawImage(mControls[FavouriteControlOn]->drawPoint(option.rect),*mControls[FavouriteControlOn]->image());
         else
             painter->drawImage(mControls[FavouriteControlOff]->drawPoint(option.rect),*mControls[FavouriteControlOff]->image());
-        painter->drawImage(mControls[AlarmControlOn]->drawPoint(option.rect),*mControls[AlarmControlOn]->image());
+        // alarm
+        if(static_cast<Event*>(index.internalPointer())->hasAlarm())
+            painter->drawImage(mControls[AlarmControlOn]->drawPoint(option.rect),*mControls[AlarmControlOn]->image());
+        else
+            painter->drawImage(mControls[AlarmControlOff]->drawPoint(option.rect),*mControls[AlarmControlOff]->image());
+        // map
         painter->drawImage(mControls[MapControl]->drawPoint(option.rect),*mControls[MapControl]->image());
     }
     else // doesn't have parent - time-groups' elements (top items)
@@ -224,7 +230,7 @@ void Delegate::defineControls()
 
     // ALARM ICONs
     // on
-    control = new Control(AlarmControlOn,QString(":icons/alarm-off.png"));
+    control = new Control(AlarmControlOn,QString(":icons/alarm-on.png"));
     p = mControls[FavouriteControlOn]->drawPoint();
     p.setX(p.x()-control->image()->width()-SPACER);
     control->setDrawPoint(p);

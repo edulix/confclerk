@@ -57,7 +57,22 @@ void TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
         case Delegate::AlarmControlOff:
             {
                 // handle Alarm Control clicked
-                qDebug() << "ALARM CLICKED: " << qVariantValue<QString>(aIndex.data());
+                Event event = Event::getById(aIndex.data().toInt(),1);
+                if(event.hasAlarm())
+                {
+                    static_cast<Event*>(aIndex.internalPointer())->setHasAlarm(false); // list of events
+                    event.setHasAlarm(false); // update DB
+                }
+                else
+                {
+                    static_cast<Event*>(aIndex.internalPointer())->setHasAlarm(true); // list of events
+                    event.setHasAlarm(true);
+                }
+                qDebug() << " ALARM [" << qVariantValue<QString>(aIndex.data()) << "] -> " << event.hasAlarm();
+                event.update("alarm");
+                // since the Alarm icon has changed, update TreeView accordingly
+                static_cast<EventModel*>(model())->emitDataChangedSignal(aIndex,aIndex);
+
             }
             break;
         case Delegate::MapControl:

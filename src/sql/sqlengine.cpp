@@ -90,7 +90,7 @@ void SqlEngine::addEventToDB(QHash<QString,QString> &aEvent)
         // The items of the Event are divided into the two tables EVENT and VIRTUAL_EVENT
         // VIRTUAL_EVENT is for Full-Text-Serach Support
         QDateTime startDateTime = QDateTime(QDate::fromString(aEvent["date"],DATE_FORMAT),QTime::fromString(aEvent["start"],TIME_FORMAT));
-        QString values = QString("'%1', '%2', '%3', '%4', '%5', '%6', '%7', '%8'") \
+        QString values = QString("'%1', '%2', '%3', '%4', '%5', '%6', '%7', '%8', '%9'") \
                          .arg(aEvent["conference_id"]) \
                          .arg(aEvent["id"]) \
                          .arg(QString::number(startDateTime.toTime_t())) \
@@ -98,9 +98,10 @@ void SqlEngine::addEventToDB(QHash<QString,QString> &aEvent)
                          .arg("123456") \
                          .arg(aEvent["type"]) \
                          .arg(aEvent["language"]) \
-                         .arg("0"); // not favourite when added
+                         .arg("0") \
+                         .arg("0");
 
-        QString query = QString("INSERT INTO EVENT (xid_conference, id, start, duration, xid_activity, type, language, favourite) VALUES (%1)").arg(values);
+        QString query = QString("INSERT INTO EVENT (xid_conference, id, start, duration, xid_activity, type, language, favourite, alarm) VALUES (%1)").arg(values);
         QSqlQuery result (query, db);
         //LOG_AUTOTEST(query);
 
@@ -119,9 +120,7 @@ void SqlEngine::addEventToDB(QHash<QString,QString> &aEvent)
         result2.bindValue(2,aEvent["abstract"]);
         result2.bindValue(3,aEvent["description"]);
         result2.exec();
-
-         //LOG_AUTOTEST(query2);
-        qDebug() << query2;
+        //LOG_AUTOTEST(query2);
     }
 }
 
@@ -234,20 +233,14 @@ bool SqlEngine::createTables(QSqlDatabase &aDatabase)
             type VARCHAR, \
             language VARCHAR, \
             favourite INTEGER DEFAULT 0, \
+            alarm INTEGER DEFAULT 0, \
             PRIMARY KEY (xid_conference,id), \
             FOREIGN KEY(xid_conference) REFERENCES CONFERENCE(id) \
             FOREIGN KEY(xid_activity) REFERENCES ACTIVITY(id))");
 
-        // TBD Virtual tables compatibility (waiting for Marek). Temporary non virtual VIRTUAL_TABLE below: To be deleted
-/*        query.exec("CREATE VIRTUAL TABLE VIRTUAL_EVENT using fts3 ( \
-            xid_conference INTEGER  NOT NULL, \
-            id INTEGER NOT NULL , \
-            tag VARCHAR,title VARCHAR NOT NULL , \
-            subtitle VARCHAR, \
-            abstract VARCHAR, \
-            description VARCHAR, \
-            PRIMARY KEY (xid_conference,id))");
-*/
+#ifdef MAEMO
+        // TBD: MAEMO Virtual tables compatibility (waiting for Marek).
+        // MAEMO sqlite Qt driver doesn't provide FTS support by default - use the following HACK
         query.exec("CREATE TABLE VIRTUAL_EVENT ( \
             xid_conference INTEGER  NOT NULL, \
             id INTEGER NOT NULL , \
@@ -256,6 +249,16 @@ bool SqlEngine::createTables(QSqlDatabase &aDatabase)
             abstract VARCHAR, \
             description VARCHAR, \
             PRIMARY KEY (xid_conference,id))");
+#else
+        query.exec("CREATE VIRTUAL TABLE VIRTUAL_EVENT using fts3 ( \
+            xid_conference INTEGER  NOT NULL, \
+            id INTEGER NOT NULL , \
+            tag VARCHAR,title VARCHAR NOT NULL , \
+            subtitle VARCHAR, \
+            abstract VARCHAR, \
+            description VARCHAR, \
+            PRIMARY KEY (xid_conference,id))");
+#endif
 
         query.exec("CREATE TABLE EVENT_PERSON ( \
             xid_conference INTEGER NOT NULL , \

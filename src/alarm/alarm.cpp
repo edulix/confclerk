@@ -83,3 +83,43 @@ void Alarm::deleteAlarm(int aEventId)
     alarm_event_delete(event);
 }
 
+bool Alarm::hasEventAlarm(int aEventId)
+{
+    cookie_t *list = 0;
+    cookie_t cookie = 0;
+    alarm_event_t *event = 0;
+
+    bool eventHasAlarm = false;
+
+    // query the APPID's list of alarms
+    if( (list = alarmd_event_query(0,0, 0,0, APPID)) != 0 ) // query OK
+    {
+        for( int i = 0; (cookie = list[i]) != 0; ++i )
+        {
+            alarm_event_delete(event);
+
+            // get the event for specified alarm cookie (alarmId)
+            if( (event = alarmd_event_get(cookie)) == 0 )
+            {
+                // should we inform user about it ???
+                continue;
+            }
+
+            if(aEventId==atoi(alarm_event_get_message(event)))
+            {
+                eventHasAlarm = true;
+                break;
+            }
+        }
+    }
+    else
+    {
+        // query failed
+    }
+
+    free(list);
+    alarm_event_delete(event);
+
+    return eventHasAlarm;
+}
+

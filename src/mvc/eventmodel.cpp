@@ -124,7 +124,7 @@ void EventModel::loadEvents(const QDate &aDate, int aConferenceId)
         QModelIndex idx = index(i,0);
         Group group = mGroups[i];
         beginRemoveRows(idx,0,group.mChildCount-1);
-        bool ok = removeRows(0,group.mChildCount,idx);
+        removeRows(0,group.mChildCount,idx);
         endRemoveRows();
         //qDebug() << "removing " << group.mChildCount << " events from group:" << i << idx.data() << ":" << ok;
     }
@@ -147,7 +147,7 @@ void EventModel::loadFavEvents(const QDate &aDate, int aConferenceId)
         QModelIndex idx = index(i,0);
         Group group = mGroups[i];
         beginRemoveRows(idx,0,group.mChildCount-1);
-        bool ok = removeRows(0,group.mChildCount,idx);
+        removeRows(0,group.mChildCount,idx);
         endRemoveRows();
         //qDebug() << "removing " << group.mChildCount << " events from group:" << i << idx.data() << ":" << ok;
     }

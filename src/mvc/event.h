@@ -39,6 +39,7 @@ public:
     QString type() const { return value("type").toString(); }
     QString language() const { return value("language").toString(); }
     bool isFavourite() const { return value("favourite").toBool(); }
+    bool hasAlarm() const { return value("alarm").toBool(); }
     // Table 2 : virtual table for FTS (Full Text Search)
     QString tag() const { return value("tag").toString(); }
     QString title() const { return value("title").toString(); }
@@ -55,6 +56,7 @@ public:
     void setType(const QString& type) { setValue("type", type); }
     void setLanguage(const QString& language) { setValue("language", language); }
     void setFavourite(bool favourite) { setValue("favourite", (int)favourite); }
+    void setHasAlarm(bool alarm) { setValue("alarm", (int)alarm); }
     // Table 2 : virtual table for FTS (Full Text Search)
     void setTag(const QString& tag) { setValue("tag", tag); }
     void setTitle(const QString& title) { setValue("title", title); }
