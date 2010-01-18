@@ -31,9 +31,12 @@ class Delegate : public QItemDelegate
                 { }
                 inline QImage *image() const { return mImage; }
                 inline void setDrawPoint(const QPoint &aPoint) { mDrawPoint = aPoint; }
-                inline QPoint drawPoint(const QRect &aRect) const // for painter to draw Control
+                inline QPoint drawPoint(const QRect &aRect = QRect()) const // for painter to draw Control
                 {
-                    return QPoint(aRect.x()+aRect.width(),aRect.y()) + mDrawPoint;
+                    if(aRect == QRect()) // null rectangle
+                        return mDrawPoint; // returns relative drawing point
+                    else
+                        return QPoint(aRect.x()+aRect.width(),aRect.y()) + mDrawPoint; // returns absolute drawing point
                 }
                 inline QRect drawRect(const QRect &aRect) const // helper for determining if Control was clicked
                 {

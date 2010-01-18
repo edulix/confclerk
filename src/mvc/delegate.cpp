@@ -207,30 +207,40 @@ Delegate::ControlId Delegate::whichControlClicked(const QModelIndex &aIndex, con
 void Delegate::defineControls()
 {
     Control *control;
+    QPoint p(0,0);
     // FAVOURITE ICONs
     // on
     control = new Control(FavouriteControlOn,QString(":icons/favourite-on.png"));
-    control->setDrawPoint(QPoint(-control->image()->width()-SPACER,SPACER));
+    p = QPoint(0,0);
+    p.setX(p.x()-control->image()->width()-SPACER);
+    control->setDrawPoint(p);
     mControls.insert(FavouriteControlOn,control);
     // off
     control = new Control(FavouriteControlOff,QString(":icons/favourite-off.png"));
-    control->setDrawPoint(QPoint(-control->image()->width()-SPACER,SPACER));
+    p = QPoint(0,0);
+    p.setX(p.x()-control->image()->width()-SPACER);
+    control->setDrawPoint(p);
     mControls.insert(FavouriteControlOff,control);
 
     // ALARM ICONs
     // on
-    control = new Control(AlarmControlOn,QString(":icons/alarm-on.png"));
-    control->setDrawPoint(QPoint(-mControls[FavouriteControlOn]->image()->width()-control->image()->width()-2*SPACER,SPACER));
+    control = new Control(AlarmControlOn,QString(":icons/alarm-off.png"));
+    p = mControls[FavouriteControlOn]->drawPoint();
+    p.setX(p.x()-control->image()->width()-SPACER);
+    control->setDrawPoint(p);
     mControls.insert(AlarmControlOn,control);
     // off
     control = new Control(AlarmControlOff,QString(":icons/alarm-off.png"));
-    control->setDrawPoint(QPoint(-mControls[FavouriteControlOff]->image()->width()-control->image()->width()-2*SPACER,SPACER));
+    p = mControls[FavouriteControlOff]->drawPoint();
+    p.setX(p.x()-control->image()->width()-SPACER);
+    control->setDrawPoint(p);
     mControls.insert(AlarmControlOff,control);
 
     // MAP ICON
     control = new Control(MapControl,QString(":icons/compass.png"));
-    control->setDrawPoint(QPoint(-mControls[AlarmControlOn]->image()->width()-control->image()->width()
-                                 -mControls[FavouriteControlOn]->image()->width()-3*SPACER,SPACER));
+    p = mControls[AlarmControlOn]->drawPoint();
+    p.setX(p.x()-control->image()->width()-SPACER);
+    control->setDrawPoint(p);
     mControls.insert(MapControl,control);
 }
 
