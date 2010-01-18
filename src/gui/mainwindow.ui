@@ -17,7 +17,7 @@
     <item row="0" column="0" >
      <widget class="QTabWidget" name="tabWidget" >
       <property name="currentIndex" >
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="dayViewTab" >
        <attribute name="title" >
@@ -95,8 +95,8 @@
     <addaction name="actionAboutQt" />
     <addaction name="actionAboutApplication" />
    </widget>
-   <addaction name="menuFile" />
    <addaction name="menuAbout" />
+   <addaction name="menuFile" />
   </widget>
   <widget class="QStatusBar" name="statusbar" />
   <action name="actionImportSchedule" >

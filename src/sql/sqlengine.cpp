@@ -233,16 +233,10 @@ bool SqlEngine::createTables(QSqlDatabase &aDatabase)
             FOREIGN KEY(xid_conference) REFERENCES CONFERENCE(id) \
             FOREIGN KEY(xid_activity) REFERENCES ACTIVITY(id))");
 
-        // TBD Virtual tables compatibility (waiting for Marek). Temporary non virtual VIRTUAL_TABLE below: To be deleted
-/*        query.exec("CREATE VIRTUAL TABLE VIRTUAL_EVENT using fts3 ( \
-            xid_conference INTEGER  NOT NULL, \
-            id INTEGER NOT NULL , \
-            tag VARCHAR,title VARCHAR NOT NULL , \
-            subtitle VARCHAR, \
-            abstract VARCHAR, \
-            description VARCHAR, \
-            PRIMARY KEY (xid_conference,id))");
-*/
+#ifdef MAEMO
+        // TBD: MAEMO Virtual tables compatibility (waiting for Marek).
+        // MAEMO sqlite Qt driver doesn't provide FTS support by default - use the following HACK
+        qDebug() << "MAEMO: Creating 'general', not 'virtual' table 'VIRTUAL_EVENT'";
         query.exec("CREATE TABLE VIRTUAL_EVENT ( \
             xid_conference INTEGER  NOT NULL, \
             id INTEGER NOT NULL , \
@@ -251,6 +245,16 @@ bool SqlEngine::createTables(QSqlDatabase &aDatabase)
             abstract VARCHAR, \
             description VARCHAR, \
             PRIMARY KEY (xid_conference,id))");
+#else
+        query.exec("CREATE VIRTUAL TABLE VIRTUAL_EVENT using fts3 ( \
+            xid_conference INTEGER  NOT NULL, \
+            id INTEGER NOT NULL , \
+            tag VARCHAR,title VARCHAR NOT NULL , \
+            subtitle VARCHAR, \
+            abstract VARCHAR, \
+            description VARCHAR, \
+            PRIMARY KEY (xid_conference,id))");
+#endif
 
         query.exec("CREATE TABLE EVENT_PERSON ( \
             xid_conference INTEGER NOT NULL , \

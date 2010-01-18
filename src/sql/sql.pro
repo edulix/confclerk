@@ -1,3 +1,4 @@
+include(../global.pri)
 TEMPLATE = lib
 TARGET = sql
 DESTDIR = ../bin
