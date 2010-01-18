@@ -146,7 +146,6 @@ int EventModel::rowCount (const QModelIndex & parent) const
 
 void EventModel::clearModel()
 {
-/*
     for(int i = 0;i < mGroups.count();i++){
         QModelIndex idx = index(i, 0);
         Group group = mGroups[i];
@@ -155,8 +154,6 @@ void EventModel::clearModel()
         endRemoveRows();
         //qDebug() << "removing " << group.mChildCount << " events from group:" << i << idx.data() << ":" << ok;
     }
-*/
-    mGroups.clear();
     mEvents.clear();
 }
 
