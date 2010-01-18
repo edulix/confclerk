@@ -17,7 +17,7 @@
     <item row="0" column="0" >
      <widget class="QTabWidget" name="tabWidget" >
       <property name="currentIndex" >
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="dayViewTab" >
        <attribute name="title" >
@@ -57,31 +57,25 @@
        <attribute name="title" >
         <string>Activities</string>
        </attribute>
-       <widget class="QWidget" name="verticalLayoutWidget" >
-        <property name="geometry" >
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>501</width>
-          <height>231</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="activitiesVerticalLayout" >
-         <item>
-          <widget class="DayNavigatorWidget" native="1" name="activityDayNavigator" />
-         </item>
-         <item>
-          <widget class="TreeView" name="activityDayTreeView" >
-           <property name="maximumSize" >
-            <size>
-             <width>16777215</width>
-             <height>16777215</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
+       <layout class="QGridLayout" name="gridLayout_4" >
+        <item row="0" column="0" >
+         <layout class="QVBoxLayout" name="activitiesVerticalLayout" >
+          <item>
+           <widget class="DayNavigatorWidget" native="1" name="activityDayNavigator" />
+          </item>
+          <item>
+           <widget class="TreeView" name="activityDayTreeView" >
+            <property name="maximumSize" >
+             <size>
+              <width>16777215</width>
+              <height>16777215</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="searchTab" >
        <attribute name="title" >
@@ -103,7 +97,7 @@
      <x>0</x>
      <y>0</y>
      <width>534</width>
-     <height>40</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile" >
