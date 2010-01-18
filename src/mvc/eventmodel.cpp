@@ -164,7 +164,7 @@ void EventModel::loadEvents(const QDate &aDate, int aConferenceId)
     if(Conference::getAll().count())
     {
         qDebug() << "Loading Conference Data: [" << Conference::getById(aConferenceId).title() << "] " << aDate;
-        mEvents = Event::getByDate(QDate(aDate.year(), aDate.month(), aDate.day()), aConferenceId);
+        mEvents = Event::getByDate(QDate(aDate.year(), aDate.month(), aDate.day()), aConferenceId, Event::START);
     }
     createTimeGroups();
 }
@@ -187,7 +187,7 @@ void EventModel::loadEventsByActivities(const QDate &aDate, int aConferenceId)
     if(Conference::getAll().count())
     {
         qDebug() << "Loading Conference Data (by Activities): [" << Conference::getById(aConferenceId).title() << "] " << aDate;
-        mEvents = Event::getByDate(QDate(aDate.year(), aDate.month(), aDate.day()), aConferenceId);
+        mEvents = Event::getByDate(QDate(aDate.year(), aDate.month(), aDate.day()), aConferenceId, Event::XID_ACTIVITY);
     }
     createActivityGroups();
 }

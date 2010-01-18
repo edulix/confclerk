@@ -7,6 +7,10 @@ QString const Event::sTable1Name = QString("event");
 QString const Event::sTable2Name = QString("virtual_event");
 int const Event::sTable1ColCount = 9; // see 'toRecord()' for more details
 int const Event::sTable2ColCount = 5; // see 'toRecord()' for more details
+const QString Event::XID_ACTIVITY = "xid_activity";
+const QString Event::START = "start";
+
+
 
 QSqlRecord const Event::sColumns = Event::toRecord(QList<QSqlField>()
     /* 'columns from Table 1 */
@@ -39,12 +43,12 @@ Event Event::getById(int id, int conferenceId)
     return loadOne(query);
 }
 
-QList<Event> Event::getByDate(const QDate& date, int conferenceId)
+QList<Event> Event::getByDate(const QDate& date, int conferenceId, QString orderBy)
 {
     QSqlQuery query;
     query.prepare(
             selectQueryJoin2T("id")
-            + QString("WHERE %1.xid_conference = :conf AND %1.start >= :start AND %1.start < :end ORDER BY %1.start").arg(sTable1Name));
+            + QString("WHERE %1.xid_conference = :conf AND %1.start >= :start AND %1.start < :end ORDER BY %1.%2").arg(sTable1Name).arg(orderBy));
     query.bindValue(":conf", conferenceId);
     query.bindValue(":start", convertToDb(date, QVariant::DateTime));
     query.bindValue(":end", convertToDb(date.addDays(1), QVariant::DateTime));
