@@ -36,7 +36,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(dayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateDayView(const QDate &)));
     connect(activityDayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateActivitiesDayView(const QDate &)));
-    connect(tabWidget, SIGNAL(currentChanged(int)), SLOT(updateView(int)));
+    //connect(tabWidget, SIGNAL(currentChanged(int)), SLOT(updateView(int)));
 
     // DAY EVENTS View
     dayTreeView->setHeaderHidden(true);
@@ -53,6 +53,15 @@ MainWindow::MainWindow(QWidget *parent)
     favTreeView->setAnimated(true);
     favTreeView->setModel(new EventModel());
     favTreeView->setItemDelegate(new Delegate(favTreeView));
+
+    //ACTIVITIES View
+    activityDayTreeView->setHeaderHidden(true);
+    activityDayTreeView->setRootIsDecorated(false);
+    activityDayTreeView->setIndentation(0);
+    activityDayTreeView->setAnimated(true);
+    activityDayTreeView->setModel(new EventModel());
+    activityDayTreeView->setItemDelegate(new Delegate(activityDayTreeView));
+
     // TESTING: load some 'fav' data
     if(Conference::getAll().count()) // no conference(s) in the DB
     {
@@ -62,15 +71,21 @@ MainWindow::MainWindow(QWidget *parent)
     }
 
     if(!Conference::getAll().count()) // no conference(s) in the DB
+    {
         dayNavigator->hide(); // hide DayNavigatorWidget
+        activityDayNavigator->hide();
+    }
     else
     {
         int confId = 1;
-        dayNavigator->setDates(Conference::getById(confId).start(),Conference::getById(confId).end());
+        QDate aStartDate = Conference::getById(confId).start();
+        QDate aEndDate = Conference::getById(confId).end();
+        dayNavigator->setDates(aStartDate, aEndDate);
+        activityDayNavigator->setDates(aStartDate, aEndDate);
     }
-
     connect(static_cast<EventModel*>(dayTreeView->model()), SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &)), SLOT(updateFavView()));
-    connect(static_cast<EventModel*>(favTreeView->model()), SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &)), SLOT(updateFavViewComplete()));
+    connect(static_cast<EventModel*>(favTreeView->model()), SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &)), SLOT(updateFavView()));
+/*    connect(static_cast<EventModel*>(favTreeView->model()), SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &)), SLOT(updateFavViewComplete()));*/
 }
 
 MainWindow::~MainWindow()
@@ -137,14 +152,18 @@ void MainWindow::updateFavView()
     static_cast<EventModel*>(favTreeView->model())->loadFavEvents(Conference::getById(confId).start(),confId);
     favTreeView->reset(); //Necessary reset:
                         //  if favourite event unselected as favourite is the only one in its time, and reset is not produced, crashed
+
+    dayNavigator->show();
 }
 
+/*
 void MainWindow::updateFavViewComplete()
 {
     int confId = 1;
     updateFavView();
     updateDayView(Conference::getById(confId).start());
 }
+*/
 
 void MainWindow::updateActivitiesDayView(const QDate &aDate)
 {
@@ -156,9 +175,18 @@ void MainWindow::updateActivitiesDayView(const QDate &aDate)
 
 void MainWindow::updateView(int tabIndex)
 {
-    //TODO korinpa: skraslit ! aj pre ine taby
+    //TODO korinpa: change to enum or names ?
     qDebug() << "updateView index: " << tabIndex;
-    if (tabIndex == 2)
+    if (tabIndex == 0)
+    {
+        QDate date = dayNavigator->getCurrentDate();
+        updateDayView(date);
+    }
+    else if (tabIndex == 1)
+    {
+        updateFavView();
+    }
+    else if (tabIndex == 2)
     {
         QDate date = activityDayNavigator->getCurrentDate();
         updateActivitiesDayView(date);

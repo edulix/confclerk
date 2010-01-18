@@ -20,7 +20,7 @@ private slots:
     void aboutApp();
     void updateDayView(const QDate &aDate);
     void updateFavView();
-    void updateFavViewComplete();
+    /*void updateFavViewComplete();*/
     void updateActivitiesDayView(const QDate &aDate);
     void updateView(int tabIndex);
 private:

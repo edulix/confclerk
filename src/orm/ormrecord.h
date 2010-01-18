@@ -139,6 +139,7 @@ QList<T> OrmRecord<T>::load(QSqlQuery query)
     {
         if (!query.exec())
         {
+            qDebug() << "Error: " << query.lastError().driverText() << "; Type: " << query.lastError().type();
             throw new OrmSqlException(query.lastError().text());
         }
     }
