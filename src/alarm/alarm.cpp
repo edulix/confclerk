@@ -18,7 +18,7 @@ int Alarm::addAlarm(int aEventId, const QDateTime &aDateTime)
 
     /* Add exec command action */
     action = alarm_event_add_actions(event, 1);
-    QString command = QString("/home/maemo/work/alarm/bin/alarmdialog %1").arg(QString::number(aEventId));
+    QString command = QString("/home/maemo/work/fosdem-maemo/bin/fosdem %1").arg(QString::number(aEventId));
     alarm_action_set_exec_command(action, command.toLocal8Bit().data());
     action->flags |= ALARM_ACTION_TYPE_EXEC;
     action->flags |= ALARM_ACTION_WHEN_TRIGGERED;

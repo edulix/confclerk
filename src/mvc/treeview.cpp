@@ -5,6 +5,10 @@
 #include "event.h"
 #include "eventmodel.h"
 
+#ifdef MAEMO
+#include <alarm.h>
+#endif
+
 #include <QDebug>
 
 TreeView::TreeView(QWidget *aParent)
@@ -62,11 +66,23 @@ void TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
                 {
                     static_cast<Event*>(aIndex.internalPointer())->setHasAlarm(false); // list of events
                     event.setHasAlarm(false); // update DB
+#ifdef MAEMO
+                    // remove alarm from the 'alarmd' alrms list
+                    Alarm alarm;
+                    alarm.deleteAlarm(event.id());
+                    // TODO: test if removing was successfull
+#endif /* MAEMO */
                 }
                 else
                 {
                     static_cast<Event*>(aIndex.internalPointer())->setHasAlarm(true); // list of events
                     event.setHasAlarm(true);
+#ifdef MAEMO
+                    // add alarm to the 'alarmd'
+                    Alarm alarm;
+                    int cookie = alarm.addAlarm(event.id(),QDateTime::currentDateTime().addSecs(10));
+                    qDebug() << "cookie: " << cookie;
+#endif /* MAEMO */
                 }
                 qDebug() << " ALARM [" << qVariantValue<QString>(aIndex.data()) << "] -> " << event.hasAlarm();
                 event.update("alarm");

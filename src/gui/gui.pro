@@ -1,4 +1,4 @@
-include(global.pri)
+include(../global.pri)
 TEMPLATE = lib
 TARGET = gui
 DESTDIR = ../bin

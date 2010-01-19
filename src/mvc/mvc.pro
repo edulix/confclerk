@@ -1,3 +1,4 @@
+include(../global.pri)
 TEMPLATE = lib
 TARGET = mvc
 DESTDIR = ../bin
@@ -9,6 +10,12 @@ LIBS += -L$$DESTDIR -lorm
 INCLUDEPATH += ../orm
 DEPENDPATH += . ../orm
 TARGETDEPS += $$DESTDIR/liborm.a
+maemo {
+    LIBS += -L$$DESTDIR -lqalarm -lalarm
+    INCLUDEPATH += ../alarm
+    DEPENDPATH +=  ../alarm
+    TARGETDEPS += $$DESTDIR/libqalarm.a
+}
 
 HEADERS += \
     event.h \

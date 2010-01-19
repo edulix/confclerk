@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schedule>
  <conference>
-  <title>FOSDEM 2009</title>
+  <title>FOSDEM 2010</title>
   <subtitle>Free and Opensource Software Developers European Meeting</subtitle>
   <venue>ULB (Campus Solbosch)</venue>
   <city>Brussels</city>
-  <start>2009-02-07</start>
-  <end>2009-02-08</end>
+  <start>2010-02-07</start>
+  <end>2010-02-08</end>
   <days>2</days>
   <day_change>08:00</day_change>
   <timeslot_duration>00:15</timeslot_duration>
  </conference>
- <day date="2009-02-07" index="1">
+ <day date="2010-02-07" index="1">
   <room name="Janson">
    <event id="528">
     <start>10:00</start>
@@ -332,7 +332,7 @@ So we try to create:
     <type>Lightning-Talk</type>
     <language>English</language>
     <abstract>The talk will show the main results of the FLOSSMetrics project. In particular, it will show how to obtain data about the history of software development of more than 2,000 FLOSS projects, which kind of data it is and how it can  be used, and some results of using it in a research environment.</abstract>
-    <description>FLOSSMetrics is collecting data from the CVS/SVN repos, mailing lists and issue tracking systems of several thousands of FOSS projects, and collecting all of it into a database that is offerered to researchers and others for data mining. See http://melquiades.flossmetrics.org for the data currently been offered. The project will end in August 2009, and more data and more projects are expected in the meantime.</description>
+    <description>FLOSSMetrics is collecting data from the CVS/SVN repos, mailing lists and issue tracking systems of several thousands of FOSS projects, and collecting all of it into a database that is offerered to researchers and others for data mining. See http://melquiades.flossmetrics.org for the data currently been offered. The project will end in August 2010, and more data and more projects are expected in the meantime.</description>
     <persons>
      <person id="214">Jesus M. Gonzalez Barahona</person>
     </persons>
@@ -422,7 +422,7 @@ Key Requirements and Functionality (2008.11 Release)
     <track>Lightning Talks</track>
     <type>Lightning-Talk</type>
     <language>English</language>
-    <abstract>The past, present and future of the project. This talk will coincide with Opsview v3.0 release scheduled for early February 2009.</abstract>
+    <abstract>The past, present and future of the project. This talk will coincide with Opsview v3.0 release scheduled for early February 2010.</abstract>
     <description>Opsview is network monitoring software that significantly extends the functionality of Nagios and integrates tools such as MRTG, NMIS, RANCID and Net-SNMP. Opsview is developed using Catalyst web framework and MySQL database.</description>
     <persons>
      <person id="532">James Peel</person>
@@ -719,7 +719,7 @@ PTXdist is a "make your own distribution" build system, based on Bash, Kconfig a
     <track>KDE</track>
     <type>Other</type>
     <language>English</language>
-    <abstract>Welcome to the KDE developer room at FOSDEM 2009.</abstract>
+    <abstract>Welcome to the KDE developer room at FOSDEM 2010.</abstract>
     <description></description>
     <persons>
      <person id="95">Bart Coppens</person>
@@ -869,7 +869,7 @@ What are the issues? What is a repository? Can anyone contribute to repository c
     <track>BSD+PostgreSQL</track>
     <type>Podium</type>
     <language>English</language>
-    <abstract>Keynote and welcome to the PostgreSQL and *BSD developer room at FOSDEM 2009.</abstract>
+    <abstract>Keynote and welcome to the PostgreSQL and *BSD developer room at FOSDEM 2010.</abstract>
     <description></description>
     <persons>
      <person id="632">Marc Balmer</person>
@@ -1000,7 +1000,7 @@ What are the issues? What is a repository? Can anyone contribute to repository c
     <track>GNOME</track>
     <type>Other</type>
     <language>English</language>
-    <abstract>Welcome to the GNOME developer room at FOSDEM 2009.</abstract>
+    <abstract>Welcome to the GNOME developer room at FOSDEM 2010.</abstract>
     <description></description>
     <persons>
      <person id="130">Christophe Fergeau</person>
@@ -1457,7 +1457,7 @@ AUGEAS takes great care to preserve comments and other formatting details across
     <track>openSUSE</track>
     <type>Other</type>
     <language>English</language>
-    <abstract>Welcome to the openSUSE developer room at FOSDEM 2009.</abstract>
+    <abstract>Welcome to the openSUSE developer room at FOSDEM 2010.</abstract>
     <description></description>
     <persons>
      <person id="131">Martin Lasarsch</person>
@@ -2490,7 +2490,7 @@ And if possible some demonstrations.</description>
     <track>OpenOffice.org</track>
     <type>Other</type>
     <language>English</language>
-    <abstract>Welcome to the OpenOffice.org developer room at FOSDEM 2009.</abstract>
+    <abstract>Welcome to the OpenOffice.org developer room at FOSDEM 2010.</abstract>
     <description></description>
     <persons>
      <person id="272">Jürgen Schmidt</person>
@@ -2635,7 +2635,7 @@ Canvas: the new OOo rendering subsystem, and what it can do; showing a prototype
    </event>
   </room>
  </day>
- <day date="2009-02-08" index="2">
+ <day date="2010-02-08" index="2">
   <room name="Janson">
    <event id="786">
     <start>10:00</start>
@@ -2924,7 +2924,7 @@ changes that come with being an insanely popular user-written site. But
 the user interface hasn't changed much since 2003; if anything, packing 
 in more features has made many aspects of the wiki harder to use over time.
 
-In 2009, MediaWiki developers are turning their eye towards usability 
+In 2010, MediaWiki developers are turning their eye towards usability 
 and design issues. As with the scaling problems we've tackled before, we 
 have to be able to target anything from a tiny personal or intranet wiki 
 to the massive Wikipedia sites, making a range of different use cases 
@@ -3112,7 +3112,7 @@ vde switches.</description>
 2.1.- Technologies involved
 2.2.- Procedures: instalaltion, management, update, etc.
 3.- ModularIT community project</abstract>
-    <description>ModularIT is a virtuliced and distributed modular services architecture based on free software. This project has been released for the spanish community at the beginning of 2008 and by January 2009 it will be translated to english. Right now it is downloadable and before the end of the year we will begin to develop the project through a public SVN.
+    <description>ModularIT is a virtuliced and distributed modular services architecture based on free software. This project has been released for the spanish community at the beginning of 2008 and by January 2010 it will be translated to english. Right now it is downloadable and before the end of the year we will begin to develop the project through a public SVN.
 
 ModularIT is the result of 10 years of hard working from Grupo CPD (www.grupocpd.com) with free software systems and network services. we are a free software companies network from the Canary Islands, Spain. we are interested in presenting the project at FOSDEM.
 
@@ -3160,7 +3160,7 @@ The primary design goal of Puppet is that it have an expressive enough language 
     <type>Podium</type>
     <language>English</language>
     <abstract>GPG/PGP and CAcert keysigning party</abstract>
-    <description>See [http://fosdem.org/2009/keysigning] for details.</description>
+    <description>See [http://fosdem.org/2010/keysigning] for details.</description>
     <persons>
      <person id="486">Joost van Baal</person>
      <person id="484">Theus Hagen</person>
@@ -3494,7 +3494,7 @@ This talk covers the limitations of Crush, the practical difficulties inherent i
     <track>CrossDesktop</track>
     <type>Other</type>
     <language>English</language>
-    <abstract>Welcome to the Crossdesktop developer room at FOSDEM 2009.</abstract>
+    <abstract>Welcome to the Crossdesktop developer room at FOSDEM 2010.</abstract>
     <description></description>
     <persons>
      <person id="130">Christophe Fergeau</person>
@@ -3861,7 +3861,7 @@ This talk covers the limitations of Crush, the practical difficulties inherent i
     <track>Drupal</track>
     <type>Other</type>
     <language>English</language>
-    <abstract>Welcome to the Drupal developer room at FOSDEM 2009.</abstract>
+    <abstract>Welcome to the Drupal developer room at FOSDEM 2010.</abstract>
     <description></description>
     <persons>
      <person id="213">Dries Buytaert</person>
@@ -4869,7 +4869,7 @@ Anyone with an interest in Groupware protocols is invited to join and discuss.</
     <track>Ruby and Rails</track>
     <type>Other</type>
     <language>English</language>
-    <abstract>Welcome to the Ruby and Rails developer room at FOSDEM 2009.</abstract>
+    <abstract>Welcome to the Ruby and Rails developer room at FOSDEM 2010.</abstract>
     <description></description>
     <persons>
      <person id="281">Peter Vandenabeele</person>

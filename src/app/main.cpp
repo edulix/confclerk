@@ -1,6 +1,9 @@
 #include <mainwindow.h>
 
 #include <QtGui/QApplication>
+#ifdef MAEMO
+#include <alarmdialog.h>
+#endif /* MAEMO */
 
 int main(int argc, char *argv[])
 {
@@ -11,8 +14,20 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     QApplication::setWindowIcon(QIcon(":/icons/fosdem.png"));
 
-    MainWindow w;
-    w.show();
+    QWidget *window;
+#ifdef MAEMO
+    // if the app is run with two cmd-line arguments
+    // an alarm dialog is to be displayed
+    // Usage: $ ./fosdem eventId alarmId
+    // Example: $ ./fosdem 521 13
+    if(argc==3) 
+        window = new AlarmDialog(argc,argv);
+    else
+        window = new MainWindow;
+#else
+    window = new MainWindow;
+#endif /* MAEMO */
+    window->show();
     return a.exec();
 }
 
