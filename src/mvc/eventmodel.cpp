@@ -1,5 +1,6 @@
 #include "eventmodel.h"
 #include <conference.h>
+#include <activity.h>
 
 EventModel::EventModel()
 {
@@ -50,8 +51,8 @@ void EventModel::createActivityGroups() {
         return;
     }
     int activityId = mEvents.first().activityId();
-    //TODO korinpa: get activity name
-    mGroups << EventModel::Group(QString("activity %1").arg(activityId), 0);
+
+    mGroups << EventModel::Group(Activity::getActivityName(activityId), 0);
     int nextActivityId = activityId;
 
     for (int i=0; i<mEvents.count(); i++)
@@ -60,8 +61,8 @@ void EventModel::createActivityGroups() {
         if (nextActivityId != activityId)
         {
             mGroups.last().mChildCount = i - mGroups.last().mFirstEventIndex;
-            mGroups << EventModel::Group(QString("activity %1").arg(activityId), 0);
-            //int nextActivityId = activityId;
+            mGroups << EventModel::Group(Activity::getActivityName(activityId), i);
+            nextActivityId = activityId;
         }
         // add parent-child relation
         mParents[mEvents.at(i).id()] = mGroups.count() - 1;

@@ -6,6 +6,7 @@
 #include <sqlengine.h>
 #include <schedulexmlparser.h>
 
+#include <activity.h>
 #include <eventmodel.h>
 #include <delegate.h>
 
@@ -37,6 +38,9 @@ MainWindow::MainWindow(QWidget *parent)
     mXmlParser = new ScheduleXmlParser(this);
     connect(mXmlParser, SIGNAL(progressStatus(int)), this, SLOT(showParsingProgress(int)));
     statusBar()->showMessage(tr("Ready"));
+
+    //create activity map
+    Activity::updateActivityMap();
 
     connect(dayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateDayView(const QDate &)));
     connect(activityDayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateActivitiesDayView(const QDate &)));
@@ -135,6 +139,8 @@ void MainWindow::importSchedule()
         dayNavigator->setDates(aStartDate, aEndDate);
         activityDayNavigator->setDates(aStartDate, aEndDate);
     }
+    //update activity map
+    Activity::updateActivityMap();
 }
 
 void MainWindow::showParsingProgress(int aStatus)
@@ -178,7 +184,7 @@ void MainWindow::updateTab(const int aIndex)
         break;
     case 2: //index 2 of tabWidget: activitiesTab
         {
-            static_cast<EventModel*>(actTreeView->model())->loadEventsByActivities(Conference::getById(confId).start(),confId);
+            static_cast<EventModel*>(actTreeView->model())->loadEventsByActivities(Conference::getById(confId).start(), confId);
             actTreeView->reset();
             activityDayNavigator->show();
         }
@@ -192,7 +198,7 @@ void MainWindow::updateTab(const int aIndex)
 
 void MainWindow::updateActivitiesDayView(const QDate &aDate)
 {
-    static_cast<EventModel*>(actTreeView->model())->loadEventsByActivities(aDate,confId);
+    static_cast<EventModel*>(actTreeView->model())->loadEventsByActivities(aDate, confId);
     actTreeView->reset();
     activityDayNavigator->show();
 }
@@ -234,4 +240,3 @@ void MainWindow::displayMap(const QModelIndex &aIndex)
     MapWindow window(map,roomName,this);
     window.exec();
 }
-

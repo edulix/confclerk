@@ -6,27 +6,29 @@ CONFIG += static
 QT += sql
 
 # module dependencies
-LIBS += -L$$DESTDIR -lorm
+LIBS += -L$$DESTDIR \
+    -lorm
 INCLUDEPATH += ../orm
-DEPENDPATH += . ../orm
+DEPENDPATH += . \
+    ../orm
 TARGETDEPS += $$DESTDIR/liborm.a
-maemo {
-    LIBS += -L$$DESTDIR -lqalarm -lalarm
+maemo { 
+    LIBS += -L$$DESTDIR \
+        -lqalarm \
+        -lalarm
     INCLUDEPATH += ../alarm
-    DEPENDPATH +=  ../alarm
+    DEPENDPATH += ../alarm
     TARGETDEPS += $$DESTDIR/libqalarm.a
 }
-
-HEADERS += \
+HEADERS += activity.h \
     event.h \
     conference.h \
     delegate.h \
     eventmodel.h \
     treeview.h
-SOURCES += \
+SOURCES += activity.cpp \
     event.cpp \
     conference.cpp \
     delegate.cpp \
     eventmodel.cpp \
     treeview.cpp
-
