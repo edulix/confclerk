@@ -150,7 +150,7 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         painter->drawText(drawPoint+QPoint(mControls[FavouriteControlOn]->image()->width()+2, option.rect.height()/2),
                 QString::number(numberOfAlarms(index)));
         // draw texts
-        drawPoint.setX(drawPoint.x() - SPACER -mControls[AlarmControlOn]->image()->width() - 20);
+        drawPoint.setX(drawPoint.x() - SPACER -mControls[AlarmControlOn]->image()->width() - 35);
         drawPoint.setY(drawPoint.y() + option.rect.height()/2);
         painter->drawText(drawPoint,QString("Events: ") + QString::number(index.model()->rowCount(index)));
     }
