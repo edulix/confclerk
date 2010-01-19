@@ -200,6 +200,8 @@ void MainWindow::displayMap(const QModelIndex &aIndex)
 {
     Event *event = static_cast<Event*>(aIndex.internalPointer());
     QString mapPath = QString(":/maps/rooms/%1.png").arg(event->room());
+    if(!QFile::exists(mapPath))
+        mapPath = QString(":/maps/rooms/not-available.png");
     QPixmap map(mapPath);
     MapWindow window(map,this);
     window.exec();

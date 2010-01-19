@@ -24,6 +24,7 @@
     <file>maps/rooms/janson.png</file>
     <file>maps/rooms/lameere.png</file>
     <file>maps/rooms/ua2114.png</file>
+    <file>maps/rooms/not-available.png</file>
 </qresource>
 </RCC>
 
