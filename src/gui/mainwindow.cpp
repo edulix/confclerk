@@ -38,6 +38,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(dayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateDayView(const QDate &)));
     connect(activityDayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateActivitiesDayView(const QDate &)));
+    connect(favouriteDayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateFavouritesDayView(const QDate &)));
 
     // DAY EVENTS View
     dayTreeView->setHeaderHidden(true);
@@ -93,6 +94,7 @@ MainWindow::MainWindow(QWidget *parent)
         QDate aEndDate = Conference::getById(confId).end();
         dayNavigator->setDates(aStartDate, aEndDate);
         activityDayNavigator->setDates(aStartDate, aEndDate);
+        favouriteDayNavigator->setDates(aStartDate, aEndDate);
     }
 
     connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(updateTab(int)));
@@ -167,23 +169,31 @@ void MainWindow::updateTab(const int aIndex)
         {
             static_cast<EventModel*>(dayTreeView->model())->loadEvents(Conference::getById(confId).start(),confId);
             dayTreeView->reset();
+            dayNavigator->show();
         }
         break;
     case 1: //index 1 of tabWidget: favouritesTab
         {
-                static_cast<EventModel*>(favTreeView->model())->loadFavEvents(Conference::getById(confId).start(),confId);
-                favTreeView->reset();
+            static_cast<EventModel*>(favTreeView->model())->loadFavEvents(Conference::getById(confId).start(),confId);
+            favTreeView->reset();
+            favouriteDayNavigator->show();
+        }
+        break;
+    case 2: //index 2 of tabWidget: activitiesTab
+        {
+            static_cast<EventModel*>(actTreeView->model())->loadEventsByActivities(Conference::getById(confId).start(),confId);
+            actTreeView->reset();
+            activityDayNavigator->show();
         }
         break;
     default:
         {
-            //TODO: update of activitiesTab needed?
+
         }
     };
 
-    dayNavigator->show();
-}
 
+}
 
 void MainWindow::updateActivitiesDayView(const QDate &aDate)
 {
@@ -191,6 +201,14 @@ void MainWindow::updateActivitiesDayView(const QDate &aDate)
     static_cast<EventModel*>(actTreeView->model())->loadEventsByActivities(aDate,confId);
     actTreeView->reset();
     activityDayNavigator->show();
+}
+
+void MainWindow::updateFavouritesDayView(const QDate &aDate)
+{
+    int confId = 1;
+    static_cast<EventModel*>(favTreeView->model())->loadFavEvents(aDate,confId);
+    favTreeView->reset();
+    favouriteDayNavigator->show();
 }
 
 void MainWindow::itemDoubleClicked(const QModelIndex &aIndex)

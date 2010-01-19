@@ -20,8 +20,8 @@ private slots:
     void aboutApp();
     void updateDayView(const QDate &aDate);
     void updateTab(const int n);
-    /*void updateFavViewComplete();*/
     void updateActivitiesDayView(const QDate &aDate);
+    void updateFavouritesDayView(const QDate &aDate);
     void itemDoubleClicked(const QModelIndex &aIndex);
     void displayMap(const QModelIndex &aIndex);
 private:
