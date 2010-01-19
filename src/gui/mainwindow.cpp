@@ -115,7 +115,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::importSchedule()
 {
-    QFile file("../schedule.en.xml");
+    QFile file(":/schedule.en.xml");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         qDebug() << "can't open " << file.fileName();
