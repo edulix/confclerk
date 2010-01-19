@@ -1,7 +1,7 @@
 include(global.pri)
 TEMPLATE = subdirs
-SUBDIRS  = orm mvc sql gui app
 maemo : SUBDIRS += alarm
+SUBDIRS  += orm mvc sql gui app
 #SUBDIRS += test
 CONFIG += ordered
 

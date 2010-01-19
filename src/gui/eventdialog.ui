@@ -30,7 +30,7 @@
        <item row="1" column="1" >
         <widget class="QLabel" name="label_2" >
          <property name="text" >
-          <string>Presenter(s):</string>
+          <string>Presenter(s): </string>
          </property>
         </widget>
        </item>
