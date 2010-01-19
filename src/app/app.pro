@@ -15,3 +15,8 @@ RESOURCES += ../icons.qrc \
              ../maps.qrc \
              ../schedule.qrc
 
+# instalation related
+
+PREFIX = /usr/share
+INSTALLS = target
+target.path = $$PREFIX/bin
