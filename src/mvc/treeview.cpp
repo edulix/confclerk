@@ -21,16 +21,21 @@ void TreeView::mouseReleaseEvent(QMouseEvent *aEvent)
     QModelIndex index = currentIndex();
     QPoint point = aEvent->pos();
 
-    testForControlClicked(index,point);
-
-    // pass the event to the Base class, so item clicks/events are handled correctly
-    QTreeView::mouseReleaseEvent(aEvent);
+    // test whether we have handled the mouse event
+    if(!testForControlClicked(index,point))
+    {
+        // pass the event to the Base class, so item clicks/events are handled correctly
+        QTreeView::mouseReleaseEvent(aEvent);
+    }
 }
 
-void TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aPoint) 
+// returns bool if some Control was clicked
+bool TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aPoint) 
 {
+    bool handled = false;
+
     if(!aIndex.isValid())
-        return;
+        return handled;
 
     QRect rect = visualRect(aIndex); // visual QRect of selected/clicked item in the list
     Delegate *delegate = static_cast<Delegate*>(itemDelegate(aIndex));
@@ -55,6 +60,7 @@ void TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
                 event.update("favourite");
                 // since the Favourite icon has changed, update TreeView accordingly
                 static_cast<EventModel*>(model())->emitDataChangedSignal(aIndex,aIndex);
+                handled = true;
             }
             break;
         case Delegate::AlarmControlOn:
@@ -88,7 +94,7 @@ void TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
                 event.update("alarm");
                 // since the Alarm icon has changed, update TreeView accordingly
                 static_cast<EventModel*>(model())->emitDataChangedSignal(aIndex,aIndex);
-
+                handled = true;
             }
             break;
         case Delegate::MapControl:
@@ -96,13 +102,17 @@ void TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
                 // handle Alarm Control clicked
                 qDebug() << "MAP CLICKED: " << qVariantValue<QString>(aIndex.data());
                 emit(requestForMap(aIndex));
+                handled = true;
             }
         break;
         case Delegate::ControlNone:
         default:
             {
                 // item was clicked, but not a control
+                handled = false;
             }
     };
+
+    return handled;
 }
 

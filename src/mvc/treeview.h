@@ -11,7 +11,7 @@ public:
     ~TreeView() {}
 private:
     void mouseReleaseEvent(QMouseEvent *aEvent);
-    void testForControlClicked(const QModelIndex &aIndex, const QPoint &aPoint);
+    bool testForControlClicked(const QModelIndex &aIndex, const QPoint &aPoint);
 signals:
     void requestForMap(const QModelIndex &aIndex);
 };

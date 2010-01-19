@@ -17,6 +17,8 @@
 #include "daynavigatorwidget.h"
 #include "mapwindow.h"
 
+const int confId = 1;
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
@@ -64,10 +66,10 @@ MainWindow::MainWindow(QWidget *parent)
     actTreeView->setModel(new EventModel());
     actTreeView->setItemDelegate(new Delegate(actTreeView));
 
-    // event double clicked
-    connect(dayTreeView, SIGNAL(doubleClicked(const QModelIndex &)), SLOT(itemDoubleClicked(const QModelIndex &)));
-    connect(favTreeView, SIGNAL(doubleClicked(const QModelIndex &)), SLOT(itemDoubleClicked(const QModelIndex &)));
-    connect(actTreeView, SIGNAL(doubleClicked(const QModelIndex &)), SLOT(itemDoubleClicked(const QModelIndex &)));
+    // event clicked
+    connect(dayTreeView, SIGNAL(clicked(const QModelIndex &)), SLOT(itemClicked(const QModelIndex &)));
+    connect(favTreeView, SIGNAL(clicked(const QModelIndex &)), SLOT(itemClicked(const QModelIndex &)));
+    connect(actTreeView, SIGNAL(clicked(const QModelIndex &)), SLOT(itemClicked(const QModelIndex &)));
     // request for map to be displayed
     connect(dayTreeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
     connect(favTreeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
@@ -77,7 +79,6 @@ MainWindow::MainWindow(QWidget *parent)
     // TESTING: load some 'fav' data
     if(Conference::getAll().count()) // no conference(s) in the DB
     {
-        int confId = 1;
         static_cast<EventModel*>(favTreeView->model())->loadFavEvents(Conference::getById(confId).start(),confId);
         favTreeView->reset();
     }
@@ -89,7 +90,6 @@ MainWindow::MainWindow(QWidget *parent)
     }
     else
     {
-        int confId = 1;
         QDate aStartDate = Conference::getById(confId).start();
         QDate aEndDate = Conference::getById(confId).end();
         dayNavigator->setDates(aStartDate, aEndDate);
@@ -129,7 +129,6 @@ void MainWindow::importSchedule()
 
     if(Conference::getAll().count())
     {
-        int confId = 1;
         // 'dayNavigator' emits signal 'dateChanged' after setting valid START:END dates
         QDate aStartDate = Conference::getById(confId).start();
         QDate aEndDate = Conference::getById(confId).end();
@@ -154,7 +153,6 @@ void MainWindow::aboutApp()
 
 void MainWindow::updateDayView(const QDate &aDate)
 {
-    int confId = 1;
     static_cast<EventModel*>(dayTreeView->model())->loadEvents(aDate,confId);
     dayTreeView->reset();
     dayNavigator->show();
@@ -162,7 +160,6 @@ void MainWindow::updateDayView(const QDate &aDate)
 
 void MainWindow::updateTab(const int aIndex)
 {
-    int confId = 1;
     switch(aIndex)
     {
     case 0://index 0 of tabWidget: dayViewTab
@@ -191,13 +188,10 @@ void MainWindow::updateTab(const int aIndex)
 
         }
     };
-
-
 }
 
 void MainWindow::updateActivitiesDayView(const QDate &aDate)
 {
-    int confId = 1;
     static_cast<EventModel*>(actTreeView->model())->loadEventsByActivities(aDate,confId);
     actTreeView->reset();
     activityDayNavigator->show();
@@ -205,13 +199,12 @@ void MainWindow::updateActivitiesDayView(const QDate &aDate)
 
 void MainWindow::updateFavouritesDayView(const QDate &aDate)
 {
-    int confId = 1;
     static_cast<EventModel*>(favTreeView->model())->loadFavEvents(aDate,confId);
     favTreeView->reset();
     favouriteDayNavigator->show();
 }
 
-void MainWindow::itemDoubleClicked(const QModelIndex &aIndex)
+void MainWindow::itemClicked(const QModelIndex &aIndex)
 {
     // have to handle only events, not time-groups
     if(!aIndex.parent().isValid()) // time-group

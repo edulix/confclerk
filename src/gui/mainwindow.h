@@ -22,7 +22,7 @@ private slots:
     void updateTab(const int n);
     void updateActivitiesDayView(const QDate &aDate);
     void updateFavouritesDayView(const QDate &aDate);
-    void itemDoubleClicked(const QModelIndex &aIndex);
+    void itemClicked(const QModelIndex &aIndex);
     void displayMap(const QModelIndex &aIndex);
 private:
     SqlEngine *mSqlEngine;
