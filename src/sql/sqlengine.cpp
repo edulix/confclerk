@@ -51,7 +51,6 @@ void SqlEngine::initialize()
     if(!QDir::home().exists(".fosdem"))
         QDir::home().mkdir(".fosdem");
     databaseName = QDir::homePath() + "/.fosdem/" + "fosdem.sqlite";
-qDebug()<<databaseName;
     login("QSQLITE",databaseName);
 }
 

@@ -9,7 +9,7 @@ extern "C"
 #include <alarmd/libalarm.h>
 }
 
-#define APPID "alarm-example"
+#define APPID "fosdem-alarm"
 
 class Alarm : public QObject
 {

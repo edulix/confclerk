@@ -13,6 +13,7 @@ class AlarmDialog : public QDialog, Ui::AlarmDialog
     private slots:
         void runApp();
         void snooze();
+        void closeDialog();
     private:
         int mEventId; // event ID obtained from 'schedule'
         int mAlarmId; // cookie assigned by alarmd
