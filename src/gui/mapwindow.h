@@ -11,7 +11,7 @@ public:
     MapWindow(const QPixmap &aImage, const QString &aName, QWidget *aParent = NULL);
     ~MapWindow() {}
 protected:
-    virtual void mouseDoubleClickEvent(QMouseEvent *event);
+    virtual void mouseReleaseEvent(QMouseEvent *event);
 };
 
 #endif /* MAPWINDOW_H */
