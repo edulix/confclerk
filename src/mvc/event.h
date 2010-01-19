@@ -48,6 +48,7 @@ public:
     QString description() const { return value("description").toString(); }
     // records from other tables associated with 'id'
     QString room() const;
+    QStringList persons() const;
 
     // Table 1
     void setId(int id) { setValue("id", id); }
@@ -67,6 +68,7 @@ public:
     void setDescription(const QString& description) { setValue("description", description); }
     // records from other tables associated with 'id'
     void setRoom(const QString& room);
+    void setPersons(const QStringList &persons);
 
 friend class EventTest;
 };

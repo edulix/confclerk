@@ -72,6 +72,7 @@ QList<Event> Event::getFavByDate(const QDate& date, int conferenceId)
 QString Event::room() const
 {
     QSqlQuery query;
+    // TODO: conference ID isn't used here
     query.prepare("SELECT name FROM room WHERE id = (SELECT xid_room FROM event_room WHERE xid_event = :id)");
     query.bindValue(":id", id());
     query.exec();
@@ -83,9 +84,36 @@ QString Event::room() const
         return QString("not-available");
 }
 
+QStringList Event::persons() const
+{
+    QSqlQuery query;
+    // TODO: conference ID isn't used here
+    query.prepare("SELECT person.name FROM person INNER JOIN event_person ON person.id = event_person.xid_person AND event_person.xid_event = :id");
+    query.bindValue(":id", id());
+    query.exec();
+    // TODO: handle qeury error
+    //qDebug() << query.lastError();
+
+    QStringList persons;
+    while(query.next())
+        persons.append(query.record().value("name").toString());
+
+    return persons;
+}
+
 void Event::setRoom(const QString &room)
 {
+    Q_UNUSED(room);
+
     qWarning("WARINING: setRoom() is NOT IMPLEMENTED YET");
+    // TODO: implement
+}
+
+void Event::setPersons(const QStringList &persons)
+{
+    Q_UNUSED(persons);
+
+    qWarning("WARINING: setPersons() is NOT IMPLEMENTED YET");
     // TODO: implement
 }
 

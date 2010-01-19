@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ui version="4.0">
+<ui version="4.0" >
  <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
-  <property name="geometry">
+ <widget class="QMainWindow" name="MainWindow" >
+  <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
@@ -10,35 +9,35 @@
     <height>373</height>
    </rect>
   </property>
-  <property name="minimumSize">
+  <property name="minimumSize" >
    <size>
     <width>400</width>
     <height>300</height>
    </size>
   </property>
-  <property name="windowTitle">
+  <property name="windowTitle" >
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <widget class="QTabWidget" name="tabWidget">
-      <property name="currentIndex">
-       <number>1</number>
+  <widget class="QWidget" name="centralwidget" >
+   <layout class="QGridLayout" name="gridLayout" >
+    <item row="0" column="0" >
+     <widget class="QTabWidget" name="tabWidget" >
+      <property name="currentIndex" >
+       <number>0</number>
       </property>
-      <widget class="QWidget" name="dayViewTab">
-       <attribute name="title">
+      <widget class="QWidget" name="dayViewTab" >
+       <attribute name="title" >
         <string>Day View</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_2">
-        <item row="0" column="0">
-         <layout class="QVBoxLayout" name="verticalLayout">
+       <layout class="QGridLayout" name="gridLayout_2" >
+        <item row="0" column="0" >
+         <layout class="QVBoxLayout" name="verticalLayout" >
           <item>
-           <widget class="DayNavigatorWidget" name="dayNavigator" native="true"/>
+           <widget class="DayNavigatorWidget" native="1" name="dayNavigator" />
           </item>
           <item>
-           <widget class="TreeView" name="dayTreeView">
-            <property name="maximumSize">
+           <widget class="TreeView" name="dayTreeView" >
+            <property name="maximumSize" >
              <size>
               <width>16777215</width>
               <height>16777215</height>
@@ -50,36 +49,36 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="favouritesTab">
-       <attribute name="title">
+      <widget class="QWidget" name="favouritesTab" >
+       <attribute name="title" >
         <string>Favourites</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_3">
-        <item row="0" column="0">
-         <layout class="QVBoxLayout" name="verticalLayout_2">
+       <layout class="QGridLayout" name="gridLayout_3" >
+        <item row="0" column="0" >
+         <layout class="QVBoxLayout" name="verticalLayout_2" >
           <item>
-           <widget class="DayNavigatorWidget" name="favouriteDayNavigator" native="true"/>
+           <widget class="DayNavigatorWidget" native="1" name="favouriteDayNavigator" />
           </item>
           <item>
-           <widget class="TreeView" name="favTreeView"/>
+           <widget class="TreeView" name="favTreeView" />
           </item>
          </layout>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="activitiesTab">
-       <attribute name="title">
+      <widget class="QWidget" name="activitiesTab" >
+       <attribute name="title" >
         <string>Activities</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_4">
-        <item row="0" column="0">
-         <layout class="QVBoxLayout" name="activitiesVerticalLayout">
+       <layout class="QGridLayout" name="gridLayout_4" >
+        <item row="0" column="0" >
+         <layout class="QVBoxLayout" name="activitiesVerticalLayout" >
           <item>
-           <widget class="DayNavigatorWidget" name="activityDayNavigator" native="true"/>
+           <widget class="DayNavigatorWidget" native="1" name="activityDayNavigator" />
           </item>
           <item>
-           <widget class="TreeView" name="actTreeView">
-            <property name="maximumSize">
+           <widget class="TreeView" name="actTreeView" >
+            <property name="maximumSize" >
              <size>
               <width>16777215</width>
               <height>16777215</height>
@@ -91,13 +90,13 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="searchTab">
-       <attribute name="title">
+      <widget class="QWidget" name="searchTab" >
+       <attribute name="title" >
         <string>Search</string>
        </attribute>
       </widget>
-      <widget class="QWidget" name="mapTab">
-       <attribute name="title">
+      <widget class="QWidget" name="mapTab" >
+       <attribute name="title" >
         <string>Map</string>
        </attribute>
       </widget>
@@ -105,50 +104,50 @@
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
+  <widget class="QMenuBar" name="menubar" >
+   <property name="geometry" >
     <rect>
      <x>0</x>
      <y>0</y>
      <width>531</width>
-     <height>24</height>
+     <height>22</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuFile">
-    <property name="title">
+   <widget class="QMenu" name="menuFile" >
+    <property name="title" >
      <string>File</string>
     </property>
-    <addaction name="actionImportSchedule"/>
-    <addaction name="actionQuit"/>
+    <addaction name="actionImportSchedule" />
+    <addaction name="actionQuit" />
    </widget>
-   <widget class="QMenu" name="menuAbout">
-    <property name="title">
+   <widget class="QMenu" name="menuAbout" >
+    <property name="title" >
      <string>Help</string>
     </property>
-    <addaction name="actionAboutQt"/>
-    <addaction name="actionAboutApplication"/>
+    <addaction name="actionAboutQt" />
+    <addaction name="actionAboutApplication" />
    </widget>
-   <addaction name="menuAbout"/>
-   <addaction name="menuFile"/>
+   <addaction name="menuAbout" />
+   <addaction name="menuFile" />
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionImportSchedule">
-   <property name="text">
+  <widget class="QStatusBar" name="statusbar" />
+  <action name="actionImportSchedule" >
+   <property name="text" >
     <string>Import Schedule</string>
    </property>
   </action>
-  <action name="actionAboutQt">
-   <property name="text">
+  <action name="actionAboutQt" >
+   <property name="text" >
     <string>About Qt</string>
    </property>
   </action>
-  <action name="actionAboutApplication">
-   <property name="text">
+  <action name="actionAboutApplication" >
+   <property name="text" >
     <string>About application</string>
    </property>
   </action>
-  <action name="actionQuit">
-   <property name="text">
+  <action name="actionQuit" >
+   <property name="text" >
     <string>Quit</string>
    </property>
   </action>
@@ -174,11 +173,11 @@
    <receiver>MainWindow</receiver>
    <slot>close()</slot>
    <hints>
-    <hint type="sourcelabel">
+    <hint type="sourcelabel" >
      <x>-1</x>
      <y>-1</y>
     </hint>
-    <hint type="destinationlabel">
+    <hint type="destinationlabel" >
      <x>266</x>
      <y>187</y>
     </hint>
