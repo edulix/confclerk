@@ -38,7 +38,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(dayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateDayView(const QDate &)));
     connect(activityDayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateActivitiesDayView(const QDate &)));
-    //connect(tabWidget, SIGNAL(currentChanged(int)), SLOT(updateView(int)));
 
     // DAY EVENTS View
     dayTreeView->setHeaderHidden(true);
@@ -95,9 +94,9 @@ MainWindow::MainWindow(QWidget *parent)
         dayNavigator->setDates(aStartDate, aEndDate);
         activityDayNavigator->setDates(aStartDate, aEndDate);
     }
-    connect(static_cast<EventModel*>(dayTreeView->model()), SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &)), SLOT(updateFavView()));
-    connect(static_cast<EventModel*>(favTreeView->model()), SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &)), SLOT(updateFavView()));
-/*    connect(static_cast<EventModel*>(favTreeView->model()), SIGNAL(dataChanged(const QModelIndex &, const QModelIndex &)), SLOT(updateFavViewComplete()));*/
+
+    connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(updateTab(int)));
+
 }
 
 MainWindow::~MainWindow()
@@ -151,32 +150,31 @@ void MainWindow::aboutApp()
     dialog.exec();
 }
 
-void MainWindow::updateDayView(const QDate &aDate)
+void MainWindow::updateDayView(const QDate aDate)
 {
     int confId = 1;
-    static_cast<EventModel*>(dayTreeView->model())->loadEvents(aDate,confId);
+    static_cast<EventModel*>(dayTreeView->model())->loadEvents(Conference::getById(confId).start(),confId);
     dayTreeView->reset();
     dayNavigator->show();
 }
 
-void MainWindow::updateFavView()
+void MainWindow::updateTab(const int n)
 {
     int confId = 1;
-    static_cast<EventModel*>(favTreeView->model())->loadFavEvents(Conference::getById(confId).start(),confId);
-    favTreeView->reset(); //Necessary reset:
-                        //  if favourite event unselected as favourite is the only one in its time, and reset is not produced, crashed
-
+    if(n) //index 1 of tabWidget: favouriteTab
+    {
+        static_cast<EventModel*>(favTreeView->model())->loadFavEvents(Conference::getById(confId).start(),confId);
+        favTreeView->reset();
+    }
+    else //index 0 of tabWidget: dayViewTab
+    {
+        static_cast<EventModel*>(dayTreeView->model())->loadEvents(Conference::getById(confId).start(),confId);
+        dayTreeView->reset();
+    }
+    //TODO: update of activitiesTab needed?
     dayNavigator->show();
 }
 
-/*
-void MainWindow::updateFavViewComplete()
-{
-    int confId = 1;
-    updateFavView();
-    updateDayView(Conference::getById(confId).start());
-}
-*/
 
 void MainWindow::updateActivitiesDayView(const QDate &aDate)
 {
