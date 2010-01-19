@@ -18,7 +18,7 @@ private slots:
     void importSchedule();
     void showParsingProgress(int aStatus);
     void aboutApp();
-    void updateDayView(const QDate aDate);
+    void updateDayView(const QDate &aDate);
     void updateTab(const int n);
     /*void updateFavViewComplete();*/
     void updateActivitiesDayView(const QDate &aDate);

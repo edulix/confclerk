@@ -150,28 +150,37 @@ void MainWindow::aboutApp()
     dialog.exec();
 }
 
-void MainWindow::updateDayView(const QDate aDate)
+void MainWindow::updateDayView(const QDate &aDate)
 {
     int confId = 1;
-    static_cast<EventModel*>(dayTreeView->model())->loadEvents(Conference::getById(confId).start(),confId);
+    static_cast<EventModel*>(dayTreeView->model())->loadEvents(aDate,confId);
     dayTreeView->reset();
     dayNavigator->show();
 }
 
-void MainWindow::updateTab(const int n)
+void MainWindow::updateTab(const int aIndex)
 {
     int confId = 1;
-    if(n) //index 1 of tabWidget: favouriteTab
+    switch(aIndex)
     {
-        static_cast<EventModel*>(favTreeView->model())->loadFavEvents(Conference::getById(confId).start(),confId);
-        favTreeView->reset();
-    }
-    else //index 0 of tabWidget: dayViewTab
-    {
-        static_cast<EventModel*>(dayTreeView->model())->loadEvents(Conference::getById(confId).start(),confId);
-        dayTreeView->reset();
-    }
-    //TODO: update of activitiesTab needed?
+    case 0://index 0 of tabWidget: dayViewTab
+        {
+            static_cast<EventModel*>(dayTreeView->model())->loadEvents(Conference::getById(confId).start(),confId);
+            dayTreeView->reset();
+        }
+        break;
+    case 1: //index 1 of tabWidget: favouritesTab
+        {
+                static_cast<EventModel*>(favTreeView->model())->loadFavEvents(Conference::getById(confId).start(),confId);
+                favTreeView->reset();
+        }
+        break;
+    default:
+        {
+            //TODO: update of activitiesTab needed?
+        }
+    };
+
     dayNavigator->show();
 }
 
