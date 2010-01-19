@@ -199,11 +199,21 @@ void MainWindow::itemDoubleClicked(const QModelIndex &aIndex)
 void MainWindow::displayMap(const QModelIndex &aIndex)
 {
     Event *event = static_cast<Event*>(aIndex.internalPointer());
-    QString mapPath = QString(":/maps/rooms/%1.png").arg(event->room());
+
+    // room names are stored in lower-case format
+    // room names are stored without dots in the name, eg. "aw.1124.png" -> "aw1124.png"
+    QString mapPath = QString(":/maps/rooms/%1.png").arg(event->room().toLower().remove("."));
     if(!QFile::exists(mapPath))
         mapPath = QString(":/maps/rooms/not-available.png");
+
+    QString roomName;
+    if(mapPath.contains("not-available", Qt::CaseInsensitive))
+        roomName = QString("Map is not available: %1").arg(event->room());
+    else
+        roomName = event->room();
+
     QPixmap map(mapPath);
-    MapWindow window(map,this);
+    MapWindow window(map,roomName,this);
     window.exec();
 }
 

@@ -78,12 +78,7 @@ QString Event::room() const
     // TODO: handle qeury error
     //qDebug() << query.lastError();
     if(query.next())
-    {
-        QString map = query.record().value("name").toString();
-        map=map.toLower(); // room names are stored in lower-case format
-        map=map.remove("."); // room names are stored without dots in the name, eg. "aw.1124.png" -> "aw1124.png"
-        return map;
-    }
+        return query.record().value("name").toString();
     else
         return QString("not-available");
 }

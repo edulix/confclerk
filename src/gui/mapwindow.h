@@ -8,7 +8,7 @@
 class MapWindow : public QDialog, Ui::MapWindow
 {
 public:
-    MapWindow(const QPixmap &aImage, QWidget *aParent = NULL);
+    MapWindow(const QPixmap &aImage, const QString &aName, QWidget *aParent = NULL);
     ~MapWindow() {}
 protected:
     virtual void mouseDoubleClickEvent(QMouseEvent *event);
