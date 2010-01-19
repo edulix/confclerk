@@ -198,7 +198,9 @@ void MainWindow::itemDoubleClicked(const QModelIndex &aIndex)
 
 void MainWindow::displayMap(const QModelIndex &aIndex)
 {
-    QPixmap map(":/maps/rooms/janson.png");
+    Event *event = static_cast<Event*>(aIndex.internalPointer());
+    QString mapPath = QString(":/maps/rooms/%1.png").arg(event->room());
+    QPixmap map(mapPath);
     MapWindow window(map,this);
     window.exec();
 }

@@ -69,4 +69,28 @@ QList<Event> Event::getFavByDate(const QDate& date, int conferenceId)
     return load(query);
 }
 
+QString Event::room() const
+{
+    QSqlQuery query;
+    query.prepare("SELECT name FROM room WHERE id = (SELECT xid_room FROM event_room WHERE xid_event = :id)");
+    query.bindValue(":id", id());
+    query.exec();
+    // TODO: handle qeury error
+    //qDebug() << query.lastError();
+    if(query.next())
+    {
+        QString map = query.record().value("name").toString();
+        map=map.toLower(); // room names are stored in lower-case format
+        map=map.remove("."); // room names are stored without dots in the name, eg. "aw.1124.png" -> "aw1124.png"
+        return map;
+    }
+    else
+        return QString("not-available");
+}
+
+void Event::setRoom(const QString &room)
+{
+    qWarning("WARINING: setRoom() is NOT IMPLEMENTED YET");
+    // TODO: implement
+}
 

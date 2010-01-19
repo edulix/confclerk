@@ -46,6 +46,8 @@ public:
     QString subtitle() const { return value("subtitle").toString(); }
     QString abstract() const { return value("abstract").toString(); }
     QString description() const { return value("description").toString(); }
+    // records from other tables associated with 'id'
+    QString room() const;
 
     // Table 1
     void setId(int id) { setValue("id", id); }
@@ -63,6 +65,8 @@ public:
     void setSubtitle(const QString& subtitle) { setValue("subtitle", subtitle); }
     void setAbstract(const QString& abstract) { setValue("abstract", abstract); }
     void setDescription(const QString& description) { setValue("description", description); }
+    // records from other tables associated with 'id'
+    void setRoom(const QString& room);
 
 friend class EventTest;
 };
