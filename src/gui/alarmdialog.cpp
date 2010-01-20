@@ -40,10 +40,18 @@ AlarmDialog::AlarmDialog(int argc, char *argv[], QWidget *aParent)
     database.setDatabaseName(QDir::homePath() + "/.fosdem/fosdem.sqlite");
     database.open();
 
-    Event event = Event::getById(mEventId,confId);
-    message->setText(QString(argv[1]).append("-").append(QString(argv[2])));
-    message->setText(event.title());
-    setWindowTitle(event.title());
+    try
+    {
+        Event event = Event::getById(mEventId,confId);
+        message->setText(event.title());
+        setWindowTitle(event.title());
+    }
+    catch(OrmNoObjectException*)
+    {
+        message->setText(QString("No such event in the DB: %1").arg(QString::number(mEventId)));
+        setWindowTitle("ERROR");
+    }
+    catch(...) {} // TODO: implement
 }
 
 void AlarmDialog::runApp()
@@ -66,9 +74,14 @@ void AlarmDialog::snooze()
 void AlarmDialog::closeDialog()
 {
     // before closing the dialog, it is necessary to remove alarm flag from the DB
-    Event event = Event::getById(mEventId,confId);
-    event.setHasAlarm(false);
-    event.update("alarm");
+    try
+    {
+        Event event = Event::getById(mEventId,confId);
+        event.setHasAlarm(false);
+        event.update("alarm");
+    }
+    catch(OrmNoObjectException*) {} // TODO: implement
+    catch(...) {} // just close dialog
     qApp->quit();
 }
 

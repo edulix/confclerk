@@ -119,8 +119,13 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     // this is used in case Alarm Dialog request application to start
     if(aEventId)
     {
-        EventDialog dialog(aEventId,this);
-        dialog.exec();
+        try
+        {
+            EventDialog dialog(aEventId,this);
+            dialog.exec();
+        }
+        catch(OrmNoObjectException*) {} // just start application
+        catch(...) {} // just start application
     }
 }
 
