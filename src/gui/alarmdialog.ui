@@ -5,16 +5,26 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>334</width>
-    <height>135</height>
+    <width>337</width>
+    <height>151</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>Dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout" >
-   <item row="0" column="0" >
+   <item row="2" column="0" >
     <layout class="QVBoxLayout" name="verticalLayout" >
+     <item>
+      <widget class="QLabel" name="message" >
+       <property name="text" >
+        <string>Alarm message goes here</string>
+       </property>
+       <property name="wordWrap" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2" >
        <item>
@@ -28,11 +38,50 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="message" >
-         <property name="text" >
-          <string>Alarm message goes here</string>
-         </property>
-        </widget>
+        <layout class="QGridLayout" name="gridLayout_2" >
+         <item row="0" column="1" >
+          <widget class="QLabel" name="label_2" >
+           <property name="text" >
+            <string>Time:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1" >
+          <widget class="QLabel" name="label_3" >
+           <property name="text" >
+            <string>Presenter(s):</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1" >
+          <widget class="QLabel" name="label_4" >
+           <property name="text" >
+            <string>Room:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2" >
+          <widget class="QLabel" name="persons" >
+           <property name="text" >
+            <string>PRESETNER(S)</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2" >
+          <widget class="QLabel" name="time" >
+           <property name="text" >
+            <string>TIME</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="2" >
+          <widget class="QLabel" name="room" >
+           <property name="text" >
+            <string>ROOM</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item>
         <spacer name="horizontalSpacer" >
