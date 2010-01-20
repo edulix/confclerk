@@ -17,6 +17,8 @@ public:
     static QString const sTableName;
     static const int sTableColCount;
 public:
+    static QMap<int, Activity> mIdToActivity;
+public:
     static QList<Activity> getAll();
     int id() const { return value("id").toInt(); }
     void setId(int id) { setValue("id", id); }
@@ -25,8 +27,6 @@ public:
 public:
     static void updateActivityMap();
     static QString getActivityName(int id);
-private:
-    static QMap<int, Activity>* mIdToActivity;
 };
 
 #endif /* ACTIVITY_H_ */
