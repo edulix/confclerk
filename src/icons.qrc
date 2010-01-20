@@ -8,5 +8,7 @@
         <file>icons/compassBig.png</file>
         <file>icons/favourite-offBig.png</file>
         <file>icons/favourite-onBig.png</file>
+        <file>icons/exclamation-iconOn.png</file>
+        <file>icons/exclamation-iconOff.png</file>
     </qresource>
 </RCC>

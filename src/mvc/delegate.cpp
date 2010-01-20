@@ -123,6 +123,11 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
             painter->drawImage(mControls[AlarmControlOff]->drawPoint(option.rect),*mControls[AlarmControlOff]->image());
         // map
         painter->drawImage(mControls[MapControl]->drawPoint(option.rect),*mControls[MapControl]->image());
+        // Time conflict
+        if(static_cast<Event*>(index.internalPointer())->hasTimeConflict())
+            painter->drawImage(mControls[WarningControlOn]->drawPoint(option.rect),*mControls[WarningControlOn]->image());
+        else
+            painter->drawImage(mControls[WarningControlOff]->drawPoint(option.rect),*mControls[WarningControlOff]->image());
 
         // draw texts
         Event *event = static_cast<Event*>(index.internalPointer());
@@ -337,6 +342,20 @@ void Delegate::defineControls()
     p.setX(p.x()-control->image()->width()-SPACER);
     control->setDrawPoint(p);
     mControls.insert(MapControl,control);
+
+    // WARNING ICONs
+    // on
+    control = new Control(WarningControlOn,QString(":icons/exclamation-iconOn.png"));
+    p = mControls[MapControl]->drawPoint();
+    p.setX(p.x()-control->image()->width()-SPACER);
+    control->setDrawPoint(p);
+    mControls.insert(WarningControlOn,control);
+    // off
+    control = new Control(WarningControlOff,QString(":icons/exclamation-iconOff.png"));
+    p = mControls[MapControl]->drawPoint();
+    p.setX(p.x()-control->image()->width()-SPACER);
+    control->setDrawPoint(p);
+    mControls.insert(WarningControlOff,control);
 }
 
 bool Delegate::isPointFromRect(const QPoint &aPoint, const QRect &aRect) const

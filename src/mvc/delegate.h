@@ -18,7 +18,9 @@ class Delegate : public QItemDelegate
             FavouriteControlOff,
             AlarmControlOn,
             AlarmControlOff,
-            MapControl
+            MapControl,
+            WarningControlOn,
+            WarningControlOff
         };
 
         class Control

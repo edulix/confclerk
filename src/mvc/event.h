@@ -40,6 +40,7 @@ public:
     QString language() const { return value("language").toString(); }
     bool isFavourite() const { return value("favourite").toBool(); }
     bool hasAlarm() const { return value("alarm").toBool(); }
+    bool hasTimeConflict() const { return true; /*return value("warning").toBool()*/; } //TODO
     // Table 2 : virtual table for FTS (Full Text Search)
     QString tag() const { return value("tag").toString(); }
     QString title() const { return value("title").toString(); }
