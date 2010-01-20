@@ -5,12 +5,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>445</width>
-    <height>298</height>
+    <width>468</width>
+    <height>496</height>
    </rect>
   </property>
+  <property name="sizePolicy" >
+   <sizepolicy vsizetype="MinimumExpanding" hsizetype="MinimumExpanding" >
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="windowTitle" >
-   <string>Dialog</string>
+   <string>Details</string>
   </property>
   <property name="autoFillBackground" >
    <bool>false</bool>
@@ -20,8 +26,23 @@
     <layout class="QVBoxLayout" name="verticalLayout" >
      <item>
       <widget class="QLabel" name="title" >
+       <property name="sizePolicy" >
+        <sizepolicy vsizetype="MinimumExpanding" hsizetype="MinimumExpanding" >
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="font" >
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text" >
-        <string>Here goes title</string>
+        <string>Title goes here</string>
+       </property>
+       <property name="wordWrap" >
+        <bool>true</bool>
        </property>
       </widget>
      </item>
