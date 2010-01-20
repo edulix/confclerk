@@ -40,25 +40,38 @@ AlarmDialog::AlarmDialog(int argc, char *argv[], QWidget *aParent)
     database.setDatabaseName(QDir::homePath() + "/.fosdem/fosdem.sqlite");
     database.open();
 
+    QString titleStr;
+    QString messageStr;
+    QString timeStr;
+    QString personsStr;
+    QString roomStr;
     try
     {
         Event event = Event::getById(mEventId,confId);
-        message->setText(event.title());
-        setWindowTitle(event.title());
+        titleStr = "Event alarm";
+        messageStr = event.title();
+        timeStr = event.start().toString("hh:mm") + "-" + event.start().addSecs(event.duration()).toString("hh:mm");
+        personsStr = event.persons().join(" and ");
+        roomStr = event.room();
     }
     catch(OrmNoObjectException*)
     {
-        message->setText(QString("No such event in the DB: %1").arg(QString::number(mEventId)));
-        setWindowTitle("ERROR");
+        titleStr = QString("ERROR");
+        messageStr = QString("No such event in the DB: %1").arg(QString::number(mEventId));
     }
     catch(...) {} // TODO: implement
+    message->setText(messageStr);
+    setWindowTitle(titleStr);
+    time->setText(timeStr);
+    persons->setText(personsStr);
+    room->setText(roomStr);
 }
 
 void AlarmDialog::runApp()
 {
     QString program = QDir::currentPath() + "/" + *qApp->argv();
     QProcess::startDetached(program,QStringList()<<QString::number(mEventId));
-    qApp->quit();
+    closeDialog();
 }
 
 void AlarmDialog::snooze()

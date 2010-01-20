@@ -5,9 +5,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>337</width>
-    <height>151</height>
+    <width>406</width>
+    <height>176</height>
    </rect>
+  </property>
+  <property name="sizePolicy" >
+   <sizepolicy vsizetype="MinimumExpanding" hsizetype="MinimumExpanding" >
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle" >
    <string>Dialog</string>
@@ -17,6 +23,12 @@
     <layout class="QVBoxLayout" name="verticalLayout" >
      <item>
       <widget class="QLabel" name="message" >
+       <property name="sizePolicy" >
+        <sizepolicy vsizetype="MinimumExpanding" hsizetype="MinimumExpanding" >
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text" >
         <string>Alarm message goes here</string>
        </property>
@@ -60,24 +72,38 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="2" >
+         <item row="1" column="3" >
           <widget class="QLabel" name="persons" >
            <property name="text" >
             <string>PRESETNER(S)</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="2" >
+         <item row="0" column="3" >
           <widget class="QLabel" name="time" >
            <property name="text" >
             <string>TIME</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="2" >
+         <item row="2" column="3" >
           <widget class="QLabel" name="room" >
            <property name="text" >
             <string>ROOM</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0" >
+          <widget class="QLabel" name="label_5" >
+           <property name="text" >
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2" >
+          <widget class="QLabel" name="label_6" >
+           <property name="text" >
+            <string/>
            </property>
           </widget>
          </item>
