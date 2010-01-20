@@ -194,7 +194,7 @@ QSize Delegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &
 
     if (index.internalId() == 0) // time group
     {
-        return QSize(30,30);
+        return QSize(40,40);
     }
     else // event
     {
@@ -251,13 +251,13 @@ void Delegate::defineControls()
     QPoint p(0,0);
     // FAVOURITE ICONs
     // on
-    control = new Control(FavouriteControlOn,QString(":icons/favourite-on.png"));
+    control = new Control(FavouriteControlOn,QString(":icons/favourite-onBig.png"));
     p = QPoint(0,SPACER);
     p.setX(p.x()-control->image()->width()-SPACER);
     control->setDrawPoint(p);
     mControls.insert(FavouriteControlOn,control);
     // off
-    control = new Control(FavouriteControlOff,QString(":icons/favourite-off.png"));
+    control = new Control(FavouriteControlOff,QString(":icons/favourite-offBig.png"));
     p = QPoint(0,SPACER);
     p.setX(p.x()-control->image()->width()-SPACER);
     control->setDrawPoint(p);
@@ -265,20 +265,20 @@ void Delegate::defineControls()
 
     // ALARM ICONs
     // on
-    control = new Control(AlarmControlOn,QString(":icons/alarm-on.png"));
+    control = new Control(AlarmControlOn,QString(":icons/alarm-onBig.png"));
     p = mControls[FavouriteControlOn]->drawPoint();
     p.setX(p.x()-control->image()->width()-SPACER);
     control->setDrawPoint(p);
     mControls.insert(AlarmControlOn,control);
     // off
-    control = new Control(AlarmControlOff,QString(":icons/alarm-off.png"));
+    control = new Control(AlarmControlOff,QString(":icons/alarm-offBig.png"));
     p = mControls[FavouriteControlOff]->drawPoint();
     p.setX(p.x()-control->image()->width()-SPACER);
     control->setDrawPoint(p);
     mControls.insert(AlarmControlOff,control);
 
     // MAP ICON
-    control = new Control(MapControl,QString(":icons/compass.png"));
+    control = new Control(MapControl,QString(":icons/compassBig.png"));
     p = mControls[AlarmControlOn]->drawPoint();
     p.setX(p.x()-control->image()->width()-SPACER);
     control->setDrawPoint(p);

@@ -1,12 +1,12 @@
-<!DOCTYPE RCC><RCC version="1.0">
-<qresource>
-    <file>icons/favourite-on.png</file>
-    <file>icons/favourite-off.png</file>
-    <file>icons/alarm-on.png</file>
-    <file>icons/alarm-off.png</file>
-    <file>icons/expand.png</file>
-    <file>icons/collapse.png</file>
-    <file>icons/fosdem.png</file>
-    <file>icons/compass.png</file>
-</qresource>
+<RCC>
+    <qresource prefix="/">
+        <file>icons/expand.png</file>
+        <file>icons/collapse.png</file>
+        <file>icons/fosdem.png</file>
+        <file>icons/alarm-offBig.png</file>
+        <file>icons/alarm-onBig.png</file>
+        <file>icons/compassBig.png</file>
+        <file>icons/favourite-offBig.png</file>
+        <file>icons/favourite-onBig.png</file>
+    </qresource>
 </RCC>
