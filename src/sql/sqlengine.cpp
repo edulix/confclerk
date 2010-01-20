@@ -86,6 +86,28 @@ void SqlEngine::addEventToDB(QHash<QString,QString> &aEvent)
 
     if (db.isValid() && db.isOpen())
     {
+        // track/activity has to be handled as the first, since it is necessary to get
+        // track ID from the ACTIVITY table, or to create new ACTIVITY record
+        // and get the ID from newly created record
+        QString queryExist = QString("SELECT id FROM activity WHERE name='%1'").arg(aEvent["track"]);
+        QSqlQuery resultExist(queryExist,db);
+        // now we have to check whether ACTIVITY record with 'name' exists or not,
+        // - if it doesn't exist yet, then we have to add that record to 'ACTIVITY' table
+        //   and assign autoincremented 'id' to aActivity
+        // - if it exists, then we need to get its 'id' and assign it to aRoom
+        int actId = -1;
+        if(resultExist.next()) // ACTIVITY record with 'name' already exists: we need to get its 'id'
+        {
+            actId = resultExist.value(0).toInt();
+        }
+        else // ACTIVITY record doesn't exist yet, need to create it
+        {
+            QString values = QString("'%1'").arg(aEvent["track"]);
+            QString query = QString("INSERT INTO activity (name) VALUES (%1)").arg(values);
+            QSqlQuery result (query, db);
+            actId = result.lastInsertId().toInt(); // 'id' is assigned automatically
+        }
+
         // The items of the Event are divided into the two tables EVENT and VIRTUAL_EVENT
         // VIRTUAL_EVENT is for Full-Text-Serach Support
         QDateTime startDateTime = QDateTime(QDate::fromString(aEvent["date"],DATE_FORMAT),QTime::fromString(aEvent["start"],TIME_FORMAT));
@@ -94,7 +116,7 @@ void SqlEngine::addEventToDB(QHash<QString,QString> &aEvent)
                          .arg(aEvent["id"]) \
                          .arg(QString::number(startDateTime.toTime_t())) \
                          .arg(-QTime::fromString(aEvent["duration"],TIME_FORMAT).secsTo(QTime(0,0))) \
-                         .arg("123456") \
+                         .arg(QString::number(actId)) \
                          .arg(aEvent["type"]) \
                          .arg(aEvent["language"]) \
                          .arg("0") \
