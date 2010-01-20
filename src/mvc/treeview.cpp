@@ -14,6 +14,7 @@
 TreeView::TreeView(QWidget *aParent)
     : QTreeView(aParent)
 {
+    connect(this, SIGNAL(clicked(QModelIndex)), SLOT(handleItemClicked(QModelIndex)));
 }
 
 void TreeView::mouseReleaseEvent(QMouseEvent *aEvent)
@@ -121,5 +122,16 @@ bool TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
     };
 
     return handled;
+}
+
+void TreeView::handleItemClicked(const QModelIndex &index)
+{
+    if(!index.parent().isValid()) // time-group
+    {
+        if(isExpanded(index)) 
+            setExpanded(index, false);
+        else
+            setExpanded(index, true);
+    }
 }
 
