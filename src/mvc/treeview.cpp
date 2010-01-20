@@ -105,6 +105,13 @@ bool TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
                 handled = true;
             }
         break;
+        case Delegate::WarningControlOn:
+        case Delegate::WarningControlOff:
+        {
+            // TODO: implement
+            handled = true;
+        }
+        break;
         case Delegate::ControlNone:
         default:
             {

@@ -116,11 +116,13 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
             painter->drawImage(mControls[FavouriteControlOn]->drawPoint(option.rect),*mControls[FavouriteControlOn]->image());
         else
             painter->drawImage(mControls[FavouriteControlOff]->drawPoint(option.rect),*mControls[FavouriteControlOff]->image());
+#ifdef MAEMO
         // alarm
         if(static_cast<Event*>(index.internalPointer())->hasAlarm())
             painter->drawImage(mControls[AlarmControlOn]->drawPoint(option.rect),*mControls[AlarmControlOn]->image());
         else
             painter->drawImage(mControls[AlarmControlOff]->drawPoint(option.rect),*mControls[AlarmControlOff]->image());
+#endif
         // map
         painter->drawImage(mControls[MapControl]->drawPoint(option.rect),*mControls[MapControl]->image());
         // Time conflict
@@ -222,10 +224,12 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         painter->drawImage(drawPoint,*mControls[FavouriteControlOn]->image());
         painter->drawText(drawPoint+QPoint(mControls[FavouriteControlOn]->image()->width()+2, option.rect.height()/2),
                 QString::number(numberOfFavourities(index)));
+#ifdef MAEMO
         drawPoint.setX(drawPoint.x() - spacer - mControls[FavouriteControlOn]->image()->width());
         painter->drawImage(drawPoint,*mControls[AlarmControlOn]->image());
         painter->drawText(drawPoint+QPoint(mControls[FavouriteControlOn]->image()->width()+2, option.rect.height()/2),
                 QString::number(numberOfAlarms(index)));
+#endif
         // draw texts
         QString numEvents = QString::number(index.model()->rowCount(index)).append("/");
         drawPoint.setX(drawPoint.x() - spacer - fmSmall.boundingRect(numEvents).width());
@@ -322,6 +326,7 @@ void Delegate::defineControls()
     control->setDrawPoint(p);
     mControls.insert(FavouriteControlOff,control);
 
+#ifdef MAEMO
     // ALARM ICONs
     // on
     control = new Control(AlarmControlOn,QString(":icons/alarm-onBig.png"));
@@ -342,6 +347,14 @@ void Delegate::defineControls()
     p.setX(p.x()-control->image()->width()-SPACER);
     control->setDrawPoint(p);
     mControls.insert(MapControl,control);
+#else
+    // MAP ICON
+    control = new Control(MapControl,QString(":icons/compassBig.png"));
+    p = mControls[FavouriteControlOn]->drawPoint();
+    p.setX(p.x()-control->image()->width()-SPACER);
+    control->setDrawPoint(p);
+    mControls.insert(MapControl,control);
+#endif
 
     // WARNING ICONs
     // on
