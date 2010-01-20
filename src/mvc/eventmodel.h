@@ -8,6 +8,8 @@
 class EventModel : public QAbstractItemModel
 {
 public:
+    static const QString COMMA_SEPARATOR;
+public:
     EventModel();
     QVariant data(const QModelIndex& index, int role) const;
     QModelIndex index(int row, int column, const QModelIndex & parent = QModelIndex()) const;

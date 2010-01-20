@@ -39,7 +39,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(mXmlParser, SIGNAL(progressStatus(int)), this, SLOT(showParsingProgress(int)));
     statusBar()->showMessage(tr("Ready"));
 
-    //create activity map
+    //update activity map
     Activity::updateActivityMap();
 
     connect(dayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateDayView(const QDate &)));

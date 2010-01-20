@@ -2,6 +2,8 @@
 #include <conference.h>
 #include <activity.h>
 
+const QString EventModel::COMMA_SEPARATOR = ", ";
+
 EventModel::EventModel()
 {
     mEvents.clear();
@@ -188,7 +190,7 @@ void EventModel::loadEventsByActivities(const QDate &aDate, int aConferenceId)
     if(Conference::getAll().count())
     {
         qDebug() << "Loading Conference Data (by Activities): [" << Conference::getById(aConferenceId).title() << "] " << aDate;
-        mEvents = Event::getByDate(QDate(aDate.year(), aDate.month(), aDate.day()), aConferenceId, Event::XID_ACTIVITY);
+        mEvents = Event::getByDate(QDate(aDate.year(), aDate.month(), aDate.day()), aConferenceId, Event::XID_ACTIVITY + COMMA_SEPARATOR + Event::START);
     }
     createActivityGroups();
 }
