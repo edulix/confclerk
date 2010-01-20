@@ -1,11 +1,12 @@
 #include "delegate.h"
 #include "eventmodel.h"
+#include <activity.h>
 
 #include <QDebug>
 #include <QPainter>
 
 const int RADIUS = 10;
-const int SPACER = 23;
+const int SPACER = 10;
 
 const double scaleFactor1 = 0.4;
 const double scaleFactor2 = 0.8;
@@ -32,24 +33,37 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
     if(!mViewPtr)
         return;
 
-    QFont fontSmall = option.font;
-    fontSmall.setBold(true);
-    fontSmall.setPixelSize(option.rect.height()*scaleFactor1);
-    QFontMetrics fmSmall(fontSmall);
-
-    QFont fontBig = option.font;
-    fontBig.setBold(true);
-    fontBig.setPixelSize(option.rect.height()*scaleFactor2);
-    QFontMetrics fmBig(fontBig);
-
-    int spacer = (fmSmall.boundingRect("999").width() < SPACER) ? SPACER : fmSmall.boundingRect("999").width();
-
     painter->save();
 
     QColor bkgrColor = Qt::cyan;
     QPen borderPen(bkgrColor.darker());
+    //QColor bkgrColor = QColor(0,0,113);
+    //QPen borderPen(Qt::cyan);
     if(hasParent(index))
     {
+        int aux = option.rect.height() - mControls[FavouriteControlOn]->drawPoint().y() - mControls[FavouriteControlOn]->image()->height();
+        // font SMALL
+        QFont fontSmall = option.font;
+        fontSmall.setBold(false);
+        fontSmall.setPixelSize(aux*0.2);
+        QFontMetrics fmSmall(fontSmall);
+        // font SMALL bold
+        QFont fontSmallB = fontSmall;
+        fontSmallB.setBold(true);
+        QFontMetrics fmSmallB(fontSmallB);
+
+        // font BIG
+        QFont fontBig = option.font;
+        fontBig.setBold(false);
+        fontBig.setPixelSize(aux*0.33);
+        QFontMetrics fmBig(fontBig);
+        // font BIG bold
+        QFont fontBigB = fontBig;
+        fontBigB.setBold(true);
+        QFontMetrics fmBigB(fontBigB);
+
+        int spacer = (fmSmall.boundingRect("999").width() < SPACER) ? SPACER : fmSmall.boundingRect("999").width();
+
         if(isLast(index))
         {
             QLinearGradient lastGradient(option.rect.topLeft(), option.rect.bottomLeft());
@@ -65,8 +79,8 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
             endPath.arcTo(option.rect.right()-2*RADIUS, option.rect.bottom()-2*RADIUS, 2*RADIUS, 2*RADIUS, 270, 90);
             endPath.lineTo(option.rect.topRight());
 
-            //painter->setBrush( bkgrColor );
-            painter->setBrush(lastGradient);
+            painter->setBrush( bkgrColor );
+            //painter->setBrush(lastGradient);
             painter->setPen(borderPen);
             painter->drawPath(endPath);
 
@@ -74,7 +88,6 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         }
         else // middle elements
         {
-
             QLinearGradient middleGradient(option.rect.topLeft(), option.rect.bottomLeft());
             middleGradient.setColorAt(0.0, Qt::white);
             middleGradient.setColorAt(0.25, bkgrColor);
@@ -82,8 +95,8 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
             middleGradient.setColorAt(0.75, bkgrColor);
             middleGradient.setColorAt(1.0, Qt::white);
 
-            //painter->setBrush( bkgrColor );
-            painter->setBrush(middleGradient);
+            painter->setBrush( bkgrColor );
+            //painter->setBrush(middleGradient);
             painter->setPen(Qt::NoPen);
             painter->drawRect(option.rect);
 
@@ -112,13 +125,54 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         painter->drawImage(mControls[MapControl]->drawPoint(option.rect),*mControls[MapControl]->image());
 
         // draw texts
-        QPointF titlePointF;
-        titlePointF = QPoint(option.rect.x()+SPACER,option.rect.y()+option.rect.height()-10);
-        QString text = qVariantValue<QString>(index.data()) + ": " + static_cast<Event*>(index.internalPointer())->title();
-        painter->drawText(titlePointF,text);
+        Event *event = static_cast<Event*>(index.internalPointer());
+        QPointF titlePointF(mControls[FavouriteControlOn]->drawPoint(option.rect));
+        titlePointF.setX(option.rect.x()+SPACER);
+        titlePointF.setY(titlePointF.y()+mControls[FavouriteControlOn]->image()->height());
+        QTime start = event->start().time();
+        painter->setFont(fontBig);
+        painter->drawText(titlePointF,start.toString("hh:mm") + "-" + start.addSecs(event->duration()).toString("hh:mm") + ", " + event->room());
+        // title
+        titlePointF.setY(titlePointF.y()+fmBig.height()-fmBig.descent());
+        painter->setFont(fontBigB);
+        QString title = event->title();
+        if(fmBigB.boundingRect(title).width() > (option.rect.width()-2*SPACER)) // the title won't fit the screen
+        {
+            // chop words from the end
+            while( (fmBigB.boundingRect(title + "...").width() > (option.rect.width()-2*SPACER)) && !title.isEmpty())
+            {
+                title.chop(1);
+                // chop characters one-by-one from the end
+                while( (!title.at(title.length()-1).isSpace()) && !title.isEmpty())
+                {
+                    title.chop(1);
+                }
+            }
+            title += "...";
+        }
+        painter->drawText(titlePointF,title);
+        // persons
+        titlePointF.setY(titlePointF.y()+fmSmall.height()-fmSmall.descent());
+        painter->setFont(fontSmall);
+        painter->drawText(titlePointF,"Presenter(s): " + event->persons().join(" and "));
+        // track
+        titlePointF.setY(titlePointF.y()+fmSmall.height()-fmSmall.descent());
+        painter->drawText(titlePointF,"Activity(s): " + Activity::getActivityName(event->activityId()));
     }
     else // doesn't have parent - time-groups' elements (top items)
     {
+        QFont fontSmall = option.font;
+        fontSmall.setBold(true);
+        fontSmall.setPixelSize(option.rect.height()*scaleFactor1);
+        QFontMetrics fmSmall(fontSmall);
+
+        QFont fontBig = option.font;
+        fontBig.setBold(true);
+        fontBig.setPixelSize(option.rect.height()*scaleFactor2);
+        QFontMetrics fmBig(fontBig);
+
+        int spacer = (fmSmall.boundingRect("999").width() < SPACER) ? SPACER : fmSmall.boundingRect("999").width();
+
         QLinearGradient titleGradient(option.rect.topLeft(), option.rect.topRight());
         //titleGradient.setColorAt(0.0, Qt::white);
         titleGradient.setColorAt(0.0, bkgrColor);
