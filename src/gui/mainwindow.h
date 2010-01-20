@@ -24,6 +24,7 @@ private slots:
     void updateFavouritesDayView(const QDate &aDate);
     void itemClicked(const QModelIndex &aIndex);
     void displayMap(const QModelIndex &aIndex);
+    void searchClicked();
 private:
     SqlEngine *mSqlEngine;
     ScheduleXmlParser *mXmlParser;

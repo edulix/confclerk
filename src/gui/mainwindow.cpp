@@ -70,15 +70,27 @@ MainWindow::MainWindow(QWidget *parent)
     actTreeView->setModel(new EventModel());
     actTreeView->setItemDelegate(new Delegate(actTreeView));
 
+    // DAY EVENTS View
+	searchTreeView->setHeaderHidden(true);
+	searchTreeView->setRootIsDecorated(false);
+	searchTreeView->setIndentation(0);
+	searchTreeView->setAnimated(true);
+	searchTreeView->setModel(new EventModel());
+	searchTreeView->setItemDelegate(new Delegate(searchTreeView));
+	searchTreeView->setVisible(false);
+	searchDayNavigator->setVisible(false);
     // event clicked
     connect(dayTreeView, SIGNAL(clicked(const QModelIndex &)), SLOT(itemClicked(const QModelIndex &)));
     connect(favTreeView, SIGNAL(clicked(const QModelIndex &)), SLOT(itemClicked(const QModelIndex &)));
     connect(actTreeView, SIGNAL(clicked(const QModelIndex &)), SLOT(itemClicked(const QModelIndex &)));
+    connect(searchTreeView, SIGNAL(doubleClicked(const QModelIndex &)), SLOT(itemDoubleClicked(const QModelIndex &)));
     // request for map to be displayed
     connect(dayTreeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
     connect(favTreeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
     connect(actTreeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
-
+    connect(searchTreeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
+    // event search button clicked
+    connect(searchButton, SIGNAL(clicked()), SLOT(searchClicked()));
 
     // TESTING: load some 'fav' data
     if(Conference::getAll().count()) // no conference(s) in the DB
@@ -240,3 +252,19 @@ void MainWindow::displayMap(const QModelIndex &aIndex)
     MapWindow window(map,roomName,this);
     window.exec();
 }
+
+void MainWindow::searchClicked()
+{
+    QList<QString> columns;
+
+    if( searchTitle->isChecked() )
+        columns.append( "title" );
+    if( searchAbstract->isChecked() )
+        columns.append( "abstract" );
+
+    if( mSqlEngine->searchEvent( confId, columns, searchEdit->text() ) > 0 ){
+        searchTreeView->setVisible(true);
+        searchDayNavigator->setVisible(true);
+    }
+}
+

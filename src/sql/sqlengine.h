@@ -18,6 +18,9 @@ class SqlEngine : public QObject
         void addPersonToDB(QHash<QString,QString> &aPerson);
         void addLinkToDB(QHash<QString,QString> &aLink);
         void addRoomToDB(QHash<QString,QString> &aRoom);
+
+        // search Events for ....
+        int searchEvent(int conferenceId, const QList<QString> &columns, const QString &keyword);
     private:
         QString login(const QString &aDatabaseType, const QString &aDatabaseName);
         bool createTables(QSqlDatabase &aDatabase);
