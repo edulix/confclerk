@@ -1,8 +1,6 @@
 #include "eventmodel.h"
 #include <conference.h>
-#include <activity.h>
-
-const QString EventModel::COMMA_SEPARATOR = ", ";
+#include <track.h>
 
 EventModel::EventModel()
 {
@@ -45,26 +43,26 @@ void EventModel::createTimeGroups()
     mGroups.last().mChildCount = mEvents.count() - mGroups.last().mFirstEventIndex;
 }
 
-void EventModel::createActivityGroups() {
+void EventModel::createTrackGroups() {
     mGroups.clear();
     mParents.clear();
     if (mEvents.empty())
     {
         return;
     }
-    int activityId = mEvents.first().activityId();
+    int trackId = mEvents.first().trackId();
 
-    mGroups << EventModel::Group(Activity::getActivityName(activityId), 0);
-    int nextActivityId = activityId;
+    mGroups << EventModel::Group(Track::getTrackName(trackId), 0);
+    int nextTrackId = trackId;
 
     for (int i=0; i<mEvents.count(); i++)
     {
-        activityId = mEvents.at(i).activityId();
-        if (nextActivityId != activityId)
+        trackId = mEvents.at(i).trackId();
+        if (nextTrackId != trackId)
         {
             mGroups.last().mChildCount = i - mGroups.last().mFirstEventIndex;
-            mGroups << EventModel::Group(Activity::getActivityName(activityId), i);
-            nextActivityId = activityId;
+            mGroups << EventModel::Group(Track::getTrackName(trackId), i);
+            nextTrackId = trackId;
         }
         // add parent-child relation
         mParents[mEvents.at(i).id()] = mGroups.count() - 1;
@@ -167,7 +165,7 @@ void EventModel::loadEvents(const QDate &aDate, int aConferenceId)
     if(Conference::getAll().count())
     {
         qDebug() << "Loading Conference Data: [" << Conference::getById(aConferenceId).title() << "] " << aDate;
-        mEvents = Event::getByDate(QDate(aDate.year(), aDate.month(), aDate.day()), aConferenceId, Event::START);
+        mEvents = Event::getByDate(QDate(aDate.year(), aDate.month(), aDate.day()), aConferenceId, "start");
     }
     createTimeGroups();
 }
@@ -184,15 +182,15 @@ void EventModel::loadFavEvents(const QDate &aDate, int aConferenceId)
     createTimeGroups();
 }
 
-void EventModel::loadEventsByActivities(const QDate &aDate, int aConferenceId)
+void EventModel::loadEventsByTrack(const QDate &aDate, int aConferenceId)
 {
     clearModel();
     if(Conference::getAll().count())
     {
-        qDebug() << "Loading Conference Data (by Activities): [" << Conference::getById(aConferenceId).title() << "] " << aDate;
-        mEvents = Event::getByDate(QDate(aDate.year(), aDate.month(), aDate.day()), aConferenceId, Event::XID_ACTIVITY + COMMA_SEPARATOR + Event::START);
+        qDebug() << "Loading Conference Data (by Track): [" << Conference::getById(aConferenceId).title() << "] " << aDate;
+        mEvents = Event::getByDate(QDate(aDate.year(), aDate.month(), aDate.day()), aConferenceId, "xid_track, start");
     }
-    createActivityGroups();
+    createTrackGroups();
 }
 
 void EventModel::emitDataChangedSignal(const QModelIndex &aTopLeft, const QModelIndex &aBottomRight)

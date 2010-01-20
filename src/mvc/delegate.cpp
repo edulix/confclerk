@@ -1,6 +1,6 @@
 #include "delegate.h"
 #include "eventmodel.h"
-#include <activity.h>
+#include <track.h>
 
 #include <QDebug>
 #include <QPainter>
@@ -62,7 +62,7 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         fontBigB.setBold(true);
         QFontMetrics fmBigB(fontBigB);
 
-        int spacer = (fmSmall.boundingRect("999").width() < SPACER) ? SPACER : fmSmall.boundingRect("999").width();
+        //int spacer = (fmSmall.boundingRect("999").width() < SPACER) ? SPACER : fmSmall.boundingRect("999").width();
 
         if(isLast(index))
         {
@@ -164,7 +164,7 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         painter->drawText(titlePointF,"Presenter(s): " + event->persons().join(" and "));
         // track
         titlePointF.setY(titlePointF.y()+fmSmall.height()-fmSmall.descent());
-        painter->drawText(titlePointF,"Activity(s): " + Activity::getActivityName(event->activityId()));
+        painter->drawText(titlePointF,"Track: " + Track::getTrackName(event->trackId()));
     }
     else // doesn't have parent - time-groups' elements (top items)
     {

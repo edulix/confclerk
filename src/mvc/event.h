@@ -23,8 +23,6 @@ public:
     static const QString sTable2Name;
     static const int sTable1ColCount;
     static const int sTable2ColCount;
-    static const QString XID_ACTIVITY;
-    static const QString START;
 public:
     static Event getById(int id, int conferenceId);
     static QList<Event> getByDate(const QDate & date, int conferenceId, QString orderBy);
@@ -33,9 +31,9 @@ public:
     // Table 1
     int id() const { return value("id").toInt(); }
     int conferenceId() const { return value("xid_conference").toInt(); }
-    QDateTime start() const { return value(START).toDateTime(); }
+    QDateTime start() const { return value("start").toDateTime(); }
     int duration() const { return value("duration").toInt(); }
-    int activityId() const { return value(XID_ACTIVITY).toInt(); }
+    int trackId() const { return value("xid_track").toInt(); }
     QString type() const { return value("type").toString(); }
     QString language() const { return value("language").toString(); }
     bool isFavourite() const { return value("favourite").toBool(); }
@@ -54,9 +52,9 @@ public:
     // Table 1
     void setId(int id) { setValue("id", id); }
     void setConferenceId(int conferenceId) { setValue("xid_conference", conferenceId); }
-    void setStart(const QDateTime & start) { setValue(START, start); }
+    void setStart(const QDateTime & start) { setValue("start", start); }
     void setDuration(int duration) { setValue("duration", duration); }
-    void setActivityId(int activityId) { setValue(XID_ACTIVITY, activityId); }
+    void setTrackId(int trackId) { setValue("xid_track", trackId); }
     void setType(const QString & type) { setValue("type", type); }
     void setLanguage(const QString & language) { setValue("language", language); }
     void setFavourite(bool favourite) { setValue("favourite", (int)((favourite))); }

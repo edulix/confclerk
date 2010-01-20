@@ -18,16 +18,16 @@ maemo {
     TARGETDEPS += $$DESTDIR/libqalarm.a
 }
 
-HEADERS += activity.h \
-           event.h \
+HEADERS += event.h \
            conference.h \
+           track.h \
            delegate.h \
            eventmodel.h \
            treeview.h
 
-SOURCES += activity.cpp \
-           event.cpp \
+SOURCES += event.cpp \
            conference.cpp \
+           track.cpp \
            delegate.cpp \
            eventmodel.cpp \
            treeview.cpp

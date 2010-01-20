@@ -22,8 +22,8 @@ private slots:
     void aboutApp();
     void updateDayView(const QDate &aDate);
     void updateTab(const int n);
-    void updateActivitiesDayView(const QDate &aDate);
-    void updateFavouritesDayView(const QDate &aDate);
+    void updateTracksView(const QDate &aDate);
+    void updateFavouritesView(const QDate &aDate);
     void itemClicked(const QModelIndex &aIndex);
     void displayMap(const QModelIndex &aIndex);
     void searchClicked();

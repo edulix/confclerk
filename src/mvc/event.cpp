@@ -7,10 +7,6 @@ QString const Event::sTable1Name = QString("event");
 QString const Event::sTable2Name = QString("virtual_event");
 int const Event::sTable1ColCount = 9; // see 'toRecord()' for more details
 int const Event::sTable2ColCount = 5; // see 'toRecord()' for more details
-const QString Event::XID_ACTIVITY = "xid_activity";
-const QString Event::START = "start";
-
-
 
 QSqlRecord const Event::sColumns = Event::toRecord(QList<QSqlField>()
     /* 'columns from Table 1 */
@@ -18,7 +14,7 @@ QSqlRecord const Event::sColumns = Event::toRecord(QList<QSqlField>()
     << QSqlField("xid_conference", QVariant::Int)
     << QSqlField("start", QVariant::DateTime)
     << QSqlField("duration", QVariant::Int)
-    << QSqlField("xid_activity", QVariant::Int)
+    << QSqlField("xid_track", QVariant::Int)
     << QSqlField("type", QVariant::String)
     << QSqlField("language", QVariant::String)
     << QSqlField("favourite", QVariant::Bool)

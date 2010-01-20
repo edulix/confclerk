@@ -6,7 +6,7 @@
 #include <sqlengine.h>
 #include <schedulexmlparser.h>
 
-#include <activity.h>
+#include <track.h>
 #include <eventmodel.h>
 #include <delegate.h>
 
@@ -39,12 +39,12 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     connect(mXmlParser, SIGNAL(progressStatus(int)), this, SLOT(showParsingProgress(int)));
     statusBar()->showMessage(tr("Ready"));
 
-    //update activity map
-    Activity::updateActivityMap();
+    //update track map
+    Track::updateTrackMap();
 
     connect(dayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateDayView(const QDate &)));
-    connect(activityDayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateActivitiesDayView(const QDate &)));
-    connect(favouriteDayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateFavouritesDayView(const QDate &)));
+    connect(trackDayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateTracksView(const QDate &)));
+    connect(favouriteDayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateFavouritesView(const QDate &)));
 
     // DAY EVENTS View
     dayTreeView->setHeaderHidden(true);
@@ -63,12 +63,12 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     favTreeView->setItemDelegate(new Delegate(favTreeView));
 
     //ACTIVITIES View
-    actTreeView->setHeaderHidden(true);
-    actTreeView->setRootIsDecorated(false);
-    actTreeView->setIndentation(0);
-    actTreeView->setAnimated(true);
-    actTreeView->setModel(new EventModel());
-    actTreeView->setItemDelegate(new Delegate(actTreeView));
+    trackTreeView->setHeaderHidden(true);
+    trackTreeView->setRootIsDecorated(false);
+    trackTreeView->setIndentation(0);
+    trackTreeView->setAnimated(true);
+    trackTreeView->setModel(new EventModel());
+    trackTreeView->setItemDelegate(new Delegate(trackTreeView));
 
     // DAY EVENTS View
 	searchTreeView->setHeaderHidden(true);
@@ -82,12 +82,12 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     // event clicked
     connect(dayTreeView, SIGNAL(clicked(const QModelIndex &)), SLOT(itemClicked(const QModelIndex &)));
     connect(favTreeView, SIGNAL(clicked(const QModelIndex &)), SLOT(itemClicked(const QModelIndex &)));
-    connect(actTreeView, SIGNAL(clicked(const QModelIndex &)), SLOT(itemClicked(const QModelIndex &)));
+    connect(trackTreeView, SIGNAL(clicked(const QModelIndex &)), SLOT(itemClicked(const QModelIndex &)));
     connect(searchTreeView, SIGNAL(clicked(const QModelIndex &)), SLOT(itemClicked(const QModelIndex &)));
     // request for map to be displayed
     connect(dayTreeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
     connect(favTreeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
-    connect(actTreeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
+    connect(trackTreeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
     connect(searchTreeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
     // event search button clicked
     connect(searchButton, SIGNAL(clicked()), SLOT(searchClicked()));
@@ -102,14 +102,14 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     if(!Conference::getAll().count()) // no conference(s) in the DB
     {
         dayNavigator->hide(); // hide DayNavigatorWidget
-        activityDayNavigator->hide();
+        trackDayNavigator->hide();
     }
     else
     {
         QDate aStartDate = Conference::getById(confId).start();
         QDate aEndDate = Conference::getById(confId).end();
         dayNavigator->setDates(aStartDate, aEndDate);
-        activityDayNavigator->setDates(aStartDate, aEndDate);
+        trackDayNavigator->setDates(aStartDate, aEndDate);
         favouriteDayNavigator->setDates(aStartDate, aEndDate);
     }
 
@@ -161,10 +161,10 @@ void MainWindow::importSchedule()
         QDate aStartDate = Conference::getById(confId).start();
         QDate aEndDate = Conference::getById(confId).end();
         dayNavigator->setDates(aStartDate, aEndDate);
-        activityDayNavigator->setDates(aStartDate, aEndDate);
+        trackDayNavigator->setDates(aStartDate, aEndDate);
     }
-    //update activity map
-    Activity::updateActivityMap();
+    //update track map
+    Track::updateTrackMap();
 }
 
 void MainWindow::showParsingProgress(int aStatus)
@@ -206,11 +206,11 @@ void MainWindow::updateTab(const int aIndex)
             favouriteDayNavigator->show();
         }
         break;
-    case 2: //index 2 of tabWidget: activitiesTab
+    case 2: //index 2 of tabWidget: trackTab
         {
-            static_cast<EventModel*>(actTreeView->model())->loadEventsByActivities(Conference::getById(confId).start(), confId);
-            actTreeView->reset();
-            activityDayNavigator->show();
+            static_cast<EventModel*>(trackTreeView->model())->loadEventsByTrack(Conference::getById(confId).start(), confId);
+            trackTreeView->reset();
+            trackDayNavigator->show();
         }
         break;
     default:
@@ -220,14 +220,14 @@ void MainWindow::updateTab(const int aIndex)
     };
 }
 
-void MainWindow::updateActivitiesDayView(const QDate &aDate)
+void MainWindow::updateTracksView(const QDate &aDate)
 {
-    static_cast<EventModel*>(actTreeView->model())->loadEventsByActivities(aDate, confId);
-    actTreeView->reset();
-    activityDayNavigator->show();
+    static_cast<EventModel*>(trackTreeView->model())->loadEventsByTrack(aDate, confId);
+    trackTreeView->reset();
+    trackDayNavigator->show();
 }
 
-void MainWindow::updateFavouritesDayView(const QDate &aDate)
+void MainWindow::updateFavouritesView(const QDate &aDate)
 {
     static_cast<EventModel*>(favTreeView->model())->loadFavEvents(aDate,confId);
     favTreeView->reset();
