@@ -20,8 +20,8 @@
 
 const int confId = 1;
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
+MainWindow::MainWindow(int aEventId, QWidget *aParent)
+    : QMainWindow(aParent)
 {
     setupUi(this);
 
@@ -115,6 +115,13 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(updateTab(int)));
 
+    // open dialog for given Event ID
+    // this is used in case Alarm Dialog request application to start
+    if(aEventId)
+    {
+        EventDialog dialog(aEventId,this);
+        dialog.exec();
+    }
 }
 
 MainWindow::~MainWindow()
@@ -228,7 +235,7 @@ void MainWindow::itemClicked(const QModelIndex &aIndex)
     if(!aIndex.parent().isValid()) // time-group
         return;
 
-    EventDialog dialog(aIndex,this);
+    EventDialog dialog(static_cast<Event*>(aIndex.internalPointer())->id(),this);
     dialog.exec();
 }
 

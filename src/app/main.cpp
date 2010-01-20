@@ -22,6 +22,8 @@ int main(int argc, char *argv[])
     // Example: $ ./fosdem 521 13
     if(argc==3) 
         window = new AlarmDialog(argc,argv);
+    else if(argc==2) // display Event dialog automatically
+        window = new MainWindow(atoi(argv[1])); // eventId = argv[1]
     else
         window = new MainWindow;
 #else

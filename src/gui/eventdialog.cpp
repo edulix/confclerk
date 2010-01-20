@@ -2,11 +2,14 @@
 
 #include <QScrollBar>
 
-EventDialog::EventDialog(const QModelIndex &aIndex, QWidget *aParent)
+EventDialog::EventDialog(const int &aEventId, QWidget *aParent)
     : QDialog(aParent)
-    , mIndex(aIndex)
+    , mEventId(aEventId)
 {
     setupUi(this);
+
+    const int confId = 1;
+    Event event = Event::getById(aEventId,confId);
 
     abstract->setStyleSheet("background-color : transparent;");
     description->setStyleSheet("background-color : transparent;");
@@ -27,10 +30,9 @@ EventDialog::EventDialog(const QModelIndex &aIndex, QWidget *aParent)
     abstract->verticalScrollBar()->setPalette(p2);
     description->verticalScrollBar()->setPalette(p2);
 
-    Event *event = static_cast<Event *>(mIndex.internalPointer());
-    title->setText(event->title());
-    persons->setText(event->persons().join(" and "));
-    abstract->setPlainText(event->abstract());
-    description->setPlainText(event->description());
+    title->setText(event.title());
+    persons->setText(event.persons().join(" and "));
+    abstract->setPlainText(event.abstract());
+    description->setPlainText(event.description());
 }
 

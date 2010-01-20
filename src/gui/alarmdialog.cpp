@@ -5,6 +5,7 @@
 #include <event.h>
 
 #include <QDir>
+#include <QProcess>
 
 const int SNOOZE_TIME = 5; // in minutes
 
@@ -47,7 +48,9 @@ AlarmDialog::AlarmDialog(int argc, char *argv[], QWidget *aParent)
 
 void AlarmDialog::runApp()
 {
-    qWarning("runApp(): NOT IMPLEMENTED YET");
+    QString program = QDir::currentPath() + "/" + *qApp->argv();
+    QProcess::startDetached(program,QStringList()<<QString::number(mEventId));
+    qApp->quit();
 }
 
 void AlarmDialog::snooze()
