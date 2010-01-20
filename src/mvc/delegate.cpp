@@ -5,7 +5,10 @@
 #include <QPainter>
 
 const int RADIUS = 10;
-const int SPACER = 15;
+const int SPACER = 23;
+
+const double scaleFactor1 = 0.4;
+const double scaleFactor2 = 0.8;
 
 Delegate::Delegate(QTreeView *aParent)
     : QItemDelegate(aParent)
@@ -28,6 +31,18 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
 {
     if(!mViewPtr)
         return;
+
+    QFont fontSmall = option.font;
+    fontSmall.setBold(true);
+    fontSmall.setPixelSize(option.rect.height()*scaleFactor1);
+    QFontMetrics fmSmall(fontSmall);
+
+    QFont fontBig = option.font;
+    fontBig.setBold(true);
+    fontBig.setPixelSize(option.rect.height()*scaleFactor2);
+    QFontMetrics fmBig(fontBig);
+
+    int spacer = (fmSmall.boundingRect("999").width() < SPACER) ? SPACER : fmSmall.boundingRect("999").width();
 
     painter->save();
 
@@ -95,6 +110,12 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
             painter->drawImage(mControls[AlarmControlOff]->drawPoint(option.rect),*mControls[AlarmControlOff]->image());
         // map
         painter->drawImage(mControls[MapControl]->drawPoint(option.rect),*mControls[MapControl]->image());
+
+        // draw texts
+        QPointF titlePointF;
+        titlePointF = QPoint(option.rect.x()+SPACER,option.rect.y()+option.rect.height()-10);
+        QString text = qVariantValue<QString>(index.data()) + ": " + static_cast<Event*>(index.internalPointer())->title();
+        painter->drawText(titlePointF,text);
     }
     else // doesn't have parent - time-groups' elements (top items)
     {
@@ -132,41 +153,37 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         painter->setPen(borderPen);
         painter->drawPath(titlePath);
 
-        QFont font = option.font;
-        font.setBold(true);
-        painter->setFont(font);
-
         // draw icons 
+        painter->setFont(fontSmall);
         QPoint drawPoint =
             option.rect.topRight()
             - QPoint(
-                    SPACER + mControls[FavouriteControlOn]->image()->width(),
+                    spacer + mControls[FavouriteControlOn]->image()->width(),
                     - option.rect.height()/2 + mControls[FavouriteControlOn]->image()->height()/2);
         painter->drawImage(drawPoint,*mControls[FavouriteControlOn]->image());
         painter->drawText(drawPoint+QPoint(mControls[FavouriteControlOn]->image()->width()+2, option.rect.height()/2),
                 QString::number(numberOfFavourities(index)));
-        drawPoint.setX(drawPoint.x() - SPACER - mControls[FavouriteControlOn]->image()->width());
+        drawPoint.setX(drawPoint.x() - spacer - mControls[FavouriteControlOn]->image()->width());
         painter->drawImage(drawPoint,*mControls[AlarmControlOn]->image());
         painter->drawText(drawPoint+QPoint(mControls[FavouriteControlOn]->image()->width()+2, option.rect.height()/2),
                 QString::number(numberOfAlarms(index)));
         // draw texts
-        drawPoint.setX(drawPoint.x() - SPACER -mControls[AlarmControlOn]->image()->width() - 35);
+        QString numEvents = QString::number(index.model()->rowCount(index)).append("/");
+        drawPoint.setX(drawPoint.x() - spacer - fmSmall.boundingRect(numEvents).width());
         drawPoint.setY(drawPoint.y() + option.rect.height()/2);
-        painter->drawText(drawPoint,QString("Events: ") + QString::number(index.model()->rowCount(index)));
+        painter->drawText(drawPoint,numEvents);
+
+        QPointF titlePointF = QPoint(
+                option.rect.x()+SPACER,
+                option.rect.y()+option.rect.height()-fmBig.descent());
+        painter->setFont(fontBig);
+
+        painter->drawText(titlePointF,qVariantValue<QString>(index.data()));
     }
 
     //// HIGHLIGHTING SELECTED ITEM
     //if (option.state & QStyle::State_Selected)
         //painter->fillRect(option.rect, option.palette.highlight());
-
-    // draw title
-    QPointF titlePointF(option.rect.x()+SPACER,option.rect.y()+option.rect.height()-10);
-    QString text;
-    if(index.parent().isValid()) // event
-        text = qVariantValue<QString>(index.data()) + ": " + static_cast<Event*>(index.internalPointer())->title();
-    else // group
-        text = qVariantValue<QString>(index.data());
-    painter->drawText(titlePointF,text);
 
     painter->restore();
 }
