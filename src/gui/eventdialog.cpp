@@ -8,6 +8,10 @@ EventDialog::EventDialog(const int &aEventId, QWidget *aParent)
 {
     setupUi(this);
 
+#ifdef MAEMO
+    showFullScreen();
+#endif
+
     const int confId = 1;
     Event event = Event::getById(aEventId,confId);
 
