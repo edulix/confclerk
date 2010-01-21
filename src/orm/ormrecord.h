@@ -9,19 +9,6 @@
 #include <QDateTime>
 #include <QDebug>
 
-// INFO:
-// all record items/columns may be defined in one table (1.), or
-// they can be splitted in two separate tables (2.) (eg. for FTS support)
-// 1.) you have to define "static QString const sTableName"
-// 2.) you have to define two table names:
-//     "static QString const sTable1Name"
-//     "static QString const sTable2Name"
-// and since all record items/columns are handled by one QSqlRecord,
-// you have to also define number of columns that belongs to table 1 (1.), and table 2 (2.)
-// 1.) "static int const sTable1ColCount"
-// 2.) "static int const sTable2ColCount"
-// there are also defined auxiliary methods for 1-Table/2-Tables approach, see bellow
-
 class OrmException
 {
 };
@@ -61,9 +48,6 @@ protected:
     static QString columnsForSelect(const QString& prefix = QString());
     static QString selectQuery();
     static QString updateQuery();
-    // record items/columns are stored in two tables
-    static QString columnsForSelectJoin2T(); // for joining two tables
-    static QString selectQueryJoin2T(const QString &key); // for joining two tables
 
     static QVariant convertToC(QVariant value, QVariant::Type colType);
     static QVariant convertToDb(QVariant value, QVariant::Type colType);
@@ -171,46 +155,15 @@ QString OrmRecord<T>::columnsForSelect(const QString& prefix)
 }
 
 template <typename T>
-QString OrmRecord<T>::columnsForSelectJoin2T()
-{
-    Q_ASSERT((T::sTable1ColCount+T::sTable2ColCount) == T::sColumns.count());
-
-    QStringList prefixedColumns;
-    for (int i=0; i<T::sTable1ColCount; i++)
-    {
-        prefixedColumns.append(QString("%1.%2").arg(T::sTable1Name, T::sColumns.field(i).name()));
-    }
-    for (int j=0; j<T::sTable2ColCount; j++)
-    {
-        prefixedColumns.append(QString("%1.%2").arg(T::sTable2Name, T::sColumns.field(T::sTable1ColCount+j).name()));
-    }
-    return prefixedColumns.join(",");
-}
-
-template <typename T>
 QString OrmRecord<T>::selectQuery()
 {
     return QString("SELECT %1 FROM %2 ").arg(columnsForSelect(), T::sTableName);
 }
 
-
-template <typename T>
-QString OrmRecord<T>::selectQueryJoin2T(const QString &key)
-{
-    return QString("SELECT %1 FROM %2 INNER JOIN %3 ON %4.%5 = %6.%7 ").arg(
-            columnsForSelectJoin2T(),
-            T::sTable1Name,
-            T::sTable2Name,
-            T::sTable1Name,
-            key,
-            T::sTable2Name,
-            key);
-}
-
 template <typename T>
 QString OrmRecord<T>::updateQuery()
 {
-    return QString("UPDATE %1 ").arg(T::sTable1Name);
+    return QString("UPDATE %1 ").arg(T::sTableName);
 }
 
 template <typename T>

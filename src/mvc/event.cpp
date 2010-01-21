@@ -1,15 +1,8 @@
 #include "event.h"
 
-// 'event' record is splitted into two separate tables 'event' and 'virtual_event'
-// for the FTS (Full-Text-Search) support and so, it is necessary to provide/use
-// two table names + corresponding parameters/methods, see bellow
-QString const Event::sTable1Name = QString("event");
-QString const Event::sTable2Name = QString("virtual_event");
-int const Event::sTable1ColCount = 9; // see 'toRecord()' for more details
-int const Event::sTable2ColCount = 5; // see 'toRecord()' for more details
+QString const Event::sTableName = QString("event");
 
 QSqlRecord const Event::sColumns = Event::toRecord(QList<QSqlField>()
-    /* 'columns from Table 1 */
     << QSqlField("id", QVariant::Int)
     << QSqlField("xid_conference", QVariant::Int)
     << QSqlField("start", QVariant::DateTime)
@@ -19,7 +12,6 @@ QSqlRecord const Event::sColumns = Event::toRecord(QList<QSqlField>()
     << QSqlField("language", QVariant::String)
     << QSqlField("favourite", QVariant::Bool)
     << QSqlField("alarm", QVariant::Bool)
-    /* 'columns' from Table2 */
     << QSqlField("tag", QVariant::String)
     << QSqlField("title", QVariant::String)
     << QSqlField("subtitle", QVariant::String)
@@ -29,22 +21,18 @@ QSqlRecord const Event::sColumns = Event::toRecord(QList<QSqlField>()
 
 Event Event::getById(int id, int conferenceId)
 {
+
     QSqlQuery query;
-    query.prepare(
-            selectQueryJoin2T("id")
-            + QString("WHERE %1.id = :id AND %1.xid_conference = :conf").arg(sTable1Name));
+    query.prepare(selectQuery() + "WHERE id = :id AND xid_conference = :conf");
     query.bindValue(":id", id);
     query.bindValue(":conf", conferenceId);
-
     return loadOne(query);
 }
 
 QList<Event> Event::getByDate(const QDate& date, int conferenceId, QString orderBy)
 {
     QSqlQuery query;
-    query.prepare(
-            selectQueryJoin2T("id")
-            + QString("WHERE %1.xid_conference = :conf AND %1.start >= :start AND %1.start < :end ORDER BY %1.%2").arg(sTable1Name).arg(orderBy));
+    query.prepare(selectQuery() + QString("WHERE xid_conference = :conf AND start >= :start AND start < :end ORDER BY %1").arg(orderBy));
     query.bindValue(":conf", conferenceId);
     query.bindValue(":start", convertToDb(date, QVariant::DateTime));
     query.bindValue(":end", convertToDb(date.addDays(1), QVariant::DateTime));
@@ -55,9 +43,7 @@ QList<Event> Event::getByDate(const QDate& date, int conferenceId, QString order
 QList<Event> Event::getFavByDate(const QDate& date, int conferenceId)
 {
     QSqlQuery query;
-    query.prepare(
-            selectQueryJoin2T("id")
-            + QString("WHERE %1.xid_conference = :conf AND %1.start >= :start AND %1.start < :end AND %1.favourite = 1 ORDER BY %1.start").arg(sTable1Name));
+    query.prepare(selectQuery() + QString("WHERE xid_conference = :conf AND start >= :start AND start < :end AND favourite = 1 ORDER BY start"));
     query.bindValue(":conf", conferenceId);
     query.bindValue(":start", convertToDb(date, QVariant::DateTime));
     query.bindValue(":end", convertToDb(date.addDays(1), QVariant::DateTime));
@@ -116,10 +102,8 @@ void Event::setPersons(const QStringList &persons)
 QList<Event> Event::getSearchResultByDate(const QDate& date, int conferenceId, QString orderBy)
 {
 
-    QString strQuery = QString("SELECT %1 FROM EVENT INNER JOIN VIRTUAL_EVENT USING (xid_conference, id) "
-        "INNER JOIN SEARCH_EVENT USING (xid_conference, id) ").arg( columnsForSelectJoin2T() );
-    strQuery += QString(
-        "WHERE %1.xid_conference = :conf AND %1.start >= :start AND %1.start < :end ORDER BY %1.%2").arg(sTable1Name, orderBy);
+    QString strQuery = QString("SELECT %1 FROM EVENT INNER JOIN SEARCH_EVENT USING (xid_conference, id) ").arg(columnsForSelect());
+    strQuery += QString("WHERE xid_conference = :conf AND start >= :start AND start < :end ORDER BY %1").arg(orderBy);
     qDebug() << strQuery;
     QSqlQuery query;
     query.prepare( strQuery );

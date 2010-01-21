@@ -18,18 +18,13 @@ class Event : public OrmRecord<Event>
 {
 public:
     static const QSqlRecord sColumns;
-    //static QString const sTableName;
-    static const QString sTable1Name;
-    static const QString sTable2Name;
-    static const int sTable1ColCount;
-    static const int sTable2ColCount;
+    static QString const sTableName;
 public:
     static Event getById(int id, int conferenceId);
     static QList<Event> getByDate(const QDate & date, int conferenceId, QString orderBy);
     static QList<Event> getFavByDate(const QDate & date, int conferenceId); // get Favourities by Date
     static QList<Event> getSearchResultByDate(const QDate& date, int conferenceId, QString orderBy);
 public:
-    // Table 1
     int id() const { return value("id").toInt(); }
     int conferenceId() const { return value("xid_conference").toInt(); }
     QDateTime start() const { return value("start").toDateTime(); }
@@ -40,7 +35,6 @@ public:
     bool isFavourite() const { return value("favourite").toBool(); }
     bool hasAlarm() const { return value("alarm").toBool(); }
     bool hasTimeConflict() const { return true; /*return value("warning").toBool()*/; } //TODO
-    // Table 2 : virtual table for FTS (Full Text Search)
     QString tag() const { return value("tag").toString(); }
     QString title() const { return value("title").toString(); }
     QString subtitle() const { return value("subtitle").toString(); }
@@ -50,7 +44,6 @@ public:
     QString room() const;
     QStringList persons() const;
 
-    // Table 1
     void setId(int id) { setValue("id", id); }
     void setConferenceId(int conferenceId) { setValue("xid_conference", conferenceId); }
     void setStart(const QDateTime & start) { setValue("start", start); }
@@ -60,7 +53,6 @@ public:
     void setLanguage(const QString & language) { setValue("language", language); }
     void setFavourite(bool favourite) { setValue("favourite", (int)((favourite))); }
     void setHasAlarm(bool alarm) { setValue("alarm", (int)((alarm))); }
-    // Table 2 : virtual table for FTS (Full Text Search)
     void setTag(const QString& tag) { setValue("tag", tag); }
     void setTitle(const QString& title) { setValue("title", title); }
     void setSubtitle(const QString& subtitle) { setValue("subtitle", subtitle); }

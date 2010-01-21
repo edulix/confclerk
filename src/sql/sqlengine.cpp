@@ -104,10 +104,8 @@ void SqlEngine::addEventToDB(QHash<QString,QString> &aEvent)
             trackId = track.insert();
             /*qDebug() << QString("DEBUG: Track %1 added to DB").arg(name);*/
         }
-        // The items of the Event are divided into the two tables EVENT and VIRTUAL_EVENT
-        // VIRTUAL_EVENT is for Full-Text-Serach Support
         QDateTime startDateTime = QDateTime(QDate::fromString(aEvent["date"],DATE_FORMAT),QTime::fromString(aEvent["start"],TIME_FORMAT));
-        QString values = QString("'%1', '%2', '%3', '%4', '%5', '%6', '%7', '%8', '%9'") \
+        QString values = QString("'%1', '%2', '%3', '%4', '%5', '%6', '%7', ? , ? , ? , ? , ? , '%8', '%9'") \
                          .arg(aEvent["conference_id"]) \
                          .arg(aEvent["id"]) \
                          .arg(QString::number(startDateTime.toTime_t())) \
@@ -118,26 +116,19 @@ void SqlEngine::addEventToDB(QHash<QString,QString> &aEvent)
                          .arg("0") \
                          .arg("0");
 
-        QString query = QString("INSERT INTO EVENT (xid_conference, id, start, duration, xid_track, type, language, favourite, alarm) VALUES (%1)").arg(values);
-        QSqlQuery result (query, db);
-        //LOG_AUTOTEST(query);
+        QString query =
+            QString("INSERT INTO EVENT (xid_conference, id, start, duration, xid_track, type, language, tag, title, subtitle, abstract, description, favourite, alarm) VALUES (%1)")
+            .arg(values);
 
-        // add some(text related) Event's items to VIRTUAL_EVENT table
-        QString values2 = QString("'%1', '%2', '%3', ? , ? , ? , ? ") \
-                          .arg(aEvent["conference_id"]) \
-                          .arg(aEvent["id"]) \
-                          .arg(aEvent["tag"]);
-
-        QString query2 = QString("INSERT INTO VIRTUAL_EVENT (xid_conference, id, tag, title, subtitle, abstract, description) VALUES (%1)").arg(values2);
-
-        QSqlQuery result2;
-        result2.prepare(query2);
-        result2.bindValue(0,aEvent["title"]);
-        result2.bindValue(1,aEvent["subtitle"]);
-        result2.bindValue(2,aEvent["abstract"]);
-        result2.bindValue(3,aEvent["description"]);
-        result2.exec();
-        //LOG_AUTOTEST(query2);
+        QSqlQuery result;
+        result.prepare(query);
+        result.bindValue(0,aEvent["tag"]);
+        result.bindValue(1,aEvent["title"]);
+        result.bindValue(2,aEvent["subtitle"]);
+        result.bindValue(3,aEvent["abstract"]);
+        result.bindValue(4,aEvent["description"]);
+        qDebug() << result.lastQuery();
+        result.exec();
     }
 }
 
@@ -249,33 +240,15 @@ bool SqlEngine::createTables(QSqlDatabase &aDatabase)
             xid_track INTEGER NOT NULL REFERENCES TRACK(id), \
             type VARCHAR, \
             language VARCHAR, \
+            tag VARCHAR,title VARCHAR NOT NULL , \
+            subtitle VARCHAR, \
+            abstract VARCHAR, \
+            description VARCHAR, \
             favourite INTEGER DEFAULT 0, \
             alarm INTEGER DEFAULT 0, \
             PRIMARY KEY (xid_conference,id), \
             FOREIGN KEY(xid_conference) REFERENCES CONFERENCE(id) \
             FOREIGN KEY(xid_track) REFERENCES TRACK(id))");
-
-#ifdef MAEMO
-        // TBD: MAEMO Virtual tables compatibility (waiting for Marek).
-        // MAEMO sqlite Qt driver doesn't provide FTS support by default - use the following HACK
-        query.exec("CREATE TABLE VIRTUAL_EVENT ( \
-            xid_conference INTEGER  NOT NULL, \
-            id INTEGER NOT NULL , \
-            tag VARCHAR,title VARCHAR NOT NULL , \
-            subtitle VARCHAR, \
-            abstract VARCHAR, \
-            description VARCHAR, \
-            PRIMARY KEY (xid_conference,id))");
-#else
-        query.exec("CREATE VIRTUAL TABLE VIRTUAL_EVENT using fts3 ( \
-            xid_conference INTEGER  NOT NULL, \
-            id INTEGER NOT NULL , \
-            tag VARCHAR,title VARCHAR NOT NULL , \
-            subtitle VARCHAR, \
-            abstract VARCHAR, \
-            description VARCHAR, \
-            PRIMARY KEY (xid_conference,id))");
-#endif
 
         query.exec("CREATE TABLE EVENT_PERSON ( \
             xid_conference INTEGER NOT NULL , \
