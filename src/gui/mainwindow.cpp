@@ -12,11 +12,13 @@
 #include <conference.h>
 
 #include <QDialog>
+#include <QMessageBox>
 #include "ui_about.h"
 #include "eventdialog.h"
 #include "daynavigatorwidget.h"
 #include "importscheduledialog.h"
 #include "mapwindow.h"
+
 
 const int confId = 1;
 
@@ -85,6 +87,11 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     connect(favTreeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
     connect(trackTreeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
     connect(searchTreeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
+    // request for warning to be displayed
+    connect(dayTreeView, SIGNAL(requestForWarning(const QModelIndex &)), SLOT(displayWarning(const QModelIndex &)));
+    connect(favTreeView, SIGNAL(requestForWarning(const QModelIndex &)), SLOT(displayWarning(const QModelIndex &)));
+    connect(trackTreeView, SIGNAL(requestForWarning(const QModelIndex &)), SLOT(displayWarning(const QModelIndex &)));
+    connect(searchTreeView, SIGNAL(requestForWarning(const QModelIndex &)), SLOT(displayWarning(const QModelIndex &)));
     // event search button clicked
     connect(searchButton, SIGNAL(clicked()), SLOT(searchClicked()));
 
@@ -273,3 +280,10 @@ void MainWindow::searchClicked()
     updateSearchView( Conference::getById(confId).start() );
 }
 
+void MainWindow::displayWarning(const QModelIndex &aIndex)
+{
+    QMessageBox::warning(
+    this,
+    tr("Time Conflict Warning"),
+    tr("This event happens at the same time than another one of your favourites.") );
+}

@@ -44,6 +44,7 @@ class Delegate : public QItemDelegate
                 {
                     return QRect(drawPoint(aRect), drawPoint(aRect)+QPoint(mImage->size().width(),mImage->size().height()));
                 }
+                bool hasConflict;
             private:
                 ControlId mId;
                 QImage *mImage;

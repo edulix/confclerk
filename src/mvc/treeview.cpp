@@ -106,10 +106,13 @@ bool TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
                 handled = true;
             }
         break;
-        case Delegate::WarningControlOn:
         case Delegate::WarningControlOff:
+        case Delegate::WarningControlOn:
         {
+
+            qDebug() << "WARNING CLICKED: " << qVariantValue<QString>(aIndex.data());
             // TODO: implement
+            emit(requestForWarning(aIndex));
             handled = true;
         }
         break;

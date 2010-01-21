@@ -16,6 +16,7 @@ private slots:
     void handleItemClicked(const QModelIndex &index);
 signals:
     void requestForMap(const QModelIndex &aIndex);
+    void requestForWarning(const QModelIndex &aIndex);
 };
 
 #endif /* TREEVIEW_H */

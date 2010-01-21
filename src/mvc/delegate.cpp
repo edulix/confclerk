@@ -135,9 +135,15 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         // Time conflict
         //if(static_cast<Event*>(index.internalPointer())->hasTimeConflict())
         if(bkgrColor == Qt::yellow)
+        {
             painter->drawImage(mControls[WarningControlOn]->drawPoint(option.rect),*mControls[WarningControlOn]->image());
+            mControls[WarningControlOn]->hasConflict=true;
+        }
         else
+        {
             painter->drawImage(mControls[WarningControlOff]->drawPoint(option.rect),*mControls[WarningControlOff]->image());
+            mControls[WarningControlOn]->hasConflict=false;
+        }
 
         // draw texts
         Event *event = static_cast<Event*>(index.internalPointer());
@@ -309,8 +315,19 @@ Delegate::ControlId Delegate::whichControlClicked(const QModelIndex &aIndex, con
     while (i.hasNext())
     {
         ControlId id = i.next();
-        if(mControls[id]->drawRect(static_cast<QTreeView*>(parent())->visualRect(aIndex)).contains(aPoint))
+        if((mControls[id]->drawRect(static_cast<QTreeView*>(parent())->visualRect(aIndex)).contains(aPoint))
+            && (id != WarningControlOn) && (id != WarningControlOff))
+        {
             return id;
+        }
+        else
+        {
+            if ((mControls[id]->drawRect(static_cast<QTreeView*>(parent())->visualRect(aIndex)).contains(aPoint))
+            && (mControls[id]->hasConflict))
+            {
+            return id;
+            }
+        }
     }
 
     return ControlNone;
@@ -368,12 +385,14 @@ void Delegate::defineControls()
     // on
     control = new Control(WarningControlOn,QString(":icons/exclamation-iconOn.png"));
     p = mControls[MapControl]->drawPoint();
+    control->hasConflict = false;
     p.setX(p.x()-control->image()->width()-SPACER);
     control->setDrawPoint(p);
     mControls.insert(WarningControlOn,control);
     // off
     control = new Control(WarningControlOff,QString(":icons/exclamation-iconOff.png"));
     p = mControls[MapControl]->drawPoint();
+    control->hasConflict = false;
     p.setX(p.x()-control->image()->width()-SPACER);
     control->setDrawPoint(p);
     mControls.insert(WarningControlOff,control);
