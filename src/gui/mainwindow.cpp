@@ -125,7 +125,7 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
             EventDialog dialog(aEventId,this);
             dialog.exec();
         }
-        catch(OrmNoObjectException*) {} // just start application
+        catch(OrmNoObjectException) {} // just start application
         catch(...) {} // just start application
     }
 }

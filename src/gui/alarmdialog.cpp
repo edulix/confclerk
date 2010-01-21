@@ -54,7 +54,7 @@ AlarmDialog::AlarmDialog(int argc, char *argv[], QWidget *aParent)
         personsStr = event.persons().join(" and ");
         roomStr = event.room();
     }
-    catch(OrmNoObjectException*)
+    catch(OrmNoObjectException&)
     {
         titleStr = QString("ERROR");
         messageStr = QString("No such event in the DB: %1").arg(QString::number(mEventId));
@@ -93,7 +93,7 @@ void AlarmDialog::closeDialog()
         event.setHasAlarm(false);
         event.update("alarm");
     }
-    catch(OrmNoObjectException*) {} // TODO: implement
+    catch(OrmNoObjectException) {} // TODO: implement
     catch(...) {} // just close dialog
     qApp->quit();
 }
