@@ -195,22 +195,17 @@ void MainWindow::updateTab(const int aIndex)
     {
     case 0://index 0 of tabWidget: dayViewTab
         {
-            static_cast<EventModel*>(dayTreeView->model())->loadEvents(Conference::getById(confId).start(),confId);
-            dayTreeView->reset();
-            dayNavigator->show();
+            updateDayView(dayNavigator->getCurrentDate());
         }
         break;
     case 1: //index 1 of tabWidget: favouritesTab
         {
-            static_cast<EventModel*>(favTreeView->model())->loadFavEvents(Conference::getById(confId).start(),confId);
-            favTreeView->reset();
-            favouriteDayNavigator->show();
+            updateFavouritesView(favouriteDayNavigator->getCurrentDate());
         }
         break;
     case 2: //index 2 of tabWidget: activitiesTab
         {
-            //TODO korinpa: nastavit navigator, alebo dat datum navigatora pre ine case
-            updateTracksView(activityDayNavigator->getCurrentDate());
+            updateTracksView(trackDayNavigator->getCurrentDate());
         }
         break;
     default:
