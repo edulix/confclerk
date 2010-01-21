@@ -70,7 +70,7 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     trackTreeView->setModel(new EventModel());
     trackTreeView->setItemDelegate(new Delegate(trackTreeView));
 
-    // DAY EVENTS View
+    // SEARCH EVENTS View
 	searchTreeView->setHeaderHidden(true);
 	searchTreeView->setRootIsDecorated(false);
 	searchTreeView->setIndentation(0);
@@ -111,6 +111,7 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
         dayNavigator->setDates(aStartDate, aEndDate);
         trackDayNavigator->setDates(aStartDate, aEndDate);
         favouriteDayNavigator->setDates(aStartDate, aEndDate);
+        searchDayNavigator->setDates(aStartDate, aEndDate);
     }
 
     connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(updateTab(int)));
@@ -274,9 +275,11 @@ void MainWindow::searchClicked()
     if( searchAbstract->isChecked() )
         columns.append( "abstract" );
 
+    searchTreeView->reset();
     if( mSqlEngine->searchEvent( confId, columns, searchEdit->text() ) > 0 ){
-        searchTreeView->setVisible(true);
-        searchDayNavigator->setVisible(true);
+        static_cast<EventModel*>(searchTreeView->model())->loadSearchResultEvents(Conference::getById(confId).start(),confId);
+        searchDayNavigator->show();
+        searchTreeView->show();
     }
 }
 

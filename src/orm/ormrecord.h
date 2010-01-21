@@ -142,6 +142,10 @@ QList<T> OrmRecord<T>::load(QSqlQuery query)
             qDebug() << "Error: " << query.lastError().driverText() << "; Type: " << query.lastError().type();
             throw new OrmSqlException(query.lastError().text());
         }
+        else
+        {
+            qDebug() << "SQL OK";
+        }
     }
 
     QList<T> objects;
@@ -149,7 +153,7 @@ QList<T> OrmRecord<T>::load(QSqlQuery query)
     {
         objects << hydrate(query.record());
     }
-
+    qDebug() << "Fetch done";
     return objects;
 }
 

@@ -19,6 +19,7 @@ public:
     void loadEvents(const QDate &aDate, int aConferenceId); // loads Events from the DB
     void loadFavEvents(const QDate &aDate, int aConferenceId); // loads Favourite events from the DB
     void loadEventsByTrack(const QDate &aDate, int aConferenceId); // loads Events grouped by Track from the DB
+    void loadSearchResultEvents(const QDate &aDate, int aConferenceId);
     // a method to force 'EventModel' emit signal 'dataChanged()'
     // a 'view', eg. 'TreeView' listens for this signal and redraws changed items(indexes)
     void emitDataChangedSignal(const QModelIndex &aTopLeft, const QModelIndex &aBottomRight);

@@ -24,6 +24,7 @@ class SqlEngine : public QObject
     private:
         QString login(const QString &aDatabaseType, const QString &aDatabaseName);
         bool createTables(QSqlDatabase &aDatabase);
+        bool execQuery(QSqlDatabase &aDatabase, const QString &aQuery);
 };
 
 #endif /* SQLENGINE_H */

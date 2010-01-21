@@ -37,8 +37,10 @@ QString SqlEngine::login(const QString &aDatabaseType, const QString &aDatabaseN
         //  - create new DB from resource, which contains empty DB with tables
         result = createTables(database);
     }
-
-    database.open();
+    else
+    {
+        database.open();
+    }
 
     //LOG_INFO(QString("Opening '%1' database '%2'").arg(aDatabaseType).arg(aDatabaseName));
 
@@ -317,13 +319,15 @@ int SqlEngine::searchEvent(int aConferenceId, const QList<QString> &aColumns, co
     if ( !db.isValid() || !db.isOpen())
         return -1;
 
-    QString query = QString(
-        "DROP TABLE IF EXISTS SEARCH_EVENT;"
-        "CREATE TEMP TABLE SEARCH_EVENT ( xid_conference INTEGER  NOT NULL, id INTEGER NOT NULL );"
-        "INSERT INTO SEARCH_EVENT ( xid_conference, id) "
-            "SELECT xid_conference, id FROM EVENT AS e INNER JOIN VIRTUAL_EVENT AS ve USING (xid_conference, id) "
-            "WHERE xid_conference = %1 AND (").arg( aConferenceId );
 
+    // DROP
+    execQuery( db, "DROP TABLE IF EXISTS SEARCH_EVENT;");
+    // CREATE
+    execQuery( db, "CREATE TABLE SEARCH_EVENT ( xid_conference INTEGER  NOT NULL, id INTEGER NOT NULL );");
+    // INSERT
+    QString query = QString("INSERT INTO SEARCH_EVENT ( xid_conference, id) "
+                "SELECT xid_conference, id FROM EVENT AS e INNER JOIN VIRTUAL_EVENT AS ve USING (xid_conference, id) "
+                "WHERE xid_conference = %1 AND (").arg( aConferenceId );
     int i = 0;
     foreach (QString str, aColumns){
         query += QString("%1 LIKE '\%%2\%' OR ").arg( aColumns.at(i++), aKeyword );
@@ -331,17 +335,23 @@ int SqlEngine::searchEvent(int aConferenceId, const QList<QString> &aColumns, co
     query.chop( QString(" OR ").length() );
     query += QString(");");
 
-    qDebug() << "\nSQL: " << query;
+    execQuery( db, query );
 
-    db.exec();
+    //TODO: retun number of rows from SEARCH_EVENT
+    return 1;
+}
 
-    if( db.lastError().isValid() && db.lastError().number() != 0 ){
-        qDebug() << "SQL ERR: " << db.lastError().number() << ", " << db.lastError().text();
-        return 0;
+bool SqlEngine::execQuery(QSqlDatabase &aDatabase, const QString &aQuery)
+{
+    qDebug() << "\nSQL: " << aQuery;
+
+    QSqlQuery sqlQuery(aDatabase);
+    if( !sqlQuery.exec(aQuery) ){
+       qDebug() << "SQL ERR: " << sqlQuery.lastError().number() << ", " << sqlQuery.lastError().text();
+       return false;
     }
     else{
-        qDebug() << "SQL OK.\n";
-        return 1;
+       qDebug() << "SQL OK.\n";
+       return true;
     }
-
 }

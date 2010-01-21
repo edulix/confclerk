@@ -113,3 +113,20 @@ void Event::setPersons(const QStringList &persons)
     // TODO: implement
 }
 
+QList<Event> Event::getSearchResultByDate(const QDate& date, int conferenceId, QString orderBy)
+{
+
+    QString strQuery = QString("SELECT %1 FROM EVENT INNER JOIN VIRTUAL_EVENT USING (xid_conference, id) "
+        "INNER JOIN SEARCH_EVENT USING (xid_conference, id) ").arg( columnsForSelectJoin2T() );
+    strQuery += QString(
+        "WHERE %1.xid_conference = :conf AND %1.start >= :start AND %1.start < :end ORDER BY %1.%2").arg(sTable1Name, orderBy);
+    qDebug() << strQuery;
+    QSqlQuery query;
+    query.prepare( strQuery );
+    query.bindValue(":conf", conferenceId);
+    query.bindValue(":start", convertToDb(date, QVariant::DateTime));
+    query.bindValue(":end", convertToDb(date.addDays(1), QVariant::DateTime));
+
+    return load(query);
+}
+
