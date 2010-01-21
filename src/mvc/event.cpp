@@ -21,7 +21,6 @@ QSqlRecord const Event::sColumns = Event::toRecord(QList<QSqlField>()
 
 Event Event::getById(int id, int conferenceId)
 {
-
     QSqlQuery query;
     query.prepare(selectQuery() + "WHERE id = :id AND xid_conference = :conf");
     query.bindValue(":id", id);

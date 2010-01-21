@@ -184,16 +184,28 @@ void EventModel::loadFavEvents(const QDate &aDate, int aConferenceId)
     createTimeGroups();
 }
 
-void EventModel::loadSearchResultEvents(const QDate &aDate, int aConferenceId)
+int EventModel::loadSearchResultEvents(const QDate &aDate, int aConferenceId)
 {
     clearModel();
     // check for existence of the conference in the DB
     if(Conference::getAll().count())
     {
         qDebug() << "Loading search result Data: [" << Conference::getById(aConferenceId).title() << "] " << aDate;
-        mEvents = Event::getSearchResultByDate(QDate(aDate.year(), aDate.month(), aDate.day()), aConferenceId, "start");
+        try{
+            mEvents = Event::getSearchResultByDate(QDate(aDate.year(), aDate.month(), aDate.day()), aConferenceId, "start");
+        }
+        catch( OrmException &e  ){
+            qDebug() << "Event::getSearchResultByDate failed: " << e.text();
+        }
+        catch(...){
+            qDebug() << "Event::getSearchResultByDate failed";
+        }
+
     }
+
     createTimeGroups();
+
+    return mEvents.count();
 }
 
 void EventModel::loadEventsByTrack(const QDate &aDate, int aConferenceId)

@@ -294,7 +294,7 @@ int SqlEngine::searchEvent(int aConferenceId, const QList<QString> &aColumns, co
     execQuery( db, "CREATE TABLE SEARCH_EVENT ( xid_conference INTEGER  NOT NULL, id INTEGER NOT NULL );");
     // INSERT
     QString query = QString("INSERT INTO SEARCH_EVENT ( xid_conference, id) "
-                "SELECT xid_conference, id FROM EVENT AS e INNER JOIN VIRTUAL_EVENT AS ve USING (xid_conference, id) "
+                "SELECT xid_conference, id FROM EVENT "
                 "WHERE xid_conference = %1 AND (").arg( aConferenceId );
     int i = 0;
     foreach (QString str, aColumns){

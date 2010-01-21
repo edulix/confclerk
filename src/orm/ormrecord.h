@@ -11,20 +11,26 @@
 
 class OrmException
 {
+public:
+    OrmException(const QString& text) : mText(text) {};
+    virtual ~OrmException(){};
+    virtual const QString& text() const { return mText; }
+private:
+    QString mText;
 };
 
 class OrmNoObjectException : OrmException
 {
+public:
+    OrmNoObjectException() : OrmException("No object exception"){};
+    ~OrmNoObjectException(){};
 };
 
 class OrmSqlException : OrmException
 {
 public:
-    OrmSqlException(const QString& text) : mText(text) {}
-    QString text() const { return mText; }
-
-private:
-    QString mText;
+    OrmSqlException(const QString& text) : OrmException( QString("Sql error: ") + text ) {};
+    ~OrmSqlException(){};
 };
 
 template <typename T>

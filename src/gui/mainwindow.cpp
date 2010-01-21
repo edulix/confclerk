@@ -45,6 +45,7 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     connect(dayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateDayView(const QDate &)));
     connect(trackDayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateTracksView(const QDate &)));
     connect(favouriteDayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateFavouritesView(const QDate &)));
+    connect(searchDayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateSearchView(const QDate &)));
 
     // DAY EVENTS View
     dayTreeView->setHeaderHidden(true);
@@ -77,8 +78,7 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
 	searchTreeView->setAnimated(true);
 	searchTreeView->setModel(new EventModel());
 	searchTreeView->setItemDelegate(new Delegate(searchTreeView));
-	searchTreeView->setVisible(false);
-	searchDayNavigator->setVisible(false);
+
     // event clicked
     connect(dayTreeView, SIGNAL(clicked(const QModelIndex &)), SLOT(itemClicked(const QModelIndex &)));
     connect(favTreeView, SIGNAL(clicked(const QModelIndex &)), SLOT(itemClicked(const QModelIndex &)));
@@ -115,6 +115,9 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     }
 
     connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(updateTab(int)));
+
+    searchTreeView->hide();
+    searchDayNavigator->hide();
 
     // open dialog for given Event ID
     // this is used in case Alarm Dialog request application to start
@@ -208,6 +211,11 @@ void MainWindow::updateTab(const int aIndex)
             updateTracksView(trackDayNavigator->getCurrentDate());
         }
         break;
+    case 3: //index 3 of tabWidget: searchTab
+       {
+           updateSearchView( searchDayNavigator->getCurrentDate() );
+       }
+       break;
     default:
         {
 
@@ -227,6 +235,20 @@ void MainWindow::updateFavouritesView(const QDate &aDate)
     static_cast<EventModel*>(favTreeView->model())->loadFavEvents(aDate,confId);
     favTreeView->reset();
     favouriteDayNavigator->show();
+}
+
+void MainWindow::updateSearchView(const QDate &aDate)
+{
+    searchTreeView->reset();
+    int eventsCount = static_cast<EventModel*>(searchTreeView->model())->loadSearchResultEvents(aDate,confId);
+    if( eventsCount ){
+        searchDayNavigator->show();
+        searchTreeView->show();
+    }
+    else{
+        searchTreeView->hide();
+        searchDayNavigator->hide();
+    }
 }
 
 void MainWindow::itemClicked(const QModelIndex &aIndex)
@@ -269,11 +291,7 @@ void MainWindow::searchClicked()
     if( searchAbstract->isChecked() )
         columns.append( "abstract" );
 
-    searchTreeView->reset();
-    if( mSqlEngine->searchEvent( confId, columns, searchEdit->text() ) > 0 ){
-        static_cast<EventModel*>(searchTreeView->model())->loadSearchResultEvents(Conference::getById(confId).start(),confId);
-        searchDayNavigator->show();
-        searchTreeView->show();
-    }
+    mSqlEngine->searchEvent( confId, columns, searchEdit->text() );
+    updateSearchView( Conference::getById(confId).start() );
 }
 
