@@ -1,4 +1,5 @@
 #include "eventdialog.h"
+#include <appsettings.h>
 
 #include <QScrollBar>
 
@@ -12,8 +13,7 @@ EventDialog::EventDialog(const int &aEventId, QWidget *aParent)
     showFullScreen();
 #endif
 
-    const int confId = 1;
-    Event event = Event::getById(aEventId,confId);
+    Event event = Event::getById(aEventId,AppSettings::confId());
 
     //abstract->setStyleSheet("background-color : transparent;");
     //description->setStyleSheet("background-color : transparent;");

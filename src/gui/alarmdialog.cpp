@@ -1,4 +1,5 @@
 #include "alarmdialog.h"
+#include <appsettings.h>
 
 #include <QApplication>
 #include <alarm.h>
@@ -8,8 +9,6 @@
 #include <QProcess>
 
 const int SNOOZE_TIME = 5; // in minutes
-
-const int confId = 1;
 
 AlarmDialog::AlarmDialog(int argc, char *argv[], QWidget *aParent)
     : QDialog(aParent)
@@ -47,7 +46,7 @@ AlarmDialog::AlarmDialog(int argc, char *argv[], QWidget *aParent)
     QString roomStr;
     try
     {
-        Event event = Event::getById(mEventId,confId);
+        Event event = Event::getById(mEventId,AppSettings::confId());
         titleStr = "Event alarm";
         messageStr = event.title();
         timeStr = event.start().toString("hh:mm") + "-" + event.start().addSecs(event.duration()).toString("hh:mm");
@@ -89,7 +88,7 @@ void AlarmDialog::closeDialog()
     // before closing the dialog, it is necessary to remove alarm flag from the DB
     try
     {
-        Event event = Event::getById(mEventId,confId);
+        Event event = Event::getById(mEventId,AppSettings::confId());
         event.setHasAlarm(false);
         event.update("alarm");
     }

@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include <appsettings.h>
 
 #include <QTreeView>
 #include <QDirModel>
@@ -19,13 +20,14 @@
 #include "importscheduledialog.h"
 #include "mapwindow.h"
 
-
-const int confId = 1;
-
 MainWindow::MainWindow(int aEventId, QWidget *aParent)
     : QMainWindow(aParent)
 {
     setupUi(this);
+
+    // TODO: conference ID should be assigned based on actual data in the DB
+    // for testing only
+    AppSettings::setConfId(1);
 
     // connect Menu actions
     connect(actionImportSchedule, SIGNAL(triggered()), SLOT(importSchedule()));
@@ -61,7 +63,7 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     favTreeView->setModel(new EventModel());
     favTreeView->setItemDelegate(new Delegate(favTreeView));
 
-    //ACTIVITIES View
+    // TRACKS View
     trackTreeView->setHeaderHidden(true);
     trackTreeView->setRootIsDecorated(false);
     trackTreeView->setIndentation(0);
@@ -98,7 +100,7 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     // TESTING: load some 'fav' data
     if(Conference::getAll().count()) // no conference(s) in the DB
     {
-        static_cast<EventModel*>(favTreeView->model())->loadFavEvents(Conference::getById(confId).start(),confId);
+        static_cast<EventModel*>(favTreeView->model())->loadFavEvents(Conference::getById(AppSettings::confId()).start(),AppSettings::confId());
         favTreeView->reset();
     }
 
@@ -109,12 +111,20 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     }
     else
     {
-        QDate aStartDate = Conference::getById(confId).start();
-        QDate aEndDate = Conference::getById(confId).end();
+        QDate aStartDate = Conference::getById(AppSettings::confId()).start();
+        QDate aEndDate = Conference::getById(AppSettings::confId()).end();
         dayNavigator->setDates(aStartDate, aEndDate);
         trackDayNavigator->setDates(aStartDate, aEndDate);
         favouriteDayNavigator->setDates(aStartDate, aEndDate);
         searchDayNavigator->setDates(aStartDate, aEndDate);
+        //
+        conferenceTitle->setText(Conference::getById(AppSettings::confId()).title());
+        conferenceSubtitle->setText(Conference::getById(AppSettings::confId()).subtitle());
+        conferenceWhere->setText(Conference::getById(AppSettings::confId()).city() + ", " + Conference::getById(AppSettings::confId()).venue());
+        conferenceWhen->setText(
+                Conference::getById(AppSettings::confId()).start().toString("dd-MM-yyyy")
+                + ", " +
+                Conference::getById(AppSettings::confId()).end().toString("dd-MM-yyyy"));
     }
 
     connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(updateTab(int)));
@@ -153,8 +163,8 @@ void MainWindow::importSchedule()
     if(Conference::getAll().count())
     {
         // 'dayNavigator' emits signal 'dateChanged' after setting valid START:END dates
-        QDate aStartDate = Conference::getById(confId).start();
-        QDate aEndDate = Conference::getById(confId).end();
+        QDate aStartDate = Conference::getById(AppSettings::confId()).start();
+        QDate aEndDate = Conference::getById(AppSettings::confId()).end();
         dayNavigator->setDates(aStartDate, aEndDate);
         //update activity map
         Track::updateTrackMap();
@@ -172,7 +182,7 @@ void MainWindow::aboutApp()
 
 void MainWindow::updateDayView(const QDate &aDate)
 {
-    static_cast<EventModel*>(dayTreeView->model())->loadEvents(aDate,confId);
+    static_cast<EventModel*>(dayTreeView->model())->loadEvents(aDate,AppSettings::confId());
     dayTreeView->reset();
     dayNavigator->show();
 }
@@ -210,14 +220,14 @@ void MainWindow::updateTab(const int aIndex)
 
 void MainWindow::updateTracksView(const QDate &aDate)
 {
-    static_cast<EventModel*>(trackTreeView->model())->loadEventsByTrack(aDate, confId);
+    static_cast<EventModel*>(trackTreeView->model())->loadEventsByTrack(aDate, AppSettings::confId());
     trackTreeView->reset();
     trackDayNavigator->show();
 }
 
 void MainWindow::updateFavouritesView(const QDate &aDate)
 {
-    static_cast<EventModel*>(favTreeView->model())->loadFavEvents(aDate,confId);
+    static_cast<EventModel*>(favTreeView->model())->loadFavEvents(aDate,AppSettings::confId());
     favTreeView->reset();
     favouriteDayNavigator->show();
 }
@@ -225,7 +235,7 @@ void MainWindow::updateFavouritesView(const QDate &aDate)
 void MainWindow::updateSearchView(const QDate &aDate)
 {
     searchTreeView->reset();
-    int eventsCount = static_cast<EventModel*>(searchTreeView->model())->loadSearchResultEvents(aDate,confId);
+    int eventsCount = static_cast<EventModel*>(searchTreeView->model())->loadSearchResultEvents(aDate,AppSettings::confId());
     if( eventsCount ){
         searchDayNavigator->show();
         searchTreeView->show();
@@ -276,14 +286,17 @@ void MainWindow::searchClicked()
     if( searchAbstract->isChecked() )
         columns.append( "abstract" );
 
-    mSqlEngine->searchEvent( confId, columns, searchEdit->text() );
-    updateSearchView( Conference::getById(confId).start() );
+    mSqlEngine->searchEvent( AppSettings::confId(), columns, searchEdit->text() );
+    updateSearchView( Conference::getById(AppSettings::confId()).start() );
 }
 
 void MainWindow::displayWarning(const QModelIndex &aIndex)
 {
+    Q_UNUSED(aIndex);
+
     QMessageBox::warning(
     this,
     tr("Time Conflict Warning"),
     tr("This event happens at the same time than another one of your favourites.") );
 }
+
