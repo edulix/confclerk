@@ -79,6 +79,12 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
 	searchTreeView->setModel(new EventModel());
 	searchTreeView->setItemDelegate(new Delegate(searchTreeView));
 
+    // event details have changed
+    connect(dayTreeView, SIGNAL(eventHasChanged(int)), SLOT(eventHasChanged(int)));
+    connect(favTreeView, SIGNAL(eventHasChanged(int)), SLOT(eventHasChanged(int)));
+    connect(trackTreeView, SIGNAL(eventHasChanged(int)), SLOT(eventHasChanged(int)));
+    connect(searchTreeView, SIGNAL(eventHasChanged(int)), SLOT(eventHasChanged(int)));
+
     // event clicked
     connect(dayTreeView, SIGNAL(clicked(const QModelIndex &)), SLOT(itemClicked(const QModelIndex &)));
     connect(favTreeView, SIGNAL(clicked(const QModelIndex &)), SLOT(itemClicked(const QModelIndex &)));
@@ -96,13 +102,8 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     connect(searchTreeView, SIGNAL(requestForWarning(const QModelIndex &)), SLOT(displayWarning(const QModelIndex &)));
     // event search button clicked
     connect(searchButton, SIGNAL(clicked()), SLOT(searchClicked()));
-
-    // TESTING: load some 'fav' data
-    if(Conference::getAll().count()) // no conference(s) in the DB
-    {
-        static_cast<EventModel*>(favTreeView->model())->loadFavEvents(Conference::getById(AppSettings::confId()).start(),AppSettings::confId());
-        favTreeView->reset();
-    }
+    //
+    connect(tabWidget, SIGNAL(currentChanged(int)), SLOT(tabHasChanged(int)));
 
     if(!Conference::getAll().count()) // no conference(s) in the DB
     {
@@ -126,8 +127,6 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
                 + ", " +
                 Conference::getById(AppSettings::confId()).end().toString("dd-MM-yyyy"));
     }
-
-    connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(updateTab(int)));
 
     searchTreeView->hide();
     searchDayNavigator->hide();
@@ -185,37 +184,6 @@ void MainWindow::updateDayView(const QDate &aDate)
     static_cast<EventModel*>(dayTreeView->model())->loadEvents(aDate,AppSettings::confId());
     dayTreeView->reset();
     dayNavigator->show();
-}
-
-void MainWindow::updateTab(const int aIndex)
-{
-    switch(aIndex)
-    {
-    case 0://index 0 of tabWidget: dayViewTab
-        {
-            updateDayView(dayNavigator->getCurrentDate());
-        }
-        break;
-    case 1: //index 1 of tabWidget: favouritesTab
-        {
-            updateFavouritesView(favouriteDayNavigator->getCurrentDate());
-        }
-        break;
-    case 2: //index 2 of tabWidget: activitiesTab
-        {
-            updateTracksView(trackDayNavigator->getCurrentDate());
-        }
-        break;
-    case 3: //index 3 of tabWidget: searchTab
-       {
-           updateSearchView( searchDayNavigator->getCurrentDate() );
-       }
-       break;
-    default:
-        {
-
-        }
-    };
 }
 
 void MainWindow::updateTracksView(const QDate &aDate)
@@ -298,5 +266,20 @@ void MainWindow::displayWarning(const QModelIndex &aIndex)
     this,
     tr("Time Conflict Warning"),
     tr("This event happens at the same time than another one of your favourites.") );
+}
+
+void MainWindow::eventHasChanged(int aEventId)
+{
+    static_cast<EventModel*>(dayTreeView->model())->updateModel(aEventId);
+    static_cast<EventModel*>(favTreeView->model())->updateModel(aEventId);
+    static_cast<EventModel*>(trackTreeView->model())->updateModel(aEventId);
+    static_cast<EventModel*>(searchTreeView->model())->updateModel(aEventId);
+}
+
+void MainWindow::tabHasChanged(int aIndex)
+{
+    Q_UNUSED(aIndex);
+
+    updateFavouritesView(favouriteDayNavigator->getCurrentDate());
 }
 

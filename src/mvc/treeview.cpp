@@ -48,19 +48,14 @@ bool TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
                 // handle Favourite Control clicked
                 Event event = Event::getById(aIndex.data().toInt(),1);
                 if(event.isFavourite())
-                {
-                    static_cast<Event*>(aIndex.internalPointer())->setFavourite(false); // list of events
-                    event.setFavourite(false); // update DB
-                }
+                    event.setFavourite(false);
                 else
-                {
-                    static_cast<Event*>(aIndex.internalPointer())->setFavourite(true); // list of events
                     event.setFavourite(true);
-                }
-                qDebug() << " FAVOURITE [" << qVariantValue<QString>(aIndex.data()) << "] -> " << event.isFavourite();
                 event.update("favourite");
-                // since the Favourite icon has changed, update TreeView accordingly
-                static_cast<EventModel*>(model())->emitDataChangedSignal(aIndex,aIndex);
+                qDebug() << " FAVOURITE [" << qVariantValue<QString>(aIndex.data()) << "] -> " << event.isFavourite();
+                // since the Favourite icon has changed, update TreeViews accordingly
+                // all TreeViews have to listen on this signal
+                emit(eventHasChanged(event.id()));
                 handled = true;
             }
             break;
@@ -71,7 +66,6 @@ bool TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
                 Event event = Event::getById(aIndex.data().toInt(),1);
                 if(event.hasAlarm())
                 {
-                    static_cast<Event*>(aIndex.internalPointer())->setHasAlarm(false); // list of events
                     event.setHasAlarm(false); // update DB
 #ifdef MAEMO
                     // remove alarm from the 'alarmd' alrms list
@@ -82,7 +76,6 @@ bool TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
                 }
                 else
                 {
-                    static_cast<Event*>(aIndex.internalPointer())->setHasAlarm(true); // list of events
                     event.setHasAlarm(true);
 #ifdef MAEMO
                     // add alarm to the 'alarmd'
@@ -91,10 +84,11 @@ bool TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
                     qDebug() << "cookie: " << cookie;
 #endif /* MAEMO */
                 }
-                qDebug() << " ALARM [" << qVariantValue<QString>(aIndex.data()) << "] -> " << event.hasAlarm();
                 event.update("alarm");
+                qDebug() << " ALARM [" << qVariantValue<QString>(aIndex.data()) << "] -> " << event.hasAlarm();
                 // since the Alarm icon has changed, update TreeView accordingly
-                static_cast<EventModel*>(model())->emitDataChangedSignal(aIndex,aIndex);
+                // all TreeViews have to listen on this signal
+                emit(eventHasChanged(event.id()));
                 handled = true;
             }
             break;

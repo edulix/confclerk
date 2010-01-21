@@ -1,4 +1,5 @@
 #include "eventmodel.h"
+#include <appsettings.h>
 #include <conference.h>
 #include <track.h>
 
@@ -219,8 +220,26 @@ void EventModel::loadEventsByTrack(const QDate &aDate, int aConferenceId)
     createTrackGroups();
 }
 
-void EventModel::emitDataChangedSignal(const QModelIndex &aTopLeft, const QModelIndex &aBottomRight)
+void EventModel::updateModel(int aEventId)
 {
-    emit(dataChanged(aTopLeft,aBottomRight));
+    for(int i=0; i<mEvents.count(); i++)
+    {
+        if(mEvents[i].id() == aEventId)
+            mEvents[i] = Event::getById(aEventId,AppSettings::confId());
+    }
+
+    // find the ModelIndex for given aEventId
+    for(int i=0; i<mGroups.count(); i++)
+    {
+        QModelIndex groupIndex = index(i,0,QModelIndex());
+        for(int j=0; j<mGroups[i].mChildCount; j++)
+        {
+            QModelIndex eventIndex = index(j,0,groupIndex);
+            if(static_cast<Event*>(eventIndex.internalPointer())->id() == aEventId)
+            {
+                emit(dataChanged(eventIndex,eventIndex));
+            }
+        }
+    }
 }
 

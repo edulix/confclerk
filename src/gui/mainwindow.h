@@ -19,7 +19,6 @@ private slots:
     void importSchedule();
     void aboutApp();
     void updateDayView(const QDate &aDate);
-    void updateTab(const int n);
     void updateTracksView(const QDate &aDate);
     void updateFavouritesView(const QDate &aDate);
     void updateSearchView(const QDate &aDate);
@@ -27,6 +26,8 @@ private slots:
     void displayMap(const QModelIndex &aIndex);
     void displayWarning(const QModelIndex &aIndex);
     void searchClicked();
+    void tabHasChanged(int aIndex);
+    void eventHasChanged(int aEventId);
 private:
     SqlEngine *mSqlEngine;
 };

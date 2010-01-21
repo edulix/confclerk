@@ -7,7 +7,7 @@ QT += sql
 
 # module dependencies
 LIBS += -L$$DESTDIR -lorm
-INCLUDEPATH += ../orm
+INCLUDEPATH += ../orm ../app
 DEPENDPATH += . ../orm
 TARGETDEPS += $$DESTDIR/liborm.a
 
