@@ -15,7 +15,9 @@ ImportScheduleDialog::ImportScheduleDialog(SqlEngine *aSqlEngine, QWidget *aPare
     setupUi(this);
 
     mXmlParser = new ScheduleXmlParser(this);
-    connect(mXmlParser, SIGNAL(progressStatus(int)), this, SLOT(showParsingProgress(int)));
+    connect(mXmlParser, SIGNAL(progressStatus(int)), SLOT(showParsingProgress(int)));
+    connect(mXmlParser, SIGNAL(parsingSchedule(const QString &)), SLOT(setWindowTitle(const QString &)));
+
     connect(import, SIGNAL(clicked()), SLOT(importSchedule()));
     connect(search, SIGNAL(clicked()), SLOT(searchSchedule()));
     progressBar->hide();
@@ -39,7 +41,6 @@ void ImportScheduleDialog::showParsingProgress(int progress)
 void ImportScheduleDialog::searchSchedule()
 {
     mScheduleFileName = QFileDialog::getOpenFileName(this, tr("Select Conference Schedule"), QDir::homePath(), tr("Schedule Files (*.xml)"));
-    fileName->setText(mScheduleFileName);
     if(QFile::exists(mScheduleFileName))
         import->setEnabled(true);
     else
@@ -63,6 +64,7 @@ void ImportScheduleDialog::importSchedule()
     {
         progressBar->show();
         mXmlParser->parseData(data,mSqlEngine);
+        close();
     }
 }
 

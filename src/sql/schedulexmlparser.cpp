@@ -40,6 +40,7 @@ void ScheduleXmlParser::parseData(const QByteArray &aData, SqlEngine *aDBEngine)
             conference["timeslot_duration"] = conferenceElement.firstChildElement("timeslot_duration").text(); // time
             aDBEngine->addConferenceToDB(conference);
             confId = conference["id"].toInt();
+            emit(parsingSchedule(conference["title"]));
         }
 
         // we need to get count of all events in order to emit 'progressStatus' signal

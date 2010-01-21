@@ -16,6 +16,7 @@ class ScheduleXmlParser : public QObject
 
     signals:
         void progressStatus(int aStatus);
+        void parsingSchedule(const QString &aTitle);
 };
 
 #endif /* SCHEDULEXMLPARSER_H_ */
