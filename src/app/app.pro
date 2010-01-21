@@ -19,8 +19,7 @@ maemo {
 SOURCES += main.cpp
 
 RESOURCES += ../icons.qrc \
-             ../maps.qrc \
-             ../schedule.qrc
+             ../maps.qrc
 
 # instalation related
 
