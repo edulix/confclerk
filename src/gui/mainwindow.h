@@ -6,7 +6,6 @@
 #include <ui_mainwindow.h>
 
 class SqlEngine;
-class ScheduleXmlParser;
 
 class MainWindow : public QMainWindow, private Ui::MainWindow
 {
@@ -18,7 +17,6 @@ public:
     ~MainWindow();
 private slots:
     void importSchedule();
-    void showParsingProgress(int aStatus);
     void aboutApp();
     void updateDayView(const QDate &aDate);
     void updateTab(const int n);
@@ -30,7 +28,6 @@ private slots:
     void searchClicked();
 private:
     SqlEngine *mSqlEngine;
-    ScheduleXmlParser *mXmlParser;
 };
 
 #endif // MAINWINDOW_H

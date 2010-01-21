@@ -127,7 +127,6 @@ void SqlEngine::addEventToDB(QHash<QString,QString> &aEvent)
         result.bindValue(2,aEvent["subtitle"]);
         result.bindValue(3,aEvent["abstract"]);
         result.bindValue(4,aEvent["description"]);
-        qDebug() << result.lastQuery();
         result.exec();
     }
 }
@@ -247,7 +246,7 @@ bool SqlEngine::createTables(QSqlDatabase &aDatabase)
             favourite INTEGER DEFAULT 0, \
             alarm INTEGER DEFAULT 0, \
             PRIMARY KEY (xid_conference,id), \
-            FOREIGN KEY(xid_conference) REFERENCES CONFERENCE(id) \
+            FOREIGN KEY(xid_conference) REFERENCES CONFERENCE(id), \
             FOREIGN KEY(xid_track) REFERENCES TRACK(id))");
 
         query.exec("CREATE TABLE EVENT_PERSON ( \

@@ -134,7 +134,7 @@ QList<T> OrmRecord<T>::load(QSqlQuery query)
         }
         else
         {
-            qDebug() << "SQL OK";
+            //qDebug() << "SQL OK";
         }
     }
 
@@ -143,7 +143,7 @@ QList<T> OrmRecord<T>::load(QSqlQuery query)
     {
         objects << hydrate(query.record());
     }
-    qDebug() << "Fetch done";
+    //qDebug() << "Fetch done";
     return objects;
 }
 

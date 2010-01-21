@@ -4,7 +4,6 @@
 #include <QDirModel>
 
 #include <sqlengine.h>
-#include <schedulexmlparser.h>
 
 #include <track.h>
 #include <eventmodel.h>
@@ -16,6 +15,7 @@
 #include "ui_about.h"
 #include "eventdialog.h"
 #include "daynavigatorwidget.h"
+#include "importscheduledialog.h"
 #include "mapwindow.h"
 
 const int confId = 1;
@@ -34,10 +34,6 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     // opens DB connection (needed for EventModel)
     mSqlEngine = new SqlEngine(this);
     mSqlEngine->initialize();
-
-    mXmlParser = new ScheduleXmlParser(this);
-    connect(mXmlParser, SIGNAL(progressStatus(int)), this, SLOT(showParsingProgress(int)));
-    statusBar()->showMessage(tr("Ready"));
 
     //update track map
     Track::updateTrackMap();
@@ -140,25 +136,13 @@ MainWindow::~MainWindow()
         delete mSqlEngine;
         mSqlEngine = NULL;
     }
-    if(mXmlParser)
-    {
-        delete mXmlParser;
-        mXmlParser = NULL;
-    }
 }
 
 void MainWindow::importSchedule()
 {
-    QFile file(":/schedule.en.xml");
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-    {
-        qDebug() << "can't open " << file.fileName();
-        return;
-    }
-
-    QByteArray data = file.readAll();
-    mXmlParser->parseData(data,mSqlEngine);
-
+    ImportScheduleDialog dialog(mSqlEngine,this);
+    dialog.exec();
+    
     if(Conference::getAll().count())
     {
         // 'dayNavigator' emits signal 'dateChanged' after setting valid START:END dates
@@ -169,12 +153,6 @@ void MainWindow::importSchedule()
         Track::updateTrackMap();
         trackDayNavigator->setDates(aStartDate, aEndDate);
     }
-}
-
-void MainWindow::showParsingProgress(int aStatus)
-{
-    QString msg = QString("Parsing completed: %1\%").arg(aStatus);
-    statusBar()->showMessage(msg,1000);
 }
 
 void MainWindow::aboutApp()
