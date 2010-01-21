@@ -71,6 +71,7 @@ class Delegate : public QItemDelegate
         // every time it requires them
         int numberOfFavourities(const QModelIndex &index) const;
         int numberOfAlarms(const QModelIndex &index) const;
+        bool hasTimeConflict(const QModelIndex &index, const QModelIndex &parent) const;
 
     private:
         QPointer<QTreeView> mViewPtr;

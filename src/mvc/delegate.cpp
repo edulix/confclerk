@@ -34,8 +34,8 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         return;
 
     painter->save();
-
     QColor bkgrColor = Qt::cyan;
+
     QPen borderPen(bkgrColor.darker());
     //QColor bkgrColor = QColor(0,0,113);
     //QPen borderPen(Qt::cyan);
@@ -63,6 +63,13 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         QFontMetrics fmBigB(fontBigB);
 
         //int spacer = (fmSmall.boundingRect("999").width() < SPACER) ? SPACER : fmSmall.boundingRect("999").width();
+
+        //Time conflicts are colored differently
+        if ((static_cast<Event*>(index.internalPointer())->isFavourite())
+            && (hasTimeConflict(index, index.parent())))
+        {
+            bkgrColor = Qt::yellow;
+        }
 
         if(isLast(index))
         {
@@ -126,7 +133,8 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         // map
         painter->drawImage(mControls[MapControl]->drawPoint(option.rect),*mControls[MapControl]->image());
         // Time conflict
-        if(static_cast<Event*>(index.internalPointer())->hasTimeConflict())
+        //if(static_cast<Event*>(index.internalPointer())->hasTimeConflict())
+        if(bkgrColor == Qt::yellow)
             painter->drawImage(mControls[WarningControlOn]->drawPoint(option.rect),*mControls[WarningControlOn]->image());
         else
             painter->drawImage(mControls[WarningControlOff]->drawPoint(option.rect),*mControls[WarningControlOff]->image());
@@ -405,3 +413,28 @@ int Delegate::numberOfAlarms(const QModelIndex &index) const
     return nrofAlarms;
 }
 
+bool Delegate::hasTimeConflict(const QModelIndex &index, const QModelIndex &parent) const
+{
+    Event *event = static_cast<Event*>(index.internalPointer());
+    QTime start = event->start().time();
+    QTime end = start.addSecs(event->duration());
+    for(int i=0; i<parent.model()->rowCount(parent); i++)
+    {
+        if((event->id()!=static_cast<Event*>(parent.child(i,0).internalPointer())->id())
+        &&
+        (static_cast<Event*>(parent.child(i,0).internalPointer())->isFavourite()))
+        {
+            if (((start >= static_cast<Event*>(parent.child(i,0).internalPointer())->start().time())
+            &&
+            (start <= static_cast<Event*>(parent.child(i,0).internalPointer())->start().time().addSecs(static_cast<Event*>(parent.child(i,0).internalPointer())->duration())))
+            ||
+            ((end >= static_cast<Event*>(parent.child(i,0).internalPointer())->start().time())
+            &&
+            (end <= static_cast<Event*>(parent.child(i,0).internalPointer())->start().time().addSecs(static_cast<Event*>(parent.child(i,0).internalPointer())->duration()))))
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+}
