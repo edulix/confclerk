@@ -426,9 +426,9 @@ bool Delegate::hasTimeConflict(const QModelIndex &index, const QModelIndex &pare
         {
             if (((start >= static_cast<Event*>(parent.child(i,0).internalPointer())->start().time())
             &&
-            (start <= static_cast<Event*>(parent.child(i,0).internalPointer())->start().time().addSecs(static_cast<Event*>(parent.child(i,0).internalPointer())->duration())))
+            (start < static_cast<Event*>(parent.child(i,0).internalPointer())->start().time().addSecs(static_cast<Event*>(parent.child(i,0).internalPointer())->duration())))
             ||
-            ((end >= static_cast<Event*>(parent.child(i,0).internalPointer())->start().time())
+            ((end > static_cast<Event*>(parent.child(i,0).internalPointer())->start().time())
             &&
             (end <= static_cast<Event*>(parent.child(i,0).internalPointer())->start().time().addSecs(static_cast<Event*>(parent.child(i,0).internalPointer())->duration()))))
             {
