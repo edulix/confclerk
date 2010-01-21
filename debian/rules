@@ -9,7 +9,7 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-
+PKG_NAME = fosdem-schedtool
 
 CFLAGS = -Wall -g
 
@@ -55,7 +55,7 @@ install: build
 	dh_installdirs
 
 	# Add here commands to install the package into debian/fosdem-maemo.
-	$(MAKE) INSTALL_ROOT=$(CURDIR)/debian/fosdem-maemo install
+	$(MAKE) INSTALL_ROOT=$(CURDIR)/debian/$(PKG_NAME) install
 
 
 # Build architecture-independent files here.
@@ -90,6 +90,7 @@ binary-arch: build install
 	dh_installdeb
 	dh_shlibdeps
 	dh_gencontrol
+	maemo-optify $(PKG_NAME)
 	dh_md5sums
 	dh_builddeb
 

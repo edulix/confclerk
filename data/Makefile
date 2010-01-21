@@ -20,11 +20,15 @@ install:
 	$(CHK_DIR) $(PREFIX)/icons/hicolor/48x48/hildon/ || $(MKDIR) $(PREFIX)/icons/hicolor/48x48/hildon/ 
 	$(INSTALL_FILE) ./48x48/$(PKG).png $(PREFIX)/icons/hicolor/48x48/hildon/
 
+	$(CHK_DIR) $(PREFIX)/icons/hicolor/64x64/hildon/ || $(MKDIR) $(PREFIX)/icons/hicolor/64x64/hildon/
+	$(INSTALL_FILE) ./64x64/$(PKG).png $(PREFIX)/icons/hicolor/64x64/hildon/
+
 
 uninstall:
 	$(RM) $(PREFIX)/applications/hildon/$(PKG).desktop
 	$(RM) $(PREFIX)/icons/hicolor/26x26/hildon/$(PKG).png
 	$(RM) $(PREFIX)/icons/hicolor/48x48/hildon/$(PKG).png
+	$(RM) $(PREFIX)/icons/hicolor/64x64/hildon/$(PKG).png
 
 clean:
 

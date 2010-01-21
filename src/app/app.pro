@@ -24,6 +24,7 @@ RESOURCES += ../icons.qrc \
 
 # instalation related
 
-PREFIX = /usr/share
+PREFIX = /usr/bin
 INSTALLS = target
-target.path = $$PREFIX/bin
+target.path = $$PREFIX
+
