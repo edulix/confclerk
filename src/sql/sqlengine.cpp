@@ -7,6 +7,7 @@
 
 #include <QDir>
 #include "sqlengine.h"
+#include <track.h>
 
 #include <QDebug>
 
@@ -88,27 +89,21 @@ void SqlEngine::addEventToDB(QHash<QString,QString> &aEvent)
 
     if (db.isValid() && db.isOpen())
     {
-        // track has to be handled as the first, since it is necessary to get
-        // track ID from the TRACK table, or to create new TRACK record
-        // and get the ID from newly created record
-        QString queryExist = QString("SELECT id FROM track WHERE name='%1'").arg(aEvent["track"]);
-        QSqlQuery resultExist(queryExist,db);
-        // now we have to check whether TRACK record with 'name' exists or not,
-        // - if it doesn't exist yet, then we have to add that record to 'TRACK' table
-        // - if it exists, then we need to get its 'id'
-        int actId = -1;
-        if(resultExist.next()) // TRACK record with 'name' already exists: we need to get its 'id'
+        //insert event track to table
+        QString name = aEvent["track"];
+        Track track;
+        int trackId;
+        try
         {
-            actId = resultExist.value(0).toInt();
+            track = Track::retrieveByName(name);
+            trackId = track.id();
+            /*qDebug() << QString("DEBUG: Track %1 in DB").arg(name);*/
         }
-        else // TRACK record doesn't exist yet, need to create it
-        {
-            QString values = QString("'%1'").arg(aEvent["track"]);
-            QString query = QString("INSERT INTO track (name) VALUES (%1)").arg(values);
-            QSqlQuery result (query, db);
-            actId = result.lastInsertId().toInt(); // 'id' is assigned automatically
+        catch (OrmNoObjectException &e) {
+            track.setName(name);
+            trackId = track.insert();
+            /*qDebug() << QString("DEBUG: Track %1 added to DB").arg(name);*/
         }
-
         // The items of the Event are divided into the two tables EVENT and VIRTUAL_EVENT
         // VIRTUAL_EVENT is for Full-Text-Serach Support
         QDateTime startDateTime = QDateTime(QDate::fromString(aEvent["date"],DATE_FORMAT),QTime::fromString(aEvent["start"],TIME_FORMAT));
@@ -117,7 +112,7 @@ void SqlEngine::addEventToDB(QHash<QString,QString> &aEvent)
                          .arg(aEvent["id"]) \
                          .arg(QString::number(startDateTime.toTime_t())) \
                          .arg(-QTime::fromString(aEvent["duration"],TIME_FORMAT).secsTo(QTime(0,0))) \
-                         .arg(QString::number(actId)) \
+                         .arg(trackId) \
                          .arg(aEvent["type"]) \
                          .arg(aEvent["language"]) \
                          .arg("0") \
@@ -235,7 +230,7 @@ bool SqlEngine::createTables(QSqlDatabase &aDatabase)
 
         query.exec("CREATE TABLE TRACK ( \
             id INTEGER  PRIMARY KEY AUTOINCREMENT  NOT NULL , \
-            name VARCHAR NOT NULL )");
+            name VARCHAR UNIQUE NOT NULL )");
 
         query.exec("CREATE TABLE ROOM ( \
             id INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL , \

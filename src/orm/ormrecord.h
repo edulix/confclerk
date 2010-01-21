@@ -120,13 +120,13 @@ T OrmRecord<T>::loadOne(QSqlQuery query)
     {
         if (!query.exec())
         {
-            throw new OrmSqlException(query.lastError().text());
+            throw OrmSqlException(query.lastError().text());
         }
     }
 
     if (!query.next())
     {
-        throw new OrmNoObjectException();
+        throw OrmNoObjectException();
     }
 
     return hydrate(query.record());
@@ -140,7 +140,7 @@ QList<T> OrmRecord<T>::load(QSqlQuery query)
         if (!query.exec())
         {
             qDebug() << "Error: " << query.lastError().driverText() << "; Type: " << query.lastError().type();
-            throw new OrmSqlException(query.lastError().text());
+            throw OrmSqlException(query.lastError().text());
         }
         else
         {

@@ -81,8 +81,8 @@ void ScheduleXmlParser::parseData(const QByteArray &aData, SqlEngine *aDBEngine)
 
                         // process event's nodes
                         QHash<QString,QString> event;
-                        event["id"] = eventElement.attribute("id");
-                        event["conference_id"] = QString::number(conferenceID,10);
+                        event["id"] = eventElement.attribute("id");;
+                        event["conference_id"] = QString::number(conferenceID, 10);
                         event["start"] = eventElement.firstChildElement("start").text(); // time eg. 10:00
                         event["date"] = dayElement.attribute("date"); // date eg. 2009-02-07
                         event["duration"] = eventElement.firstChildElement("duration").text(); // time eg. 00:30
@@ -96,38 +96,33 @@ void ScheduleXmlParser::parseData(const QByteArray &aData, SqlEngine *aDBEngine)
                         event["abstract"] = eventElement.firstChildElement("abstract").text(); // string
                         event["description"] = eventElement.firstChildElement("description").text(); // string
                         aDBEngine->addEventToDB(event);
-
                         // process persons' nodes
                         QList<QString> persons;
                         QDomElement personsElement = eventElement.firstChildElement("persons");
                         QDomNodeList personList = personsElement.elementsByTagName("person");
-                        for (int i=0; i<personList.count(); i++)
-                        {
+                        for(int i = 0;i < personList.count();i++){
                             QHash<QString,QString> person;
                             person["id"] = personList.at(i).toElement().attribute("id");
                             person["name"] = personList.at(i).toElement().text();
                             person["event_id"] = eventElement.attribute("id");
-                            person["conference_id"] = QString::number(conferenceID,10);
+                            person["conference_id"] = QString::number(conferenceID, 10);
                             //qDebug() << "adding Person: " << person["name"];
                             aDBEngine->addPersonToDB(person);
                         }
-
                         // process links' nodes
                         QDomElement linksElement = eventElement.firstChildElement("links");
                         QDomNodeList linkList = linksElement.elementsByTagName("link");
-                        for (int i=0; i<linkList.count(); i++)
-                        {
+                        for(int i = 0;i < linkList.count();i++){
                             QHash<QString,QString> link;
                             link["name"] = linkList.at(i).toElement().text();
                             link["url"] = linkList.at(i).toElement().attribute("href");
                             link["event_id"] = eventElement.attribute("id");
-                            link["conference_id"] = QString::number(conferenceID,10);
+                            link["conference_id"] = QString::number(conferenceID, 10);
                             aDBEngine->addLinkToDB(link);
                         }
-
                         // emit signal to inform the user about the current status (how many events are parsed so far - expressed in %)
-                        int status=currentEvent*100/totalEventsCount;
-                        emit progressStatus(status);
+                        int status = currentEvent * 100 / totalEventsCount;
+                        progressStatus(status);
                     } // parsing event elements
                 }
             } // parsing room elements

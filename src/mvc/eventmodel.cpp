@@ -2,6 +2,8 @@
 #include <conference.h>
 #include <track.h>
 
+const QString EventModel::COMMA_SEPARATOR = ", ";
+
 EventModel::EventModel()
 {
     mEvents.clear();
@@ -165,7 +167,7 @@ void EventModel::loadEvents(const QDate &aDate, int aConferenceId)
     if(Conference::getAll().count())
     {
         qDebug() << "Loading Conference Data: [" << Conference::getById(aConferenceId).title() << "] " << aDate;
-        mEvents = Event::getByDate(QDate(aDate.year(), aDate.month(), aDate.day()), aConferenceId, "start");
+        mEvents = Event::getByDate(QDate(aDate.year(), aDate.month(), aDate.day()), aConferenceId, Event::START);
     }
     createTimeGroups();
 }

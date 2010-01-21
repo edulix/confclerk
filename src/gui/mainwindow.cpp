@@ -162,10 +162,10 @@ void MainWindow::importSchedule()
         QDate aStartDate = Conference::getById(confId).start();
         QDate aEndDate = Conference::getById(confId).end();
         dayNavigator->setDates(aStartDate, aEndDate);
+        //update activity map
+        Track::updateTrackMap();
         trackDayNavigator->setDates(aStartDate, aEndDate);
     }
-    //update track map
-    Track::updateTrackMap();
 }
 
 void MainWindow::showParsingProgress(int aStatus)
@@ -207,11 +207,10 @@ void MainWindow::updateTab(const int aIndex)
             favouriteDayNavigator->show();
         }
         break;
-    case 2: //index 2 of tabWidget: trackTab
+    case 2: //index 2 of tabWidget: activitiesTab
         {
-            static_cast<EventModel*>(trackTreeView->model())->loadEventsByTrack(Conference::getById(confId).start(), confId);
-            trackTreeView->reset();
-            trackDayNavigator->show();
+            //TODO korinpa: nastavit navigator, alebo dat datum navigatora pre ine case
+            updateTracksView(activityDayNavigator->getCurrentDate());
         }
         break;
     default:
