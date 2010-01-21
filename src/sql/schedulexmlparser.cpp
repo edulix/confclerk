@@ -23,14 +23,12 @@ void ScheduleXmlParser::parseData(const QByteArray &aData, SqlEngine *aDBEngine)
 
     if (!scheduleElement.isNull())
     {
-        // TODO: assign conferenceID based on eg. title
-        int conferenceID = 1; // HARD-WIRED for now to '1' - only one Conference
-
+        int confId = 0;
         QDomElement conferenceElement = scheduleElement.firstChildElement("conference");
         if (!conferenceElement.isNull())
         {
             QHash<QString,QString> conference;
-            conference["id"] = QString::number(conferenceID,10);
+            conference["id"] = QString::number(0); // conference ID is assigned automatically, or obtained from the DB
             conference["title"] = conferenceElement.firstChildElement("title").text();
             conference["subtitle"] = conferenceElement.firstChildElement("subtitle").text();
             conference["venue"] = conferenceElement.firstChildElement("venue").text();
@@ -41,6 +39,7 @@ void ScheduleXmlParser::parseData(const QByteArray &aData, SqlEngine *aDBEngine)
             conference["day_change"] = conferenceElement.firstChildElement("day_change").text(); // time
             conference["timeslot_duration"] = conferenceElement.firstChildElement("timeslot_duration").text(); // time
             aDBEngine->addConferenceToDB(conference);
+            confId = conference["id"].toInt();
         }
 
         // we need to get count of all events in order to emit 'progressStatus' signal
@@ -75,14 +74,14 @@ void ScheduleXmlParser::parseData(const QByteArray &aData, SqlEngine *aDBEngine)
                         QHash<QString,QString> room;
                         room["name"] = roomElement.attribute("name");
                         room["event_id"] = eventElement.attribute("id");
-                        room["conference_id"] = QString::number(conferenceID,10);
+                        room["conference_id"] = QString::number(confId,10);
                         room["picture"] = "NOT DEFINED YET"; // TODO: implement some mapping to assign correct picture to specified room_name
                         aDBEngine->addRoomToDB(room);
 
                         // process event's nodes
                         QHash<QString,QString> event;
                         event["id"] = eventElement.attribute("id");;
-                        event["conference_id"] = QString::number(conferenceID, 10);
+                        event["conference_id"] = QString::number(confId, 10);
                         event["start"] = eventElement.firstChildElement("start").text(); // time eg. 10:00
                         event["date"] = dayElement.attribute("date"); // date eg. 2009-02-07
                         event["duration"] = eventElement.firstChildElement("duration").text(); // time eg. 00:30
@@ -105,7 +104,7 @@ void ScheduleXmlParser::parseData(const QByteArray &aData, SqlEngine *aDBEngine)
                             person["id"] = personList.at(i).toElement().attribute("id");
                             person["name"] = personList.at(i).toElement().text();
                             person["event_id"] = eventElement.attribute("id");
-                            person["conference_id"] = QString::number(conferenceID, 10);
+                            person["conference_id"] = QString::number(confId, 10);
                             //qDebug() << "adding Person: " << person["name"];
                             aDBEngine->addPersonToDB(person);
                         }
@@ -117,7 +116,7 @@ void ScheduleXmlParser::parseData(const QByteArray &aData, SqlEngine *aDBEngine)
                             link["name"] = linkList.at(i).toElement().text();
                             link["url"] = linkList.at(i).toElement().attribute("href");
                             link["event_id"] = eventElement.attribute("id");
-                            link["conference_id"] = QString::number(conferenceID, 10);
+                            link["conference_id"] = QString::number(confId, 10);
                             aDBEngine->addLinkToDB(link);
                         }
                         // emit signal to inform the user about the current status (how many events are parsed so far - expressed in %)

@@ -6,8 +6,10 @@
 #include <QDateTime>
 
 #include <QDir>
+#include <appsettings.h>
 #include "sqlengine.h"
 #include <track.h>
+#include <conference.h>
 
 #include <QDebug>
 
@@ -63,21 +65,43 @@ void SqlEngine::addConferenceToDB(QHash<QString,QString> &aConference)
 
     if (db.isValid() && db.isOpen())
     {
-        QString values = QString("'%1', '%2', '%3', '%4', '%5', '%6', '%7', '%8', '%9', '%10'") \
-                         .arg(aConference["id"]) \
-                         .arg(aConference["title"]) \
-                         .arg(aConference["subtitle"]) \
-                         .arg(aConference["venue"]) \
-                         .arg(aConference["city"]) \
-                         .arg(QDateTime(QDate::fromString(aConference["start"],DATE_FORMAT),QTime(0,0),Qt::UTC).toTime_t()) \
-                         .arg(QDateTime(QDate::fromString(aConference["end"],DATE_FORMAT),QTime(0,0),Qt::UTC).toTime_t()) \
-                         .arg(aConference["days"]) \
-                         .arg(-QTime::fromString(aConference["day_change"],TIME_FORMAT).secsTo(QTime(0,0))) \
-                         .arg(-QTime::fromString(aConference["timeslot_duration"],TIME_FORMAT).secsTo(QTime(0,0)));
+        int confId = 0;
+        QList<Conference> confsList = Conference::getAll();
+        if(confsList.count())
+        {
+            QListIterator<Conference> i(confsList);
+            while (i.hasNext())
+            {
+                Conference conf = i.next();
+                if( aConference["title"] == conf.title() )
+                {
+                    confId = conf.id();
+                    aConference["id"] = QString::number(confId);
+                    break;
+                }
+            }
+        }
 
-        QString query = QString("INSERT INTO CONFERENCE (id,title,subtitle,venue,city,start,end,days,day_change,timeslot_duration) VALUES (%1)").arg(values);
-        QSqlQuery result (query, db);
-        //LOG_AUTOTEST(query);
+        if(!confId) // conference 'aConference' isn't in the table => insert
+        {
+            QString values = QString("'%1', '%2', '%3', '%4', '%5', '%6', '%7', '%8', '%9'") \
+                             .arg(aConference["title"]) \
+                             .arg(aConference["subtitle"]) \
+                             .arg(aConference["venue"]) \
+                             .arg(aConference["city"]) \
+                             .arg(QDateTime(QDate::fromString(aConference["start"],DATE_FORMAT),QTime(0,0),Qt::UTC).toTime_t()) \
+                             .arg(QDateTime(QDate::fromString(aConference["end"],DATE_FORMAT),QTime(0,0),Qt::UTC).toTime_t()) \
+                             .arg(aConference["days"]) \
+                             .arg(-QTime::fromString(aConference["day_change"],TIME_FORMAT).secsTo(QTime(0,0))) \
+                             .arg(-QTime::fromString(aConference["timeslot_duration"],TIME_FORMAT).secsTo(QTime(0,0)));
+
+            QString query = QString("INSERT INTO CONFERENCE (title,subtitle,venue,city,start,end,days,day_change,timeslot_duration) VALUES (%1)").arg(values);
+            QSqlQuery result (query, db);
+            aConference["id"] = result.lastInsertId().toString(); // 'id' is assigned automatically
+
+            if(!AppSettings::confId()) // default conf Id isn't set yet => set it up
+                AppSettings::setConfId(confId);
+        }
     }
 }
 

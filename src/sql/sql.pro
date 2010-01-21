@@ -7,7 +7,7 @@ QT += sql xml
 
 # module dependencies
 LIBS += -L$$DESTDIR -lmvc -lorm
-INCLUDEPATH += ../mvc ../orm
+INCLUDEPATH += ../mvc ../orm ../app
 DEPENDPATH += .
 
 HEADERS += sqlengine.h \
