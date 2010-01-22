@@ -25,15 +25,29 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
 {
     setupUi(this);
 
-    // connect Menu actions
-    connect(actionImportSchedule, SIGNAL(triggered()), SLOT(importSchedule()));
-    connect(actionAboutQt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
-    connect(actionAboutApplication, SIGNAL(triggered()), SLOT(aboutApp()));
-
     // create "SQLITE" DB instance/connection
     // opens DB connection (needed for EventModel)
     mSqlEngine = new SqlEngine(this);
     mSqlEngine->initialize();
+
+    // Sanity check for existence of any Conference in the DB
+    // it AppSettings::confId() is 0, but there are any Conference(s) in the DB
+    // set the confId in the AppSettings for the ID of the first conference in the DB
+    QList<Conference> confs = Conference::getAll();
+    if(!confs.count()) // no conference(s) in the DB
+    {
+        AppSettings::setConfId(0); // no conference in the DB
+    }
+    else
+    {
+        if(AppSettings::confId() == 0)
+            AppSettings::setConfId(confs[0].id());
+    }
+
+    // connect Menu actions
+    connect(actionImportSchedule, SIGNAL(triggered()), SLOT(importSchedule()));
+    connect(actionAboutQt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
+    connect(actionAboutApplication, SIGNAL(triggered()), SLOT(aboutApp()));
 
     //update track map
     Track::updateTrackMap();
