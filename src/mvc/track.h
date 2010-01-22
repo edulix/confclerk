@@ -27,11 +27,10 @@ public:
     QString name() const { return value("name").toString(); }
     void setName(const QString & type) { setValue("name", type); }
 public:
-    //static void
     static QList<Track> getAll();
+    static Track retrieve(int id);
+    static QString retrieveTrackName(int id);
     static Track retrieveByName(QString name);
-    static void updateTrackMap();
-    static QString getTrackName(int id);
 };
 
 #endif /* TRACK_H_ */

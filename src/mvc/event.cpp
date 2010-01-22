@@ -64,6 +64,15 @@ QList<Event> Event::getFavByDate(const QDate& date, int conferenceId)
     return load(query);
 }
 
+QList<Event> Event::getByTrack(int trackId)
+{
+    QSqlQuery query;
+    query.prepare(selectQuery() + QString("WHERE xid_track = :trackId ORDER BY start"));
+    query.bindValue(":trackId", trackId);
+
+    return load(query);
+}
+
 QString Event::room() const
 {
     QSqlQuery query;

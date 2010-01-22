@@ -41,6 +41,7 @@ private:
 private:
     void createTimeGroups();
     void createTrackGroups();
+    void createTrackGroupsNew();
     void clearModel();
 
 public slots:

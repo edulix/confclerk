@@ -55,7 +55,7 @@ void EventModel::createTrackGroups() {
     }
     int trackId = mEvents.first().trackId();
 
-    mGroups << EventModel::Group(Track::getTrackName(trackId), 0);
+    mGroups << EventModel::Group(Track::retrieveTrackName(trackId), 0);
     int nextTrackId = trackId;
 
     for (int i=0; i<mEvents.count(); i++)
@@ -64,13 +64,35 @@ void EventModel::createTrackGroups() {
         if (nextTrackId != trackId)
         {
             mGroups.last().mChildCount = i - mGroups.last().mFirstEventIndex;
-            mGroups << EventModel::Group(Track::getTrackName(trackId), i);
+            mGroups << EventModel::Group(Track::retrieveTrackName(trackId), i);
             nextTrackId = trackId;
         }
         // add parent-child relation
         mParents[mEvents.at(i).id()] = mGroups.count() - 1;
     }
     mGroups.last().mChildCount = mEvents.count() - mGroups.last().mFirstEventIndex;
+}
+
+void EventModel::createTrackGroupsNew() {
+    mGroups.clear();
+    mParents.clear();
+    if (mEvents.empty())
+    {
+        return;
+    }
+    QList<Track> trackList = Track::getAll();
+    QList<Track>::iterator track = trackList.begin();
+    while (track != trackList.end())
+    {
+        QList<Event> eventList = Event::getByTrack(track->id());
+        QList<Event>::iterator event = eventList.begin();
+        while (event != eventList.end())
+        {
+            //TODO korinpa: pokracuj
+            event++;
+        }
+        track++;
+    }
 }
 
 QVariant EventModel::data(const QModelIndex& index, int role) const

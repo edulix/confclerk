@@ -113,7 +113,7 @@ void SqlEngine::addEventToDB(QHash<QString,QString> &aEvent)
 
     if (db.isValid() && db.isOpen())
     {
-        //insert event track to table
+        //insert event track to table and get track id
         QString name = aEvent["track"];
         Track track;
         int trackId;

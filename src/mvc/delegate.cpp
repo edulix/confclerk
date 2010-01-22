@@ -178,7 +178,7 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         painter->drawText(titlePointF,"Presenter(s): " + event->persons().join(" and "));
         // track
         titlePointF.setY(titlePointF.y()+fmSmall.height()-fmSmall.descent());
-        painter->drawText(titlePointF,"Track: " + Track::getTrackName(event->trackId()));
+        painter->drawText(titlePointF,"Track: " + Track::retrieveTrackName(event->trackId()));
     }
     else // doesn't have parent - time-groups' elements (top items)
     {

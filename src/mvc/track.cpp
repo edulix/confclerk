@@ -16,7 +16,7 @@ QSqlRecord const Track::sColumns = Track::toRecord(QList<QSqlField>()
     << QSqlField("id", QVariant::Int)
     << QSqlField(NAME, QVariant::String));
 
-QMap<int, Track> Track::mIdToTrack;
+//QMap<int, Track> Track::mIdToTrack;
 
 class TrackInsertException : OrmSqlException
 {
@@ -56,22 +56,17 @@ QList<Track> Track::getAll()
     return load(query);
 }
 
-void Track::updateTrackMap()
+Track Track::retrieve(int id)
 {
-    mIdToTrack.clear();
-    QList<Track> trackList = Track::getAll();
-    Track track;
-    for (int id = 0; id < trackList.count(); ++id) {
-        track = trackList.at(id);
-        mIdToTrack.insert(track.id(), track);
-    }
+    QSqlQuery query;
+    query.prepare(selectQuery()
+            + QString("WHERE %1.id = :id").arg(sTableName));
+    query.bindValue(":id", id);
+    return loadOne(query);
 }
 
-QString Track::getTrackName(int id)
+QString Track::retrieveTrackName(int id)
 {
-    QString name = mIdToTrack.value(id).name();
-    if (name == "") {
-        qDebug() << QString("Error: undefined activity name for id %1").arg(id);
-    }
-    return name;
+    Track track = retrieve(id);
+    return track.name();
 }
