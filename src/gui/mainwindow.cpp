@@ -49,9 +49,6 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     connect(actionAboutQt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
     connect(actionAboutApplication, SIGNAL(triggered()), SLOT(aboutApp()));
 
-    //update track map
-    Track::updateTrackMap();
-
     connect(dayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateDayView(const QDate &)));
     connect(trackDayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateTracksView(const QDate &)));
     connect(favouriteDayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateFavouritesView(const QDate &)));
@@ -187,8 +184,6 @@ void MainWindow::importSchedule()
         QDate aStartDate = Conference::getById(AppSettings::confId()).start();
         QDate aEndDate = Conference::getById(AppSettings::confId()).end();
         dayNavigator->setDates(aStartDate, aEndDate);
-        //update activity map
-        Track::updateTrackMap();
         trackDayNavigator->setDates(aStartDate, aEndDate);
     }
 }
