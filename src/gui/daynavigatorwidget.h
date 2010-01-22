@@ -5,6 +5,52 @@
 #include <QObject>
 #include <QDate>
 
+/*#include <QPainter>*/
+/*#include <QLabel>*/
+
+/*class QFontMetrics;*/
+
+/*class VerticalLabel : public QWidget*/
+/*{*/
+
+/*public:*/
+/*VerticalLabel(QWidget *aParent = NULL)*/
+/*: QWidget(aParent)*/
+/*, mText("")*/
+/*{*/
+/*mFont = QLabel().font();*/
+/*}   */
+
+/*void paintEvent(QPaintEvent *)*/
+/*{   */
+/*QPainter p(this);*/
+/*drawRotatedText(&p, 270, width()/2, height()/2, mText);*/
+/*}   */
+
+/*void drawRotatedText(QPainter *aPainter, qreal aDegrees, int x, int y, const QString &aText)*/
+/*{   */
+
+/*aPainter->save();*/
+/*aPainter->setFont(mFont);*/
+/*aPainter->translate(x, y); */
+/*aPainter->rotate(aDegrees);*/
+/*QFontMetrics fm(mFont);*/
+/*QRect r = fm.boundingRect(aText);*/
+/*aPainter->drawText(-r.width()/2, fm.descent()/2, aText);*/
+/*aPainter->restore();*/
+/*}   */
+
+/*void setText(const QString &aText)*/
+/*{*/
+/*mText = aText;*/
+/*update();*/
+/*}*/
+
+/*private:*/
+/*QString mText;*/
+/*QFont mFont;*/
+/*};*/
+
 class DayNavigatorWidget : public QWidget, private Ui::DayNavigatorWidget
 {
     Q_OBJECT
@@ -13,6 +59,8 @@ class DayNavigatorWidget : public QWidget, private Ui::DayNavigatorWidget
         ~DayNavigatorWidget() {}
         void setDates(const QDate &aStartDate, const QDate &aEndDate);
         QDate getCurrentDate();
+    protected:
+        void paintEvent(QPaintEvent *);
     private slots:
         void prevDayButtonClicked();
         void nextDayButtonClicked();
@@ -22,6 +70,7 @@ class DayNavigatorWidget : public QWidget, private Ui::DayNavigatorWidget
         QDate mStartDate;
         QDate mEndDate;
         QDate mCurDate;
+        QFontMetrics *mFontMetrics;
 };
 
 #endif /* DAYNAVIGATORWIDGET_H */
