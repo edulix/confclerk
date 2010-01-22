@@ -39,6 +39,20 @@ QList<Event> Event::getByDate(const QDate& date, int conferenceId, QString order
     return load(query);
 }
 
+QList<Event> Event::nowEvents(int conferenceId, QString orderBy)
+{
+    //uint curTime_t =  QDateTime(QDate::currentDate(),QTime::currentTime(),Qt::UTC).toTime_t();
+    uint curTime_t = 1265457610; // for testing
+
+    QSqlQuery query;
+    query.prepare(selectQuery() + QString("WHERE xid_conference = :conf AND start <= :now1 AND ( start + duration ) > :now2 ORDER BY %1").arg(orderBy));
+    query.bindValue(":conf", conferenceId);
+    query.bindValue(":now1", convertToDb(curTime_t, QVariant::DateTime));
+    query.bindValue(":now2", convertToDb(curTime_t, QVariant::DateTime));
+
+    return load(query);
+}
+
 QList<Event> Event::getFavByDate(const QDate& date, int conferenceId)
 {
     QSqlQuery query;

@@ -24,6 +24,7 @@ public:
     static QList<Event> getByDate(const QDate & date, int conferenceId, QString orderBy);
     static QList<Event> getFavByDate(const QDate & date, int conferenceId); // get Favourities by Date
     static QList<Event> getSearchResultByDate(const QDate& date, int conferenceId, QString orderBy);
+    static QList<Event> nowEvents(int conferenceId, QString orderBy); // get events scheduled NOW
 public:
     int id() const { return value("id").toInt(); }
     int conferenceId() const { return value("xid_conference").toInt(); }

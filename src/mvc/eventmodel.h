@@ -20,6 +20,7 @@ public:
     void loadFavEvents(const QDate &aDate, int aConferenceId); // loads Favourite events from the DB
     void loadEventsByTrack(const QDate &aDate, int aConferenceId); // loads Events grouped by Track from the DB
     int loadSearchResultEvents(const QDate &aDate, int aConferenceId);
+    void loadNowEvents(int aConferenceId); // loads Now events from the DB
 
 private:
     struct Group

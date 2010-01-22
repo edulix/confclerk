@@ -25,10 +25,6 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
 {
     setupUi(this);
 
-    // TODO: conference ID should be assigned based on actual data in the DB
-    // for testing only
-    AppSettings::setConfId(1);
-
     // connect Menu actions
     connect(actionImportSchedule, SIGNAL(triggered()), SLOT(importSchedule()));
     connect(actionAboutQt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
@@ -79,27 +75,39 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
 	searchTreeView->setModel(new EventModel());
 	searchTreeView->setItemDelegate(new Delegate(searchTreeView));
 
+    // NOW View
+	nowTreeView->setHeaderHidden(true);
+	nowTreeView->setRootIsDecorated(false);
+	nowTreeView->setIndentation(0);
+	nowTreeView->setAnimated(true);
+	nowTreeView->setModel(new EventModel());
+	nowTreeView->setItemDelegate(new Delegate(nowTreeView));
+
     // event details have changed
     connect(dayTreeView, SIGNAL(eventHasChanged(int)), SLOT(eventHasChanged(int)));
     connect(favTreeView, SIGNAL(eventHasChanged(int)), SLOT(eventHasChanged(int)));
     connect(trackTreeView, SIGNAL(eventHasChanged(int)), SLOT(eventHasChanged(int)));
     connect(searchTreeView, SIGNAL(eventHasChanged(int)), SLOT(eventHasChanged(int)));
+    connect(nowTreeView, SIGNAL(eventHasChanged(int)), SLOT(eventHasChanged(int)));
 
     // event clicked
     connect(dayTreeView, SIGNAL(clicked(const QModelIndex &)), SLOT(itemClicked(const QModelIndex &)));
     connect(favTreeView, SIGNAL(clicked(const QModelIndex &)), SLOT(itemClicked(const QModelIndex &)));
     connect(trackTreeView, SIGNAL(clicked(const QModelIndex &)), SLOT(itemClicked(const QModelIndex &)));
     connect(searchTreeView, SIGNAL(clicked(const QModelIndex &)), SLOT(itemClicked(const QModelIndex &)));
+    connect(nowTreeView, SIGNAL(clicked(const QModelIndex &)), SLOT(itemClicked(const QModelIndex &)));
     // request for map to be displayed
     connect(dayTreeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
     connect(favTreeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
     connect(trackTreeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
     connect(searchTreeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
+    connect(nowTreeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
     // request for warning to be displayed
     connect(dayTreeView, SIGNAL(requestForWarning(const QModelIndex &)), SLOT(displayWarning(const QModelIndex &)));
     connect(favTreeView, SIGNAL(requestForWarning(const QModelIndex &)), SLOT(displayWarning(const QModelIndex &)));
     connect(trackTreeView, SIGNAL(requestForWarning(const QModelIndex &)), SLOT(displayWarning(const QModelIndex &)));
     connect(searchTreeView, SIGNAL(requestForWarning(const QModelIndex &)), SLOT(displayWarning(const QModelIndex &)));
+    connect(nowTreeView, SIGNAL(requestForWarning(const QModelIndex &)), SLOT(displayWarning(const QModelIndex &)));
     // event search button clicked
     connect(searchButton, SIGNAL(clicked()), SLOT(searchClicked()));
     //
@@ -214,6 +222,14 @@ void MainWindow::updateSearchView(const QDate &aDate)
     }
 }
 
+void MainWindow::updateNowView()
+{
+    EventModel *model = static_cast<EventModel*>(nowTreeView->model());
+    model->loadNowEvents(AppSettings::confId());
+    nowTreeView->reset();
+    nowTreeView->setAllExpanded(true);
+}
+
 void MainWindow::itemClicked(const QModelIndex &aIndex)
 {
     // have to handle only events, not time-groups
@@ -274,12 +290,16 @@ void MainWindow::eventHasChanged(int aEventId)
     static_cast<EventModel*>(favTreeView->model())->updateModel(aEventId);
     static_cast<EventModel*>(trackTreeView->model())->updateModel(aEventId);
     static_cast<EventModel*>(searchTreeView->model())->updateModel(aEventId);
+    static_cast<EventModel*>(nowTreeView->model())->updateModel(aEventId);
 }
 
 void MainWindow::tabHasChanged(int aIndex)
 {
     Q_UNUSED(aIndex);
 
+    // TODO: only if it changed to favourities tab
     updateFavouritesView(favouriteDayNavigator->getCurrentDate());
+    // TODO: only if it changed to now tab
+    updateNowView();
 }
 

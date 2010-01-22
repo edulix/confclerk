@@ -22,6 +22,7 @@ private slots:
     void updateTracksView(const QDate &aDate);
     void updateFavouritesView(const QDate &aDate);
     void updateSearchView(const QDate &aDate);
+    void updateNowView();
     void itemClicked(const QModelIndex &aIndex);
     void displayMap(const QModelIndex &aIndex);
     void displayWarning(const QModelIndex &aIndex);

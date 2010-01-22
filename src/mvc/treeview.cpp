@@ -132,3 +132,11 @@ void TreeView::handleItemClicked(const QModelIndex &index)
     }
 }
 
+void TreeView::setAllExpanded(bool aExpanded)
+{
+    for(int i=0; i<model()->rowCount(QModelIndex()); i++)
+    {
+        setExpanded(model()->index(i,0,QModelIndex()),aExpanded);
+    }
+}
+

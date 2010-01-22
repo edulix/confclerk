@@ -12,6 +12,8 @@ public:
 private:
     void mouseReleaseEvent(QMouseEvent *aEvent);
     bool testForControlClicked(const QModelIndex &aIndex, const QPoint &aPoint);
+public slots:
+    void setAllExpanded(bool aExpanded); // (aExpanded==true) => expanded; (aExpanded==false) => collapsed
 private slots:
     void handleItemClicked(const QModelIndex &index);
 signals:

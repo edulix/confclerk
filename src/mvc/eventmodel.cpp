@@ -220,6 +220,18 @@ void EventModel::loadEventsByTrack(const QDate &aDate, int aConferenceId)
     createTrackGroups();
 }
 
+void EventModel::loadNowEvents(int aConferenceId)
+{
+    clearModel();
+    // check for existence of the conference in the DB
+    if(Conference::getAll().count())
+    {
+        qDebug() << "Loading Conference Data: [" << Conference::getById(aConferenceId).title() << "] scheduled NOW";
+        mEvents = Event::nowEvents(aConferenceId, "start");
+    }
+    createTimeGroups();
+}
+
 void EventModel::updateModel(int aEventId)
 {
     for(int i=0; i<mEvents.count(); i++)
