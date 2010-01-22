@@ -177,9 +177,17 @@ void MainWindow::importSchedule()
 {
     ImportScheduleDialog dialog(mSqlEngine,this);
     dialog.exec();
-    
-    if(Conference::getAll().count())
+
+    QList<Conference> confs = Conference::getAll();
+    if(!confs.count()) // no conference(s) in the DB
     {
+        AppSettings::setConfId(0); // no conference in the DB
+    }
+    else
+    {
+        if(AppSettings::confId() == 0)
+            AppSettings::setConfId(confs[0].id());
+
         // 'dayNavigator' emits signal 'dateChanged' after setting valid START:END dates
         QDate aStartDate = Conference::getById(AppSettings::confId()).start();
         QDate aEndDate = Conference::getById(AppSettings::confId()).end();
