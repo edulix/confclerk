@@ -121,6 +121,8 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     connect(nowTreeView, SIGNAL(requestForWarning(const QModelIndex &)), SLOT(displayWarning(const QModelIndex &)));
     // event search button clicked
     connect(searchButton, SIGNAL(clicked()), SLOT(searchClicked()));
+    // event conference map button clicked
+    connect(showMapButton, SIGNAL(clicked()), SLOT(conferenceMapClicked()));
     //
     connect(tabWidget, SIGNAL(currentChanged(int)), SLOT(tabHasChanged(int)));
 
@@ -289,6 +291,20 @@ void MainWindow::searchClicked()
 
     mSqlEngine->searchEvent( AppSettings::confId(), columns, searchEdit->text() );
     updateSearchView( Conference::getById(AppSettings::confId()).start() );
+}
+
+void MainWindow::conferenceMapClicked()
+{
+
+    QString mapPath = QString(":/maps/campus.png");
+    if(!QFile::exists(mapPath))
+        mapPath = QString(":/maps/rooms/not-available.png");
+
+    QString roomName;
+
+    QPixmap map(mapPath);
+    MapWindow window(map,roomName,this);
+    window.exec();
 }
 
 void MainWindow::displayWarning(const QModelIndex &aIndex)

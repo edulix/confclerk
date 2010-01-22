@@ -27,6 +27,7 @@ private slots:
     void displayMap(const QModelIndex &aIndex);
     void displayWarning(const QModelIndex &aIndex);
     void searchClicked();
+    void conferenceMapClicked();
     void tabHasChanged(int aIndex);
     void eventHasChanged(int aEventId);
 private:

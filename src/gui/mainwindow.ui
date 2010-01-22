@@ -229,13 +229,8 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="mapTab" >
-       <attribute name="title" >
-        <string>Map</string>
-       </attribute>
-      </widget>
-      <widget class="QWidget" name="conferenceTab" >
-       <attribute name="title" >
+     <widget class="QWidget" name="conferenceTab" >
+      <attribute name="title" >
         <string>Conference</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_5" >

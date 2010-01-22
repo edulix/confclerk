@@ -320,14 +320,13 @@ Delegate::ControlId Delegate::whichControlClicked(const QModelIndex &aIndex, con
         {
             return id;
         }
-        else
-        {
-            if ((mControls[id]->drawRect(static_cast<QTreeView*>(parent())->visualRect(aIndex)).contains(aPoint))
+        else if ((mControls[id]->drawRect(static_cast<QTreeView*>(parent())->visualRect(aIndex)).contains(aPoint))
             && (mControls[id]->hasConflict))
-            {
+        {
+            qDebug() << "tengo conflicto";
             return id;
-            }
         }
+
     }
 
     return ControlNone;
