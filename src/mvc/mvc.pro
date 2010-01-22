@@ -20,15 +20,13 @@ maemo {
     DEPENDPATH += ../alarm
     TARGETDEPS += $$DESTDIR/libqalarm.a
 }
-HEADERS += room.h \
-    event.h \
+HEADERS += event.h \
     conference.h \
     track.h \
     delegate.h \
     eventmodel.h \
     treeview.h
-SOURCES += room.cpp \
-    event.cpp \
+SOURCES += event.cpp \
     conference.cpp \
     track.cpp \
     delegate.cpp \
