@@ -92,7 +92,7 @@ void AlarmDialog::closeDialog()
         event.setHasAlarm(false);
         event.update("alarm");
     }
-    catch(OrmNoObjectException) {} // TODO: implement
+    catch(OrmNoObjectException &) {} // TODO: implement
     catch(...) {} // just close dialog
     qApp->quit();
 }

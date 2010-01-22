@@ -159,7 +159,7 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
             EventDialog dialog(aEventId,this);
             dialog.exec();
         }
-        catch(OrmNoObjectException) {} // just start application
+        catch(OrmNoObjectException&) {} // just start application
         catch(...) {} // just start application
     }
 }
@@ -309,6 +309,6 @@ void MainWindow::tabHasChanged(int aIndex)
     // TODO: only if it changed to favourities tab
     updateFavouritesView(favouriteDayNavigator->getCurrentDate());
     // TODO: only if it changed to now tab
-    updateNowView();
+    //updateNowView();
 }
 
