@@ -18,9 +18,10 @@ public:
     int rowCount ( const QModelIndex & parent = QModelIndex() ) const;
     void loadEvents(const QDate &aDate, int aConferenceId); // loads Events from the DB
     void loadFavEvents(const QDate &aDate, int aConferenceId); // loads Favourite events from the DB
-    void loadEventsByTrack(const QDate &aDate, int aConferenceId); // loads Events grouped by Track from the DB
+    void loadEventsByTrack(const QDate &aDate, int aConferenceId); // loads Events sorted by Track id and Event start from the DB
     int loadSearchResultEvents(const QDate &aDate, int aConferenceId);
     void loadNowEvents(int aConferenceId); // loads Now events from the DB
+    void loadEventsByRoom(const QDate &aDate, int aConferenceId);
 
 private:
     struct Group
@@ -43,6 +44,7 @@ private:
     void createTrackGroups();
     void createTrackGroupsNew();
     void clearModel();
+    void createRoomGroups();
 
 public slots:
     void updateModel(int aEventId);

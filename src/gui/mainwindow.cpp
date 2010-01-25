@@ -53,6 +53,7 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     connect(trackDayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateTracksView(const QDate &)));
     connect(favouriteDayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateFavouritesView(const QDate &)));
     connect(searchDayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateSearchView(const QDate &)));
+    connect(roomDayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateRoomView(const QDate &)));
 
     // DAY EVENTS View
     dayTreeView->setHeaderHidden(true);
@@ -94,12 +95,21 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
 	nowTreeView->setModel(new EventModel());
 	nowTreeView->setItemDelegate(new Delegate(nowTreeView));
 
+    // ROOMS View
+    roomTreeView->setHeaderHidden(true);
+    roomTreeView->setRootIsDecorated(false);
+    roomTreeView->setIndentation(0);
+    roomTreeView->setAnimated(true);
+    roomTreeView->setModel(new EventModel());
+    roomTreeView->setItemDelegate(new Delegate(roomTreeView));
+
     // event details have changed
     connect(dayTreeView, SIGNAL(eventHasChanged(int)), SLOT(eventHasChanged(int)));
     connect(favTreeView, SIGNAL(eventHasChanged(int)), SLOT(eventHasChanged(int)));
     connect(trackTreeView, SIGNAL(eventHasChanged(int)), SLOT(eventHasChanged(int)));
     connect(searchTreeView, SIGNAL(eventHasChanged(int)), SLOT(eventHasChanged(int)));
     connect(nowTreeView, SIGNAL(eventHasChanged(int)), SLOT(eventHasChanged(int)));
+    connect(roomTreeView, SIGNAL(eventHasChanged(int)), SLOT(eventHasChanged(int)));
 
     // event clicked
     connect(dayTreeView, SIGNAL(clicked(const QModelIndex &)), SLOT(itemClicked(const QModelIndex &)));
@@ -107,18 +117,21 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     connect(trackTreeView, SIGNAL(clicked(const QModelIndex &)), SLOT(itemClicked(const QModelIndex &)));
     connect(searchTreeView, SIGNAL(clicked(const QModelIndex &)), SLOT(itemClicked(const QModelIndex &)));
     connect(nowTreeView, SIGNAL(clicked(const QModelIndex &)), SLOT(itemClicked(const QModelIndex &)));
+    connect(roomTreeView, SIGNAL(clicked(const QModelIndex &)), SLOT(itemClicked(const QModelIndex &)));
     // request for map to be displayed
     connect(dayTreeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
     connect(favTreeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
     connect(trackTreeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
     connect(searchTreeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
     connect(nowTreeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
+    connect(roomTreeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
     // request for warning to be displayed
     connect(dayTreeView, SIGNAL(requestForWarning(const QModelIndex &)), SLOT(displayWarning(const QModelIndex &)));
     connect(favTreeView, SIGNAL(requestForWarning(const QModelIndex &)), SLOT(displayWarning(const QModelIndex &)));
     connect(trackTreeView, SIGNAL(requestForWarning(const QModelIndex &)), SLOT(displayWarning(const QModelIndex &)));
     connect(searchTreeView, SIGNAL(requestForWarning(const QModelIndex &)), SLOT(displayWarning(const QModelIndex &)));
     connect(nowTreeView, SIGNAL(requestForWarning(const QModelIndex &)), SLOT(displayWarning(const QModelIndex &)));
+    connect(roomTreeView, SIGNAL(requestForWarning(const QModelIndex &)), SLOT(displayWarning(const QModelIndex &)));
     // event search button clicked
     connect(searchButton, SIGNAL(clicked()), SLOT(searchClicked()));
     connect(searchAgainButton, SIGNAL(clicked()), SLOT(searchAgainClicked()));
@@ -131,6 +144,7 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     {
         dayNavigator->hide(); // hide DayNavigatorWidget
         trackDayNavigator->hide();
+        roomDayNavigator->hide();
     }
     else
     {
@@ -140,6 +154,7 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
         trackDayNavigator->setDates(aStartDate, aEndDate);
         favouriteDayNavigator->setDates(aStartDate, aEndDate);
         searchDayNavigator->setDates(aStartDate, aEndDate);
+        roomDayNavigator->setDates(aStartDate, aEndDate);
         //
         conferenceTitle->setText(Conference::getById(AppSettings::confId()).title());
         conferenceSubtitle->setText(Conference::getById(AppSettings::confId()).subtitle());
@@ -231,6 +246,7 @@ void MainWindow::updateFavouritesView(const QDate &aDate)
 
 void MainWindow::updateSearchView(const QDate &aDate)
 {
+/*
     searchTreeView->reset();
     int eventsCount = static_cast<EventModel*>(searchTreeView->model())->loadSearchResultEvents(aDate,AppSettings::confId());
     if( eventsCount ){
@@ -244,6 +260,7 @@ void MainWindow::updateSearchView(const QDate &aDate)
         searchVerticalWidget->hide();
         searchHead->show();
     }
+*/
 }
 
 void MainWindow::updateNowView()
@@ -252,6 +269,13 @@ void MainWindow::updateNowView()
     model->loadNowEvents(AppSettings::confId());
     nowTreeView->reset();
     nowTreeView->setAllExpanded(true);
+}
+
+void MainWindow::updateRoomView(const QDate &aDate)
+{
+    static_cast<EventModel*>(roomTreeView->model())->loadEventsByRoom(aDate, AppSettings::confId());
+    roomTreeView->reset();
+    roomDayNavigator->show();
 }
 
 void MainWindow::itemClicked(const QModelIndex &aIndex)

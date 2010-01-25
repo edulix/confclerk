@@ -1,4 +1,5 @@
 #include "event.h"
+#include "room.h"
 
 QString const Event::sTableName = QString("event");
 
@@ -39,6 +40,20 @@ QList<Event> Event::getByDate(const QDate& date, int conferenceId, QString order
     return load(query);
 }
 
+QList<Event> Event::getByDateAndRoom(const QDate& date, int conferenceId)
+{
+    QSqlQuery query;
+    QString aliasEvent("E");
+    QString aliasEventRoom("R");
+    query.prepare(QString("SELECT %1 FROM %2 %3, %4 %5 WHERE %3.xid_conference = :conf AND %3.start >= :start AND %3.start < :end AND %3.id = R.xid_event ORDER BY %5.xid_room, %3.start").arg(
+                    columnsForSelect(aliasEvent), Event::sTableName, aliasEvent, "EVENT_ROOM", aliasEventRoom));
+    query.bindValue(":conf", conferenceId);
+    query.bindValue(":start", convertToDb(date, QVariant::DateTime));
+    query.bindValue(":end", convertToDb(date.addDays(1), QVariant::DateTime));
+
+    return load(query);
+}
+
 QList<Event> Event::nowEvents(int conferenceId, QString orderBy)
 {
     //uint curTime_t =  QDateTime(QDate::currentDate(),QTime::currentTime(),Qt::UTC).toTime_t();
@@ -64,15 +79,6 @@ QList<Event> Event::getFavByDate(const QDate& date, int conferenceId)
     return load(query);
 }
 
-QList<Event> Event::getByTrack(int trackId)
-{
-    QSqlQuery query;
-    query.prepare(selectQuery() + QString("WHERE xid_track = :trackId ORDER BY start"));
-    query.bindValue(":trackId", trackId);
-
-    return load(query);
-}
-
 QString Event::room() const
 {
     QSqlQuery query;
@@ -86,6 +92,19 @@ QString Event::room() const
         return query.record().value("name").toString();
     else
         return QString("not-available");
+}
+
+int Event::roomId() const
+{
+    QSqlQuery query;
+    query.prepare("SELECT xid_room FROM event_room WHERE xid_event = :id");
+    query.bindValue(":id", id());
+    if (!query.isActive())
+        if (!query.exec())
+            throw OrmSqlException(query.lastError().text());
+    if (!query.next())
+        throw OrmNoObjectException();
+    return query.record().value("xid_room").toInt();
 }
 
 QStringList Event::persons() const

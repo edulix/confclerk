@@ -2,6 +2,7 @@
 #include <appsettings.h>
 #include <conference.h>
 #include <track.h>
+#include <room.h>
 
 const QString EventModel::COMMA_SEPARATOR = ", ";
 
@@ -73,26 +74,35 @@ void EventModel::createTrackGroups() {
     mGroups.last().mChildCount = mEvents.count() - mGroups.last().mFirstEventIndex;
 }
 
-void EventModel::createTrackGroupsNew() {
+void EventModel::createRoomGroups()
+{
     mGroups.clear();
     mParents.clear();
     if (mEvents.empty())
     {
         return;
     }
-    QList<Track> trackList = Track::getAll();
-    QList<Track>::iterator track = trackList.begin();
-    while (track != trackList.end())
+    int roomId = mEvents.first().roomId();
+
+    mGroups << EventModel::Group(Room::retrieveRoomName(roomId), 0);
+    int nextRoomId = roomId;
+
+    QList<Event>::iterator event = mEvents.begin();
+    int i = 0;
+    while (event != mEvents.end())
     {
-        QList<Event> eventList = Event::getByTrack(track->id());
-        QList<Event>::iterator event = eventList.begin();
-        while (event != eventList.end())
+        roomId = event->roomId();
+        if (nextRoomId != roomId)
         {
-            //TODO korinpa: pokracuj
-            event++;
+            mGroups.last().mChildCount = i - mGroups.last().mFirstEventIndex;
+            mGroups << EventModel::Group(Room::retrieveRoomName(roomId), i);
+            nextRoomId = roomId;
         }
-        track++;
+        mParents[event->id()] = mGroups.count() - 1;
+        event++;
+        i++;
     }
+    mGroups.last().mChildCount = mEvents.count() - mGroups.last().mFirstEventIndex;
 }
 
 QVariant EventModel::data(const QModelIndex& index, int role) const
@@ -234,12 +244,23 @@ int EventModel::loadSearchResultEvents(const QDate &aDate, int aConferenceId)
 void EventModel::loadEventsByTrack(const QDate &aDate, int aConferenceId)
 {
     clearModel();
-    if(Conference::getAll().count())
+    if (Conference::getAll().count())
     {
         qDebug() << "Loading Conference Data (by Track): [" << Conference::getById(aConferenceId).title() << "] " << aDate;
         mEvents = Event::getByDate(QDate(aDate.year(), aDate.month(), aDate.day()), aConferenceId, "xid_track, start");
     }
     createTrackGroups();
+}
+
+void EventModel::loadEventsByRoom(const QDate &aDate, int aConferenceId)
+{
+    clearModel();
+    if (Conference::getAll().count())
+    {
+        qDebug() << "Loading Conference Data (by Room): [" << Conference::getById(aConferenceId).title() << "] " << aDate;
+        mEvents = Event::getByDateAndRoom(QDate(aDate.year(), aDate.month(), aDate.day()), aConferenceId);
+    }
+    createRoomGroups();
 }
 
 void EventModel::loadNowEvents(int aConferenceId)

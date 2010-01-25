@@ -1,16 +1,16 @@
 /*
- * track.h
+ * room.h
  *
  *  Created on: Dec 27, 2009
  *      Author: Pavol Korinek
  */
 
-#ifndef TRACK_H_
-#define TRACK_H_
+#ifndef ROOM_H_
+#define ROOM_H_
 
 #include <ormrecord.h>
 
-class Track : public OrmRecord<Track>
+class Room : public OrmRecord<Room>
 {
 public:
     static const QSqlRecord sColumns;
@@ -24,10 +24,10 @@ public:
     void setName(const QString & type) { setValue("name", type); }
     int insert();
 public:
-    static QList<Track> getAll();
-    static Track retrieve(int id);
-    static QString retrieveTrackName(int id);
-    static Track retrieveByName(QString name);
+    static QList<Room> getAll();
+    static Room retrieve(int id);
+    static QString retrieveRoomName(int id);
+    static Room retrieveByName(QString name);
 };
 
-#endif /* TRACK_H_ */
+#endif /* ROOM_H_ */

@@ -26,6 +26,7 @@ public:
     static QList<Event> getSearchResultByDate(const QDate& date, int conferenceId, QString orderBy);
     static QList<Event> nowEvents(int conferenceId, QString orderBy); // get events scheduled NOW
     static QList<Event> getByTrack(int id);
+    static QList<Event> getByDateAndRoom(const QDate& date, int conferenceId);
 public:
     int id() const { return value("id").toInt(); }
     int conferenceId() const { return value("xid_conference").toInt(); }
@@ -44,6 +45,7 @@ public:
     QString description() const { return value("description").toString(); }
     // records from other tables associated with 'id'
     QString room() const;
+    int roomId() const;
     QStringList persons() const;
 
     void setId(int id) { setValue("id", id); }

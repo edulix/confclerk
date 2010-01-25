@@ -6,7 +6,6 @@
  */
 
 #include "track.h"
-#include <QSqlTableModel>
 
 QString const Track::sTableName = QString("track");
 int const Track::sTableColCount = 2;
@@ -15,8 +14,6 @@ const QString Track::NAME = "name";
 QSqlRecord const Track::sColumns = Track::toRecord(QList<QSqlField>()
     << QSqlField("id", QVariant::Int)
     << QSqlField(NAME, QVariant::String));
-
-//QMap<int, Track> Track::mIdToTrack;
 
 class TrackInsertException : OrmSqlException
 {
