@@ -5,7 +5,7 @@
  *      Author: user
  */
 
-#include "room.h""
+#include "room.h"
 
 QString const Room::sTableName = QString("room");
 int const Room::sTableColCount = 3;
