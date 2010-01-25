@@ -246,10 +246,11 @@ void MainWindow::updateFavouritesView(const QDate &aDate)
 
 void MainWindow::updateSearchView(const QDate &aDate)
 {
-/*
+    qDebug() << "MainWindow::updateSearchView(), aDate: " << aDate.toString() ;
     searchTreeView->reset();
     int eventsCount = static_cast<EventModel*>(searchTreeView->model())->loadSearchResultEvents(aDate,AppSettings::confId());
-    if( eventsCount ){
+    if( eventsCount ||
+            searchDayNavigator->getCurrentDate() != Conference::getById(AppSettings::confId()).start() ){
         searchVerticalWidget->show();
         searchAgainButton->show();
         searchTreeView->show();
@@ -260,7 +261,6 @@ void MainWindow::updateSearchView(const QDate &aDate)
         searchVerticalWidget->hide();
         searchHead->show();
     }
-*/
 }
 
 void MainWindow::updateNowView()
@@ -311,14 +311,23 @@ void MainWindow::displayMap(const QModelIndex &aIndex)
 
 void MainWindow::searchClicked()
 {
-    QList<QString> columns;
+    QHash<QString,QString> columns;
 
     if( searchTitle->isChecked() )
-        columns.append( "title" );
+        columns.insertMulti("EVENT", "title");
     if( searchAbstract->isChecked() )
-        columns.append( "abstract" );
+        columns.insertMulti("EVENT", "abstract");
+    if( searchTag->isChecked() )
+        columns.insertMulti("EVENT", "tag");
+    if( searchSpeaker->isChecked() )
+        columns["PERSON"] = "name";
+    if( searchRoom->isChecked() )
+        columns["ROOM"] = "name";
 
-    mSqlEngine->searchEvent( AppSettings::confId(), columns, searchEdit->text() );
+    QString keyword = searchEdit->text().replace( QString("%"), QString("\\%") );
+    qDebug() << "\nKeyword to search: " << keyword;
+    mSqlEngine->searchEvent( AppSettings::confId(), columns, keyword );
+
     updateSearchView( Conference::getById(AppSettings::confId()).start() );
 }
 

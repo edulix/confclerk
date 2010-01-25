@@ -306,7 +306,7 @@ bool SqlEngine::createTables(QSqlDatabase &aDatabase)
     return result;
 }
 
-int SqlEngine::searchEvent(int aConferenceId, const QList<QString> &aColumns, const QString &aKeyword)
+int SqlEngine::searchEvent(int aConferenceId, const QHash<QString,QString> &aColumns, const QString &aKeyword)
 {
     QSqlDatabase db = QSqlDatabase::database();
 
@@ -320,11 +320,21 @@ int SqlEngine::searchEvent(int aConferenceId, const QList<QString> &aColumns, co
     execQuery( db, "CREATE TEMP TABLE SEARCH_EVENT ( xid_conference INTEGER  NOT NULL, id INTEGER NOT NULL );");
     // INSERT
     QString query = QString("INSERT INTO SEARCH_EVENT ( xid_conference, id) "
-                "SELECT xid_conference, id FROM EVENT "
-                "WHERE xid_conference = %1 AND (").arg( aConferenceId );
-    int i = 0;
-    foreach (QString str, aColumns){
-        query += QString("%1 LIKE '\%%2\%' OR ").arg( aColumns.at(i++), aKeyword );
+                "SELECT EVENT.xid_conference, EVENT.id FROM EVENT ");
+    if( aColumns.contains("ROOM") ){
+        query += "INNER JOIN EVENT_ROOM ON (EVENT.xid_conference = EVENT_ROOM.xid_conference AND EVENT.id = EVENT_ROOM.xid_event ) ";
+        query += "INNER JOIN ROOM ON ( EVENT_ROOM.xid_room = ROOM.id ) ";
+    }
+    if( aColumns.contains("PERSON") ){
+        query += "INNER JOIN EVENT_PERSON ON (EVENT.xid_conference = EVENT_PERSON.xid_conference AND EVENT.id = EVENT_PERSON.xid_event ) ";
+        query += "INNER JOIN PERSON ON ( EVENT_PERSON.xid_person = PERSON.id ) ";
+    }
+    query += QString("WHERE EVENT.xid_conference = %1 AND (").arg( aConferenceId );
+
+    foreach (QString table, aColumns.uniqueKeys()){
+        foreach (QString column, aColumns.values(table)){
+            query += QString("%1.%2 LIKE '\%%3\%' OR ").arg( table, column, aKeyword );
+        }
     }
     query.chop( QString(" OR ").length() );
     query += QString(");");

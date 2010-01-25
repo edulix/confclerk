@@ -20,7 +20,7 @@ class SqlEngine : public QObject
         void addRoomToDB(QHash<QString,QString> &aRoom);
 
         // search Events for ....
-        int searchEvent(int conferenceId, const QList<QString> &columns, const QString &keyword);
+        int searchEvent(int conferenceId, const QHash<QString,QString> &columns, const QString &keyword);
     private:
         QString login(const QString &aDatabaseType, const QString &aDatabaseName);
         bool createTables(QSqlDatabase &aDatabase);
