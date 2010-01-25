@@ -271,6 +271,7 @@ void EventModel::updateModel(int aEventId)
             QModelIndex eventIndex = index(j,0,groupIndex);
             if(static_cast<Event*>(eventIndex.internalPointer())->id() == aEventId)
             {
+                emit(dataChanged(groupIndex,groupIndex));
                 emit(dataChanged(eventIndex,eventIndex));
             }
         }
