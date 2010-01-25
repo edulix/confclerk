@@ -118,83 +118,98 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="searchTab" >
-       <attribute name="title" >
+      <widget class="QWidget" name="searchTab">
+       <attribute name="title">
         <string>Search</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_3" >
+       <layout class="QHBoxLayout" name="horizontalLayout_1">
         <item>
-         <layout class="QFormLayout" name="searchHeadLayout" >
-          <property name="fieldGrowthPolicy" >
-           <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
-          </property>
-          <item row="0" column="0" >
-           <widget class="QCheckBox" name="searchTitle" >
-            <property name="text" >
-             <string>Title</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1" >
-           <layout class="QHBoxLayout" name="horizontalLayout" >
-            <item>
-             <widget class="QLineEdit" name="searchEdit" >
-              <property name="enabled" >
-               <bool>true</bool>
-              </property>
-              <property name="toolTip" >
-               <string>type a keyword to search</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="searchButton" >
-              <property name="text" >
-               <string>Search</string>
-              </property>
-              <property name="checkable" >
-               <bool>false</bool>
-              </property>
-              <property name="autoDefault" >
-               <bool>false</bool>
-              </property>
-              <property name="default" >
-               <bool>true</bool>
-              </property>
-              <property name="flat" >
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item row="1" column="0" >
-           <widget class="QCheckBox" name="searchAbstract" >
-            <property name="text" >
-             <string>Abstract</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
+         <widget class="QWidget" name="searchVerticalWidget" native="true">
+          <layout class="QVBoxLayout" name="searchDayNavigatorVerticalLayout">
+           <item>
+            <widget class="QToolButton" name="searchAgainButton">
+             <property name="text">
+              <string>Search again</string>
+             </property>
+             <property name="toolButtonStyle">
+              <enum>Qt::ToolButtonTextOnly</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="DayNavigatorWidget" name="searchDayNavigator" native="true">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16777215</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="searchDayNavigatorHorizontalLayout" >
+         <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
-           <spacer name="horizontalSpacer_2" >
-            <property name="orientation" >
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0" >
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
+           <widget class="QWidget" name="searchHead" native="true">
+            <layout class="QFormLayout" name="searchHeadLayout">
+             <property name="fieldGrowthPolicy">
+              <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+             </property>
+             <item row="0" column="0">
+              <widget class="QCheckBox" name="searchTitle">
+               <property name="text">
+                <string>Title</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <layout class="QHBoxLayout" name="horizontalLayout">
+               <item>
+                <widget class="QLineEdit" name="searchEdit">
+                 <property name="enabled">
+                  <bool>true</bool>
+                 </property>
+                 <property name="toolTip">
+                  <string>type a keyword to search</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="searchButton">
+                 <property name="text">
+                  <string>Search</string>
+                 </property>
+                 <property name="checkable">
+                  <bool>false</bool>
+                 </property>
+                 <property name="autoDefault">
+                  <bool>true</bool>
+                 </property>
+                 <property name="default">
+                  <bool>true</bool>
+                 </property>
+                 <property name="flat">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="1" column="0">
+              <widget class="QCheckBox" name="searchAbstract">
+               <property name="text">
+                <string>Abstract</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
           </item>
           <item>
-           <widget class="DayNavigatorWidget" native="1" name="searchDayNavigator" >
-            <property name="maximumSize" >
+           <widget class="TreeView" name="searchTreeView">
+            <property name="maximumSize">
              <size>
               <width>16777215</width>
               <height>16777215</height>
@@ -202,30 +217,7 @@
             </property>
            </widget>
           </item>
-          <item>
-           <spacer name="horizontalSpacer" >
-            <property name="orientation" >
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0" >
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
          </layout>
-        </item>
-        <item>
-         <widget class="TreeView" name="searchTreeView" >
-          <property name="maximumSize" >
-           <size>
-            <width>16777215</width>
-            <height>16777215</height>
-           </size>
-          </property>
-         </widget>
         </item>
        </layout>
       </widget>

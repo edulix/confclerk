@@ -19,14 +19,14 @@ private:
     QString mText;
 };
 
-class OrmNoObjectException : OrmException
+class OrmNoObjectException : public OrmException
 {
 public:
     OrmNoObjectException() : OrmException("No object exception"){};
     ~OrmNoObjectException(){};
 };
 
-class OrmSqlException : OrmException
+class OrmSqlException : public OrmException
 {
 public:
     OrmSqlException(const QString& text) : OrmException( QString("Sql error: ") + text ) {};

@@ -121,6 +121,7 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     connect(nowTreeView, SIGNAL(requestForWarning(const QModelIndex &)), SLOT(displayWarning(const QModelIndex &)));
     // event search button clicked
     connect(searchButton, SIGNAL(clicked()), SLOT(searchClicked()));
+    connect(searchAgainButton, SIGNAL(clicked()), SLOT(searchAgainClicked()));
     // event conference map button clicked
     connect(showMapButton, SIGNAL(clicked()), SLOT(conferenceMapClicked()));
     //
@@ -150,7 +151,8 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     }
 
     searchTreeView->hide();
-    searchDayNavigator->hide();
+    searchVerticalWidget->hide();
+    searchHead->show();
 
     // open dialog for given Event ID
     // this is used in case Alarm Dialog request application to start
@@ -232,12 +234,15 @@ void MainWindow::updateSearchView(const QDate &aDate)
     searchTreeView->reset();
     int eventsCount = static_cast<EventModel*>(searchTreeView->model())->loadSearchResultEvents(aDate,AppSettings::confId());
     if( eventsCount ){
-        searchDayNavigator->show();
+        searchVerticalWidget->show();
+        searchAgainButton->show();
         searchTreeView->show();
+        searchHead->hide();
     }
     else{
         searchTreeView->hide();
-        searchDayNavigator->hide();
+        searchVerticalWidget->hide();
+        searchHead->show();
     }
 }
 
@@ -291,6 +296,12 @@ void MainWindow::searchClicked()
 
     mSqlEngine->searchEvent( AppSettings::confId(), columns, searchEdit->text() );
     updateSearchView( Conference::getById(AppSettings::confId()).start() );
+}
+
+void MainWindow::searchAgainClicked()
+{
+    searchHead->show();
+    searchAgainButton->hide();
 }
 
 void MainWindow::conferenceMapClicked()

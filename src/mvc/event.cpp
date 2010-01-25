@@ -127,12 +127,27 @@ QList<Event> Event::getSearchResultByDate(const QDate& date, int conferenceId, Q
     QString strQuery = QString("SELECT %1 FROM EVENT INNER JOIN SEARCH_EVENT USING (xid_conference, id) ").arg(columnsForSelect());
     strQuery += QString("WHERE xid_conference = :conf AND start >= :start AND start < :end ORDER BY %1").arg(orderBy);
     qDebug() << strQuery;
+    QList<Event> list;
     QSqlQuery query;
-    query.prepare( strQuery );
-    query.bindValue(":conf", conferenceId);
-    query.bindValue(":start", convertToDb(date, QVariant::DateTime));
-    query.bindValue(":end", convertToDb(date.addDays(1), QVariant::DateTime));
+    try{
+        if( !query.prepare( strQuery ) ){
+            qDebug() << "QSqlQuery.prepare error";
+            throw OrmSqlException( query.lastError().text() );
+        }
 
-    return load(query);
+        query.bindValue(":conf", conferenceId);
+        query.bindValue(":start", convertToDb(date, QVariant::DateTime));
+        query.bindValue(":end", convertToDb(date.addDays(1), QVariant::DateTime));
+
+        list = load(query);
+    }
+    catch(OrmException &e)
+    {
+        qDebug() << "getSearchResultByDate error: " << e.text();
+    }
+    catch(...){
+        qDebug() << "getSearchResultByDate failed ...";
+    }
+    return list;
 }
 
