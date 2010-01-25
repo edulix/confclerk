@@ -212,6 +212,7 @@ void MainWindow::importSchedule()
         QDate aEndDate = Conference::getById(AppSettings::confId()).end();
         dayNavigator->setDates(aStartDate, aEndDate);
         trackDayNavigator->setDates(aStartDate, aEndDate);
+        roomDayNavigator->setDates(aStartDate, aEndDate);
     }
 }
 
@@ -368,6 +369,7 @@ void MainWindow::eventHasChanged(int aEventId)
     static_cast<EventModel*>(trackTreeView->model())->updateModel(aEventId);
     static_cast<EventModel*>(searchTreeView->model())->updateModel(aEventId);
     static_cast<EventModel*>(nowTreeView->model())->updateModel(aEventId);
+    static_cast<EventModel*>(roomTreeView->model())->updateModel(aEventId);
 }
 
 void MainWindow::tabHasChanged(int aIndex)
