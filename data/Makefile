@@ -3,7 +3,7 @@
 PKG		= fosdem
 PREFIX		= $(INSTALL_ROOT)/usr/share
 INSTALL_FILE	= install -m 644 -p
-CHK_DIR	= test -d
+CHK_DIR		= test -d
 MKDIR         	= mkdir -p
 
 .PHONY: install uninstall clean distclean

@@ -9,7 +9,7 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-PKG_NAME = fosdem-schedtool
+PKG_NAME = fosdem-schedule
 
 CFLAGS = -Wall -g
 

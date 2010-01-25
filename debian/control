@@ -1,11 +1,11 @@
-Source: fosdem-maemo
+Source: fosdem-schedule
 Section: user/support
 Priority: optional
 Maintainer: Matus Uzak <matus.uzak@ixonos.com>
 Build-Depends: debhelper (>= 5) libqt4-dev (>= 4.5)
 Standards-Version: 3.7.2
 
-Package: fosdem-schedtool
+Package: fosdem-schedule
 Architecture: armel
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: FOSDEM 2010 scheduler 
