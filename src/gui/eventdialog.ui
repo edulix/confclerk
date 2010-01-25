@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>468</width>
-    <height>496</height>
+    <width>442</width>
+    <height>380</height>
    </rect>
   </property>
   <property name="sizePolicy" >
@@ -27,7 +27,7 @@
      <item>
       <widget class="QLabel" name="title" >
        <property name="sizePolicy" >
-        <sizepolicy vsizetype="MinimumExpanding" hsizetype="MinimumExpanding" >
+        <sizepolicy vsizetype="Minimum" hsizetype="MinimumExpanding" >
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -36,6 +36,7 @@
         <font>
          <weight>75</weight>
          <bold>true</bold>
+         <underline>true</underline>
         </font>
        </property>
        <property name="text" >
@@ -50,80 +51,21 @@
       </widget>
      </item>
      <item>
-      <layout class="QGridLayout" name="gridLayout_2" >
-       <item row="1" column="1" >
-        <widget class="QLabel" name="label_2" >
-         <property name="text" >
-          <string>Presenter(s): </string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2" >
-        <widget class="QLabel" name="persons" >
-         <property name="text" >
-          <string>persons go here</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1" >
-        <widget class="QLabel" name="label_3" >
-         <property name="text" >
-          <string>Abstract:</string>
-         </property>
-         <property name="alignment" >
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="2" >
-        <widget class="QPlainTextEdit" name="abstract" >
-         <property name="autoFillBackground" >
-          <bool>false</bool>
-         </property>
-         <property name="frameShape" >
-          <enum>QFrame::NoFrame</enum>
-         </property>
-         <property name="frameShadow" >
-          <enum>QFrame::Plain</enum>
-         </property>
-         <property name="lineWidth" >
-          <number>1</number>
-         </property>
-         <property name="readOnly" >
-          <bool>true</bool>
-         </property>
-         <property name="backgroundVisible" >
-          <bool>false</bool>
-         </property>
-         <property name="centerOnScroll" >
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1" >
-        <widget class="QLabel" name="label" >
-         <property name="text" >
-          <string>Description:</string>
-         </property>
-         <property name="alignment" >
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="2" >
-        <widget class="QPlainTextEdit" name="description" >
-         <property name="frameShape" >
-          <enum>QFrame::NoFrame</enum>
-         </property>
-         <property name="frameShadow" >
-          <enum>QFrame::Plain</enum>
-         </property>
-         <property name="readOnly" >
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <widget class="QScrollArea" name="scrollArea" >
+       <property name="widgetResizable" >
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents" >
+        <property name="geometry" >
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>418</width>
+          <height>296</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout" >

@@ -3,6 +3,48 @@
 
 #include <QScrollBar>
 
+DetailsContainer::DetailsContainer(QWidget *aParent)
+    : QWidget(aParent)
+{
+    mAbstract.setWordWrap(true);
+    mDescription.setWordWrap(true);
+
+    QFont f = QLabel().font();
+    f.setBold(true);
+    f.setItalic(true);
+    mMainLayout = new QVBoxLayout(this);
+    QLabel *persons = new QLabel("Persons:");
+    persons->setFont(f);
+    mMainLayout->addWidget(persons);
+    mMainLayout->addWidget(&mPersons);
+    mMainLayout->addWidget(new QLabel("")); // spacer
+    QLabel *abstract = new QLabel("Abstract:");
+    abstract->setFont(f);
+    mMainLayout->addWidget(abstract);
+    mMainLayout->addWidget(&mAbstract);
+    mMainLayout->addWidget(new QLabel("")); // spacer
+    QLabel *description = new QLabel("Description:");
+    description->setFont(f);
+    mMainLayout->addWidget(description);
+    mMainLayout->addWidget(&mDescription);
+    setLayout(mMainLayout);
+}
+
+void DetailsContainer::setPersons(const QStringList &aPersons)
+{
+    mPersons.setText(aPersons.join(" and "));
+}
+
+void DetailsContainer::setAbstract(const QString &aAbstract)
+{
+    mAbstract.setText(aAbstract);
+}
+
+void DetailsContainer::setDescription(const QString &aDescription)
+{
+    mDescription.setText(aDescription);
+}
+
 EventDialog::EventDialog(const int &aEventId, QWidget *aParent)
     : QDialog(aParent)
     , mEventId(aEventId)
@@ -15,28 +57,10 @@ EventDialog::EventDialog(const int &aEventId, QWidget *aParent)
 
     Event event = Event::getById(aEventId,AppSettings::confId());
 
-    //abstract->setStyleSheet("background-color : transparent;");
-    //description->setStyleSheet("background-color : transparent;");
-
-    // use text color from 'title' QLabel
-    QColor color = title->palette().color(QPalette::Active, QPalette::WindowText);
-    QColor bkgrColor = this->palette().color(QPalette::Active, QPalette::Background);
-    QPalette p = abstract->palette();
-    p.setColor(QPalette::Active, QPalette::Text, color);
-    p.setColor(QPalette::Active, QPalette::Base, bkgrColor);
-    abstract->setPalette(p);
-    description->setPalette(p);
-
-    // set scrollbars color
-    //QPalette p2 = description->verticalScrollBar()->palette();
-    //p2.setColor(QPalette::Active, QPalette::Background, color);
-    ////description->verticalScrollBar()->setStyleSheet("background-color : blue;");
-    //abstract->verticalScrollBar()->setPalette(p2);
-    //description->verticalScrollBar()->setPalette(p2);
-
     title->setText(event.title());
-    persons->setText(event.persons().join(" and "));
-    abstract->setPlainText(event.abstract());
-    description->setPlainText(event.description());
+    mDetails.setPersons(event.persons());
+    mDetails.setAbstract(event.abstract());
+    mDetails.setDescription(event.description());
+    scrollArea->setWidget(&mDetails);
 }
 
