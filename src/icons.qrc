@@ -10,5 +10,6 @@
         <file>icons/favourite-onBig.png</file>
         <file>icons/exclamation-iconOn.png</file>
         <file>icons/exclamation-iconOff.png</file>
+        <file>icons/info.png</file>
     </qresource>
 </RCC>

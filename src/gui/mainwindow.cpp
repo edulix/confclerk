@@ -139,6 +139,7 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     connect(showMapButton, SIGNAL(clicked()), SLOT(conferenceMapClicked()));
     //
     connect(tabWidget, SIGNAL(currentChanged(int)), SLOT(tabHasChanged(int)));
+    connect(tabWidget, SIGNAL(infoIconClicked()), SLOT(aboutApp()));
 
     if(!Conference::getAll().count()) // no conference(s) in the DB
     {
@@ -379,6 +380,6 @@ void MainWindow::tabHasChanged(int aIndex)
     // TODO: only if it changed to favourities tab
     updateFavouritesView(favouriteDayNavigator->getCurrentDate());
     // TODO: only if it changed to now tab
-    //updateNowView();
+    updateNowView();
 }
 
