@@ -48,10 +48,6 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
 
     connect(importScheduleWidget, SIGNAL(scheduleImported(int)), SLOT(scheduleImported(int)));
 
-    // connect Menu actions
-    connect(actionAboutQt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
-    connect(actionAboutApplication, SIGNAL(triggered()), SLOT(aboutApp()));
-
     connect(dayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateDayView(const QDate &)));
     connect(trackDayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateTracksView(const QDate &)));
     connect(favouriteDayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateFavouritesView(const QDate &)));
