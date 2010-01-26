@@ -375,7 +375,14 @@ void MainWindow::displayWarning(const QModelIndex &aIndex)
 void MainWindow::eventHasChanged(int aEventId)
 {
     static_cast<EventModel*>(dayTreeView->model())->updateModel(aEventId);
-    static_cast<EventModel*>(favTreeView->model())->updateModel(aEventId);
+
+    // we need to reload favourites, because some favourite could be deleted
+    //static_cast<EventModel*>(favTreeView->model())->updateModel(aEventId);
+    QDate aStartDate = Conference::getById(AppSettings::confId()).start();
+    QDate aEndDate = Conference::getById(AppSettings::confId()).end();
+    favouriteDayNavigator->setDates(aStartDate, aEndDate);
+    updateFavouritesView( Conference::getById(AppSettings::confId()).start() );
+
     static_cast<EventModel*>(trackTreeView->model())->updateModel(aEventId);
     static_cast<EventModel*>(searchTreeView->model())->updateModel(aEventId);
     static_cast<EventModel*>(nowTreeView->model())->updateModel(aEventId);
