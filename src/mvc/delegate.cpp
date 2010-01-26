@@ -65,8 +65,7 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         //int spacer = (fmSmall.boundingRect("999").width() < SPACER) ? SPACER : fmSmall.boundingRect("999").width();
 
         //Time conflicts are colored differently
-        if ((static_cast<Event*>(index.internalPointer())->isFavourite())
-            && (hasTimeConflict(index, index.parent())))
+        if(hasTimeConflict(index, index.parent()))
         {
             bkgrColor = Qt::yellow;
         }
@@ -134,16 +133,9 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         painter->drawImage(mControls[MapControl]->drawPoint(option.rect),*mControls[MapControl]->image());
         // Time conflict
         //if(static_cast<Event*>(index.internalPointer())->hasTimeConflict())
-        if(bkgrColor == Qt::yellow)
-        {
-            painter->drawImage(mControls[WarningControlOn]->drawPoint(option.rect),*mControls[WarningControlOn]->image());
-            mControls[WarningControlOn]->hasConflict=true;
-        }
-        else
-        {
-            painter->drawImage(mControls[WarningControlOff]->drawPoint(option.rect),*mControls[WarningControlOff]->image());
-            mControls[WarningControlOn]->hasConflict=false;
-        }
+
+        if(hasTimeConflict(index, index.parent()))
+            painter->drawImage(mControls[WarningControl]->drawPoint(option.rect),*mControls[WarningControl]->image());
 
         // draw texts
         Event *event = static_cast<Event*>(index.internalPointer());
@@ -315,18 +307,16 @@ Delegate::ControlId Delegate::whichControlClicked(const QModelIndex &aIndex, con
     while (i.hasNext())
     {
         ControlId id = i.next();
-        if((mControls[id]->drawRect(static_cast<QTreeView*>(parent())->visualRect(aIndex)).contains(aPoint))
-            && (id != WarningControlOn) && (id != WarningControlOff))
+        if(mControls[id]->drawRect(static_cast<QTreeView*>(parent())->visualRect(aIndex)).contains(aPoint))
         {
-            return id;
+            if(id == WarningControl)
+            {
+                if(mControls[id]->hasConflict)
+                    return id;
+            }
+            else
+                return id;
         }
-        else if ((mControls[id]->drawRect(static_cast<QTreeView*>(parent())->visualRect(aIndex)).contains(aPoint))
-            && (mControls[id]->hasConflict))
-        {
-            qDebug() << "tengo conflicto";
-            return id;
-        }
-
     }
 
     return ControlNone;
@@ -380,21 +370,13 @@ void Delegate::defineControls()
     mControls.insert(MapControl,control);
 #endif
 
-    // WARNING ICONs
-    // on
-    control = new Control(WarningControlOn,QString(":icons/exclamation-iconOn.png"));
+    // WARNING ICON
+    control = new Control(WarningControl,QString(":icons/exclamation.png"));
     p = mControls[MapControl]->drawPoint();
     control->hasConflict = false;
     p.setX(p.x()-control->image()->width()-SPACER);
     control->setDrawPoint(p);
-    mControls.insert(WarningControlOn,control);
-    // off
-    control = new Control(WarningControlOff,QString(":icons/exclamation-iconOff.png"));
-    p = mControls[MapControl]->drawPoint();
-    control->hasConflict = false;
-    p.setX(p.x()-control->image()->width()-SPACER);
-    control->setDrawPoint(p);
-    mControls.insert(WarningControlOff,control);
+    mControls.insert(WarningControl,control);
 }
 
 bool Delegate::isPointFromRect(const QPoint &aPoint, const QRect &aRect) const
@@ -456,3 +438,4 @@ bool Delegate::hasTimeConflict(const QModelIndex &index, const QModelIndex &pare
     }
     return false;
 }
+
