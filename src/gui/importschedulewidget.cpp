@@ -1,7 +1,6 @@
 #include "importschedulewidget.h"
 
 #include <schedulexmlparser.h>
-#include <sqlengine.h>
 
 #include <QDir>
 #include <QFile>
@@ -10,7 +9,6 @@
 
 ImportScheduleWidget::ImportScheduleWidget(QWidget *aParent)
     : QWidget(aParent)
-    , mSqlEngine(NULL)
 {
     setupUi(this);
 
@@ -31,13 +29,6 @@ ImportScheduleWidget::~ImportScheduleWidget()
     }
 }
 
-void ImportScheduleWidget::setSqlEngine(SqlEngine *aSqlEngine)
-{
-    Q_ASSERT(aSqlEngine != NULL);
-
-    mSqlEngine = aSqlEngine;
-}
-
 void ImportScheduleWidget::parsingSchedule(const QString &aTitle)
 {
     importScheduleLabel->setText("Importing: " + aTitle);
@@ -50,8 +41,6 @@ void ImportScheduleWidget::showParsingProgress(int progress)
 
 void ImportScheduleWidget::browseSchedule()
 {
-    Q_ASSERT(mSqlEngine != NULL);
-
     QString scheduleFileName = QFileDialog::getOpenFileName(this, tr("Select Conference Schedule"), QDir::homePath(), tr("Schedule Files (*.xml)"));
     if(QFile::exists(scheduleFileName))
     {
@@ -65,7 +54,7 @@ void ImportScheduleWidget::browseSchedule()
         QByteArray data = file.readAll();
         browse->hide();
         progressBar->show();
-        int confId = mXmlParser->parseData(data,mSqlEngine);
+        int confId = mXmlParser->parseData(data);
 
         progressBar->hide();
         browse->show();

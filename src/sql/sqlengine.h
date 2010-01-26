@@ -13,18 +13,18 @@ class SqlEngine : public QObject
         SqlEngine(QObject *aParent = NULL);
         ~SqlEngine();
         static void initialize();
-        void addConferenceToDB(QHash<QString,QString> &aConference);
-        void addEventToDB(QHash<QString,QString> &aEvent);
-        void addPersonToDB(QHash<QString,QString> &aPerson);
-        void addLinkToDB(QHash<QString,QString> &aLink);
-        void addRoomToDB(QHash<QString,QString> &aRoom);
+        static void addConferenceToDB(QHash<QString,QString> &aConference);
+        static void addEventToDB(QHash<QString,QString> &aEvent);
+        static void addPersonToDB(QHash<QString,QString> &aPerson);
+        static void addLinkToDB(QHash<QString,QString> &aLink);
+        static void addRoomToDB(QHash<QString,QString> &aRoom);
 
         // search Events for ....
-        int searchEvent(int conferenceId, const QHash<QString,QString> &columns, const QString &keyword);
+        static int searchEvent(int conferenceId, const QHash<QString,QString> &columns, const QString &keyword);
     private:
         static QString login(const QString &aDatabaseType, const QString &aDatabaseName);
         static bool createTables(QSqlDatabase &aDatabase);
-        bool execQuery(QSqlDatabase &aDatabase, const QString &aQuery);
+        static bool execQuery(QSqlDatabase &aDatabase, const QString &aQuery);
 };
 
 #endif /* SQLENGINE_H */

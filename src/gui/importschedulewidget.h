@@ -5,15 +5,13 @@
 #include "ui_importschedulewidget.h"
 
 class ScheduleXmlParser;
-class SqlEngine;
 
 class ImportScheduleWidget : public QWidget, Ui::ImportScheduleWidget
 {
     Q_OBJECT
     public:
-        ImportScheduleWidget(QWidget *aParent = NULL); // don't forget to use setSqlEngine()
+        ImportScheduleWidget(QWidget *aParent = NULL);
         ~ImportScheduleWidget();
-        void setSqlEngine(SqlEngine *aSqlEngine);
     private slots:
         void browseSchedule();
         void parsingSchedule(const QString &aTitle);
@@ -22,7 +20,6 @@ class ImportScheduleWidget : public QWidget, Ui::ImportScheduleWidget
         void scheduleImported(int confId);
     private:
         ScheduleXmlParser *mXmlParser;
-        SqlEngine *mSqlEngine; // uses it
 };
 
 #endif /* IMPORTSCHEDULEWIDGET_H */

@@ -12,10 +12,8 @@ ScheduleXmlParser::ScheduleXmlParser(QObject *aParent)
 {
 }
 
-int ScheduleXmlParser::parseData(const QByteArray &aData, SqlEngine *aDBEngine)
+int ScheduleXmlParser::parseData(const QByteArray &aData)
 {
-    Q_ASSERT(NULL != aDBEngine);
-
     QDomDocument document;
     document.setContent (aData, false);
 
@@ -38,7 +36,7 @@ int ScheduleXmlParser::parseData(const QByteArray &aData, SqlEngine *aDBEngine)
             conference["days"] = conferenceElement.firstChildElement("days").text(); // int
             conference["day_change"] = conferenceElement.firstChildElement("day_change").text(); // time
             conference["timeslot_duration"] = conferenceElement.firstChildElement("timeslot_duration").text(); // time
-            aDBEngine->addConferenceToDB(conference);
+            SqlEngine::addConferenceToDB(conference);
             confId = conference["id"].toInt();
             emit(parsingSchedule(conference["title"]));
         }
@@ -77,7 +75,7 @@ int ScheduleXmlParser::parseData(const QByteArray &aData, SqlEngine *aDBEngine)
                         room["event_id"] = eventElement.attribute("id");
                         room["conference_id"] = QString::number(confId,10);
                         room["picture"] = "NOT DEFINED YET"; // TODO: implement some mapping to assign correct picture to specified room_name
-                        aDBEngine->addRoomToDB(room);
+                        SqlEngine::addRoomToDB(room);
 
                         // process event's nodes
                         QHash<QString,QString> event;
@@ -95,7 +93,7 @@ int ScheduleXmlParser::parseData(const QByteArray &aData, SqlEngine *aDBEngine)
                         event["language"] = eventElement.firstChildElement("language").text(); // language eg. "English"
                         event["abstract"] = eventElement.firstChildElement("abstract").text(); // string
                         event["description"] = eventElement.firstChildElement("description").text(); // string
-                        aDBEngine->addEventToDB(event);
+                        SqlEngine::addEventToDB(event);
                         // process persons' nodes
                         QList<QString> persons;
                         QDomElement personsElement = eventElement.firstChildElement("persons");
@@ -107,7 +105,7 @@ int ScheduleXmlParser::parseData(const QByteArray &aData, SqlEngine *aDBEngine)
                             person["event_id"] = eventElement.attribute("id");
                             person["conference_id"] = QString::number(confId, 10);
                             //qDebug() << "adding Person: " << person["name"];
-                            aDBEngine->addPersonToDB(person);
+                            SqlEngine::addPersonToDB(person);
                         }
                         // process links' nodes
                         QDomElement linksElement = eventElement.firstChildElement("links");
@@ -118,7 +116,7 @@ int ScheduleXmlParser::parseData(const QByteArray &aData, SqlEngine *aDBEngine)
                             link["url"] = linkList.at(i).toElement().attribute("href");
                             link["event_id"] = eventElement.attribute("id");
                             link["conference_id"] = QString::number(confId, 10);
-                            aDBEngine->addLinkToDB(link);
+                            SqlEngine::addLinkToDB(link);
                         }
                         // emit signal to inform the user about the current status (how many events are parsed so far - expressed in %)
                         int status = currentEvent * 100 / totalEventsCount;

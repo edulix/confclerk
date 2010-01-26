@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     QApplication::setWindowIcon(QIcon(":/icons/fosdem.png"));
 
-    SqlEngine::initialize(); // creates DB connection
+    SqlEngine::initialize(); // creates "SQLITE" DB connection
 
     QWidget *window;
 #ifdef MAEMO

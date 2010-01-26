@@ -27,12 +27,6 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
 {
     setupUi(this);
 
-    // create "SQLITE" DB instance/connection
-    // opens DB connection (needed for EventModel)
-    mSqlEngine = new SqlEngine(this);
-    //mSqlEngine->initialize();
-    importScheduleWidget->setSqlEngine(mSqlEngine);
-
     // Sanity check for existence of any Conference in the DB
     // it AppSettings::confId() is 0, but there are any Conference(s) in the DB
     // set the confId in the AppSettings for the ID of the first conference in the DB
@@ -126,15 +120,6 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     }
 }
 
-MainWindow::~MainWindow()
-{
-    if(mSqlEngine)
-    {
-        delete mSqlEngine;
-        mSqlEngine = NULL;
-    }
-}
-
 void MainWindow::scheduleImported(int aConfId)
 {
     Q_UNUSED(aConfId);
@@ -203,7 +188,7 @@ void MainWindow::searchClicked()
 
     QString keyword = searchEdit->text().replace( QString("%"), QString("\\%") );
     qDebug() << "\nKeyword to search: " << keyword;
-    mSqlEngine->searchEvent( AppSettings::confId(), columns, keyword );
+    SqlEngine::searchEvent( AppSettings::confId(), columns, keyword );
 
     QDate aStartDate = Conference::getById(AppSettings::confId()).start();
     QDate aEndDate = Conference::getById(AppSettings::confId()).end();
