@@ -8,34 +8,56 @@
 int Alarm::addAlarm(int aEventId, const QDateTime &aDateTime)
 {
     cookie_t cookie = 0;
-    alarm_event_t *event = 0;
-    alarm_action_t *action = 0;
+    alarm_event_t *eve = 0;
+    alarm_action_t *act = 0;
 
     /* Create alarm event structure and set application identifier */
-    event = alarm_event_create();
-    alarm_event_set_alarm_appid(event, APPID);
-    alarm_event_set_message(event, QString::number(aEventId).toLocal8Bit().data()); // for Deleting purposes
+    eve = alarm_event_create();
+    alarm_event_set_alarm_appid(eve, APPID);
+
+    /* for Deleting purposes */
+    alarm_event_set_message(eve, QString::number(aEventId).toLocal8Bit().data()); 
 
     /* Use absolute time triggering */
-    event->alarm_time = aDateTime.toTime_t();
+    eve->alarm_time = time(0) + 5; //aDateTime.toTime_t();
+
+    QString command = QDir::currentPath() + "/" + *qApp->argv() + 
+      QString(" %1").arg(QString::number(aEventId));
 
     /* Add exec command action */
-    action = alarm_event_add_actions(event, 1);
-    QString command = QDir::currentPath() + "/" + *qApp->argv() + QString(" %1").arg(QString::number(aEventId));
-    alarm_action_set_exec_command(action, command.toLocal8Bit().data());
-    action->flags |= ALARM_ACTION_TYPE_EXEC;
-    action->flags |= ALARM_ACTION_WHEN_TRIGGERED;
-    action->flags |= ALARM_ACTION_EXEC_ADD_COOKIE; // adds assigned cookie at the end of command string
+    act = alarm_event_add_actions(eve, 1);
+    alarm_action_set_label(act, "FOSDEM'10");
+    //    alarm_event_set_icon(eve, "fosdem");
+    //    alarm_event_set_title(eve, "FOSDEM'10");
+    act->flags |= ALARM_ACTION_TYPE_EXEC;
+    act->flags |= ALARM_ACTION_WHEN_RESPONDED;
+    // adds assigned cookie at the end of command string 
+    //    act->flags |= ALARM_ACTION_EXEC_ADD_COOKIE; 
+    alarm_action_set_exec_command(act, command.toLocal8Bit().data());
+
+    /* Add stop button action */
+    act = alarm_event_add_actions(eve, 1);
+    alarm_action_set_label(act, "Stop");
+    act->flags |= ALARM_ACTION_WHEN_RESPONDED;
+    act->flags |= ALARM_ACTION_TYPE_NOP;
+  
+    /* Add snooze button action */
+    act = alarm_event_add_actions(eve, 1);
+    alarm_action_set_label(act, "Snooze");
+    act->flags |= ALARM_ACTION_WHEN_RESPONDED;
+    act->flags |= ALARM_ACTION_TYPE_SNOOZE;
 
     /* Send the alarm to alarmd */
-    cookie = alarmd_event_add(event);
-    if(cookie==0) // adding alarm failed
+    cookie = alarmd_event_add(eve);
+
+    // adding alarm failed
+    if (cookie == 0)
         emit(addAlarmFailed(aEventId));
     else
         emit(alarmAdded(aEventId));
 
     /* Free all dynamic memory associated with the alarm event */
-    alarm_event_delete(event);
+    alarm_event_delete(eve);
 
     return cookie;
 }
