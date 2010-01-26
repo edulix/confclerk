@@ -32,6 +32,7 @@ private slots:
     void conferenceMapClicked();
     void tabHasChanged(int aIndex);
     void eventHasChanged(int aEventId);
+    void timerUpdateNowView();
 private:
     SqlEngine *mSqlEngine;
 };

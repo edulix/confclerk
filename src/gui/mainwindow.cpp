@@ -14,6 +14,7 @@
 
 #include <QDialog>
 #include <QMessageBox>
+#include <QTimer>
 #include "ui_about.h"
 #include "eventdialog.h"
 #include "daynavigatorwidget.h"
@@ -94,6 +95,11 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
 	nowTreeView->setAnimated(true);
 	nowTreeView->setModel(new EventModel());
 	nowTreeView->setItemDelegate(new Delegate(nowTreeView));
+
+	// NOW View refresh timer
+    QTimer *timer = new QTimer( this );
+    connect( timer, SIGNAL(timeout()), SLOT(timerUpdateNowView()) );
+    timer->start( 30000); // 30 seconds timer
 
     // ROOMS View
     roomTreeView->setHeaderHidden(true);
@@ -383,3 +389,13 @@ void MainWindow::tabHasChanged(int aIndex)
     updateNowView();
 }
 
+void MainWindow::timerUpdateNowView()
+{
+	QWidget * pCurrentWidget = tabWidget->widget(tabWidget->currentIndex());
+
+	if( pCurrentWidget != NULL )
+	{
+		if( pCurrentWidget == tab )
+		    updateNowView();
+	}
+}
