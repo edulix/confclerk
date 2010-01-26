@@ -34,12 +34,14 @@ HEADERS += mainwindow.h \
            daynavigatorwidget.h \
            importscheduledialog.h \
            eventdialog.h \
+           tabwidget.h \
            mapwindow.h
 
 SOURCES += mainwindow.cpp \
            daynavigatorwidget.cpp \
            importscheduledialog.cpp \
            eventdialog.cpp \
+           tabwidget.cpp \
            mapwindow.cpp
 
 maemo {
