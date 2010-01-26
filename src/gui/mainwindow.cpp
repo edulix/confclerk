@@ -260,7 +260,7 @@ void MainWindow::updateSearchView(const QDate &aDate)
     if( eventsCount ||
             searchDayNavigator->getCurrentDate() != Conference::getById(AppSettings::confId()).start() ){
         searchVerticalWidget->show();
-        searchAgainButton->show();
+        //searchAgainButton->show();
         searchTreeView->show();
         searchHead->hide();
     }
@@ -336,13 +336,19 @@ void MainWindow::searchClicked()
     qDebug() << "\nKeyword to search: " << keyword;
     mSqlEngine->searchEvent( AppSettings::confId(), columns, keyword );
 
+    QDate aStartDate = Conference::getById(AppSettings::confId()).start();
+    QDate aEndDate = Conference::getById(AppSettings::confId()).end();
+    searchDayNavigator->setDates(aStartDate, aEndDate);
     updateSearchView( Conference::getById(AppSettings::confId()).start() );
 }
 
 void MainWindow::searchAgainClicked()
 {
     searchHead->show();
-    searchAgainButton->hide();
+    //searchAgainButton->hide();
+    searchVerticalWidget->hide();
+    searchTreeView->hide();
+
 }
 
 void MainWindow::conferenceMapClicked()
