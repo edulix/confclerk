@@ -35,31 +35,14 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_2" >
             <item>
-             <layout class="QVBoxLayout" name="verticalLayout_5" >
-              <item>
-               <widget class="QToolButton" name="toolButton" >
-                <property name="autoFillBackground" >
-                 <bool>true</bool>
-                </property>
-                <property name="text" >
-                 <string>H</string>
-                </property>
-                <property name="autoRaise" >
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="DayNavigatorWidget" native="1" name="dayNavigator" >
-                <property name="sizePolicy" >
-                 <sizepolicy vsizetype="Expanding" hsizetype="Minimum" >
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-               </widget>
-              </item>
-             </layout>
+             <widget class="DayNavigatorWidget" native="1" name="dayNavigator" >
+              <property name="sizePolicy" >
+               <sizepolicy vsizetype="Expanding" hsizetype="Minimum" >
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+             </widget>
             </item>
             <item>
              <widget class="TreeView" name="dayTreeView" >
@@ -118,64 +101,64 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="searchTab">
-       <attribute name="title">
+      <widget class="QWidget" name="searchTab" >
+       <attribute name="title" >
         <string>Search</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_1">
+       <layout class="QHBoxLayout" name="horizontalLayout_1" >
         <item>
-         <widget class="QWidget" name="searchVerticalWidget" native="true">
-          <property name="enabled">
+         <widget class="QWidget" native="1" name="searchVerticalWidget" >
+          <property name="enabled" >
            <bool>true</bool>
           </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+          <property name="sizePolicy" >
+           <sizepolicy vsizetype="Expanding" hsizetype="Minimum" >
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <layout class="QVBoxLayout" name="searchDayNavigatorVerticalLayout">
-           <property name="margin">
+          <layout class="QVBoxLayout" name="searchDayNavigatorVerticalLayout" >
+           <property name="margin" >
             <number>0</number>
            </property>
            <item>
-            <widget class="QToolButton" name="searchAgainButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <widget class="QToolButton" name="searchAgainButton" >
+             <property name="sizePolicy" >
+              <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <property name="toolTip">
+             <property name="toolTip" >
               <string>Search again</string>
              </property>
-             <property name="text">
+             <property name="text" >
               <string>S</string>
              </property>
-             <property name="icon">
-              <iconset resource="../icons.qrc">
+             <property name="icon" >
+              <iconset resource="../icons.qrc" >
                <normaloff>:/icons/search.png</normaloff>:/icons/search.png</iconset>
              </property>
-             <property name="iconSize">
+             <property name="iconSize" >
               <size>
                <width>24</width>
                <height>24</height>
               </size>
              </property>
-             <property name="toolButtonStyle">
+             <property name="toolButtonStyle" >
               <enum>Qt::ToolButtonIconOnly</enum>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="DayNavigatorWidget" name="searchDayNavigator" native="true">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+            <widget class="DayNavigatorWidget" native="1" name="searchDayNavigator" >
+             <property name="sizePolicy" >
+              <sizepolicy vsizetype="Expanding" hsizetype="Minimum" >
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <property name="maximumSize">
+             <property name="maximumSize" >
               <size>
                <width>16777215</width>
                <height>16777215</height>
@@ -187,114 +170,114 @@
          </widget>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_3">
+         <layout class="QVBoxLayout" name="verticalLayout_3" >
           <item>
-           <widget class="QWidget" name="searchHead" native="true">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <widget class="QWidget" native="1" name="searchHead" >
+            <property name="sizePolicy" >
+             <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <property name="maximumSize">
+            <property name="maximumSize" >
              <size>
               <width>16777215</width>
               <height>16777215</height>
              </size>
             </property>
-            <layout class="QGridLayout" name="searchHeadLayout">
-             <property name="sizeConstraint">
+            <layout class="QGridLayout" name="searchHeadLayout" >
+             <property name="sizeConstraint" >
               <enum>QLayout::SetDefaultConstraint</enum>
              </property>
-             <item row="2" column="0">
-              <layout class="QHBoxLayout" name="horizontalLayout">
+             <item row="2" column="0" >
+              <layout class="QHBoxLayout" name="horizontalLayout" >
                <item>
-                <widget class="QLineEdit" name="searchEdit">
-                 <property name="enabled">
+                <widget class="QLineEdit" name="searchEdit" >
+                 <property name="enabled" >
                   <bool>true</bool>
                  </property>
-                 <property name="toolTip">
+                 <property name="toolTip" >
                   <string>type a keyword to search</string>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="searchButton">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                <widget class="QPushButton" name="searchButton" >
+                 <property name="sizePolicy" >
+                  <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
-                 <property name="text">
+                 <property name="text" >
                   <string>Search</string>
                  </property>
-                 <property name="icon">
-                  <iconset resource="../icons.qrc">
+                 <property name="icon" >
+                  <iconset resource="../icons.qrc" >
                    <normaloff>:/icons/search.png</normaloff>:/icons/search.png</iconset>
                  </property>
-                 <property name="checkable">
+                 <property name="checkable" >
                   <bool>false</bool>
                  </property>
-                 <property name="autoDefault">
+                 <property name="autoDefault" >
                   <bool>true</bool>
                  </property>
-                 <property name="default">
+                 <property name="default" >
                   <bool>true</bool>
                  </property>
-                 <property name="flat">
+                 <property name="flat" >
                   <bool>false</bool>
                  </property>
                 </widget>
                </item>
               </layout>
              </item>
-             <item row="0" column="0">
-              <layout class="QHBoxLayout" name="horizontalLayout_6">
+             <item row="0" column="0" >
+              <layout class="QHBoxLayout" name="horizontalLayout_6" >
                <item>
-                <widget class="QCheckBox" name="searchTitle">
-                 <property name="text">
+                <widget class="QCheckBox" name="searchTitle" >
+                 <property name="text" >
                   <string>Title</string>
                  </property>
-                 <property name="checked">
+                 <property name="checked" >
                   <bool>true</bool>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QCheckBox" name="searchAbstract">
-                 <property name="text">
+                <widget class="QCheckBox" name="searchAbstract" >
+                 <property name="text" >
                   <string>Abstract</string>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QCheckBox" name="searchSpeaker">
-                 <property name="text">
+                <widget class="QCheckBox" name="searchSpeaker" >
+                 <property name="text" >
                   <string>Speaker</string>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QCheckBox" name="searchTag">
-                 <property name="text">
+                <widget class="QCheckBox" name="searchTag" >
+                 <property name="text" >
                   <string>Tag</string>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QCheckBox" name="searchRoom">
-                 <property name="text">
+                <widget class="QCheckBox" name="searchRoom" >
+                 <property name="text" >
                   <string>Room</string>
                  </property>
                 </widget>
                </item>
                <item>
-                <spacer name="horizontalSpacer">
-                 <property name="orientation">
+                <spacer name="horizontalSpacer" >
+                 <property name="orientation" >
                   <enum>Qt::Horizontal</enum>
                  </property>
-                 <property name="sizeHint" stdset="0">
+                 <property name="sizeHint" stdset="0" >
                   <size>
                    <width>40</width>
                    <height>20</height>
@@ -308,39 +291,36 @@
            </widget>
           </item>
           <item>
-           <widget class="TreeView" name="searchTreeView">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+           <widget class="TreeView" name="searchTreeView" >
+            <property name="sizePolicy" >
+             <sizepolicy vsizetype="MinimumExpanding" hsizetype="Expanding" >
               <horstretch>0</horstretch>
               <verstretch>1</verstretch>
              </sizepolicy>
             </property>
-            <property name="minimumSize">
+            <property name="minimumSize" >
              <size>
               <width>0</width>
               <height>0</height>
              </size>
             </property>
-            <property name="maximumSize">
+            <property name="maximumSize" >
              <size>
               <width>16777215</width>
               <height>16777215</height>
              </size>
             </property>
-            <attribute name="headerDefaultSectionSize">
-             <number>100</number>
-            </attribute>
            </widget>
           </item>
           <item>
-           <spacer name="verticalSpacer_2">
-            <property name="orientation">
+           <spacer name="verticalSpacer_2" >
+            <property name="orientation" >
              <enum>Qt::Vertical</enum>
             </property>
-            <property name="sizeType">
+            <property name="sizeType" >
              <enum>QSizePolicy::Expanding</enum>
             </property>
-            <property name="sizeHint" stdset="0">
+            <property name="sizeHint" stdset="0" >
              <size>
               <width>20</width>
               <height>1</height>
