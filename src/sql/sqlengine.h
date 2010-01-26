@@ -12,7 +12,7 @@ class SqlEngine : public QObject
     public:
         SqlEngine(QObject *aParent = NULL);
         ~SqlEngine();
-        void initialize();
+        static void initialize();
         void addConferenceToDB(QHash<QString,QString> &aConference);
         void addEventToDB(QHash<QString,QString> &aEvent);
         void addPersonToDB(QHash<QString,QString> &aPerson);
@@ -22,8 +22,8 @@ class SqlEngine : public QObject
         // search Events for ....
         int searchEvent(int conferenceId, const QHash<QString,QString> &columns, const QString &keyword);
     private:
-        QString login(const QString &aDatabaseType, const QString &aDatabaseName);
-        bool createTables(QSqlDatabase &aDatabase);
+        static QString login(const QString &aDatabaseType, const QString &aDatabaseName);
+        static bool createTables(QSqlDatabase &aDatabase);
         bool execQuery(QSqlDatabase &aDatabase, const QString &aQuery);
 };
 

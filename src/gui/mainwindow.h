@@ -18,21 +18,11 @@ public:
 private slots:
     void scheduleImported(int aConfId);
     void aboutApp();
-    void updateDayView(const QDate &aDate);
-    void updateTracksView(const QDate &aDate);
-    void updateFavouritesView(const QDate &aDate);
     void updateSearchView(const QDate &aDate);
-    void updateNowView();
-    void updateRoomView(const QDate &aDate);
-    void itemClicked(const QModelIndex &aIndex);
-    void displayMap(const QModelIndex &aIndex);
-    void displayWarning(const QModelIndex &aIndex);
     void searchClicked();
 	void searchAgainClicked();
     void conferenceMapClicked();
-    void tabHasChanged(int aIndex);
     void eventHasChanged(int aEventId);
-    void timerUpdateNowView();
 private:
     SqlEngine *mSqlEngine;
 };

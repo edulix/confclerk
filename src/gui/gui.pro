@@ -28,6 +28,7 @@ FORMS += mainwindow.ui \
          importschedulewidget.ui \
          about.ui \
          eventdialog.ui \
+         tabcontainer.ui \
          mapwindow.ui
 
 HEADERS += mainwindow.h \
@@ -35,6 +36,7 @@ HEADERS += mainwindow.h \
            importschedulewidget.h \
            eventdialog.h \
            tabwidget.h \
+           tabcontainer.h \
            mapwindow.h
 
 SOURCES += mainwindow.cpp \
@@ -42,6 +44,7 @@ SOURCES += mainwindow.cpp \
            importschedulewidget.cpp \
            eventdialog.cpp \
            tabwidget.cpp \
+           tabcontainer.cpp \
            mapwindow.cpp
 
 maemo {

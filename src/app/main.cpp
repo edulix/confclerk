@@ -5,6 +5,8 @@
 #include <alarmdialog.h>
 #endif /* MAEMO */
 
+#include <sqlengine.h>
+
 int main(int argc, char *argv[])
 {
     Q_INIT_RESOURCE(icons);
@@ -12,6 +14,8 @@ int main(int argc, char *argv[])
 
     QApplication a(argc, argv);
     QApplication::setWindowIcon(QIcon(":/icons/fosdem.png"));
+
+    SqlEngine::initialize(); // creates DB connection
 
     QWidget *window;
 #ifdef MAEMO
