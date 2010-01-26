@@ -18,7 +18,7 @@
 #include "ui_about.h"
 #include "eventdialog.h"
 #include "daynavigatorwidget.h"
-#include "importscheduledialog.h"
+#include "importschedulewidget.h"
 #include "mapwindow.h"
 
 MainWindow::MainWindow(int aEventId, QWidget *aParent)
@@ -30,6 +30,7 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     // opens DB connection (needed for EventModel)
     mSqlEngine = new SqlEngine(this);
     mSqlEngine->initialize();
+    importScheduleWidget->setSqlEngine(mSqlEngine);
 
     // Sanity check for existence of any Conference in the DB
     // it AppSettings::confId() is 0, but there are any Conference(s) in the DB
@@ -45,8 +46,9 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
             AppSettings::setConfId(confs[0].id());
     }
 
+    connect(importScheduleWidget, SIGNAL(scheduleImported(int)), SLOT(scheduleImported(int)));
+
     // connect Menu actions
-    connect(actionImportSchedule, SIGNAL(triggered()), SLOT(importSchedule()));
     connect(actionAboutQt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
     connect(actionAboutApplication, SIGNAL(triggered()), SLOT(aboutApp()));
 
@@ -199,10 +201,9 @@ MainWindow::~MainWindow()
     }
 }
 
-void MainWindow::importSchedule()
+void MainWindow::scheduleImported(int aConfId)
 {
-    ImportScheduleDialog dialog(mSqlEngine,this);
-    dialog.exec();
+    Q_UNUSED(aConfId);
 
     QList<Conference> confs = Conference::getAll();
     if(!confs.count()) // no conference(s) in the DB

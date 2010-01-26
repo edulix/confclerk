@@ -1,12 +1,12 @@
 <ui version="4.0" >
- <class>ImportScheduleDialog</class>
- <widget class="QDialog" name="ImportScheduleDialog" >
+ <class>ImportScheduleWidget</class>
+ <widget class="QWidget" name="ImportScheduleWidget" >
   <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>330</width>
-    <height>74</height>
+    <width>379</width>
+    <height>82</height>
    </rect>
   </property>
   <property name="sizePolicy" >
@@ -34,6 +34,13 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2" >
        <item>
+        <widget class="QLabel" name="label" >
+         <property name="text" >
+          <string>Import schedule: </string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="search" >
          <property name="text" >
           <string>Search</string>
@@ -60,13 +67,6 @@
          </property>
         </widget>
        </item>
-       <item>
-        <widget class="QPushButton" name="cancel" >
-         <property name="text" >
-          <string>Cancel</string>
-         </property>
-        </widget>
-       </item>
       </layout>
      </item>
     </layout>
@@ -74,22 +74,5 @@
   </layout>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>cancel</sender>
-   <signal>clicked()</signal>
-   <receiver>ImportScheduleDialog</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>515</x>
-     <y>124</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>283</x>
-     <y>80</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

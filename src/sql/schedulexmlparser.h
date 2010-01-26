@@ -12,7 +12,7 @@ class ScheduleXmlParser : public QObject
         ScheduleXmlParser (QObject *aParent = NULL);
 
     public slots:
-        void parseData(const QByteArray &aData, SqlEngine *aDBEngine);
+        int parseData(const QByteArray &aData, SqlEngine *aDBEngine); // returns 'confId' of parsed conference schedule
 
     signals:
         void progressStatus(int aStatus);

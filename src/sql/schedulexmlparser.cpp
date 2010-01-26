@@ -12,7 +12,7 @@ ScheduleXmlParser::ScheduleXmlParser(QObject *aParent)
 {
 }
 
-void ScheduleXmlParser::parseData(const QByteArray &aData, SqlEngine *aDBEngine)
+int ScheduleXmlParser::parseData(const QByteArray &aData, SqlEngine *aDBEngine)
 {
     Q_ASSERT(NULL != aDBEngine);
 
@@ -21,9 +21,9 @@ void ScheduleXmlParser::parseData(const QByteArray &aData, SqlEngine *aDBEngine)
 
     QDomElement scheduleElement = document.firstChildElement("schedule");
 
+    int confId = 0;
     if (!scheduleElement.isNull())
     {
-        int confId = 0;
         QDomElement conferenceElement = scheduleElement.firstChildElement("conference");
         if (!conferenceElement.isNull())
         {
@@ -128,5 +128,7 @@ void ScheduleXmlParser::parseData(const QByteArray &aData, SqlEngine *aDBEngine)
             } // parsing room elements
         } // parsing day elements
     } // schedule element
+
+    return confId;
 }
 

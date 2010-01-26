@@ -25,21 +25,21 @@ maemo {
 
 FORMS += mainwindow.ui \
          daynavigatorwidget.ui \
-         importscheduledialog.ui \
+         importschedulewidget.ui \
          about.ui \
          eventdialog.ui \
          mapwindow.ui
 
 HEADERS += mainwindow.h \
            daynavigatorwidget.h \
-           importscheduledialog.h \
+           importschedulewidget.h \
            eventdialog.h \
            tabwidget.h \
            mapwindow.h
 
 SOURCES += mainwindow.cpp \
            daynavigatorwidget.cpp \
-           importscheduledialog.cpp \
+           importschedulewidget.cpp \
            eventdialog.cpp \
            tabwidget.cpp \
            mapwindow.cpp

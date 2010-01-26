@@ -1,4 +1,4 @@
-#include "importscheduledialog.h"
+#include "importschedulewidget.h"
 
 #include <schedulexmlparser.h>
 #include <sqlengine.h>
@@ -8,9 +8,9 @@
 #include <QFileDialog>
 #include <QDebug>
 
-ImportScheduleDialog::ImportScheduleDialog(SqlEngine *aSqlEngine, QWidget *aParent)
-    : QDialog(aParent)
-    , mSqlEngine(aSqlEngine)
+ImportScheduleWidget::ImportScheduleWidget(QWidget *aParent)
+    : QWidget(aParent)
+    , mSqlEngine(NULL)
 {
     setupUi(this);
 
@@ -24,7 +24,7 @@ ImportScheduleDialog::ImportScheduleDialog(SqlEngine *aSqlEngine, QWidget *aPare
     import->setEnabled(false);
 }
 
-ImportScheduleDialog::~ImportScheduleDialog()
+ImportScheduleWidget::~ImportScheduleWidget()
 {
     if(mXmlParser)
     {
@@ -33,13 +33,22 @@ ImportScheduleDialog::~ImportScheduleDialog()
     }
 }
 
-void ImportScheduleDialog::showParsingProgress(int progress)
+void ImportScheduleWidget::setSqlEngine(SqlEngine *aSqlEngine)
+{
+    Q_ASSERT(aSqlEngine != NULL);
+
+    mSqlEngine = aSqlEngine;
+}
+
+void ImportScheduleWidget::showParsingProgress(int progress)
 {
     progressBar->setValue(progress);
 }
 
-void ImportScheduleDialog::searchSchedule()
+void ImportScheduleWidget::searchSchedule()
 {
+    Q_ASSERT(mSqlEngine != NULL);
+
     mScheduleFileName = QFileDialog::getOpenFileName(this, tr("Select Conference Schedule"), QDir::homePath(), tr("Schedule Files (*.xml)"));
     if(QFile::exists(mScheduleFileName))
         import->setEnabled(true);
@@ -50,8 +59,14 @@ void ImportScheduleDialog::searchSchedule()
     }
 }
 
-void ImportScheduleDialog::importSchedule()
+void ImportScheduleWidget::importSchedule()
 {
+    if(!mSqlEngine)
+    {
+        qDebug() << "ImportScheduleWidget::importSchedule(): sqlEngine not set";
+        return;
+    }
+
     QFile file(mScheduleFileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
@@ -60,11 +75,13 @@ void ImportScheduleDialog::importSchedule()
     }
 
     QByteArray data = file.readAll();
-    if(mSqlEngine)
-    {
-        progressBar->show();
-        mXmlParser->parseData(data,mSqlEngine);
-        close();
-    }
+    progressBar->show();
+    int confId = mXmlParser->parseData(data,mSqlEngine);
+
+    // hide stuff
+    import->setEnabled(false);
+    progressBar->hide();
+
+    emit(scheduleImported(confId));
 }
 

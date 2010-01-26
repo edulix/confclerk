@@ -16,7 +16,7 @@ public:
     MainWindow(int aEventId = 0, QWidget *aParent = NULL);
     ~MainWindow();
 private slots:
-    void importSchedule();
+    void scheduleImported(int aConfId);
     void aboutApp();
     void updateDayView(const QDate &aDate);
     void updateTracksView(const QDate &aDate);
