@@ -44,6 +44,8 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     {
         if(AppSettings::confId() == 0)
             AppSettings::setConfId(confs[0].id());
+
+        setWindowTitle(confs[0].title());
     }
 
     connect(importScheduleWidget, SIGNAL(scheduleImported(int)), SLOT(scheduleImported(int)));

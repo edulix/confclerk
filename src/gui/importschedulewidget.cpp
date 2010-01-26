@@ -16,12 +16,10 @@ ImportScheduleWidget::ImportScheduleWidget(QWidget *aParent)
 
     mXmlParser = new ScheduleXmlParser(this);
     connect(mXmlParser, SIGNAL(progressStatus(int)), SLOT(showParsingProgress(int)));
-    connect(mXmlParser, SIGNAL(parsingSchedule(const QString &)), SLOT(setWindowTitle(const QString &)));
+    connect(mXmlParser, SIGNAL(parsingSchedule(const QString &)), SLOT(parsingSchedule(const QString &)));
 
-    connect(import, SIGNAL(clicked()), SLOT(importSchedule()));
-    connect(search, SIGNAL(clicked()), SLOT(searchSchedule()));
+    connect(browse, SIGNAL(clicked()), SLOT(browseSchedule()));
     progressBar->hide();
-    import->setEnabled(false);
 }
 
 ImportScheduleWidget::~ImportScheduleWidget()
@@ -40,48 +38,44 @@ void ImportScheduleWidget::setSqlEngine(SqlEngine *aSqlEngine)
     mSqlEngine = aSqlEngine;
 }
 
+void ImportScheduleWidget::parsingSchedule(const QString &aTitle)
+{
+    importScheduleLabel->setText("Importing: " + aTitle);
+}
+
 void ImportScheduleWidget::showParsingProgress(int progress)
 {
     progressBar->setValue(progress);
 }
 
-void ImportScheduleWidget::searchSchedule()
+void ImportScheduleWidget::browseSchedule()
 {
     Q_ASSERT(mSqlEngine != NULL);
 
-    mScheduleFileName = QFileDialog::getOpenFileName(this, tr("Select Conference Schedule"), QDir::homePath(), tr("Schedule Files (*.xml)"));
-    if(QFile::exists(mScheduleFileName))
-        import->setEnabled(true);
+    QString scheduleFileName = QFileDialog::getOpenFileName(this, tr("Select Conference Schedule"), QDir::homePath(), tr("Schedule Files (*.xml)"));
+    if(QFile::exists(scheduleFileName))
+    {
+        QFile file(scheduleFileName);
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        {
+            qDebug() << "can't open " << file.fileName();
+            return;
+        }
+
+        QByteArray data = file.readAll();
+        browse->hide();
+        progressBar->show();
+        int confId = mXmlParser->parseData(data,mSqlEngine);
+
+        progressBar->hide();
+        browse->show();
+        importScheduleLabel->setText("Import schedule: ");
+
+        emit(scheduleImported(confId));
+    }
     else
     {
-        import->setEnabled(false);
         progressBar->hide();
     }
-}
-
-void ImportScheduleWidget::importSchedule()
-{
-    if(!mSqlEngine)
-    {
-        qDebug() << "ImportScheduleWidget::importSchedule(): sqlEngine not set";
-        return;
-    }
-
-    QFile file(mScheduleFileName);
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-    {
-        qDebug() << "can't open " << file.fileName();
-        return;
-    }
-
-    QByteArray data = file.readAll();
-    progressBar->show();
-    int confId = mXmlParser->parseData(data,mSqlEngine);
-
-    // hide stuff
-    import->setEnabled(false);
-    progressBar->hide();
-
-    emit(scheduleImported(confId));
 }
 

@@ -15,15 +15,14 @@ class ImportScheduleWidget : public QWidget, Ui::ImportScheduleWidget
         ~ImportScheduleWidget();
         void setSqlEngine(SqlEngine *aSqlEngine);
     private slots:
-        void searchSchedule();
-        void importSchedule();
+        void browseSchedule();
+        void parsingSchedule(const QString &aTitle);
         void showParsingProgress(int progress);
     signals:
         void scheduleImported(int confId);
     private:
         ScheduleXmlParser *mXmlParser;
         SqlEngine *mSqlEngine; // uses it
-        QString mScheduleFileName;
 };
 
 #endif /* IMPORTSCHEDULEWIDGET_H */
