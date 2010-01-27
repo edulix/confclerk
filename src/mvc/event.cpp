@@ -124,6 +124,23 @@ QStringList Event::persons() const
     return persons;
 }
 
+QMap<QString,QString> Event::links() const
+{
+    QSqlQuery query;
+    query.prepare("SELECT name,url FROM link WHERE xid_event = :id AND xid_conference = :conf");
+    query.bindValue(":id", id());
+    query.bindValue(":conf", conferenceId());
+    query.exec();
+    // TODO: handle qeury error
+    //qDebug() << query.lastError();
+
+    QMap<QString,QString> links;
+    while(query.next())
+        links.insert(query.record().value("name").toString(), query.record().value("url").toString());
+
+    return links;
+}
+
 QList<int> Event::conflicts() const
 {
     QSqlQuery query;
@@ -228,6 +245,14 @@ void Event::setPersons(const QStringList &persons)
     Q_UNUSED(persons);
 
     qWarning("WARINING: setPersons() is NOT IMPLEMENTED YET");
+    // TODO: implement
+}
+
+void Event::setLinks(const QMap<QString,QString> &aLinks)
+{
+    Q_UNUSED(aLinks);
+
+    qWarning("WARINING: setLinks() is NOT IMPLEMENTED YET");
     // TODO: implement
 }
 

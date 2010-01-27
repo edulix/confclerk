@@ -23,6 +23,7 @@ EventDialog::EventDialog(const int &aEventId, QWidget *aParent)
     persons->setText(event.persons().join(" and "));
     abstract->setText(event.abstract());
     description->setText(event.description());
+    links->setText(static_cast<QStringList>(event.links().values()).join("\n"));
 
     connect(favouriteButton, SIGNAL(clicked()), SLOT(favouriteClicked()));
     connect(alarmButton, SIGNAL(clicked()), SLOT(alarmClicked()));

@@ -48,6 +48,7 @@ public:
     int roomId() const;
     QStringList persons() const;
     QList<int> conflicts() const;
+    QMap<QString,QString> links() const;
 
     void setId(int id) { setValue("id", id); }
     void setConferenceId(int conferenceId) { setValue("xid_conference", conferenceId); }
@@ -66,6 +67,7 @@ public:
     // records from other tables associated with 'id'
     void setRoom(const QString& room);
     void setPersons(const QStringList &persons);
+    void setLinks(const QMap<QString,QString> &aLinks);
     void updateConflicts();
 
 friend class EventTest;
