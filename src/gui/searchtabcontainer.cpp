@@ -7,7 +7,7 @@ SearchTabContainer::SearchTabContainer(QWidget *aParent) : TabContainer( aParent
 {
     header = new SearchHead(this);
     header->setObjectName(QString::fromUtf8("header"));
-    QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    QSizePolicy sizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
     sizePolicy.setHorizontalStretch(0);
     sizePolicy.setVerticalStretch(0);
     //sizePolicy.setHeightForWidth(TabContainer::sizePolicy().hasHeightForWidth());
@@ -32,7 +32,8 @@ SearchTabContainer::SearchTabContainer(QWidget *aParent) : TabContainer( aParent
 
     verticalLayout_2->insertWidget(0,searchAgainButton);
 
-    searchAgainButton->show();
+    searchAgainButton->hide();
+    treeView->hide();
 
     connect( header, SIGNAL(searchClicked()), SLOT(searchButtonClicked()));
     connect( searchAgainButton, SIGNAL(clicked()), SLOT(searchAgainClicked()));

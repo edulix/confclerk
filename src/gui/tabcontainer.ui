@@ -26,7 +26,14 @@
    <item row="0" column="2">
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="TreeView" name="treeView"/>
+      <widget class="TreeView" name="treeView">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>1</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
