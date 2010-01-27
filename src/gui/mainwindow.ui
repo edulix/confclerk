@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow" >
-  <property name="geometry" >
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,182 +10,189 @@
     <height>498</height>
    </rect>
   </property>
-  <property name="minimumSize" >
+  <property name="minimumSize">
    <size>
     <width>400</width>
     <height>300</height>
    </size>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget" >
-   <layout class="QGridLayout" name="gridLayout" >
-    <item row="0" column="0" >
-     <widget class="TabWidget" name="tabWidget" >
-      <property name="currentIndex" >
-       <number>0</number>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="TabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>3</number>
       </property>
-      <widget class="QWidget" name="dayViewTab" >
-       <attribute name="title" >
+      <widget class="QWidget" name="dayViewTab">
+       <attribute name="title">
         <string>Day View</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_2" >
-        <item row="0" column="0" >
-         <widget class="TabContainer" native="1" name="dayTabContainer" />
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0">
+         <widget class="DayViewTabContainer" name="dayTabContainer" native="true"/>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="favouritesTab" >
-       <attribute name="title" >
+      <widget class="QWidget" name="favouritesTab">
+       <attribute name="title">
         <string>Favourites</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_3" >
-        <item row="0" column="0" >
-         <widget class="TabContainer" native="1" name="favsTabContainer" />
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="0">
+         <widget class="FavTabContainer" name="favsTabContainer" native="true"/>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tracksTab" >
-       <attribute name="title" >
+      <widget class="QWidget" name="tracksTab">
+       <attribute name="title">
         <string>Tracks</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_4" >
-        <item row="0" column="0" >
-         <widget class="TabContainer" native="1" name="tracksTabContainer" />
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="0">
+         <widget class="TracksTabContainer" name="tracksTabContainer" native="true"/>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="searchTab" >
-       <attribute name="title" >
+      <widget class="QWidget" name="searchTab">
+       <attribute name="title">
         <string>Search</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_1" >
+       <layout class="QHBoxLayout" name="horizontalLayout_1">
         <item>
-         <widget class="TabContainer" native="1" name="searchTabContainer" />
+         <widget class="SearchTabContainer" name="searchTabContainer" native="true">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="roomsTab" >
-       <attribute name="title" >
+      <widget class="QWidget" name="roomsTab">
+       <attribute name="title">
         <string>Rooms</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_8" >
-        <item row="0" column="0" >
-         <widget class="TabContainer" native="1" name="roomsTabContainer" />
+       <layout class="QGridLayout" name="gridLayout_8">
+        <item row="0" column="0">
+         <widget class="RoomsTabContainer" name="roomsTabContainer" native="true"/>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="conferenceTab" >
-       <attribute name="title" >
+      <widget class="QWidget" name="conferenceTab">
+       <attribute name="title">
         <string>Conference</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_5" >
-        <item row="0" column="0" >
-         <layout class="QVBoxLayout" name="verticalLayout_4" >
+       <layout class="QGridLayout" name="gridLayout_5">
+        <item row="0" column="0">
+         <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
-           <widget class="QLabel" name="conferenceTitle" >
-            <property name="font" >
+           <widget class="QLabel" name="conferenceTitle">
+            <property name="font">
              <font>
               <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
-            <property name="text" >
+            <property name="text">
              <string>Conference Name</string>
             </property>
-            <property name="alignment" >
+            <property name="alignment">
              <set>Qt::AlignCenter</set>
             </property>
-            <property name="wordWrap" >
+            <property name="wordWrap">
              <bool>true</bool>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="conferenceSubtitle" >
-            <property name="text" >
+           <widget class="QLabel" name="conferenceSubtitle">
+            <property name="text">
              <string>Conference Subtitle</string>
             </property>
-            <property name="alignment" >
+            <property name="alignment">
              <set>Qt::AlignCenter</set>
             </property>
-            <property name="wordWrap" >
+            <property name="wordWrap">
              <bool>true</bool>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="Line" name="line" >
-            <property name="orientation" >
+           <widget class="Line" name="line">
+            <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
           <item>
-           <layout class="QGridLayout" name="gridLayout_6" >
-            <item row="0" column="0" >
-             <widget class="QLabel" name="label" >
-              <property name="font" >
+           <layout class="QGridLayout" name="gridLayout_6">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label">
+              <property name="font">
                <font>
                 <weight>75</weight>
                 <italic>true</italic>
                 <bold>true</bold>
                </font>
               </property>
-              <property name="text" >
+              <property name="text">
                <string>When:</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="0" >
-             <widget class="QLabel" name="label_2" >
-              <property name="font" >
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_2">
+              <property name="font">
                <font>
                 <weight>75</weight>
                 <italic>true</italic>
                 <bold>true</bold>
                </font>
               </property>
-              <property name="text" >
+              <property name="text">
                <string>Where:</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="2" >
-             <widget class="QLabel" name="conferenceWhen" >
-              <property name="text" >
+            <item row="0" column="2">
+             <widget class="QLabel" name="conferenceWhen">
+              <property name="text">
                <string>DATE (FROM - TO)</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="2" >
-             <widget class="QLabel" name="conferenceWhere" >
-              <property name="text" >
+            <item row="1" column="2">
+             <widget class="QLabel" name="conferenceWhere">
+              <property name="text">
                <string>CITY, CAMPUS</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="3" >
-             <widget class="QPushButton" name="showMapButton" >
-              <property name="text" >
+            <item row="1" column="3">
+             <widget class="QPushButton" name="showMapButton">
+              <property name="text">
                <string>MAP</string>
               </property>
-              <property name="icon" >
-               <iconset resource="../icons.qrc" >
+              <property name="icon">
+               <iconset resource="../icons.qrc">
                 <normaloff>:/icons/compassBig.png</normaloff>:/icons/compassBig.png</iconset>
               </property>
-              <property name="flat" >
+              <property name="flat">
                <bool>true</bool>
               </property>
              </widget>
             </item>
-            <item row="1" column="4" >
-             <spacer name="horizontalSpacer_3" >
-              <property name="orientation" >
+            <item row="1" column="4">
+             <spacer name="horizontalSpacer_3">
+              <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
-              <property name="sizeHint" stdset="0" >
+              <property name="sizeHint" stdset="0">
                <size>
                 <width>40</width>
                 <height>20</height>
@@ -192,9 +200,9 @@
               </property>
              </spacer>
             </item>
-            <item row="0" column="1" >
-             <widget class="QLabel" name="spacer" >
-              <property name="text" >
+            <item row="0" column="1">
+             <widget class="QLabel" name="spacer">
+              <property name="text">
                <string/>
               </property>
              </widget>
@@ -202,16 +210,16 @@
            </layout>
           </item>
           <item>
-           <widget class="Line" name="line_2" >
-            <property name="orientation" >
+           <widget class="Line" name="line_2">
+            <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="ImportScheduleWidget" native="1" name="importScheduleWidget" >
-            <property name="sizePolicy" >
-             <sizepolicy vsizetype="MinimumExpanding" hsizetype="MinimumExpanding" >
+           <widget class="ImportScheduleWidget" name="importScheduleWidget" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -219,11 +227,11 @@
            </widget>
           </item>
           <item>
-           <spacer name="verticalSpacer" >
-            <property name="orientation" >
+           <spacer name="verticalSpacer">
+            <property name="orientation">
              <enum>Qt::Vertical</enum>
             </property>
-            <property name="sizeHint" stdset="0" >
+            <property name="sizeHint" stdset="0">
              <size>
               <width>20</width>
               <height>40</height>
@@ -235,13 +243,13 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="nowTab" >
-       <attribute name="title" >
+      <widget class="QWidget" name="nowTab">
+       <attribute name="title">
         <string>Now</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_7" >
-        <item row="0" column="0" >
-         <widget class="TabContainer" native="1" name="nowTabContainer" />
+       <layout class="QGridLayout" name="gridLayout_7">
+        <item row="0" column="0">
+         <widget class="NowTabContainer" name="nowTabContainer" native="true"/>
         </item>
        </layout>
       </widget>
@@ -249,7 +257,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QStatusBar" name="statusbar" />
+  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <customwidgets>
   <customwidget>
@@ -265,14 +273,38 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>TabContainer</class>
+   <class>SearchTabContainer</class>
    <extends>QWidget</extends>
-   <header>tabcontainer.h</header>
-   <container>1</container>
+   <header>searchtabcontainer.h</header>
+  </customwidget>
+  <customwidget>
+   <class>DayViewTabContainer</class>
+   <extends>QWidget</extends>
+   <header>dayviewtabcontainer.h</header>
+  </customwidget>
+  <customwidget>
+   <class>FavTabContainer</class>
+   <extends>QWidget</extends>
+   <header>favtabcontainer.h</header>
+  </customwidget>
+  <customwidget>
+   <class>TracksTabContainer</class>
+   <extends>QWidget</extends>
+   <header>trackstabcontainer.h</header>
+  </customwidget>
+  <customwidget>
+   <class>RoomsTabContainer</class>
+   <extends>QWidget</extends>
+   <header>roomstabcontainer.h</header>
+  </customwidget>
+  <customwidget>
+   <class>NowTabContainer</class>
+   <extends>QWidget</extends>
+   <header>nowtabcontainer.h</header>
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../icons.qrc" />
+  <include location="../icons.qrc"/>
  </resources>
  <connections/>
 </ui>

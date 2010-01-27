@@ -4,46 +4,38 @@
 #include <QWidget>
 #include "ui_tabcontainer.h"
 
-class TabContainer : public QWidget, Ui::TabContainer
+#include <appsettings.h>
+#include <sqlengine.h>
+#include <conference.h>
+#include <eventmodel.h>
+
+class TabContainer : public QWidget, public Ui::TabContainer
 {
     Q_OBJECT
 public:
 
-    // type of the container
-    // specifies the type of the data that treeView holds
-    enum Type
-    {
-        EContainerTypeNone = 0,
-        EContainerTypeDay,
-        EContainerTypeFavs,
-        EContainerTypeTracks,
-        EContainerTypeRooms,
-        EContainerTypeSearch,
-        EContainerTypeNow
-    };
-
     TabContainer(QWidget *aParent = NULL);
-    ~TabContainer() {}
-    void setType(TabContainer::Type aType);
+    virtual ~TabContainer() {}
+
+protected:
+    virtual void loadEvents( const QDate &aDate, const int aConferenceId )
+    {
+        Q_UNUSED(aDate);
+        Q_UNUSED(aConferenceId);
+    };
 
 signals:
     void eventHasChanged(int aEventId);
 
 public slots:
-    void updateTreeViewModel(int aEventId);
+    virtual void updateTreeViewModel(int aEventId);
     void setDates(const QDate &aStart, const QDate &aEnd);
 
-private slots:
+protected slots:
     void updateTreeView(const QDate &aDate);
-    void timerUpdateTreeView();
     void itemClicked(const QModelIndex &aIndex);
     void displayMap(const QModelIndex &aIndex);
     void displayWarning(const QModelIndex &aIndex);
-    void searchClicked();
-    void searchAgainClicked();
-
-private:
-    TabContainer::Type mType;
 };
 
 #endif /* TABCONTAINER_H */

@@ -6,7 +6,7 @@ QT += sql xml
 
 # module dependencies
 LIBS += -L$$DESTDIR -lgui -lmvc -lsql
-INCLUDEPATH += ../gui ../sql
+INCLUDEPATH += ../gui ../sql ../mvc ../orm
 DEPENDPATH += . ../gui
 TARGETDEPS += $$DESTDIR/libmvc.a $$DESTDIR/libgui.a $$DESTDIR/libsql.a
 maemo {

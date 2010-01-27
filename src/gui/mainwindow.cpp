@@ -43,13 +43,6 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
         setWindowTitle(confs[0].title());
     }
 
-    dayTabContainer->setType(TabContainer::EContainerTypeDay);
-    favsTabContainer->setType(TabContainer::EContainerTypeFavs);
-    tracksTabContainer->setType(TabContainer::EContainerTypeTracks);
-    nowTabContainer->setType(TabContainer::EContainerTypeNow);
-    roomsTabContainer->setType(TabContainer::EContainerTypeRooms);
-    searchTabContainer->setType(TabContainer::EContainerTypeSearch);
-
     connect(importScheduleWidget, SIGNAL(scheduleImported(int)), SLOT(scheduleImported(int)));
 
     // event details have changed
