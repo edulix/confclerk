@@ -60,6 +60,7 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
         roomsTabContainer->setDates(startDate, endDate);
         favsTabContainer->setDates(startDate, endDate);
         searchTabContainer->setDates(startDate, endDate);
+        nowTabContainer->updateTreeView(QDate::currentDate());
         //
         conferenceTitle->setText(Conference::getById(confId).title());
         conferenceSubtitle->setText(Conference::getById(confId).subtitle());

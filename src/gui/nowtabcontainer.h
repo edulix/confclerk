@@ -14,7 +14,7 @@ public:
 protected:
     virtual void loadEvents( const QDate &aDate, const int aConferenceId );
 
-protected slots:
+public slots:
     virtual void updateTreeView(const QDate &aDate);
 
 private slots:
