@@ -1,9 +1,3 @@
-/*
- * activity.cpp
- *
- *  Created on: Dec 27, 2009
- *      Author: Pavol Korinek
- */
 
 #include "track.h"
 

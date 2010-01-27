@@ -1,9 +1,3 @@
-/*
- * nowtabcontainer.h
- *
- *  Created on: Jan 27, 2010
- *      Author: maemo
- */
 
 #ifndef NOWTABCONTAINER_H_
 #define NOWTABCONTAINER_H_

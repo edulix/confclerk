@@ -1,9 +1,3 @@
-/*
- * roomstabcontainer.h
- *
- *  Created on: Jan 27, 2010
- *      Author: maemo
- */
 
 #ifndef ROOMSTABCONTAINER_H_
 #define ROOMSTABCONTAINER_H_

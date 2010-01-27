@@ -1,9 +1,3 @@
-/*
- * trackstabcontainer.h
- *
- *  Created on: Jan 27, 2010
- *      Author: maemo
- */
 
 #ifndef TRACKSTABCONTAINER_H_
 #define TRACKSTABCONTAINER_H_

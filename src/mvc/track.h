@@ -1,9 +1,3 @@
-/*
- * track.h
- *
- *  Created on: Dec 27, 2009
- *      Author: Pavol Korinek
- */
 
 #ifndef TRACK_H_
 #define TRACK_H_

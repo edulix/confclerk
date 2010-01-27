@@ -1,9 +1,3 @@
-/*
- * room.h
- *
- *  Created on: Dec 27, 2009
- *      Author: Pavol Korinek
- */
 
 #ifndef ROOM_H_
 #define ROOM_H_

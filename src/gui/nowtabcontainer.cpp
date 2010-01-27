@@ -1,9 +1,3 @@
-/*
- * nowtabcontainer.cpp
- *
- *  Created on: Jan 27, 2010
- *      Author: maemo
- */
 
 #include <QTimer>
 #include "nowtabcontainer.h"

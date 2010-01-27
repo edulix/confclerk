@@ -1,9 +1,3 @@
-/*
- * room.cpp
- *
- *  Created on: Dec 27, 2009
- *      Author: user
- */
 
 #include "room.h"
 

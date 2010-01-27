@@ -1,9 +1,3 @@
-/*
- * favtabcontainer.h
- *
- *  Created on: Jan 27, 2010
- *      Author: maemo
- */
 
 #ifndef FAVTABCONTAINER_H_
 #define FAVTABCONTAINER_H_

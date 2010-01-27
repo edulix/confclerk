@@ -1,9 +1,3 @@
-/*
- * roomstabcontainer.cpp
- *
- *  Created on: Jan 27, 2010
- *      Author: maemo
- */
 
 #include "roomstabcontainer.h"
 
