@@ -23,15 +23,15 @@
     <item row="0" column="0" >
      <widget class="TabWidget" name="tabWidget" >
       <property name="currentIndex" >
-       <number>0</number>
+       <number>2</number>
       </property>
-      <widget class="QWidget" name="dayViewTab" >
+      <widget class="QWidget" name="nowTab" >
        <attribute name="title" >
-        <string>Day View</string>
+        <string>Now</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_2" >
+       <layout class="QGridLayout" name="gridLayout_7" >
         <item row="0" column="0" >
-         <widget class="DayViewTabContainer" native="1" name="dayTabContainer" />
+         <widget class="NowTabContainer" native="1" name="nowTabContainer" />
         </item>
        </layout>
       </widget>
@@ -45,6 +45,16 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="dayViewTab" >
+       <attribute name="title" >
+        <string>Day View</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_2" >
+        <item row="0" column="0" >
+         <widget class="DayViewTabContainer" native="1" name="dayTabContainer" />
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="tracksTab" >
        <attribute name="title" >
         <string>Tracks</string>
@@ -52,6 +62,16 @@
        <layout class="QGridLayout" name="gridLayout_4" >
         <item row="0" column="0" >
          <widget class="TracksTabContainer" native="1" name="tracksTabContainer" />
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="roomsTab" >
+       <attribute name="title" >
+        <string>Rooms</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_8" >
+        <item row="0" column="0" >
+         <widget class="RoomsTabContainer" native="1" name="roomsTabContainer" />
         </item>
        </layout>
       </widget>
@@ -69,16 +89,6 @@
            </sizepolicy>
           </property>
          </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="roomsTab" >
-       <attribute name="title" >
-        <string>Rooms</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_8" >
-        <item row="0" column="0" >
-         <widget class="RoomsTabContainer" native="1" name="roomsTabContainer" />
         </item>
        </layout>
       </widget>
@@ -239,16 +249,6 @@
            </spacer>
           </item>
          </layout>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="nowTab" >
-       <attribute name="title" >
-        <string>Now</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_7" >
-        <item row="0" column="0" >
-         <widget class="NowTabContainer" native="1" name="nowTabContainer" />
         </item>
        </layout>
       </widget>
