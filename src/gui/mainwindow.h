@@ -16,12 +16,9 @@ public:
 private slots:
     void scheduleImported(int aConfId);
     void aboutApp();
-    void updateSearchView(const QDate &aDate);
-    void searchClicked();
-	void searchAgainClicked();
     void conferenceMapClicked();
     void eventHasChanged(int aEventId);
 };
 
-#endif // MAINWINDOW_H
+#endif /* MAINWINDOW_H */
 

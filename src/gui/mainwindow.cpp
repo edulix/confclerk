@@ -48,18 +48,9 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     tracksTabContainer->setType(TabContainer::EContainerTypeTracks);
     nowTabContainer->setType(TabContainer::EContainerTypeNow);
     roomsTabContainer->setType(TabContainer::EContainerTypeRooms);
+    searchTabContainer->setType(TabContainer::EContainerTypeSearch);
 
     connect(importScheduleWidget, SIGNAL(scheduleImported(int)), SLOT(scheduleImported(int)));
-
-    connect(searchDayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateSearchView(const QDate &)));
-
-    // SEARCH EVENTS View
-	searchTreeView->setHeaderHidden(true);
-	searchTreeView->setRootIsDecorated(false);
-	searchTreeView->setIndentation(0);
-	searchTreeView->setAnimated(true);
-	searchTreeView->setModel(new EventModel());
-	searchTreeView->setItemDelegate(new Delegate(searchTreeView));
 
     // event details have changed
     connect(dayTabContainer, SIGNAL(eventHasChanged(int)), SLOT(eventHasChanged(int)));
@@ -67,31 +58,24 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     connect(favsTabContainer, SIGNAL(eventHasChanged(int)), SLOT(eventHasChanged(int)));
     connect(roomsTabContainer, SIGNAL(eventHasChanged(int)), SLOT(eventHasChanged(int)));
     connect(nowTabContainer, SIGNAL(eventHasChanged(int)), SLOT(eventHasChanged(int)));
+    connect(searchTabContainer, SIGNAL(eventHasChanged(int)), SLOT(eventHasChanged(int)));
 
-    connect(searchTreeView, SIGNAL(eventHasChanged(int)), SLOT(eventHasChanged(int)));
-
-    // event clicked
-    connect(searchTreeView, SIGNAL(clicked(const QModelIndex &)), SLOT(itemClicked(const QModelIndex &)));
-
-    // event search button clicked
-    connect(searchButton, SIGNAL(clicked()), SLOT(searchClicked()));
-    connect(searchAgainButton, SIGNAL(clicked()), SLOT(searchAgainClicked()));
 
     // event conference map button clicked
     connect(showMapButton, SIGNAL(clicked()), SLOT(conferenceMapClicked()));
-    //
+
     connect(tabWidget, SIGNAL(infoIconClicked()), SLOT(aboutApp()));
 
     if(Conference::getAll().count()) // no conference(s) in the DB
     {
-        QDate aStartDate = Conference::getById(AppSettings::confId()).start();
-        QDate aEndDate = Conference::getById(AppSettings::confId()).end();
-        searchDayNavigator->setDates(aStartDate, aEndDate);
+        QDate startDate = Conference::getById(AppSettings::confId()).start();
+        QDate endDate = Conference::getById(AppSettings::confId()).end();
         //
-        dayTabContainer->setDates(aStartDate, aEndDate);
-        tracksTabContainer->setDates(aStartDate, aEndDate);
-        roomsTabContainer->setDates(aStartDate, aEndDate);
-        favsTabContainer->setDates(aStartDate, aEndDate);
+        dayTabContainer->setDates(startDate, endDate);
+        tracksTabContainer->setDates(startDate, endDate);
+        roomsTabContainer->setDates(startDate, endDate);
+        favsTabContainer->setDates(startDate, endDate);
+        searchTabContainer->setDates(startDate, endDate);
         //
         conferenceTitle->setText(Conference::getById(AppSettings::confId()).title());
         conferenceSubtitle->setText(Conference::getById(AppSettings::confId()).subtitle());
@@ -101,10 +85,6 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
                 + ", " +
                 Conference::getById(AppSettings::confId()).end().toString("dd-MM-yyyy"));
     }
-
-    searchTreeView->hide();
-    searchVerticalWidget->hide();
-    searchHead->show();
 
     // open dialog for given Event ID
     // this is used in case Alarm Dialog request application to start
@@ -152,58 +132,6 @@ void MainWindow::aboutApp()
     dialog.exec();
 }
 
-void MainWindow::updateSearchView(const QDate &aDate)
-{
-    qDebug() << "MainWindow::updateSearchView(), aDate: " << aDate.toString() ;
-    searchTreeView->reset();
-    int eventsCount = static_cast<EventModel*>(searchTreeView->model())->loadSearchResultEvents(aDate,AppSettings::confId());
-    if( eventsCount ||
-            searchDayNavigator->getCurrentDate() != Conference::getById(AppSettings::confId()).start() ){
-        searchVerticalWidget->show();
-        //searchAgainButton->show();
-        searchTreeView->show();
-        searchHead->hide();
-    }
-    else{
-        searchTreeView->hide();
-        searchVerticalWidget->hide();
-        searchHead->show();
-    }
-}
-
-void MainWindow::searchClicked()
-{
-    QHash<QString,QString> columns;
-
-    if( searchTitle->isChecked() )
-        columns.insertMulti("EVENT", "title");
-    if( searchAbstract->isChecked() )
-        columns.insertMulti("EVENT", "abstract");
-    if( searchTag->isChecked() )
-        columns.insertMulti("EVENT", "tag");
-    if( searchSpeaker->isChecked() )
-        columns["PERSON"] = "name";
-    if( searchRoom->isChecked() )
-        columns["ROOM"] = "name";
-
-    QString keyword = searchEdit->text().replace( QString("%"), QString("\\%") );
-    qDebug() << "\nKeyword to search: " << keyword;
-    SqlEngine::searchEvent( AppSettings::confId(), columns, keyword );
-
-    QDate aStartDate = Conference::getById(AppSettings::confId()).start();
-    QDate aEndDate = Conference::getById(AppSettings::confId()).end();
-    searchDayNavigator->setDates(aStartDate, aEndDate);
-    updateSearchView( Conference::getById(AppSettings::confId()).start() );
-}
-
-void MainWindow::searchAgainClicked()
-{
-    searchHead->show();
-    //searchAgainButton->hide();
-    searchVerticalWidget->hide();
-    searchTreeView->hide();
-}
-
 void MainWindow::conferenceMapClicked()
 {
     QString mapPath = QString(":/maps/campus.png");
@@ -224,7 +152,6 @@ void MainWindow::eventHasChanged(int aEventId)
     tracksTabContainer->updateTreeViewModel(aEventId);
     nowTabContainer->updateTreeViewModel(aEventId);
     roomsTabContainer->updateTreeViewModel(aEventId);
-
-    static_cast<EventModel*>(searchTreeView->model())->updateModel(aEventId);
+    searchTabContainer->updateTreeViewModel(aEventId);
 }
 

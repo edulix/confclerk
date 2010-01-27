@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include <QTimer>
 
+#include <sqlengine.h>
 #include <appsettings.h>
 
 #include <conference.h>
@@ -22,6 +23,7 @@ TabContainer::TabContainer(QWidget *aParent)
     setupUi(this);
 
     searchAgainButton->hide();
+    searchHead->hide();
 
     treeView->setHeaderHidden(true);
     treeView->setRootIsDecorated(false);
@@ -36,6 +38,9 @@ TabContainer::TabContainer(QWidget *aParent)
     connect(treeView, SIGNAL(clicked(const QModelIndex &)), SLOT(itemClicked(const QModelIndex &)));
     connect(treeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
     connect(treeView, SIGNAL(requestForWarning(const QModelIndex &)), SLOT(displayWarning(const QModelIndex &)));
+
+    connect(searchButton, SIGNAL(clicked()), SLOT(searchClicked()));
+    connect(searchAgainButton, SIGNAL(clicked()), SLOT(searchAgainClicked()));
 
     if(!Conference::getAll().count()) // no conference(s) in the DB
     {
@@ -52,11 +57,16 @@ TabContainer::TabContainer(QWidget *aParent)
 void TabContainer::setType(TabContainer::Type aType)
 {
     mType = aType;
+
     if(aType == EContainerTypeNow)
     {
         QTimer *timer = new QTimer( this );
         connect( timer, SIGNAL(timeout()), SLOT(timerUpdateTreeView()) );
         timer->start( 30000); // 30 seconds timer
+    }
+    if(aType == EContainerTypeSearch)
+    {
+        searchHead->show();
     }
 }
 
@@ -88,6 +98,25 @@ void TabContainer::updateTreeView(const QDate &aDate)
             {
                 static_cast<EventModel*>(treeView->model())->loadNowEvents(AppSettings::confId());
                 treeView->setAllExpanded(true);
+            }
+            break;
+        case EContainerTypeSearch:
+            {
+                treeView->reset();
+                int eventsCount = static_cast<EventModel*>(treeView->model())->loadSearchResultEvents(aDate,AppSettings::confId());
+                if( eventsCount ||
+                        dayNavigator->getCurrentDate() != Conference::getById(AppSettings::confId()).start() ){
+                    searchAgainButton->show();
+                    dayNavigator->show();
+                    treeView->show();
+                    searchHead->hide();
+                }
+                else{
+                    treeView->hide();
+                    searchAgainButton->hide();
+                    dayNavigator->hide();
+                    searchHead->show();
+                }
             }
             break;
         case EContainerTypeNone:
@@ -175,6 +204,45 @@ void TabContainer::timerUpdateTreeView()
     if(mType == EContainerTypeNow)
     {
         updateTreeView(QDate());
+    }
+}
+
+void TabContainer::searchClicked()
+{
+    if(mType == EContainerTypeSearch)
+    {
+        QHash<QString,QString> columns;
+
+        if( searchTitle->isChecked() )
+            columns.insertMulti("EVENT", "title");
+        if( searchAbstract->isChecked() )
+            columns.insertMulti("EVENT", "abstract");
+        if( searchTag->isChecked() )
+            columns.insertMulti("EVENT", "tag");
+        if( searchSpeaker->isChecked() )
+            columns["PERSON"] = "name";
+        if( searchRoom->isChecked() )
+            columns["ROOM"] = "name";
+
+        QString keyword = searchEdit->text().replace( QString("%"), QString("\\%") );
+        qDebug() << "\nKeyword to search: " << keyword;
+        SqlEngine::searchEvent( AppSettings::confId(), columns, keyword );
+
+        QDate startDate = Conference::getById(AppSettings::confId()).start();
+        QDate endDate = Conference::getById(AppSettings::confId()).end();
+        dayNavigator->setDates(startDate, endDate);
+        updateTreeView( Conference::getById(AppSettings::confId()).start() );
+    }
+}
+
+void TabContainer::searchAgainClicked()
+{
+    if(mType == EContainerTypeSearch)
+    {
+        searchHead->show();
+        searchAgainButton->hide();
+        dayNavigator->hide();
+        treeView->hide();
     }
 }
 

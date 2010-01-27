@@ -39,6 +39,8 @@ private slots:
     void itemClicked(const QModelIndex &aIndex);
     void displayMap(const QModelIndex &aIndex);
     void displayWarning(const QModelIndex &aIndex);
+    void searchClicked();
+    void searchAgainClicked();
 
 private:
     TabContainer::Type mType;
