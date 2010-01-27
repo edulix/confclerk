@@ -53,6 +53,8 @@ bool TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
                     event.setFavourite(true);
                 event.update("favourite");
                 qDebug() << " FAVOURITE [" << qVariantValue<QString>(aIndex.data()) << "] -> " << event.isFavourite();
+                // update EVENT_CONFLICT table
+                event.updateConflicts();
                 // since the Favourite icon has changed, update TreeViews accordingly
                 // all TreeViews have to listen on this signal
                 emit(eventHasChanged(event.id()));

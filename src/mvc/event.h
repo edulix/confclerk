@@ -37,7 +37,7 @@ public:
     QString language() const { return value("language").toString(); }
     bool isFavourite() const { return value("favourite").toBool(); }
     bool hasAlarm() const { return value("alarm").toBool(); }
-    bool hasTimeConflict() const { return true; /*return value("warning").toBool()*/; } //TODO
+    bool hasTimeConflict() const;
     QString tag() const { return value("tag").toString(); }
     QString title() const { return value("title").toString(); }
     QString subtitle() const { return value("subtitle").toString(); }
@@ -47,6 +47,7 @@ public:
     QString room() const;
     int roomId() const;
     QStringList persons() const;
+    QList<int> conflicts() const;
 
     void setId(int id) { setValue("id", id); }
     void setConferenceId(int conferenceId) { setValue("xid_conference", conferenceId); }
@@ -65,6 +66,7 @@ public:
     // records from other tables associated with 'id'
     void setRoom(const QString& room);
     void setPersons(const QStringList &persons);
+    void updateConflicts();
 
 friend class EventTest;
 };

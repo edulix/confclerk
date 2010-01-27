@@ -65,7 +65,8 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         //int spacer = (fmSmall.boundingRect("999").width() < SPACER) ? SPACER : fmSmall.boundingRect("999").width();
 
         //Time conflicts are colored differently
-        if(hasTimeConflict(index, index.parent()))
+        if(static_cast<Event*>(index.internalPointer())->isFavourite())
+        if(static_cast<Event*>(index.internalPointer())->hasTimeConflict())
         {
             bkgrColor = Qt::yellow;
         }
@@ -132,9 +133,7 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         // map
         painter->drawImage(mControls[MapControl]->drawPoint(option.rect),*mControls[MapControl]->image());
         // Time conflict
-        //if(static_cast<Event*>(index.internalPointer())->hasTimeConflict())
-
-        if(hasTimeConflict(index, index.parent()))
+        if(static_cast<Event*>(index.internalPointer())->hasTimeConflict())
             painter->drawImage(mControls[WarningControl]->drawPoint(option.rect),*mControls[WarningControl]->image());
 
         // draw texts
@@ -311,7 +310,7 @@ Delegate::ControlId Delegate::whichControlClicked(const QModelIndex &aIndex, con
         {
             if(id == WarningControl)
             {
-                if(mControls[id]->hasConflict)
+                if(static_cast<Event*>(aIndex.internalPointer())->hasTimeConflict())
                     return id;
             }
             else
@@ -373,7 +372,6 @@ void Delegate::defineControls()
     // WARNING ICON
     control = new Control(WarningControl,QString(":icons/exclamation.png"));
     p = mControls[MapControl]->drawPoint();
-    control->hasConflict = false;
     p.setX(p.x()-control->image()->width()-SPACER);
     control->setDrawPoint(p);
     mControls.insert(WarningControl,control);
@@ -411,31 +409,5 @@ int Delegate::numberOfAlarms(const QModelIndex &index) const
             nrofAlarms++;
 
     return nrofAlarms;
-}
-
-bool Delegate::hasTimeConflict(const QModelIndex &index, const QModelIndex &parent) const
-{
-    Event *event = static_cast<Event*>(index.internalPointer());
-    QTime start = event->start().time();
-    QTime end = start.addSecs(event->duration());
-    for(int i=0; i<parent.model()->rowCount(parent); i++)
-    {
-        if((event->id()!=static_cast<Event*>(parent.child(i,0).internalPointer())->id())
-        &&
-        (static_cast<Event*>(parent.child(i,0).internalPointer())->isFavourite()))
-        {
-            if (((start >= static_cast<Event*>(parent.child(i,0).internalPointer())->start().time())
-            &&
-            (start < static_cast<Event*>(parent.child(i,0).internalPointer())->start().time().addSecs(static_cast<Event*>(parent.child(i,0).internalPointer())->duration())))
-            ||
-            ((end > static_cast<Event*>(parent.child(i,0).internalPointer())->start().time())
-            &&
-            (end <= static_cast<Event*>(parent.child(i,0).internalPointer())->start().time().addSecs(static_cast<Event*>(parent.child(i,0).internalPointer())->duration()))))
-            {
-                return true;
-            }
-        }
-    }
-    return false;
 }
 
