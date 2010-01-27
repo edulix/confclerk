@@ -12,11 +12,19 @@ NowTabContainer::NowTabContainer( QWidget *aParent ) : TabContainer( aParent )
 void NowTabContainer::loadEvents( const QDate &aDate, const int aConferenceId )
 {
     Q_UNUSED( aDate );
+
     static_cast<EventModel*>(treeView->model())->loadNowEvents( aConferenceId );
-    treeView->setAllExpanded(true);
+    dayNavigator->hide();
 }
 
 void NowTabContainer::timerUpdateTreeView()
 {
     updateTreeView( QDate() );
 }
+
+void NowTabContainer::updateTreeView(const QDate &aDate)
+{
+    TabContainer::updateTreeView(aDate);
+    treeView->setAllExpanded(true);
+}
+
