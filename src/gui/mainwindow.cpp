@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-#include <appsettings.h>
 
 #include <QTreeView>
 #include <QFile>
@@ -27,19 +26,11 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
 {
     setupUi(this);
 
-    // Sanity check for existence of any Conference in the DB
-    // it AppSettings::confId() is 0, but there are any Conference(s) in the DB
-    // set the confId in the AppSettings for the ID of the first conference in the DB
-    QList<Conference> confs = Conference::getAll();
-    if(!confs.count()) // no conference(s) in the DB
-    {
-        AppSettings::setConfId(0); // no conference in the DB
-    }
-    else
-    {
-        if(AppSettings::confId() == 0)
-            AppSettings::setConfId(confs[0].id());
+    int confId = Conference::activeConference();
 
+    QList<Conference> confs = Conference::getAll();
+    if(confs.count())
+    {
         setWindowTitle(confs[0].title());
     }
 
@@ -61,8 +52,8 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
 
     if(Conference::getAll().count()) // no conference(s) in the DB
     {
-        QDate startDate = Conference::getById(AppSettings::confId()).start();
-        QDate endDate = Conference::getById(AppSettings::confId()).end();
+        QDate startDate = Conference::getById(confId).start();
+        QDate endDate = Conference::getById(confId).end();
         //
         dayTabContainer->setDates(startDate, endDate);
         tracksTabContainer->setDates(startDate, endDate);
@@ -70,13 +61,13 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
         favsTabContainer->setDates(startDate, endDate);
         searchTabContainer->setDates(startDate, endDate);
         //
-        conferenceTitle->setText(Conference::getById(AppSettings::confId()).title());
-        conferenceSubtitle->setText(Conference::getById(AppSettings::confId()).subtitle());
-        conferenceWhere->setText(Conference::getById(AppSettings::confId()).city() + ", " + Conference::getById(AppSettings::confId()).venue());
+        conferenceTitle->setText(Conference::getById(confId).title());
+        conferenceSubtitle->setText(Conference::getById(confId).subtitle());
+        conferenceWhere->setText(Conference::getById(confId).city() + ", " + Conference::getById(confId).venue());
         conferenceWhen->setText(
-                Conference::getById(AppSettings::confId()).start().toString("dd-MM-yyyy")
+                Conference::getById(confId).start().toString("dd-MM-yyyy")
                 + ", " +
-                Conference::getById(AppSettings::confId()).end().toString("dd-MM-yyyy"));
+                Conference::getById(confId).end().toString("dd-MM-yyyy"));
     }
 
     // open dialog for given Event ID
@@ -98,18 +89,11 @@ void MainWindow::scheduleImported(int aConfId)
     Q_UNUSED(aConfId);
 
     QList<Conference> confs = Conference::getAll();
-    if(!confs.count()) // no conference(s) in the DB
+    if(confs.count())
     {
-        AppSettings::setConfId(0); // no conference in the DB
-    }
-    else
-    {
-        if(AppSettings::confId() == 0)
-            AppSettings::setConfId(confs[0].id());
-
         // 'dayNavigator' emits signal 'dateChanged' after setting valid START:END dates
-        QDate startDate = Conference::getById(AppSettings::confId()).start();
-        QDate endDate = Conference::getById(AppSettings::confId()).end();
+        QDate startDate = Conference::getById(Conference::activeConference()).start();
+        QDate endDate = Conference::getById(Conference::activeConference()).end();
         dayTabContainer->setDates(startDate, endDate);
         tracksTabContainer->setDates(startDate, endDate);
         roomsTabContainer->setDates(startDate, endDate);

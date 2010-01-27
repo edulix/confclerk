@@ -35,8 +35,8 @@ TabContainer::TabContainer(QWidget *aParent)
     }
     else
     {
-        QDate aStartDate = Conference::getById(AppSettings::confId()).start();
-        QDate aEndDate = Conference::getById(AppSettings::confId()).end();
+        QDate aStartDate = Conference::getById(Conference::activeConference()).start();
+        QDate aEndDate = Conference::getById(Conference::activeConference()).end();
         dayNavigator->setDates(aStartDate, aEndDate);
     }
 }
@@ -44,7 +44,7 @@ TabContainer::TabContainer(QWidget *aParent)
 void TabContainer::updateTreeView(const QDate &aDate)
 {
     dayNavigator->show();
-    loadEvents( aDate, AppSettings::confId() );
+    loadEvents( aDate, Conference::activeConference() );
     treeView->reset();
 }
 
@@ -100,6 +100,4 @@ void TabContainer::setDates(const QDate &aStart, const QDate &aEnd)
 {
     dayNavigator->setDates(aStart, aEnd);
 }
-
-
 

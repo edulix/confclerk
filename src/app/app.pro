@@ -16,10 +16,7 @@ maemo {
     TARGETDEPS += $$DESTDIR/libqalarm.a
 }
 
-SOURCES += main.cpp \
-           appsettings.cpp
-
-HEADERS += appsettings.h
+SOURCES += main.cpp
 
 RESOURCES += ../icons.qrc \
              ../maps.qrc

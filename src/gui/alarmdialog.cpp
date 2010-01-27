@@ -1,5 +1,5 @@
 #include "alarmdialog.h"
-#include <appsettings.h>
+#include <conference.h>
 
 #include <QApplication>
 #include <alarm.h>
@@ -46,7 +46,7 @@ AlarmDialog::AlarmDialog(int argc, char *argv[], QWidget *aParent)
     QString roomStr;
     try
     {
-        Event event = Event::getById(mEventId,AppSettings::confId());
+        Event event = Event::getById(mEventId,Conference::activeConference());
         titleStr = "Event alarm";
         messageStr = event.title();
         timeStr = event.start().toString("hh:mm") + "-" + event.start().addSecs(event.duration()).toString("hh:mm");
@@ -88,7 +88,7 @@ void AlarmDialog::closeDialog()
     // before closing the dialog, it is necessary to remove alarm flag from the DB
     try
     {
-        Event event = Event::getById(mEventId,AppSettings::confId());
+        Event event = Event::getById(mEventId,Conference::activeConference());
         event.setHasAlarm(false);
         event.update("alarm");
     }

@@ -1,9 +1,3 @@
-/*
- * favtabcontainer.cpp
- *
- *  Created on: Jan 27, 2010
- *      Author: maemo
- */
 
 #include "favtabcontainer.h"
 
@@ -21,8 +15,10 @@ void FavTabContainer::updateTreeViewModel(int aEventId)
     // requires special handling
     // we need to reload favourites, because some favourite could be deleted
     //static_cast<EventModel*>(favTreeView->model())->updateModel(aEventId);
-    QDate aStartDate = Conference::getById(AppSettings::confId()).start();
-    QDate aEndDate = Conference::getById(AppSettings::confId()).end();
-    dayNavigator->setDates(aStartDate, aEndDate);
-    updateTreeView( Conference::getById(AppSettings::confId()).start() );
+    int confId = Conference::activeConference();
+    QDate startDate = Conference::getById(confId).start();
+    QDate endDate = Conference::getById(confId).end();
+    dayNavigator->setDates(startDate, endDate);
+    updateTreeView( Conference::getById(confId).start() );
 }
+

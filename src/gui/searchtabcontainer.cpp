@@ -1,6 +1,4 @@
 
-#include <appsettings.h>
-
 #include "searchtabcontainer.h"
 #include "searchhead.h"
 
@@ -64,12 +62,14 @@ void SearchTabContainer::searchButtonClicked()
 
     QString keyword = searchHeader->searchEdit->text().replace( QString("%"), QString("\\%") );
     qDebug() << "\nKeyword to search: " << keyword;
-    SqlEngine::searchEvent( AppSettings::confId(), columns, keyword );
 
-    QDate startDate = Conference::getById(AppSettings::confId()).start();
-    QDate endDate = Conference::getById(AppSettings::confId()).end();
+    int confId = Conference::activeConference();
+    SqlEngine::searchEvent( confId, columns, keyword );
+
+    QDate startDate = Conference::getById(confId).start();
+    QDate endDate = Conference::getById(confId).end();
     dayNavigator->setDates(startDate, endDate);
-    updateTreeView( Conference::getById(AppSettings::confId()).start() );
+    updateTreeView( Conference::getById(confId).start() );
 }
 
 void SearchTabContainer::searchAgainClicked()

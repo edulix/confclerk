@@ -6,7 +6,6 @@
 #include <QDateTime>
 
 #include <QDir>
-#include <appsettings.h>
 #include "sqlengine.h"
 #include <track.h>
 #include <conference.h>
@@ -94,13 +93,11 @@ void SqlEngine::addConferenceToDB(QHash<QString,QString> &aConference)
                              .arg(aConference["days"]) \
                              .arg(-QTime::fromString(aConference["day_change"],TIME_FORMAT).secsTo(QTime(0,0))) \
                              .arg(-QTime::fromString(aConference["timeslot_duration"],TIME_FORMAT).secsTo(QTime(0,0)));
+                             values.append(QString(", '%1'").arg(confsList.count()>0?"0":"1"));
 
-            QString query = QString("INSERT INTO CONFERENCE (title,subtitle,venue,city,start,end,days,day_change,timeslot_duration) VALUES (%1)").arg(values);
+            QString query = QString("INSERT INTO CONFERENCE (title,subtitle,venue,city,start,end,days,day_change,timeslot_duration,active) VALUES (%1)").arg(values);
             QSqlQuery result (query, db);
             aConference["id"] = result.lastInsertId().toString(); // 'id' is assigned automatically
-
-            if(!AppSettings::confId()) // default conf Id isn't set yet => set it up
-                AppSettings::setConfId(confId);
         }
     }
 }
@@ -240,7 +237,8 @@ bool SqlEngine::createTables(QSqlDatabase &aDatabase)
             "end INTEGER NOT NULL, "
             "days INTEGER, "
             "day_change INTEGER, "
-            "timeslot_duration INTEGER);");
+            "timeslot_duration INTEGER, "
+            "active INTEGER DEFAULT 0);");
 
         query.exec("CREATE TABLE TRACK ( "
             "id INTEGER  PRIMARY KEY AUTOINCREMENT  NOT NULL, "

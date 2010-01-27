@@ -1,5 +1,4 @@
 #include "eventmodel.h"
-#include <appsettings.h>
 #include <conference.h>
 #include <track.h>
 #include <room.h>
@@ -280,7 +279,7 @@ void EventModel::updateModel(int aEventId)
     for(int i=0; i<mEvents.count(); i++)
     {
         if(mEvents[i].id() == aEventId)
-            mEvents[i] = Event::getById(aEventId,AppSettings::confId());
+            mEvents[i] = Event::getById(aEventId,Conference::activeConference());
     }
 
     // find the ModelIndex for given aEventId

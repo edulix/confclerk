@@ -4,7 +4,7 @@
 #include <QWidget>
 #include "ui_tabcontainer.h"
 
-#include <appsettings.h>
+#include <conference.h>
 #include <sqlengine.h>
 #include <conference.h>
 #include <eventmodel.h>

@@ -1,5 +1,5 @@
 #include "eventdialog.h"
-#include <appsettings.h>
+#include <conference.h>
 
 #include <QScrollBar>
 
@@ -17,7 +17,7 @@ EventDialog::EventDialog(const int &aEventId, QWidget *aParent)
     showFullScreen();
 #endif
 
-    Event event = Event::getById(mEventId,AppSettings::confId());
+    Event event = Event::getById(mEventId,Conference::activeConference());
 
     title->setText(event.title());
     persons->setText(event.persons().join(" and "));
@@ -41,7 +41,7 @@ EventDialog::EventDialog(const int &aEventId, QWidget *aParent)
 
 void EventDialog::favouriteClicked()
 {
-    Event event = Event::getById(mEventId,AppSettings::confId());
+    Event event = Event::getById(mEventId,Conference::activeConference());
 
     if(event.isFavourite())
     {
@@ -64,7 +64,7 @@ void EventDialog::favouriteClicked()
 
 void EventDialog::alarmClicked()
 {
-    Event event = Event::getById(mEventId,AppSettings::confId());
+    Event event = Event::getById(mEventId,Conference::activeConference());
 
     if(event.hasAlarm())
     {
