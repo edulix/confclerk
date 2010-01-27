@@ -61,7 +61,7 @@
           <x>0</x>
           <y>0</y>
           <width>418</width>
-          <height>296</height>
+          <height>294</height>
          </rect>
         </property>
        </widget>
@@ -69,6 +69,28 @@
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout" >
+       <item>
+        <widget class="QToolButton" name="alarmButton" >
+         <property name="text" >
+          <string>...</string>
+         </property>
+         <property name="icon" >
+          <iconset resource="../icons.qrc" >
+           <normaloff>:/icons/alarm-offBig.png</normaloff>:/icons/alarm-offBig.png</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="favouriteButton" >
+         <property name="text" >
+          <string>...</string>
+         </property>
+         <property name="icon" >
+          <iconset resource="../icons.qrc" >
+           <normaloff>:/icons/favourite-offBig.png</normaloff>:/icons/favourite-offBig.png</iconset>
+         </property>
+        </widget>
+       </item>
        <item>
         <spacer name="horizontalSpacer" >
          <property name="orientation" >
@@ -95,7 +117,9 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../icons.qrc" />
+ </resources>
  <connections>
   <connection>
    <sender>okButton</sender>

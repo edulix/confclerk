@@ -136,7 +136,9 @@ void TabContainer::itemClicked(const QModelIndex &aIndex)
         return;
 
     EventDialog dialog(static_cast<Event*>(aIndex.internalPointer())->id(),this);
+    connect(&dialog, SIGNAL(eventHasChanged(int)), this, SIGNAL(eventHasChanged(int)));
     dialog.exec();
+    disconnect(&dialog, SIGNAL(eventHasChanged(int)), this, SIGNAL(eventHasChanged(int)));
 }
 
 void TabContainer::displayMap(const QModelIndex &aIndex)

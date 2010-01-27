@@ -19,12 +19,17 @@ private:
     QLabel mDescription;
 };
 
-
 class EventDialog : public QDialog, Ui::EventDialog
 { 
+    Q_OBJECT
 public:
     EventDialog(const int &aEventId, QWidget *aParent = NULL);
     ~EventDialog() {}
+private slots:
+    void favouriteClicked();
+    void alarmClicked();
+signals:
+    void eventHasChanged(int aEventId); // emited when user changes some event details, eg. sets it Favourite
 private:
     int mEventId;
     DetailsContainer mDetails;
