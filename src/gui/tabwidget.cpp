@@ -2,10 +2,7 @@
 
 #include <QMouseEvent>
 #include <QPainter>
-
-#include <QDebug>
-
-const int SPACER = 5;
+#include <QTabBar>
 
 TabWidget::TabWidget(QWidget *aParent)
     : QTabWidget(aParent)
@@ -16,8 +13,10 @@ TabWidget::TabWidget(QWidget *aParent)
 
 void TabWidget::paintEvent(QPaintEvent *event)
 {
+    int height = tabBar()->tabRect(currentIndex()).height();
+    QImage image = mInfoImage.scaled(QSize(height,height),Qt::KeepAspectRatioByExpanding,Qt::SmoothTransformation);
     QPainter painter(this);
-    painter.drawImage(rect().topRight()-QPoint(mInfoImage.width()+SPACER,-SPACER),mInfoImage);
+    painter.drawImage(rect().topRight()-QPoint(image.width(),0),image);
 }
 
 void TabWidget::mousePressEvent(QMouseEvent *event)
@@ -27,8 +26,10 @@ void TabWidget::mousePressEvent(QMouseEvent *event)
 
 void TabWidget::mouseReleaseEvent(QMouseEvent *event)
 {
-    QPoint topLeft = rect().topRight()-QPoint(mInfoImage.width()+SPACER,-SPACER);
-    QRect infoRect = QRect(topLeft, topLeft+QPoint(mInfoImage.width(),mInfoImage.height()));
+    int height = tabBar()->tabRect(currentIndex()).height();
+    QImage image = mInfoImage.scaled(QSize(height,height),Qt::KeepAspectRatioByExpanding,Qt::SmoothTransformation);
+    QPoint topLeft = rect().topRight()-QPoint(image.width(),0);
+    QRect infoRect = QRect(topLeft, topLeft+QPoint(image.width(),image.height()));
     if( (infoRect.contains(event->pos())) && (infoRect.contains(mPressPoint)) )
     {
         emit(infoIconClicked());
