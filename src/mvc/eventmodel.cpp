@@ -274,6 +274,18 @@ void EventModel::loadNowEvents(int aConferenceId)
     createTimeGroups();
 }
 
+void EventModel::loadConflictEvents(int aEventId, int aConferenceId)
+{
+    clearModel();
+    // check for existence of the conference in the DB
+    if(Conference::getAll().count())
+    {
+        qDebug() << "Loading Conference Data: [" << Conference::getById(aConferenceId).title() << "] in conflict with " << aEventId;
+        mEvents = Event::conflictEvents(aEventId, aConferenceId);
+    }
+    createTimeGroups();
+}
+
 void EventModel::updateModel(int aEventId)
 {
     for(int i=0; i<mEvents.count(); i++)

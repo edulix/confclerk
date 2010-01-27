@@ -33,7 +33,7 @@ TabContainer::TabContainer(QWidget *aParent)
 
     if(!Conference::getAll().count()) // no conference(s) in the DB
     {
-        dayNavigator->hide(); // hide DayNavigatorWidget
+        dayNavigator->hide();
     }
     else
     {
@@ -85,9 +85,7 @@ void TabContainer::displayMap(const QModelIndex &aIndex)
 
 void TabContainer::displayConflicts(const QModelIndex &aIndex)
 {
-    Q_UNUSED(aIndex);
-
-    ConflictsDialog dialog;
+    ConflictsDialog dialog(static_cast<Event*>(aIndex.internalPointer())->id(),this);
     connect(&dialog, SIGNAL(eventHasChanged(int)), this, SIGNAL(eventHasChanged(int)));
     dialog.exec();
     disconnect(&dialog, SIGNAL(eventHasChanged(int)), this, SIGNAL(eventHasChanged(int)));

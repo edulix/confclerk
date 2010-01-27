@@ -11,11 +11,13 @@ public:
     ConflictDialogContainer(QWidget *aParent);
     virtual ~ConflictDialogContainer(){}
 
-public slots:
-    virtual void updateTreeViewModel(int aEventId);
+    void setEventId(int aEventId) { mEventId = aEventId; }
 
 protected:
     virtual void loadEvents( const QDate &aDate, const int aConferenceId );
+
+private:
+    int mEventId;
 };
 
 #endif /* CONFLICTDIALOGCONTAINER_H */

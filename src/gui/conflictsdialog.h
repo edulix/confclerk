@@ -8,7 +8,7 @@ class ConflictsDialog : public QDialog, Ui::ConflictsDialog
 {
     Q_OBJECT
 public:
-    ConflictsDialog(QWidget *aParent = NULL);
+    ConflictsDialog(int aEventId, QWidget *aParent = NULL);
     ~ConflictsDialog();
 signals:
     void eventHasChanged(int aEventId);

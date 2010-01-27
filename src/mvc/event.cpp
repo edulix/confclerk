@@ -68,6 +68,16 @@ QList<Event> Event::nowEvents(int conferenceId, QString orderBy)
     return load(query);
 }
 
+QList<Event> Event::conflictEvents(int aEventId, int conferenceId)
+{
+    QSqlQuery query;
+    query.prepare( selectQuery() + QString("WHERE id IN ( SELECT conflict_event FROM event_conflict WHERE xid_event = :id AND xid_conference = :conf ) ORDER BY %1").arg("start"));
+    query.bindValue(":id", aEventId);
+    query.bindValue(":conf", conferenceId);
+
+    return load(query);
+}
+
 QList<Event> Event::getFavByDate(const QDate& date, int conferenceId)
 {
     QSqlQuery query;

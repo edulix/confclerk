@@ -22,6 +22,7 @@ public:
     int loadSearchResultEvents(const QDate &aDate, int aConferenceId);
     void loadNowEvents(int aConferenceId); // loads Now events from the DB
     void loadEventsByRoom(const QDate &aDate, int aConferenceId);
+    void loadConflictEvents(int aEventId, int aConferenceId); // loads events in conflict
 
 private:
     struct Group

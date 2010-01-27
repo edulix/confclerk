@@ -12,6 +12,8 @@ void FavTabContainer::loadEvents( const QDate &aDate, const int aConferenceId )
 
 void FavTabContainer::updateTreeViewModel(int aEventId)
 {
+    Q_UNUSED(aEventId);
+
     // requires special handling
     // we need to reload favourites, because some favourite could be deleted
     //static_cast<EventModel*>(favTreeView->model())->updateModel(aEventId);

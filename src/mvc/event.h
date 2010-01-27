@@ -27,6 +27,7 @@ public:
     static QList<Event> nowEvents(int conferenceId, QString orderBy); // get events scheduled NOW
     static QList<Event> getByTrack(int id);
     static QList<Event> getByDateAndRoom(const QDate& date, int conferenceId);
+    static QList<Event> conflictEvents(int aEventId, int conferenceId);
 public:
     int id() const { return value("id").toInt(); }
     int conferenceId() const { return value("xid_conference").toInt(); }
