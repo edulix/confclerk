@@ -34,14 +34,17 @@ maemo {
 # Please note that resources MUST be added to the app module
 # (which means they need to be added to the test module as well,
 # but I am sure you can live with that for the time being).
+
 FORMS += searchhead.ui \
     mainwindow.ui \
     daynavigatorwidget.ui \
     importschedulewidget.ui \
     about.ui \
     eventdialog.ui \
+    conflictsdialog.ui \
     tabcontainer.ui \
     mapwindow.ui
+
 HEADERS += roomstabcontainer.h \
     nowtabcontainer.h \
     trackstabcontainer.h \
@@ -49,6 +52,8 @@ HEADERS += roomstabcontainer.h \
     searchtabcontainer.h \
     searchhead.h \
     dayviewtabcontainer.h \
+    conflictdialogcontainer.h \
+    conflictsdialog.h \
     mainwindow.h \
     daynavigatorwidget.h \
     importschedulewidget.h \
@@ -56,6 +61,7 @@ HEADERS += roomstabcontainer.h \
     tabwidget.h \
     tabcontainer.h \
     mapwindow.h
+
 SOURCES += roomstabcontainer.cpp \
     nowtabcontainer.cpp \
     trackstabcontainer.cpp \
@@ -63,6 +69,8 @@ SOURCES += roomstabcontainer.cpp \
     searchtabcontainer.cpp \
     searchhead.cpp \
     dayviewtabcontainer.cpp \
+    conflictdialogcontainer.cpp \
+    conflictsdialog.cpp \
     mainwindow.cpp \
     daynavigatorwidget.cpp \
     importschedulewidget.cpp \
@@ -70,23 +78,9 @@ SOURCES += roomstabcontainer.cpp \
     tabwidget.cpp \
     tabcontainer.cpp \
     mapwindow.cpp
+
 maemo { 
-    FORMS += searchhead.ui \
-        alarmdialog.ui
-    HEADERS += roomstabcontainer.h \
-        nowtabcontainer.h \
-        trackstabcontainer.h \
-        favtabcontainer.h \
-        searchtabcontainer.h \
-        searchhead.h \
-        dayviewtabcontainer.h \
-        alarmdialog.h
-    SOURCES += roomstabcontainer.cpp \
-        nowtabcontainer.cpp \
-        trackstabcontainer.cpp \
-        favtabcontainer.cpp \
-        searchtabcontainer.cpp \
-        searchhead.cpp \
-        dayviewtabcontainer.cpp \
-        alarmdialog.cpp
+    FORMS += alarmdialog.ui
+    HEADERS += alarmdialog.h
+    SOURCES += alarmdialog.cpp
 }

@@ -35,7 +35,7 @@ protected slots:
     void updateTreeView(const QDate &aDate);
     void itemClicked(const QModelIndex &aIndex);
     void displayMap(const QModelIndex &aIndex);
-    void displayWarning(const QModelIndex &aIndex);
+    void displayConflicts(const QModelIndex &aIndex);
 };
 
 #endif /* TABCONTAINER_H */

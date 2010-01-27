@@ -106,8 +106,7 @@ bool TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
         {
 
             qDebug() << "WARNING CLICKED: " << qVariantValue<QString>(aIndex.data());
-            // TODO: implement
-            emit(requestForWarning(aIndex));
+            emit(requestForConflicts(aIndex));
             handled = true;
         }
         break;

@@ -10,6 +10,8 @@
 #include "eventdialog.h"
 #include "mapwindow.h"
 
+#include "conflictsdialog.h"
+
 TabContainer::TabContainer(QWidget *aParent)
     : QWidget(aParent)
 {
@@ -27,7 +29,7 @@ TabContainer::TabContainer(QWidget *aParent)
     connect(treeView, SIGNAL(eventHasChanged(int)), SIGNAL(eventHasChanged(int)));
     connect(treeView, SIGNAL(clicked(const QModelIndex &)), SLOT(itemClicked(const QModelIndex &)));
     connect(treeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
-    connect(treeView, SIGNAL(requestForWarning(const QModelIndex &)), SLOT(displayWarning(const QModelIndex &)));
+    connect(treeView, SIGNAL(requestForConflicts(const QModelIndex &)), SLOT(displayConflicts(const QModelIndex &)));
 
     if(!Conference::getAll().count()) // no conference(s) in the DB
     {
@@ -81,14 +83,14 @@ void TabContainer::displayMap(const QModelIndex &aIndex)
     window.exec();
 }
 
-void TabContainer::displayWarning(const QModelIndex &aIndex)
+void TabContainer::displayConflicts(const QModelIndex &aIndex)
 {
     Q_UNUSED(aIndex);
 
-    QMessageBox::warning(
-        this,
-        tr("Time Conflict Warning"),
-        tr("This event happens at the same time than another one of your favourites.") );
+    ConflictsDialog dialog;
+    connect(&dialog, SIGNAL(eventHasChanged(int)), this, SIGNAL(eventHasChanged(int)));
+    dialog.exec();
+    disconnect(&dialog, SIGNAL(eventHasChanged(int)), this, SIGNAL(eventHasChanged(int)));
 }
 
 void TabContainer::updateTreeViewModel(int aEventId)

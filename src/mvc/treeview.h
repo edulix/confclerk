@@ -18,7 +18,7 @@ private slots:
     void handleItemClicked(const QModelIndex &index);
 signals:
     void requestForMap(const QModelIndex &aIndex);
-    void requestForWarning(const QModelIndex &aIndex);
+    void requestForConflicts(const QModelIndex &aIndex);
     void eventHasChanged(int aEventId); // emited when user changes some event details, eg. sets it Favourite
 };
 

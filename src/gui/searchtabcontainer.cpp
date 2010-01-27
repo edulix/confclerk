@@ -45,8 +45,6 @@ SearchTabContainer::~SearchTabContainer()
 
 void SearchTabContainer::searchButtonClicked()
 {
-    qDebug() << "SearchTab::searchButtonClicked()";
-
     QHash<QString,QString> columns;
 
     SearchHead *searchHeader = static_cast<SearchHead*>(header);
