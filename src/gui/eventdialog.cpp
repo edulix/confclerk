@@ -15,6 +15,8 @@ EventDialog::EventDialog(const int &aEventId, QWidget *aParent)
 
 #ifdef MAEMO
     showFullScreen();
+#else
+    alarmButton->hide();
 #endif
 
     Event event = Event::getById(mEventId,Conference::activeConference());
