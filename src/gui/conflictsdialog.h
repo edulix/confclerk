@@ -11,7 +11,7 @@ public:
     ConflictsDialog(int aEventId, QWidget *aParent = NULL);
     ~ConflictsDialog();
 signals:
-    void eventHasChanged(int aEventId);
+    void eventHasChanged(int aEventId, bool aReloadModel = false);
 };
 
 #endif /* CONFLICTSDIALOG_H */ 

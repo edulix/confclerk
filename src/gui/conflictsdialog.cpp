@@ -4,8 +4,8 @@ ConflictsDialog::ConflictsDialog(int aEventId, QWidget *aParent)
     : QDialog(aParent)
 {
     setupUi(this);
-    connect(container, SIGNAL(eventHasChanged(int)), this, SIGNAL(eventHasChanged(int)));
-    connect(container, SIGNAL(eventHasChanged(int)), container, SLOT(updateTreeViewModel(int)));
+    connect(container, SIGNAL(eventHasChanged(int,bool)), this, SIGNAL(eventHasChanged(int,bool)));
+    connect(container, SIGNAL(eventHasChanged(int,bool)), container, SLOT(updateTreeViewModel(int,bool)));
 
     container->setEventId(aEventId);
 
@@ -17,6 +17,6 @@ ConflictsDialog::ConflictsDialog(int aEventId, QWidget *aParent)
 
 ConflictsDialog::~ConflictsDialog()
 {
-    disconnect(container, SIGNAL(eventHasChanged(int)), this, SIGNAL(eventHasChanged(int)));
+    disconnect(container, SIGNAL(eventHasChanged(int,bool)), this, SIGNAL(eventHasChanged(int,bool)));
 }
 
