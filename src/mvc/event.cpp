@@ -56,8 +56,8 @@ QList<Event> Event::getByDateAndRoom(const QDate& date, int conferenceId)
 
 QList<Event> Event::nowEvents(int conferenceId, QString orderBy)
 {
-    //uint curTime_t =  QDateTime(QDate::currentDate(),QTime::currentTime(),Qt::UTC).toTime_t();
-    uint curTime_t = 1265457610; // for testing
+    uint curTime_t =  QDateTime(QDate::currentDate(),QTime::currentTime(),Qt::UTC).toTime_t();
+    //uint curTime_t = 1265457610; // for testing
 
     QSqlQuery query;
     query.prepare(selectQuery() + QString("WHERE xid_conference = :conf AND start <= :now1 AND ( start + duration ) > :now2 ORDER BY %1").arg(orderBy));
