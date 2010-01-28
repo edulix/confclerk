@@ -3,6 +3,7 @@
 #include "treeview.h"
 #include "delegate.h"
 #include "event.h"
+#include "conference.h"
 #include "eventmodel.h"
 
 #ifdef MAEMO
@@ -47,17 +48,31 @@ bool TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
             {
                 // handle Favourite Control clicked
                 Event event = Event::getById(aIndex.data().toInt(),1);
+
+                QList<Event> conflicts = Event::conflictEvents(event.id(),Conference::activeConference());
                 if(event.isFavourite())
                     event.setFavourite(false);
                 else
                     event.setFavourite(true);
                 event.update("favourite");
+
                 qDebug() << " FAVOURITE [" << qVariantValue<QString>(aIndex.data()) << "] -> " << event.isFavourite();
                 // update EVENT_CONFLICT table
                 event.updateConflicts();
+                if(event.isFavourite())
+                {
+                    // event has became 'favourite' and so 'conflicts' list may have changed
+                    conflicts = Event::conflictEvents(event.id(),Conference::activeConference());
+                }
+
                 // since the Favourite icon has changed, update TreeViews accordingly
                 // all TreeViews have to listen on this signal
                 emit(eventHasChanged(event.id()));
+
+                // have to emit 'eventHasChanged' signal on all events in conflict
+                for(int i=0; i<conflicts.count(); i++)
+                    emit(eventHasChanged(conflicts[i].id()));
+
                 handled = true;
             }
             break;
