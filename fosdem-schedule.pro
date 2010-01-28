@@ -1,4 +1,4 @@
-# fosdem-maemo.pro
+# fosdem-schedule.pro
 
 QMAKEVERSION = $$[QMAKE_VERSION]
 ISQT4 = $$find(QMAKEVERSION, ^[2-9])
