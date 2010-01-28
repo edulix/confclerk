@@ -52,6 +52,8 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     else
     {
         conferenceHeader->hide();
+        // go to the 'conferenceTab', so the user can import the schedule
+        tabWidget->setCurrentIndex(6); // 6 - conference tab
     }
 
     // open dialog for given Event ID

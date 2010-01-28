@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ui version="4.0">
+<ui version="4.0" >
  <class>SearchHeadClass</class>
- <widget class="QWidget" name="SearchHeadClass">
-  <property name="geometry">
+ <widget class="QWidget" name="SearchHeadClass" >
+  <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
@@ -10,117 +9,104 @@
     <height>88</height>
    </rect>
   </property>
-  <property name="sizePolicy">
-   <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+  <property name="sizePolicy" >
+   <sizepolicy vsizetype="Minimum" hsizetype="Expanding" >
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
-  <property name="minimumSize">
+  <property name="minimumSize" >
    <size>
     <width>10</width>
     <height>10</height>
    </size>
   </property>
-  <property name="windowTitle">
+  <property name="windowTitle" >
    <string>SearchHead</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="leftMargin">
+  <layout class="QVBoxLayout" name="verticalLayout" >
+   <property name="leftMargin" >
     <number>9</number>
    </property>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_7">
+    <layout class="QHBoxLayout" name="horizontalLayout_7" >
      <item>
-      <widget class="QCheckBox" name="searchTitle">
-       <property name="text">
+      <widget class="QCheckBox" name="searchTitle" >
+       <property name="text" >
         <string>Title</string>
        </property>
-       <property name="checked">
+       <property name="checked" >
         <bool>true</bool>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QCheckBox" name="searchAbstract">
-       <property name="text">
+      <widget class="QCheckBox" name="searchAbstract" >
+       <property name="text" >
         <string>Abstract</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QCheckBox" name="searchSpeaker">
-       <property name="text">
+      <widget class="QCheckBox" name="searchSpeaker" >
+       <property name="text" >
         <string>Speaker</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QCheckBox" name="searchTag">
-       <property name="text">
+      <widget class="QCheckBox" name="searchTag" >
+       <property name="text" >
         <string>Tag</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QCheckBox" name="searchRoom">
-       <property name="text">
+      <widget class="QCheckBox" name="searchRoom" >
+       <property name="text" >
         <string>Room</string>
        </property>
       </widget>
      </item>
-     <item>
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <layout class="QHBoxLayout" name="horizontalLayout_2" >
      <item>
-      <widget class="QLineEdit" name="searchEdit">
-       <property name="enabled">
+      <widget class="QLineEdit" name="searchEdit" >
+       <property name="enabled" >
         <bool>true</bool>
        </property>
-       <property name="toolTip">
+       <property name="toolTip" >
         <string>type a keyword to search</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="searchButton">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+      <widget class="QPushButton" name="searchButton" >
+       <property name="sizePolicy" >
+        <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="text">
+       <property name="text" >
         <string>Search</string>
        </property>
-       <property name="icon">
-        <iconset resource="../icons.qrc">
+       <property name="icon" >
+        <iconset resource="../icons.qrc" >
          <normaloff>:/icons/search.png</normaloff>:/icons/search.png</iconset>
        </property>
-       <property name="checkable">
+       <property name="checkable" >
         <bool>false</bool>
        </property>
-       <property name="autoDefault">
+       <property name="autoDefault" >
         <bool>true</bool>
        </property>
-       <property name="default">
+       <property name="default" >
         <bool>true</bool>
        </property>
-       <property name="flat">
+       <property name="flat" >
         <bool>false</bool>
        </property>
       </widget>
@@ -128,11 +114,11 @@
     </layout>
    </item>
    <item>
-    <spacer name="verticalSpacer">
-     <property name="orientation">
+    <spacer name="verticalSpacer" >
+     <property name="orientation" >
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" stdset="0">
+     <property name="sizeHint" stdset="0" >
       <size>
        <width>20</width>
        <height>20</height>
@@ -142,9 +128,9 @@
    </item>
   </layout>
  </widget>
- <layoutdefault spacing="6" margin="11"/>
+ <layoutdefault spacing="6" margin="11" />
  <resources>
-  <include location="../icons.qrc"/>
+  <include location="../icons.qrc" />
  </resources>
  <connections/>
 </ui>
