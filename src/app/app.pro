@@ -1,6 +1,6 @@
 include(../global.pri)
 TEMPLATE = app
-TARGET = fosdem
+TARGET = fosdem-schedule
 DESTDIR = ../bin
 QT += sql xml
 
