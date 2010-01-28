@@ -73,16 +73,14 @@ QList<Event> Event::conflictEvents(int aEventId, int conferenceId)
     QSqlQuery query;
     Event event = Event::getById(aEventId,conferenceId);
     query.prepare(selectQuery() + "WHERE xid_conference = :conf AND ( \
-           ( start < :start1 AND ( start + duration ) > :start2 ) \
-        OR ( start > :start3 AND ( start + duration ) < :end1 ) \
-        OR ( start < :end2  AND ( start + duration ) > :end3 ) ) AND favourite = 1 AND NOT id = :id ORDER BY start");
+           ( start >= :s1 AND ( start + duration ) < :e1 ) \
+        OR ( ( start + duration ) > :s2 AND start < :e2 ) ) \
+        AND favourite = 1 AND NOT id = :id ORDER BY start");
     query.bindValue(":conf", event.conferenceId());
-    query.bindValue(":start1", convertToDb(event.start(), QVariant::DateTime));
-    query.bindValue(":start2", convertToDb(event.start(), QVariant::DateTime));
-    query.bindValue(":start3", convertToDb(event.start(), QVariant::DateTime));
-    query.bindValue(":end1", convertToDb(event.start().toTime_t()+event.duration(), QVariant::DateTime));
-    query.bindValue(":end2", convertToDb(event.start().toTime_t()+event.duration(), QVariant::DateTime));
-    query.bindValue(":end3", convertToDb(event.start().toTime_t()+event.duration(), QVariant::DateTime));
+    query.bindValue(":s1", convertToDb(event.start(), QVariant::DateTime));
+    query.bindValue(":e1", convertToDb(event.start().toTime_t()+event.duration(), QVariant::DateTime));
+    query.bindValue(":s2", convertToDb(event.start(), QVariant::DateTime));
+    query.bindValue(":e2", convertToDb(event.start().toTime_t()+event.duration(), QVariant::DateTime));
     query.bindValue(":id", event.id());
 
     return load(query);
