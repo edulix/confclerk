@@ -96,6 +96,8 @@ QDate DayNavigatorWidget::getCurrentDate()
 
 void DayNavigatorWidget::paintEvent(QPaintEvent *aEvent)
 {
+    Q_UNUSED(aEvent);
+
     QString selectedDateStr = mCurDate.toString("MMM dd yyyy");
 
     QPainter painter(this);

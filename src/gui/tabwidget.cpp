@@ -13,6 +13,8 @@ TabWidget::TabWidget(QWidget *aParent)
 
 void TabWidget::paintEvent(QPaintEvent *event)
 {
+    Q_UNUSED(event);
+
     int height = tabBar()->tabRect(currentIndex()).height();
     QImage image = mInfoImage.scaled(QSize(height,height),Qt::KeepAspectRatioByExpanding,Qt::SmoothTransformation);
     QPainter painter(this);

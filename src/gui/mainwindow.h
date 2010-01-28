@@ -18,6 +18,9 @@ private slots:
     void aboutApp();
     void conferenceMapClicked();
     void eventHasChanged(int aEventId);
+private:
+    void fillAndShowConferenceHeader();
+    void initTabs();
 };
 
 #endif /* MAINWINDOW_H */

@@ -28,12 +28,6 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
 
     int confId = Conference::activeConference();
 
-    QList<Conference> confs = Conference::getAll();
-    if(confs.count())
-    {
-        setWindowTitle(confs[0].title());
-    }
-
     connect(importScheduleWidget, SIGNAL(scheduleImported(int)), SLOT(scheduleImported(int)));
 
     // event details have changed
@@ -44,31 +38,20 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     connect(nowTabContainer, SIGNAL(eventHasChanged(int)), SLOT(eventHasChanged(int)));
     connect(searchTabContainer, SIGNAL(eventHasChanged(int)), SLOT(eventHasChanged(int)));
 
-
     // event conference map button clicked
     connect(showMapButton, SIGNAL(clicked()), SLOT(conferenceMapClicked()));
 
     connect(tabWidget, SIGNAL(infoIconClicked()), SLOT(aboutApp()));
 
-    if(Conference::getAll().count()) // no conference(s) in the DB
+    if(Conference::getAll().count())
     {
-        QDate startDate = Conference::getById(confId).start();
-        QDate endDate = Conference::getById(confId).end();
-        //
-        dayTabContainer->setDates(startDate, endDate);
-        tracksTabContainer->setDates(startDate, endDate);
-        roomsTabContainer->setDates(startDate, endDate);
-        favsTabContainer->setDates(startDate, endDate);
-        searchTabContainer->setDates(startDate, endDate);
-        nowTabContainer->updateTreeView(QDate::currentDate());
-        //
-        conferenceTitle->setText(Conference::getById(confId).title());
-        conferenceSubtitle->setText(Conference::getById(confId).subtitle());
-        conferenceWhere->setText(Conference::getById(confId).city() + ", " + Conference::getById(confId).venue());
-        conferenceWhen->setText(
-                Conference::getById(confId).start().toString("dd-MM-yyyy")
-                + ", " +
-                Conference::getById(confId).end().toString("dd-MM-yyyy"));
+        initTabs();
+        fillAndShowConferenceHeader();
+        setWindowTitle(Conference::getById(confId).title());
+    }
+    else
+    {
+        conferenceHeader->hide();
     }
 
     // open dialog for given Event ID
@@ -92,13 +75,9 @@ void MainWindow::scheduleImported(int aConfId)
     QList<Conference> confs = Conference::getAll();
     if(confs.count())
     {
-        // 'dayNavigator' emits signal 'dateChanged' after setting valid START:END dates
-        QDate startDate = Conference::getById(Conference::activeConference()).start();
-        QDate endDate = Conference::getById(Conference::activeConference()).end();
-        dayTabContainer->setDates(startDate, endDate);
-        tracksTabContainer->setDates(startDate, endDate);
-        roomsTabContainer->setDates(startDate, endDate);
-        favsTabContainer->setDates(startDate, endDate);
+        initTabs();
+        fillAndShowConferenceHeader();
+        setWindowTitle(Conference::getById(Conference::activeConference()).title());
     }
 }
 
@@ -131,5 +110,33 @@ void MainWindow::eventHasChanged(int aEventId)
     nowTabContainer->updateTreeViewModel(aEventId);
     roomsTabContainer->updateTreeViewModel(aEventId);
     searchTabContainer->updateTreeViewModel(aEventId);
+}
+
+void MainWindow::fillAndShowConferenceHeader()
+{
+    int confId = Conference::activeConference();
+    conferenceTitle->setText(Conference::getById(confId).title());
+    conferenceSubtitle->setText(Conference::getById(confId).subtitle());
+    conferenceWhere->setText(Conference::getById(confId).city() + ", " + Conference::getById(confId).venue());
+    conferenceWhen->setText(
+            Conference::getById(confId).start().toString("dd-MM-yyyy")
+            + ", " +
+            Conference::getById(confId).end().toString("dd-MM-yyyy"));
+    conferenceHeader->show();
+}
+
+void MainWindow::initTabs()
+{
+    int confId = Conference::activeConference();
+    QDate startDate = Conference::getById(confId).start();
+    QDate endDate = Conference::getById(confId).end();
+
+    // 'dayNavigator' emits signal 'dateChanged' after setting valid START:END dates
+    dayTabContainer->setDates(startDate, endDate);
+    tracksTabContainer->setDates(startDate, endDate);
+    roomsTabContainer->setDates(startDate, endDate);
+    favsTabContainer->setDates(startDate, endDate);
+    searchTabContainer->setDates(startDate, endDate);
+    nowTabContainer->updateTreeView(QDate::currentDate());
 }
 
