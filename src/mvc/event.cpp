@@ -73,9 +73,9 @@ QList<Event> Event::conflictEvents(int aEventId, int conferenceId)
     QSqlQuery query;
     Event event = Event::getById(aEventId,conferenceId);
     query.prepare(selectQuery() + "WHERE xid_conference = :conf AND ( \
-           ( start <= :start1 AND ( start + duration ) >= :start2 ) \
-        OR ( start >= :start3 AND ( start + duration ) <= :end1 ) \
-        OR ( start <= :end2  AND ( start + duration ) >= :end3 ) ) AND favourite = 1 AND NOT id = :id ORDER BY start");
+           ( start < :start1 AND ( start + duration ) > :start2 ) \
+        OR ( start > :start3 AND ( start + duration ) < :end1 ) \
+        OR ( start < :end2  AND ( start + duration ) > :end3 ) ) AND favourite = 1 AND NOT id = :id ORDER BY start");
     query.bindValue(":conf", event.conferenceId());
     query.bindValue(":start1", convertToDb(event.start(), QVariant::DateTime));
     query.bindValue(":start2", convertToDb(event.start(), QVariant::DateTime));
