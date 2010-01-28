@@ -17,7 +17,7 @@ private slots:
     void scheduleImported(int aConfId);
     void aboutApp();
     void conferenceMapClicked();
-    void eventHasChanged(int aEventId);
+    void eventHasChanged(int aEventId, bool aReloadModel);
 private:
     void fillAndShowConferenceHeader();
     void initTabs();

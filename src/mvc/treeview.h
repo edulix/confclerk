@@ -19,7 +19,7 @@ private slots:
 signals:
     void requestForMap(const QModelIndex &aIndex);
     void requestForConflicts(const QModelIndex &aIndex);
-    void eventHasChanged(int aEventId); // emited when user changes some event details, eg. sets it Favourite
+    void eventHasChanged(int aEventId, bool aReloadModel = false); // emited when user changes some event details, eg. sets it Favourite
 };
 
 #endif /* TREEVIEW_H */

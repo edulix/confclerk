@@ -64,13 +64,13 @@ bool TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
                     conflicts = Event::conflictEvents(event.id(),Conference::activeConference());
                 }
 
-                // since the Favourite icon has changed, update TreeViews accordingly
-                // all TreeViews have to listen on this signal
-                emit(eventHasChanged(event.id()));
-
                 // have to emit 'eventHasChanged' signal on all events in conflict
                 for(int i=0; i<conflicts.count(); i++)
                     emit(eventHasChanged(conflicts[i].id()));
+                
+                // since the Favourite icon has changed, update TreeViews accordingly
+                // all TreeViews have to listen on this signal
+                emit(eventHasChanged(event.id(),true));
 
                 handled = true;
             }

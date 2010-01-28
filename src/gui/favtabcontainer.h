@@ -11,9 +11,6 @@ public:
     FavTabContainer(QWidget *aParent);
     virtual ~FavTabContainer(){}
 
-public slots:
-    virtual void updateTreeViewModel(int aEventId);
-
 protected:
     virtual void loadEvents( const QDate &aDate, const int aConferenceId );
 };

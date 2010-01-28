@@ -25,10 +25,10 @@ protected:
     };
 
 signals:
-    void eventHasChanged(int aEventId);
+    void eventHasChanged(int aEventId, bool aReloadModel);
 
 public slots:
-    virtual void updateTreeViewModel(int aEventId);
+    virtual void updateTreeViewModel(int aEventId, bool aReloadModel = false);
     void setDates(const QDate &aStart, const QDate &aEnd);
 
 protected slots:

@@ -26,7 +26,7 @@ TabContainer::TabContainer(QWidget *aParent)
 
     connect(dayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateTreeView(const QDate &)));
 
-    connect(treeView, SIGNAL(eventHasChanged(int)), SIGNAL(eventHasChanged(int)));
+    connect(treeView, SIGNAL(eventHasChanged(int,bool)), SIGNAL(eventHasChanged(int,bool)));
     connect(treeView, SIGNAL(clicked(const QModelIndex &)), SLOT(itemClicked(const QModelIndex &)));
     connect(treeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
     connect(treeView, SIGNAL(requestForConflicts(const QModelIndex &)), SLOT(displayConflicts(const QModelIndex &)));
@@ -49,9 +49,9 @@ void TabContainer::itemClicked(const QModelIndex &aIndex)
         return;
 
     EventDialog dialog(static_cast<Event*>(aIndex.internalPointer())->id(),this);
-    connect(&dialog, SIGNAL(eventHasChanged(int)), this, SIGNAL(eventHasChanged(int)));
+    connect(&dialog, SIGNAL(eventHasChanged(int,bool)), this, SIGNAL(eventHasChanged(int,bool)));
     dialog.exec();
-    disconnect(&dialog, SIGNAL(eventHasChanged(int)), this, SIGNAL(eventHasChanged(int)));
+    disconnect(&dialog, SIGNAL(eventHasChanged(int,bool)), this, SIGNAL(eventHasChanged(int,bool)));
 }
 
 void TabContainer::displayMap(const QModelIndex &aIndex)
@@ -78,14 +78,29 @@ void TabContainer::displayMap(const QModelIndex &aIndex)
 void TabContainer::displayConflicts(const QModelIndex &aIndex)
 {
     ConflictsDialog dialog(static_cast<Event*>(aIndex.internalPointer())->id(),this);
-    connect(&dialog, SIGNAL(eventHasChanged(int)), this, SIGNAL(eventHasChanged(int)));
+    connect(&dialog, SIGNAL(eventHasChanged(int,bool)), this, SIGNAL(eventHasChanged(int,bool)));
     dialog.exec();
-    disconnect(&dialog, SIGNAL(eventHasChanged(int)), this, SIGNAL(eventHasChanged(int)));
+    disconnect(&dialog, SIGNAL(eventHasChanged(int,bool)), this, SIGNAL(eventHasChanged(int,bool)));
 }
 
-void TabContainer::updateTreeViewModel(int aEventId)
+void TabContainer::updateTreeViewModel(int aEventId, bool aReloadModel)
 {
-    static_cast<EventModel*>(treeView->model())->updateModel(aEventId);
+    if(aReloadModel)
+    {
+        // requires special handling
+        // eg. in case of favourities - some favourities may have changed
+        // and so we need to reload them
+        int confId = Conference::activeConference();
+        QDate startDate = Conference::getById(confId).start();
+        QDate endDate = Conference::getById(confId).end();
+        dayNavigator->setDates(startDate, endDate);
+        updateTreeView( Conference::getById(confId).start() );
+    }
+    else
+    {
+        // just update event in the question
+        static_cast<EventModel*>(treeView->model())->updateModel(aEventId);
+    }
 }
 
 void TabContainer::setDates(const QDate &aStart, const QDate &aEnd)

@@ -31,12 +31,12 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     connect(importScheduleWidget, SIGNAL(scheduleImported(int)), SLOT(scheduleImported(int)));
 
     // event details have changed
-    connect(dayTabContainer, SIGNAL(eventHasChanged(int)), SLOT(eventHasChanged(int)));
-    connect(favsTabContainer, SIGNAL(eventHasChanged(int)), SLOT(eventHasChanged(int)));
-    connect(tracksTabContainer, SIGNAL(eventHasChanged(int)), SLOT(eventHasChanged(int)));
-    connect(roomsTabContainer, SIGNAL(eventHasChanged(int)), SLOT(eventHasChanged(int)));
-    connect(nowTabContainer, SIGNAL(eventHasChanged(int)), SLOT(eventHasChanged(int)));
-    connect(searchTabContainer, SIGNAL(eventHasChanged(int)), SLOT(eventHasChanged(int)));
+    connect(dayTabContainer, SIGNAL(eventHasChanged(int,bool)), SLOT(eventHasChanged(int,bool)));
+    connect(favsTabContainer, SIGNAL(eventHasChanged(int,bool)), SLOT(eventHasChanged(int,bool)));
+    connect(tracksTabContainer, SIGNAL(eventHasChanged(int,bool)), SLOT(eventHasChanged(int,bool)));
+    connect(roomsTabContainer, SIGNAL(eventHasChanged(int,bool)), SLOT(eventHasChanged(int,bool)));
+    connect(nowTabContainer, SIGNAL(eventHasChanged(int,bool)), SLOT(eventHasChanged(int,bool)));
+    connect(searchTabContainer, SIGNAL(eventHasChanged(int,bool)), SLOT(eventHasChanged(int,bool)));
 
     // event conference map button clicked
     connect(showMapButton, SIGNAL(clicked()), SLOT(conferenceMapClicked()));
@@ -104,10 +104,10 @@ void MainWindow::conferenceMapClicked()
     window.exec();
 }
 
-void MainWindow::eventHasChanged(int aEventId)
+void MainWindow::eventHasChanged(int aEventId, bool aReloadModel)
 {
     dayTabContainer->updateTreeViewModel(aEventId);
-    favsTabContainer->updateTreeViewModel(aEventId);
+    favsTabContainer->updateTreeViewModel(aEventId,aReloadModel);
     tracksTabContainer->updateTreeViewModel(aEventId);
     nowTabContainer->updateTreeViewModel(aEventId);
     roomsTabContainer->updateTreeViewModel(aEventId);
@@ -137,8 +137,8 @@ void MainWindow::initTabs()
     dayTabContainer->setDates(startDate, endDate);
     tracksTabContainer->setDates(startDate, endDate);
     roomsTabContainer->setDates(startDate, endDate);
-    //favsTabContainer->setDates(startDate, endDate);
-    //searchTabContainer->setDates(startDate, endDate);
+    favsTabContainer->setDates(startDate, endDate);
+    searchTabContainer->setDates(startDate, endDate);
     searchTabContainer->searchAgainClicked();
     nowTabContainer->updateTreeView(QDate::currentDate());
 }
