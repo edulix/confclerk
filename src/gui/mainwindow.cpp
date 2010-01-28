@@ -135,8 +135,9 @@ void MainWindow::initTabs()
     dayTabContainer->setDates(startDate, endDate);
     tracksTabContainer->setDates(startDate, endDate);
     roomsTabContainer->setDates(startDate, endDate);
-    favsTabContainer->setDates(startDate, endDate);
-    searchTabContainer->setDates(startDate, endDate);
+    //favsTabContainer->setDates(startDate, endDate);
+    //searchTabContainer->setDates(startDate, endDate);
+    searchTabContainer->searchAgainClicked();
     nowTabContainer->updateTreeView(QDate::currentDate());
 }
 

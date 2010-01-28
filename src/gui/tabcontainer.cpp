@@ -31,16 +31,8 @@ TabContainer::TabContainer(QWidget *aParent)
     connect(treeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
     connect(treeView, SIGNAL(requestForConflicts(const QModelIndex &)), SLOT(displayConflicts(const QModelIndex &)));
 
-    if(!Conference::getAll().count()) // no conference(s) in the DB
-    {
-        dayNavigator->hide();
-    }
-    else
-    {
-        QDate aStartDate = Conference::getById(Conference::activeConference()).start();
-        QDate aEndDate = Conference::getById(Conference::activeConference()).end();
-        dayNavigator->setDates(aStartDate, aEndDate);
-    }
+    // day navigator is hidden by default
+    dayNavigator->hide();
 }
 
 void TabContainer::updateTreeView(const QDate &aDate)

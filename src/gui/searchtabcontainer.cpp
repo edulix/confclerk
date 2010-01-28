@@ -34,6 +34,11 @@ SearchTabContainer::SearchTabContainer(QWidget *aParent) : TabContainer( aParent
 
     searchAgainButton->hide();
     treeView->hide();
+    // do not show 'search' header if there are no conferences in the DB
+    if(Conference::getAll().count()==0)
+    {
+        header->hide();
+    }
 
     connect( header, SIGNAL(searchClicked()), SLOT(searchButtonClicked()));
     connect( searchAgainButton, SIGNAL(clicked()), SLOT(searchAgainClicked()));

@@ -14,9 +14,10 @@ public:
     virtual ~SearchTabContainer();
 protected:
     virtual void loadEvents( const QDate &aDate, const int aConferenceId );
+public slots:
+    void searchAgainClicked(); // made it public - to show header when 1.st conf importing is done successfuly
 private slots:
     void searchButtonClicked();
-    void searchAgainClicked();
 
 private:
     SearchHead *header;
