@@ -193,10 +193,9 @@ void Event::setLinks(const QMap<QString,QString> &aLinks)
 
 QList<Event> Event::getSearchResultByDate(const QDate& date, int conferenceId, QString orderBy)
 {
-
     QString strQuery = QString("SELECT %1 FROM EVENT INNER JOIN SEARCH_EVENT USING (xid_conference, id) ").arg(columnsForSelect());
     strQuery += QString("WHERE xid_conference = :conf AND start >= :start AND start < :end ORDER BY %1").arg(orderBy);
-    qDebug() << strQuery;
+    //qDebug() << strQuery;
     QList<Event> list;
     QSqlQuery query;
     try{

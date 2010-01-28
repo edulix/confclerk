@@ -1,7 +1,7 @@
 
 #include "searchtabcontainer.h"
 #include "searchhead.h"
-
+#include <QMessageBox>
 
 SearchTabContainer::SearchTabContainer(QWidget *aParent) : TabContainer( aParent )
 {
@@ -65,20 +65,62 @@ void SearchTabContainer::searchButtonClicked()
         columns["ROOM"] = "name";
 
     QString keyword = searchHeader->searchEdit->text().replace( QString("%"), QString("\\%") );
-    qDebug() << "\nKeyword to search: " << keyword;
+    //qDebug() << "\nKeyword to search: " << keyword;
 
     int confId = Conference::activeConference();
     SqlEngine::searchEvent( confId, columns, keyword );
 
     QDate startDate = Conference::getById(confId).start();
     QDate endDate = Conference::getById(confId).end();
-    dayNavigator->setDates(startDate, endDate);
-    updateTreeView( Conference::getById(confId).start() );
+
+    int nrofFounds = 0;
+    QDate firstDateWithFounds = endDate;
+    QDate lastDateWithFounds = startDate;
+    for(QDate d=startDate; d<=endDate; d=d.addDays(1))
+    {
+        try{
+            int count = Event::getSearchResultByDate(d, confId, "start").count();
+            if(count && (firstDateWithFounds==endDate))
+                firstDateWithFounds=d;
+            if(count)
+                lastDateWithFounds=d;
+            nrofFounds+=count;
+        }
+        catch( OrmException &e  ){
+            qDebug() << "Event::getSearchResultByDate failed: " << e.text();
+        }
+        catch(...){
+            qDebug() << "Event::getSearchResultByDate failed";
+        }
+    }
+
+    if(!nrofFounds)
+    {
+        // TODO: display some message
+        treeView->hide();
+        searchAgainButton->hide();
+        dayNavigator->hide();
+        header->show();
+        QMessageBox::information(
+                this,
+                QString("Keyword '%1' not found!").arg(keyword),
+                QString("No events containing '%1' found!").arg(keyword),
+                QMessageBox::Ok);
+    }
+    else
+    {
+        searchAgainButton->show();
+        dayNavigator->show();
+        treeView->show();
+        header->hide();
+
+        updateTreeView( firstDateWithFounds );
+        dayNavigator->setDates(firstDateWithFounds, lastDateWithFounds);
+    }
 }
 
 void SearchTabContainer::searchAgainClicked()
 {
-    qDebug() << "SearchTab::searchAgainClicked()";
     header->show();
     searchAgainButton->hide();
     dayNavigator->hide();
@@ -87,20 +129,6 @@ void SearchTabContainer::searchAgainClicked()
 
 void SearchTabContainer::loadEvents( const QDate &aDate, const int aConferenceId )
 {
-    int eventsCount = static_cast<EventModel*>(treeView->model())->loadSearchResultEvents( aDate, aConferenceId );
-    if( eventsCount ||
-            //TODO: this is not good test
-            dayNavigator->getCurrentDate() != Conference::getById( aConferenceId ).start()
-            ){
-        searchAgainButton->show();
-        dayNavigator->show();
-        treeView->show();
-        header->hide();
-    }
-    else{
-        treeView->hide();
-        searchAgainButton->hide();
-        dayNavigator->hide();
-        header->show();
-    }
+    static_cast<EventModel*>(treeView->model())->loadSearchResultEvents( aDate, aConferenceId );
 }
+

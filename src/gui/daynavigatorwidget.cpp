@@ -89,11 +89,6 @@ void DayNavigatorWidget::nextDayButtonClicked()
     }
 }
 
-QDate DayNavigatorWidget::getCurrentDate()
-{
-    return mCurDate;
-}
-
 void DayNavigatorWidget::paintEvent(QPaintEvent *aEvent)
 {
     Q_UNUSED(aEvent);

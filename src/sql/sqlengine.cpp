@@ -319,14 +319,14 @@ int SqlEngine::searchEvent(int aConferenceId, const QHash<QString,QString> &aCol
     // CREATE
     execQuery( db, "CREATE TEMP TABLE SEARCH_EVENT ( xid_conference INTEGER  NOT NULL, id INTEGER NOT NULL );");
     // INSERT
-    QString query = QString("INSERT INTO SEARCH_EVENT ( xid_conference, id) "
+    QString query = QString("INSERT INTO SEARCH_EVENT ( xid_conference, id ) "
                 "SELECT EVENT.xid_conference, EVENT.id FROM EVENT ");
     if( aColumns.contains("ROOM") ){
-        query += "INNER JOIN EVENT_ROOM ON (EVENT.xid_conference = EVENT_ROOM.xid_conference AND EVENT.id = EVENT_ROOM.xid_event ) ";
+        query += "INNER JOIN EVENT_ROOM ON ( EVENT.xid_conference = EVENT_ROOM.xid_conference AND EVENT.id = EVENT_ROOM.xid_event ) ";
         query += "INNER JOIN ROOM ON ( EVENT_ROOM.xid_room = ROOM.id ) ";
     }
     if( aColumns.contains("PERSON") ){
-        query += "INNER JOIN EVENT_PERSON ON (EVENT.xid_conference = EVENT_PERSON.xid_conference AND EVENT.id = EVENT_PERSON.xid_event ) ";
+        query += "INNER JOIN EVENT_PERSON ON ( EVENT.xid_conference = EVENT_PERSON.xid_conference AND EVENT.id = EVENT_PERSON.xid_event ) ";
         query += "INNER JOIN PERSON ON ( EVENT_PERSON.xid_person = PERSON.id ) ";
     }
     query += QString("WHERE EVENT.xid_conference = %1 AND (").arg( aConferenceId );
@@ -347,7 +347,7 @@ int SqlEngine::searchEvent(int aConferenceId, const QHash<QString,QString> &aCol
 
 bool SqlEngine::execQuery(QSqlDatabase &aDatabase, const QString &aQuery)
 {
-    qDebug() << "\nSQL: " << aQuery;
+    //qDebug() << "\nSQL: " << aQuery;
 
     QSqlQuery sqlQuery(aDatabase);
     if( !sqlQuery.exec(aQuery) ){
@@ -355,7 +355,7 @@ bool SqlEngine::execQuery(QSqlDatabase &aDatabase, const QString &aQuery)
        return false;
     }
     else{
-       qDebug() << "SQL OK.\n";
+       //qDebug() << "SQL OK.\n";
        return true;
     }
 }

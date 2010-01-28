@@ -58,7 +58,6 @@ class DayNavigatorWidget : public QWidget, private Ui::DayNavigatorWidget
         DayNavigatorWidget(QWidget *aParent = NULL);
         ~DayNavigatorWidget() {}
         void setDates(const QDate &aStartDate, const QDate &aEndDate);
-        QDate getCurrentDate();
     protected:
         void paintEvent(QPaintEvent *);
     private slots:
