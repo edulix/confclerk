@@ -5,12 +5,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>442</width>
-    <height>391</height>
+    <width>485</width>
+    <height>441</height>
    </rect>
   </property>
   <property name="sizePolicy" >
-   <sizepolicy vsizetype="MinimumExpanding" hsizetype="MinimumExpanding" >
+   <sizepolicy vsizetype="MinimumExpanding" hsizetype="Preferred" >
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -27,7 +27,7 @@
      <item>
       <widget class="QLabel" name="title" >
        <property name="sizePolicy" >
-        <sizepolicy vsizetype="Minimum" hsizetype="MinimumExpanding" >
+        <sizepolicy vsizetype="MinimumExpanding" hsizetype="Preferred" >
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -52,6 +52,12 @@
      </item>
      <item>
       <widget class="QScrollArea" name="scrollArea" >
+       <property name="sizePolicy" >
+        <sizepolicy vsizetype="MinimumExpanding" hsizetype="Preferred" >
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="widgetResizable" >
         <bool>true</bool>
        </property>
@@ -60,141 +66,178 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>418</width>
-          <height>305</height>
+          <width>461</width>
+          <height>355</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout_2" >
          <item row="0" column="0" >
           <widget class="QWidget" native="1" name="content" >
+           <property name="sizePolicy" >
+            <sizepolicy vsizetype="MinimumExpanding" hsizetype="Preferred" >
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <layout class="QVBoxLayout" name="verticalLayout_2" >
             <item>
-             <widget class="QLabel" name="label" >
+             <widget class="QGroupBox" name="personsGB" >
+              <property name="sizePolicy" >
+               <sizepolicy vsizetype="MinimumExpanding" hsizetype="Preferred" >
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="font" >
                <font>
                 <weight>75</weight>
-                <italic>true</italic>
                 <bold>true</bold>
                </font>
               </property>
-              <property name="text" >
-               <string>Persons:</string>
+              <property name="title" >
+               <string>Persons</string>
               </property>
+              <layout class="QVBoxLayout" name="verticalLayout_3" >
+               <item>
+                <widget class="QLabel" name="persons" >
+                 <property name="font" >
+                  <font>
+                   <weight>50</weight>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                 <property name="text" >
+                  <string>PERSONS</string>
+                 </property>
+                 <property name="wordWrap" >
+                  <bool>true</bool>
+                 </property>
+                 <property name="openExternalLinks" >
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="persons" >
-              <property name="text" >
-               <string>PERSONS</string>
+             <widget class="QGroupBox" name="abstractGB" >
+              <property name="sizePolicy" >
+               <sizepolicy vsizetype="MinimumExpanding" hsizetype="Preferred" >
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
               </property>
-              <property name="wordWrap" >
-               <bool>true</bool>
-              </property>
-              <property name="openExternalLinks" >
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="spacer" >
-              <property name="text" >
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_2" >
               <property name="font" >
                <font>
                 <weight>75</weight>
-                <italic>true</italic>
                 <bold>true</bold>
                </font>
               </property>
-              <property name="text" >
-               <string>Abstract:</string>
+              <property name="title" >
+               <string>Abstract</string>
               </property>
+              <layout class="QVBoxLayout" name="verticalLayout_4" >
+               <item>
+                <widget class="QLabel" name="abstract" >
+                 <property name="font" >
+                  <font>
+                   <weight>50</weight>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                 <property name="text" >
+                  <string>ABSTRACT</string>
+                 </property>
+                 <property name="wordWrap" >
+                  <bool>true</bool>
+                 </property>
+                 <property name="openExternalLinks" >
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="abstract" >
-              <property name="text" >
-               <string>ABSTRACT</string>
-              </property>
-              <property name="wordWrap" >
-               <bool>true</bool>
-              </property>
-              <property name="openExternalLinks" >
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="spacer_2" >
-              <property name="text" >
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_4" >
+             <widget class="QGroupBox" name="descriptionGB" >
               <property name="font" >
                <font>
                 <weight>75</weight>
-                <italic>true</italic>
                 <bold>true</bold>
                </font>
               </property>
-              <property name="text" >
-               <string>Description:</string>
+              <property name="title" >
+               <string>Description</string>
               </property>
+              <layout class="QVBoxLayout" name="verticalLayout_5" >
+               <item>
+                <widget class="QLabel" name="description" >
+                 <property name="sizePolicy" >
+                  <sizepolicy vsizetype="MinimumExpanding" hsizetype="Preferred" >
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="font" >
+                  <font>
+                   <weight>50</weight>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                 <property name="text" >
+                  <string>DESCRIPTION</string>
+                 </property>
+                 <property name="wordWrap" >
+                  <bool>true</bool>
+                 </property>
+                 <property name="openExternalLinks" >
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="description" >
-              <property name="text" >
-               <string>DESCRIPTION</string>
-              </property>
-              <property name="wordWrap" >
-               <bool>true</bool>
-              </property>
-              <property name="openExternalLinks" >
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="spacer_3" >
-              <property name="text" >
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_3" >
+             <widget class="QGroupBox" name="linksGB" >
               <property name="font" >
                <font>
                 <weight>75</weight>
-                <italic>true</italic>
                 <bold>true</bold>
                </font>
               </property>
-              <property name="text" >
-               <string>Links:</string>
+              <property name="title" >
+               <string>Links</string>
               </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="links" >
-              <property name="text" >
-               <string>LINKS</string>
-              </property>
-              <property name="wordWrap" >
-               <bool>true</bool>
-              </property>
-              <property name="openExternalLinks" >
-               <bool>true</bool>
-              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_6" >
+               <item>
+                <widget class="QLabel" name="links" >
+                 <property name="sizePolicy" >
+                  <sizepolicy vsizetype="MinimumExpanding" hsizetype="Preferred" >
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="font" >
+                  <font>
+                   <weight>50</weight>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                 <property name="text" >
+                  <string>LINKS</string>
+                 </property>
+                 <property name="wordWrap" >
+                  <bool>true</bool>
+                 </property>
+                 <property name="openExternalLinks" >
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </widget>
             </item>
            </layout>
