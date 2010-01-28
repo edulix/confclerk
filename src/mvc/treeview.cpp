@@ -57,8 +57,7 @@ bool TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
                 event.update("favourite");
 
                 qDebug() << " FAVOURITE [" << qVariantValue<QString>(aIndex.data()) << "] -> " << event.isFavourite();
-                // update EVENT_CONFLICT table
-                event.updateConflicts();
+
                 if(event.isFavourite())
                 {
                     // event has became 'favourite' and so 'conflicts' list may have changed

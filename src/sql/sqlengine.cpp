@@ -152,7 +152,6 @@ void SqlEngine::addEventToDB(QHash<QString,QString> &aEvent)
     }
 }
 
-
 void SqlEngine::addPersonToDB(QHash<QString,QString> &aPerson)
 {
     QSqlDatabase db = QSqlDatabase::database();
@@ -288,14 +287,6 @@ bool SqlEngine::createTables(QSqlDatabase &aDatabase)
             "FOREIGN KEY(xid_conference) REFERENCES CONFERENCE(id), "
             "FOREIGN KEY(xid_event) REFERENCES EVENT(id), "
             "FOREIGN KEY(xid_room) REFERENCES ROOM(id));");
-
-        query.exec("CREATE TABLE EVENT_CONFLICT ( "
-            "xid_conference INTEGER NOT NULL, "
-            "xid_event INTEGER NOT NULL, "
-            "conflict_event INTEGER NOT NULL, "
-            "UNIQUE ( xid_conference, xid_event, conflict_event ) ON CONFLICT IGNORE, "
-            "FOREIGN KEY(xid_conference) REFERENCES CONFERENCE(id), "
-            "FOREIGN KEY(xid_event) REFERENCES EVENT(id));");
 
         query.exec("CREATE TABLE LINK ( "
             "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "

@@ -48,7 +48,6 @@ public:
     QString room() const;
     int roomId() const;
     QStringList persons() const;
-    QList<int> conflicts() const;
     QMap<QString,QString> links() const;
 
     void setId(int id) { setValue("id", id); }
@@ -69,7 +68,6 @@ public:
     void setRoom(const QString& room);
     void setPersons(const QStringList &persons);
     void setLinks(const QMap<QString,QString> &aLinks);
-    void updateConflicts();
 
 friend class EventTest;
 };

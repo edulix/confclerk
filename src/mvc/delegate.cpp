@@ -65,11 +65,8 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         //int spacer = (fmSmall.boundingRect("999").width() < SPACER) ? SPACER : fmSmall.boundingRect("999").width();
 
         //Time conflicts are colored differently
-        if(static_cast<Event*>(index.internalPointer())->isFavourite())
         if(static_cast<Event*>(index.internalPointer())->hasTimeConflict())
-        {
             bkgrColor = Qt::yellow;
-        }
 
         if(isLast(index))
         {

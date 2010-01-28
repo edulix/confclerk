@@ -71,9 +71,19 @@ QList<Event> Event::nowEvents(int conferenceId, QString orderBy)
 QList<Event> Event::conflictEvents(int aEventId, int conferenceId)
 {
     QSqlQuery query;
-    query.prepare( selectQuery() + QString("WHERE id IN ( SELECT conflict_event FROM event_conflict WHERE xid_event = :id AND xid_conference = :conf ) ORDER BY %1").arg("start"));
-    query.bindValue(":id", aEventId);
-    query.bindValue(":conf", conferenceId);
+    Event event = Event::getById(aEventId,conferenceId);
+    query.prepare(selectQuery() + "WHERE xid_conference = :conf AND ( \
+           ( start <= :start1 AND ( start + duration ) >= :start2 ) \
+        OR ( start >= :start3 AND ( start + duration ) <= :end1 ) \
+        OR ( start <= :end2  AND ( start + duration ) >= :end3 ) ) AND favourite = 1 AND NOT id = :id ORDER BY start");
+    query.bindValue(":conf", event.conferenceId());
+    query.bindValue(":start1", convertToDb(event.start(), QVariant::DateTime));
+    query.bindValue(":start2", convertToDb(event.start(), QVariant::DateTime));
+    query.bindValue(":start3", convertToDb(event.start(), QVariant::DateTime));
+    query.bindValue(":end1", convertToDb(event.start().toTime_t()+event.duration(), QVariant::DateTime));
+    query.bindValue(":end2", convertToDb(event.start().toTime_t()+event.duration(), QVariant::DateTime));
+    query.bindValue(":end3", convertToDb(event.start().toTime_t()+event.duration(), QVariant::DateTime));
+    query.bindValue(":id", event.id());
 
     return load(query);
 }
@@ -151,95 +161,12 @@ QMap<QString,QString> Event::links() const
     return links;
 }
 
-QList<int> Event::conflicts() const
-{
-    QSqlQuery query;
-    // TODO: conference ID isn't used here
-    query.prepare("SELECT conflict_event FROM event_conflict WHERE xid_event = :id AND xid_conference = :conf");
-    query.bindValue(":id", id());
-    query.bindValue(":conf", conferenceId());
-    query.exec();
-    // TODO: handle qeury error
-    //qDebug() << query.lastError();
-
-    QList<int> conflicts;
-    while(query.next())
-        conflicts.append(query.record().value("conflict_event").toInt());
-
-    return conflicts;
-}
-
 bool Event::hasTimeConflict() const
 {
-    return conflicts().count() > 0 ? true : false;
-}
+    if(!isFavourite()) // if it's not favourite, it can't have time-conflict
+        return false;
 
-void Event::updateConflicts()
-{
-    qDebug() << "updating conflicts";
-    QSqlQuery query;
-    query.prepare("SELECT id FROM event WHERE xid_conference = :conf AND ( \
-           ( start <= :start1 AND ( start + duration ) >= :start2 ) \
-        OR ( start >= :start3 AND ( start + duration ) <= :end1 ) \
-        OR ( start <= :end2  AND ( start + duration ) >= :end3 ) ) AND favourite = 1 ORDER BY start");
-    query.bindValue(":conf", conferenceId());
-    query.bindValue(":start1", convertToDb(start(), QVariant::DateTime));
-    query.bindValue(":start2", convertToDb(start(), QVariant::DateTime));
-    query.bindValue(":start3", convertToDb(start(), QVariant::DateTime));
-    query.bindValue(":end1", convertToDb(start().toTime_t()+duration(), QVariant::DateTime));
-    query.bindValue(":end2", convertToDb(start().toTime_t()+duration(), QVariant::DateTime));
-    query.bindValue(":end3", convertToDb(start().toTime_t()+duration(), QVariant::DateTime));
-    query.exec();
-
-    QList<int> conflicts;
-    while(query.next())
-    {
-        int idx = query.record().value("id").toInt();
-        if(idx != id())
-            conflicts.append(idx);
-    }
-
-    if(isFavourite()) // event became favourite
-    {
-        for(int i=0; i<conflicts.count(); i++)
-        {
-            QSqlQuery query;
-            query.prepare("INSERT INTO event_conflict (xid_conference, xid_event, conflict_event) VALUES ( ? , ? , ? )");
-            query.bindValue(0, conferenceId());
-            query.bindValue(1, id());
-            query.bindValue(2, conflicts[i]);
-            query.exec();
-
-            QSqlQuery query2;
-            query2.prepare("INSERT INTO event_conflict (xid_conference, xid_event, conflict_event) VALUES ( ? , ? , ? )");
-            query2.bindValue(0, conferenceId());
-            query2.bindValue(1, conflicts[i]);
-            query2.bindValue(2, id());
-            query2.exec();
-        }
-    }
-    else // event removed from favourities
-    {
-        qDebug() << "removing";
-
-        QSqlQuery queryRemove;
-        queryRemove.prepare("DELETE FROM event_conflict WHERE xid_event = :id AND xid_conference = :conf");
-        queryRemove.bindValue(":id",id());
-        queryRemove.bindValue(":conf",conferenceId());
-        queryRemove.exec();
-
-        for(int i=0; i<conflicts.count(); i++)
-        {
-            qDebug() << "removing: " << id() << " -> " << conflicts[i];
-
-            QSqlQuery queryRemove;
-            queryRemove.prepare("DELETE FROM event_conflict WHERE xid_event = :id1 AND xid_conference = :conf AND conflict_event = :id2");
-            queryRemove.bindValue(":id1",conflicts[i]);
-            queryRemove.bindValue(":conf",conferenceId());
-            queryRemove.bindValue(":id2",id());
-            queryRemove.exec();
-        }
-    }
+    return conflictEvents(id(),conferenceId()).count() > 0 ? true : false;
 }
 
 void Event::setRoom(const QString &room)
