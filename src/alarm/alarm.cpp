@@ -20,6 +20,7 @@ int Alarm::addAlarm(int aEventId, const QDateTime &aDateTime)
 
     /* Use absolute time triggering */
     eve->alarm_time = time(0) + 5; //aDateTime.toTime_t();
+    eve->flags = ALARM_EVENT_BOOT;
 
     QString command = QDir::currentPath() + "/" + *qApp->argv() + 
       QString(" %1").arg(QString::number(aEventId));
@@ -27,15 +28,29 @@ int Alarm::addAlarm(int aEventId, const QDateTime &aDateTime)
     /* Add exec command action */
     act = alarm_event_add_actions(eve, 1);
     alarm_action_set_label(act, "FOSDEM'10");
+
+    // setup this action to be a "DBus command"
+    act->flags |= ALARM_ACTION_WHEN_RESPONDED;
+    act->flags |= ALARM_ACTION_TYPE_DBUS;
+    
+    // DBus params for this action 
+    alarm_action_set_dbus_interface(act, "org.maemo.testApp");
+    alarm_action_set_dbus_service(act, "org.maemo.testApp");
+    alarm_action_set_dbus_path(act, "/org/maemo/testApp");
+    alarm_action_set_dbus_name(act, "triggerAlarm");
+    
+    // DBus arguments for the action
+    alarm_action_set_dbus_args(act, aEventId);
+
+    //    act->flags |= ALARM_ACTION_TYPE_EXEC;
+    //     alarm_action_set_exec_command(act, command.toLocal8Bit().data());
     //    alarm_event_set_icon(eve, "fosdem");
     //    alarm_event_set_title(eve, "FOSDEM'10");
-    act->flags |= ALARM_ACTION_TYPE_EXEC;
-    act->flags |= ALARM_ACTION_WHEN_RESPONDED;
     // adds assigned cookie at the end of command string 
     //    act->flags |= ALARM_ACTION_EXEC_ADD_COOKIE; 
-    alarm_action_set_exec_command(act, command.toLocal8Bit().data());
 
     /* Add stop button action */
+    /* TODO: send a DBus message to remove that alarm from database */
     act = alarm_event_add_actions(eve, 1);
     alarm_action_set_label(act, "Stop");
     act->flags |= ALARM_ACTION_WHEN_RESPONDED;
