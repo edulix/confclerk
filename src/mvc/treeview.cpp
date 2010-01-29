@@ -39,6 +39,7 @@ bool TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
     if(!aIndex.isValid())
         return handled;
 
+    int confId = Conference::activeConference();
     QRect rect = visualRect(aIndex); // visual QRect of selected/clicked item in the list
     Delegate *delegate = static_cast<Delegate*>(itemDelegate(aIndex));
     switch(delegate->whichControlClicked(aIndex,aPoint))
@@ -47,7 +48,7 @@ bool TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
         case Delegate::FavouriteControlOff:
             {
                 // handle Favourite Control clicked
-                Event event = Event::getById(aIndex.data().toInt(),1);
+                Event event = Event::getById(aIndex.data().toInt(),confId);
 
                 QList<Event> conflicts = Event::conflictEvents(event.id(),Conference::activeConference());
                 if(event.isFavourite())
@@ -79,7 +80,7 @@ bool TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
         case Delegate::AlarmControlOff:
             {
                 // handle Alarm Control clicked
-                Event event = Event::getById(aIndex.data().toInt(),1);
+                Event event = Event::getById(aIndex.data().toInt(),confId);
                 if(event.hasAlarm())
                 {
                     event.setHasAlarm(false); // update DB
@@ -96,7 +97,8 @@ bool TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
 #ifdef MAEMO
                     // add alarm to the 'alarmd'
                     Alarm alarm;
-                    int cookie = alarm.addAlarm(event.id(),QDateTime::currentDateTime().addSecs(10));
+                    //int cookie = alarm.addAlarm(event.id(),QDateTime::currentDateTime().addSecs(10)); // testing
+                    int cookie = alarm.addAlarm(event.id(),event.start().addSecs(-15*60)); // 15 minutes before real start
                     qDebug() << "cookie: " << cookie;
 #endif /* MAEMO */
                 }

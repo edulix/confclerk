@@ -43,15 +43,35 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
 
     connect(tabWidget, SIGNAL(infoIconClicked()), SLOT(aboutApp()));
 
-    if(Conference::getAll().count())
+    selectConference->setDuplicatesEnabled(false);
+    int confCount = Conference::getAll().count();
+    if(confCount)
     {
         initTabs();
         fillAndShowConferenceHeader();
         setWindowTitle(Conference::getById(confId).title());
+
+        if(confCount==1) // don't have to show 'selectConference' widget, if there is only one conference in the DB
+            selectConferenceWidget->hide();
+        else
+        {
+            // have to fill comboBox with available conferences
+            QList<Conference> confs = Conference::getAll();
+            QListIterator<Conference> i(confs);
+            while(i.hasNext())
+            {
+                Conference conf = i.next();
+                selectConference->addItem(conf.title(),conf.id());
+            }
+            int idx = selectConference->findText(Conference::getById(Conference::activeConference()).title());
+            selectConference->setCurrentIndex(idx);
+        }
+        connect(selectConference, SIGNAL(currentIndexChanged(int)), SLOT(conferenceChanged(int)));
     }
     else
     {
         conferenceHeader->hide();
+        selectConferenceWidget->hide();
         // go to the 'conferenceTab', so the user can import the schedule
         tabWidget->setCurrentIndex(6); // 6 - conference tab
     }
@@ -74,12 +94,23 @@ void MainWindow::scheduleImported(int aConfId)
 {
     Q_UNUSED(aConfId);
 
-    QList<Conference> confs = Conference::getAll();
-    if(confs.count())
+    Conference conf = Conference::getById(aConfId);
+    if( selectConference->findText(conf.title()) < 0 ) // item doesn't exist
     {
-        initTabs();
-        fillAndShowConferenceHeader();
-        setWindowTitle(Conference::getById(Conference::activeConference()).title());
+        disconnect(selectConference, SIGNAL(currentIndexChanged(int)), this, SLOT(conferenceChanged(int)));
+        selectConference->addItem(conf.title(),conf.id());
+        connect(selectConference, SIGNAL(currentIndexChanged(int)), SLOT(conferenceChanged(int)));
+    }
+    int confCount = Conference::getAll().count();
+    if(confCount)
+    {
+        int idx = selectConference->findText(conf.title());
+        selectConference->setCurrentIndex(idx);
+
+        if(confCount>1)
+            selectConferenceWidget->show();
+
+        conferenceChanged(idx);
     }
 }
 
@@ -141,5 +172,15 @@ void MainWindow::initTabs()
     searchTabContainer->setDates(startDate, endDate);
     searchTabContainer->searchAgainClicked();
     nowTabContainer->updateTreeView(QDate::currentDate());
+}
+
+void MainWindow::conferenceChanged(int aIndex)
+{
+    Conference::getById(Conference::activeConference()).update("active",0);
+    Conference::getById(selectConference->itemData(aIndex).toInt()).update("active",1);
+
+    initTabs();
+    fillAndShowConferenceHeader();
+    setWindowTitle(Conference::getById(Conference::activeConference()).title());
 }
 

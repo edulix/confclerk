@@ -18,6 +18,7 @@ private slots:
     void aboutApp();
     void conferenceMapClicked();
     void eventHasChanged(int aEventId, bool aReloadModel);
+    void conferenceChanged(int aIndex);
 private:
     void fillAndShowConferenceHeader();
     void initTabs();
