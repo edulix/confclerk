@@ -5,6 +5,8 @@
 #include "ui_importschedulewidget.h"
 
 class ScheduleXmlParser;
+class QNetworkAccessManager;
+class QNetworkReply;
 
 class ImportScheduleWidget : public QWidget, Ui::ImportScheduleWidget
 {
@@ -16,10 +18,15 @@ class ImportScheduleWidget : public QWidget, Ui::ImportScheduleWidget
         void browseSchedule();
         void parsingSchedule(const QString &aTitle);
         void showParsingProgress(int progress);
+        void networkQueryFinished(QNetworkReply *aReply);
+        void downloadSchedule();
     signals:
         void scheduleImported(int confId);
     private:
+        void importData(const QByteArray &aData);
+    private:
         ScheduleXmlParser *mXmlParser;
+        QNetworkAccessManager *mNetworkAccessManager;
 };
 
 #endif /* IMPORTSCHEDULEWIDGET_H */

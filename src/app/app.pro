@@ -2,7 +2,7 @@ include(../global.pri)
 TEMPLATE = app
 TARGET = fosdem-schedule
 DESTDIR = ../bin
-QT += sql xml
+QT += sql xml network
 
 # module dependencies
 LIBS += -L$$DESTDIR -lgui -lmvc -lsql

@@ -2,6 +2,7 @@
 
 #include <QTreeView>
 #include <QFile>
+#include <QNetworkProxy>
 
 #include <sqlengine.h>
 
@@ -21,10 +22,21 @@
 
 #include <tabcontainer.h>
 
+const QString PROXY_URL("192.168.0.252");
+const quint16 PROXY_PORT = 4040;
+const QString PROXY_USERNAME;
+const QString PROXY_PASSWD;
+const bool DIRECT_CONNECTION = false;
+
 MainWindow::MainWindow(int aEventId, QWidget *aParent)
     : QMainWindow(aParent)
 {
     setupUi(this);
+
+    qDebug() << "Setting-up proxy: " << PROXY_URL << ":" << PROXY_PORT;
+    QNetworkProxy proxy(DIRECT_CONNECTION ? QNetworkProxy::NoProxy : QNetworkProxy::HttpProxy,
+            PROXY_URL, PROXY_PORT, PROXY_USERNAME, PROXY_PASSWD);
+    QNetworkProxy::setApplicationProxy(proxy);
 
     int confId = Conference::activeConference();
 

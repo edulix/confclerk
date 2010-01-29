@@ -4,7 +4,8 @@ TARGET = gui
 DESTDIR = ../bin
 CONFIG += static
 QT += sql \
-    xml
+    xml \
+    network
 
 # module dependencies
 LIBS += -L$$DESTDIR \

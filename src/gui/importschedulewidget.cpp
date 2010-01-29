@@ -5,7 +5,12 @@
 #include <QDir>
 #include <QFile>
 #include <QFileDialog>
+#include <QNetworkProxy>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
 #include <QDebug>
+
+const QString SCHEDULE_URL = "http://fosdem.org/2010/schedule/xml";
 
 ImportScheduleWidget::ImportScheduleWidget(QWidget *aParent)
     : QWidget(aParent)
@@ -20,8 +25,12 @@ ImportScheduleWidget::ImportScheduleWidget(QWidget *aParent)
     progressBar->hide();
 
     cancel->hide();
-    online->hide();
     importAction->hide();
+    connect(online, SIGNAL(clicked()), SLOT(downloadSchedule()));
+
+    mNetworkAccessManager = new QNetworkAccessManager(this);
+    connect(mNetworkAccessManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(networkQueryFinished(QNetworkReply*)));
+    mNetworkAccessManager->setProxy(QNetworkProxy::applicationProxy());
 }
 
 ImportScheduleWidget::~ImportScheduleWidget()
@@ -30,6 +39,11 @@ ImportScheduleWidget::~ImportScheduleWidget()
     {
         delete mXmlParser;
         mXmlParser = NULL;
+    }
+    if(mNetworkAccessManager)
+    {
+        delete mNetworkAccessManager;
+        mNetworkAccessManager = NULL;
     }
 }
 
@@ -55,20 +69,51 @@ void ImportScheduleWidget::browseSchedule()
             return;
         }
 
-        QByteArray data = file.readAll();
-        browse->hide();
-        progressBar->show();
-        int confId = mXmlParser->parseData(data);
+        importData(file.readAll());
 
-        progressBar->hide();
-        browse->show();
-        importScheduleLabel->setText("Import schedule: ");
-
-        emit(scheduleImported(confId));
     }
     else
     {
         progressBar->hide();
     }
+}
+
+void ImportScheduleWidget::networkQueryFinished(QNetworkReply *aReply)
+{
+    qDebug() << "ImportScheduleWidget::networkQueryFinished()";
+
+    if ( aReply->error() != QNetworkReply::NoError )
+    {
+        qDebug() << "Error occured during download: " << aReply->errorString();
+    }
+    else
+    {
+        importData(aReply->readAll());
+    }
+}
+
+void ImportScheduleWidget::downloadSchedule()
+{
+    qDebug() << "downloading schedule";
+
+    QNetworkRequest request;
+    request.setUrl(QUrl(SCHEDULE_URL));
+    mNetworkAccessManager->get(request);
+}
+
+void ImportScheduleWidget::importData(const QByteArray &aData)
+{
+    browse->hide();
+    online->hide();
+    progressBar->show();
+
+    int confId = mXmlParser->parseData(aData);
+
+    progressBar->hide();
+    browse->show();
+    online->show();
+    importScheduleLabel->setText("Import schedule: ");
+
+    emit(scheduleImported(confId));
 }
 
