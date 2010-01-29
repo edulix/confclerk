@@ -9,7 +9,7 @@
     <x>0</x>
     <y>0</y>
     <width>500</width>
-    <height>607</height>
+    <height>609</height>
    </rect>
   </property>
   <property name="sizePolicy" >
@@ -148,8 +148,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>431</width>
-            <height>551</height>
+            <width>446</width>
+            <height>547</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_2" >
@@ -171,7 +171,7 @@
                  </font>
                 </property>
                 <property name="text" >
-                 <string>Qt FOSDEM</string>
+                 <string>FOSDEM Schedule</string>
                 </property>
                </widget>
               </item>
@@ -192,7 +192,7 @@
               <item>
                <widget class="QLabel" name="description" >
                 <property name="text" >
-                 <string>Qt FOSDEM is an application making the conference schedule available offline. Supports searches on various items (speaker, speech topic, location, etc.). For Nokia N8x0 and N900 Internet Tablets.</string>
+                 <string>FOSDEM Schedule is an application written in Qt, which makes the conference schedule available offline. Supports searches on various items (speaker, speech topic, location, etc.). For Nokia N810 and N900 Internet Tablets.</string>
                 </property>
                 <property name="wordWrap" >
                  <bool>true</bool>
@@ -212,7 +212,7 @@
               <item>
                <widget class="QGroupBox" name="groupBox" >
                 <property name="sizePolicy" >
-                 <sizepolicy vsizetype="MinimumExpanding" hsizetype="MinimumExpanding" >
+                 <sizepolicy vsizetype="MinimumExpanding" hsizetype="Preferred" >
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
@@ -236,7 +236,7 @@
                  <item>
                   <widget class="QLabel" name="label_4" >
                    <property name="sizePolicy" >
-                    <sizepolicy vsizetype="MinimumExpanding" hsizetype="MinimumExpanding" >
+                    <sizepolicy vsizetype="MinimumExpanding" hsizetype="Preferred" >
                      <horstretch>0</horstretch>
                      <verstretch>0</verstretch>
                     </sizepolicy>
@@ -291,7 +291,7 @@
                     </font>
                    </property>
                    <property name="text" >
-                    <string>Qt FOSDEM is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2, or (at your option) any later version.</string>
+                    <string>FOSDEM Schedule is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2, or (at your option) any later version.</string>
                    </property>
                    <property name="wordWrap" >
                     <bool>true</bool>
@@ -307,7 +307,7 @@
                     </font>
                    </property>
                    <property name="text" >
-                    <string>Qt FOSDEM is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.</string>
+                    <string>FOSDEM Schedule is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.</string>
                    </property>
                    <property name="wordWrap" >
                     <bool>true</bool>
@@ -323,19 +323,6 @@
                  <string>Copyright (C) Ixonos, 2010</string>
                 </property>
                </widget>
-              </item>
-              <item>
-               <spacer name="verticalSpacer_2" >
-                <property name="orientation" >
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeHint" stdset="0" >
-                 <size>
-                  <width>20</width>
-                  <height>40</height>
-                 </size>
-                </property>
-               </spacer>
               </item>
              </layout>
             </widget>

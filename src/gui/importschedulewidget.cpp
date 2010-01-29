@@ -18,6 +18,10 @@ ImportScheduleWidget::ImportScheduleWidget(QWidget *aParent)
 
     connect(browse, SIGNAL(clicked()), SLOT(browseSchedule()));
     progressBar->hide();
+
+    cancel->hide();
+    online->hide();
+    importAction->hide();
 }
 
 ImportScheduleWidget::~ImportScheduleWidget()
