@@ -12,6 +12,8 @@ class AppSettings
         static QSettings mSettings;
 
     public:
+        static bool contains(const QString &aKey);
+
         static QString proxyAddress();
         static quint16 proxyPort();
         static bool isDirectConnection();

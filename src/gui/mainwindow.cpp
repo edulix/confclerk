@@ -31,7 +31,14 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
 {
     setupUi(this);
 
-    qDebug() << "Setting-up proxy: " << AppSettings::proxyAddress() << ":" << AppSettings::proxyPort();
+    // first time run aplication: -> let's have it direct connection in this case
+    if(!AppSettings::contains("proxyIsDirectConnection"))
+        AppSettings::setDirectConnection(true);
+
+    if(AppSettings::isDirectConnection())
+    {
+        qDebug() << "Setting-up proxy: " << AppSettings::proxyAddress() << ":" << AppSettings::proxyPort();
+    }
     QNetworkProxy proxy(
             AppSettings::isDirectConnection() ? QNetworkProxy::NoProxy : QNetworkProxy::HttpProxy,
             AppSettings::proxyAddress(),

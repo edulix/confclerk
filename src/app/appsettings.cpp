@@ -6,8 +6,6 @@ const QString PROXY_ISDIRECT_SETTING ("proxyIsDirectConnection");
 
 QSettings AppSettings::mSettings("Ixonos", "FOSDEM");
 
-
-
 QString AppSettings::proxyAddress()
 {
     return mSettings.value(PROXY_ADDRESS_SETTING).toString();
@@ -36,5 +34,10 @@ void AppSettings::setProxyPort(const quint16 aPort)
 void AppSettings::setDirectConnection(bool aDirectConnection)
 {
     mSettings.setValue(PROXY_ISDIRECT_SETTING, aDirectConnection);
+}
+
+bool AppSettings::contains(const QString &aKey)
+{
+    return mSettings.contains(aKey);
 }
 
