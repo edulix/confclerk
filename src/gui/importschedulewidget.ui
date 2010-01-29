@@ -5,7 +5,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>634</width>
+    <width>662</width>
     <height>66</height>
    </rect>
   </property>
@@ -64,6 +64,16 @@
       <widget class="QPushButton" name="online" >
        <property name="text" >
         <string>Online</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="proxySettings" >
+       <property name="text" >
+        <string>...</string>
+       </property>
+       <property name="autoRaise" >
+        <bool>true</bool>
        </property>
       </widget>
      </item>

@@ -20,6 +20,7 @@ class ImportScheduleWidget : public QWidget, Ui::ImportScheduleWidget
         void showParsingProgress(int progress);
         void networkQueryFinished(QNetworkReply *aReply);
         void downloadSchedule();
+        void setupProxy();
     signals:
         void scheduleImported(int confId);
     private:

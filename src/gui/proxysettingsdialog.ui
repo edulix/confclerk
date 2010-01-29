@@ -1,0 +1,106 @@
+<ui version="4.0" >
+ <class>ProxySettingsDialog</class>
+ <widget class="QDialog" name="ProxySettingsDialog" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>469</width>
+    <height>146</height>
+   </rect>
+  </property>
+  <property name="sizePolicy" >
+   <sizepolicy vsizetype="MinimumExpanding" hsizetype="Preferred" >
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle" >
+   <string>Proxy settings</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout" >
+   <item>
+    <widget class="QCheckBox" name="directConnection" >
+     <property name="text" >
+      <string>Direct connection</string>
+     </property>
+     <property name="checked" >
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" native="1" name="proxyWidget" >
+     <layout class="QHBoxLayout" name="horizontalLayout_3" >
+      <item>
+       <widget class="QLabel" name="label" >
+        <property name="text" >
+         <string>Address: </string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="address" />
+      </item>
+      <item>
+       <widget class="QLabel" name="label_2" >
+        <property name="text" >
+         <string>Port:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="port" >
+        <property name="maximum" >
+         <number>9999</number>
+        </property>
+        <property name="value" >
+         <number>8080</number>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer" >
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0" >
+      <size>
+       <width>20</width>
+       <height>10</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout" >
+     <item>
+      <spacer name="horizontalSpacer" >
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0" >
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="okButton" >
+       <property name="text" >
+        <string>OK</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
