@@ -113,11 +113,20 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="maximumSize" >
+          <size>
+           <width>77</width>
+           <height>68</height>
+          </size>
+         </property>
          <property name="text" >
           <string/>
          </property>
          <property name="pixmap" >
-          <pixmap>:/icons/fosdem.png</pixmap>
+          <pixmap resource="../icons.qrc" >:/icons/brain-alone.png</pixmap>
+         </property>
+         <property name="scaledContents" >
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -148,7 +157,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>446</width>
+            <width>389</width>
             <height>429</height>
            </rect>
           </property>
@@ -374,7 +383,9 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../icons.qrc" />
+ </resources>
  <connections>
   <connection>
    <sender>okButton</sender>
