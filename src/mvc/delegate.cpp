@@ -218,24 +218,25 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
 
         // draw icons 
         painter->setFont(fontSmall);
+        QImage *image = mControls[FavouriteControlOn]->image();
         QPoint drawPoint =
             option.rect.topRight()
             - QPoint(
-                    spacer + mControls[FavouriteControlOn]->image()->width(),
-                    - option.rect.height()/2 + mControls[FavouriteControlOn]->image()->height()/2);
-        painter->drawImage(drawPoint,*mControls[FavouriteControlOn]->image());
-        painter->drawText(drawPoint+QPoint(mControls[FavouriteControlOn]->image()->width()+2, option.rect.height()/2),
+                    spacer + image->width(),
+                    - option.rect.height()/2 + image->height()/2);
+        painter->drawImage(drawPoint,*image);
+        painter->drawText(drawPoint+QPoint(image->width()+2, image->height() - 2),
                 QString::number(numberOfFavourities(index)));
 #ifdef MAEMO
-        drawPoint.setX(drawPoint.x() - spacer - mControls[FavouriteControlOn]->image()->width());
+        drawPoint.setX(drawPoint.x() - spacer - image->width());
         painter->drawImage(drawPoint,*mControls[AlarmControlOn]->image());
-        painter->drawText(drawPoint+QPoint(mControls[FavouriteControlOn]->image()->width()+2, option.rect.height()/2),
+        painter->drawText(drawPoint+QPoint(image->width()+2, image->height() - 2),
                 QString::number(numberOfAlarms(index)));
 #endif
         // draw texts
         QString numEvents = QString::number(index.model()->rowCount(index)).append("/");
         drawPoint.setX(drawPoint.x() - spacer - fmSmall.boundingRect(numEvents).width());
-        drawPoint.setY(drawPoint.y() + option.rect.height()/2);
+        drawPoint.setY(drawPoint.y()+image->height() - 2);
         painter->drawText(drawPoint,numEvents);
 
         QPointF titlePointF = QPoint(
