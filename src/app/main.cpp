@@ -3,8 +3,8 @@
 #include <QtGui/QApplication>
 #ifdef MAEMO
 //#include <alarmdialog.h>
-#include "alarmdbus.h"
-#include "alarmdbusadaptorp.h"
+#include <alarmdbus.h>
+#include <alarmdbusadaptorp.h>
 #endif /* MAEMO */
 
 #include <sqlengine.h>
