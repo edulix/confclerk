@@ -34,10 +34,10 @@ int Alarm::addAlarm(int aEventId, const QDateTime &aDateTime)
     act->flags |= ALARM_ACTION_TYPE_DBUS;
     
     // DBus params for this action 
-    alarm_action_set_dbus_interface(act, "org.maemo.testApp");
-    alarm_action_set_dbus_service(act, "org.maemo.testApp");
-    alarm_action_set_dbus_path(act, "/org/maemo/testApp");
-    alarm_action_set_dbus_name(act, "triggerAlarm");
+    alarm_action_set_dbus_interface(act, "org.freedesktop.Notifications");
+    alarm_action_set_dbus_service(act, "org.freedesktop.Notifications");
+    alarm_action_set_dbus_path(act, "/org/freedesktop/Notifications");
+    alarm_action_set_dbus_name(act, "SystemNoteDialog");
     
     // DBus arguments for the action
     alarm_action_set_dbus_args(act, aEventId);
