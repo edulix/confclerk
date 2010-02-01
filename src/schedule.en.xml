@@ -647,6 +647,140 @@ The focus right now is to deliver the best possible SyncML client for Moblin and
    </event>
   </room>
   <room name="Lameere">
+   <event id="1083">
+    <start>13:00</start>
+    <duration>00:30</duration>
+    <room>Lameere</room>
+    <tag>emb_rich_mobile_ui</tag>
+    <title>Rich Mobile UI Designs: do's and don't</title>
+    <subtitle></subtitle>
+    <track>Embedded</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>This presentation will give an overview of the available technologies/platforms with focus on the open source technologies and their adoption.</abstract>
+    <description>Also highlighting the open source projects supporting development for these platforms (with a focus on support for multiple platform development.</description>
+    <persons>
+     <person id="850">Stijn Beauprez</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1093">
+    <start>13:30</start>
+    <duration>00:30</duration>
+    <room>Lameere</room>
+    <tag>emb_openintents</tag>
+    <title>Openintents: Android intents mechanism</title>
+    <subtitle></subtitle>
+    <track>Embedded</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>The talk introduces the Android intents mechanism. It is an essential part of the design of the Android mobile operating
+system that allows reuse and stimulates interoperability of apps.</abstract>
+    <description>From an open source perspective it also liberates the core functionality of the system, by making it possible to replace the native system applications. Extremely powerful if harnessed correctly, new Android developers ought to discover it early on, and hopefully embrace this unique feature en masse. For advanced aficionados, this talk will also briefly touch the related subjects of security and dependency management, an idea currently being discussed within OpenIntents.</description>
+    <persons>
+     <person id="838">Friedger Müffke</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1082">
+    <start>14:00</start>
+    <duration>01:00</duration>
+    <room>Lameere</room>
+    <tag>emb_best_practices</tag>
+    <title>Embedded software development best practices</title>
+    <subtitle></subtitle>
+    <track>Embedded</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>Basing an embedded device on FOSS brings many advantages, not the least of which is complete control over the software stack and free reuse of existing high quality solutions. However, it also means having to deal with large amounts of code, mainly coming from external parties. Dealing with this can be a challenge for small embedded teams, used to smaller stacks developed in-house.</abstract>
+    <description>In this presentation, we take a step by step tour of good software development processes and how to use them to improve your organization. We emphasize embedded development and point out particular pitfalls to avoid.</description>
+    <persons>
+     <person id="829">Adrien Ampelas</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1084">
+    <start>15:00</start>
+    <duration>01:00</duration>
+    <room>Lameere</room>
+    <tag>emb_limo</tag>
+    <title>LiMo Platform and Mobile Linux</title>
+    <subtitle></subtitle>
+    <track>Embedded</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>LiMo are building an open mobile middleware platform upon the Linux kernel, drawing from the best of open source and using many common components found in GNOME Mobile.</abstract>
+    <description>The big challenge for mobile companies working with open source is how to be graceful in our interaction with upstream projects and how to ensure a reciprocal flow of innovation that benefits everyone.
+
+This session will introduce the LiMo platform, talk about the challenges of building for mobile devices, and how we want to work with open source projects to make them more mobile in the future.</description>
+    <persons>
+     <person id="756">Andrew Savory</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1080">
+    <start>16:00</start>
+    <duration>01:00</duration>
+    <room>Lameere</room>
+    <tag>emb_barebox</tag>
+    <title>Barebox</title>
+    <subtitle></subtitle>
+    <track>Embedded</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>barebox is a new bootloader derived from the well-known U-Boot.</abstract>
+    <description>It aims for developers who like to use their linux-based development patterns also within the bootloader. This includes a device/driver-model, file system support using the usual commands (mount, ls, cp,...), modular design and scalability using Kconfig, shell-like scripting and alike. While being convenient, it is still easy to port to new boards or architectures. This talk will include a number of live-demonstrations and insights from the original creator of barebox. 
+
+See [http://barebox.org/ http://barebox.org/] for more information.</description>
+    <persons>
+     <person id="826">Sascha Hauer</person>
+    </persons>
+    <links>
+     <link href="http://barebox.org">http://barebox.org</link>
+    </links>
+   </event>
+   <event id="1086">
+    <start>17:00</start>
+    <duration>01:00</duration>
+    <room>Lameere</room>
+    <tag>emb_flukso</tag>
+    <title>Flukso: An Electricity metering application</title>
+    <subtitle></subtitle>
+    <track>Embedded</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>Flukso is an open source (HW &amp; SW) web-based community metering application. Flukso allows you to accurately monitor and reduce your household electricity consumption via [http://www.flukso.net its website] and API.</abstract>
+    <description>This talk will focus on the embedded development of our 801.11g wireless sensor node called the Fluksometer. Fluksometer development went through several iterations. It evolved from a hacked-up Arduino - WRT54G prototype, via an Arduino Wee - Fonera in alpha to the custom sensor board - Abocom WAP2102 which we are now using in our beta trial.
+
+This hybrid approach, connecting a custom sensor board to an off-the-shelf wifi router via UART, allowed us to develop a generic sensing platform that can be used for monitoring almost any physical unit, provided a suitable sensor can be found. We currently focus on measuring household electricity consumption and, in the near-future, photo-voltaic production. We will present our sensor node's hardware (AVR and Atheros AR1217) and software (based on AVR-libc and OpenWRT 8.09) architecture and discuss its (dis)advantages and a lessons learned.</description>
+    <persons>
+     <person id="832">Bart Van Der Meerssche</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1095">
+    <start>18:00</start>
+    <duration>01:00</duration>
+    <room>Lameere</room>
+    <tag>emb_iris</tag>
+    <title>Iris, a new capability-based microkernel OS</title>
+    <subtitle></subtitle>
+    <track>Embedded</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>Iris is a new capability-based microkernel operating system.</abstract>
+    <description>Being a microkernel system, it is easy to work on things which on other systems need kernel programming (and root priviledges).  Being a capability-based system, it allows transparent virtualization of everything.  This leads to improved security to such a degree, that the user can really trust the computer.  A capability-based system also allows easy monitoring of communication.  Another nice feature is that the user can swap target devices under a running program. I know we are in time to be very picky in the schedule, but should be cool if the speeches are made in different days</description>
+    <persons>
+     <person id="841">Bas Wijnen</person>
+    </persons>
+    <links>
+    </links>
+   </event>
   </room>
   <room name="H.1301">
    <event id="934">
@@ -685,63 +819,45 @@ The focus right now is to deliver the best possible SyncML client for Moblin and
     <links>
     </links>
    </event>
-   <event id="936">
+   <event id="1074">
     <start>14:00</start>
-    <duration>00:15</duration>
+    <duration>00:45</duration>
     <room>H.1301</room>
-    <tag>moz_womoz</tag>
-    <title>Women and Mozilla (WoMoz)</title>
+    <tag>moz_floss</tag>
+    <title>FLOSS: a key to self-determination in Internet life</title>
     <subtitle></subtitle>
     <track>Mozilla</track>
     <type>Podium</type>
     <language>English</language>
-    <abstract>Summary of related FOSDEM events, roadmap for 2010, and reaching out to women developers present at FOSDEM.</abstract>
+    <abstract>Mitchell will discuss how FLOSS is a force for building self-determination into our Internet lives.</abstract>
     <description></description>
     <persons>
-     <person id="743">Delphine Lebédel</person>
-    </persons>
-    <links>
-     <link href="http://www.womoz.org/blog/?p=231">http://www.womoz.org/blog/?p=231</link>
-    </links>
-   </event>
-   <event id="937">
-    <start>14:30</start>
-    <duration>01:00</duration>
-    <room>H.1301</room>
-    <tag>moz_sync_weave</tag>
-    <title>Sync + Weave</title>
-    <subtitle></subtitle>
-    <track>Mozilla</track>
-    <type>Podium</type>
-    <language>English</language>
-    <abstract>How Weave and in particular sync is going to integrate with Firefox through 2010 and Firefox 4.</abstract>
-    <description>There will be some discussion on how add-on authors can integrate with Weave starting now, and directions being made to surface this data in the browser.</description>
-    <persons>
-     <person id="640">Mike Connor</person>
+     <person id="747">Mitchell Baker</person>
     </persons>
     <links>
     </links>
    </event>
-   <event id="938">
-    <start>15:45</start>
-    <duration>01:00</duration>
+   <event id="1075">
+    <start>15:00</start>
+    <duration>00:30</duration>
     <room>H.1301</room>
-    <tag>moz_firefox_mobile</tag>
-    <title>Firefox Mobile</title>
+    <tag>moz_hackability</tag>
+    <title>Hackability</title>
     <subtitle></subtitle>
     <track>Mozilla</track>
     <type>Podium</type>
     <language>English</language>
-    <abstract>tba</abstract>
+    <abstract></abstract>
     <description></description>
     <persons>
-     <person id="261">Mark Finkle</person>
+     <person id="645">Paul Rouget</person>
+     <person id="344">Tristan Nitot</person>
     </persons>
     <links>
     </links>
    </event>
    <event id="939">
-    <start>16:45</start>
+    <start>15:30</start>
     <duration>01:00</duration>
     <room>H.1301</room>
     <tag>moz_html5</tag>
@@ -750,10 +866,29 @@ The focus right now is to deliver the best possible SyncML client for Moblin and
     <track>Mozilla</track>
     <type>Podium</type>
     <language>English</language>
-    <abstract>tba</abstract>
+    <abstract></abstract>
     <description></description>
     <persons>
-     <person id="344">Tristan Nitot</person>
+     <person id="645">Paul Rouget</person>
+     <person id="823">Christopher Blizzard</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="937">
+    <start>16:45</start>
+    <duration>01:00</duration>
+    <room>H.1301</room>
+    <tag>moz_sync_weave</tag>
+    <title>Sync/Weave</title>
+    <subtitle></subtitle>
+    <track>Mozilla</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>How Weave and in particular sync is going to integrate with Firefox through 2010 and Firefox 4.</abstract>
+    <description>There will be some discussion on how add-on authors can integrate with Weave starting now, and directions being made to surface this data in the browser.</description>
+    <persons>
+     <person id="640">Mike Connor</person>
     </persons>
     <links>
     </links>
@@ -790,12 +925,15 @@ The focus right now is to deliver the best possible SyncML client for Moblin and
     <track>Distributions</track>
     <type>Podium</type>
     <language>English</language>
-    <abstract></abstract>
-    <description></description>
+    <abstract>Hermes is a message digesting and distribution system which is aimed to give back control to the user. Many already existing systems produce a lot of information for users, mostly by flooding with email. That was a very practical and quick solution in the past, but nowadays there are more elegant methods of notifying.</abstract>
+    <description>Hermes lets the user control, which information approaches him and how. It collects information from connected sources, manages user subscriptions to the various notification types and provides the user with a selection of the messages he wants to get, as mails, feeds or jabber messages and more.
+
+This talk is an introduction to Hermes and the way the openSUSE project uses it for all kinds of notifications about the distribution.</description>
     <persons>
      <person id="334">Klaas Freitag</person>
     </persons>
     <links>
+     <link href="http://en.opensuse.org/Hermes">http://en.opensuse.org/Hermes</link>
     </links>
    </event>
    <event id="972">
@@ -808,12 +946,15 @@ The focus right now is to deliver the best possible SyncML client for Moblin and
     <track>Distributions</track>
     <type>Podium</type>
     <language>English</language>
-    <abstract></abstract>
-    <description></description>
+    <abstract>The challenge with a live cd is the size of the CD and what you put on it, 700MB is not enough for a typical desktop experience. The idea of Clicfs (Compressed Loop Image Container File System) is very simple: Put the ext3 file system in another file system just made to compress it.</abstract>
+    <description>As the file system is explicitly made to compress another file system, you only need to support one file with a fixed name
+and with a known size and all that – a lot of complexity of other file systems is gone.</description>
     <persons>
      <person id="330">Stephan Kulow</person>
     </persons>
     <links>
+     <link href="http://gitorious.org/+opensuse-developers/opensuse/clicfs">http://gitorious.org/+opensuse-developers/opensuse/clicfs</link>
+     <link href="http://lizards.opensuse.org/2009/05/15/livecd-performance-clicfs-vs-squashfs/">http://lizards.opensuse.org/2009/05/15/livecd-performance-clicfs-vs-squashfs/</link>
     </links>
    </event>
    <event id="973">
@@ -842,10 +983,12 @@ The focus right now is to deliver the best possible SyncML client for Moblin and
     <title>Infrastructure round table</title>
     <subtitle></subtitle>
     <track>Distributions</track>
-    <type>Podium</type>
+    <type>Meeting</type>
     <language>English</language>
-    <abstract></abstract>
-    <description></description>
+    <abstract>Seeing that all distributions face the problem of maintaining their infrastructure (server landscape, keeping the services running, managing downtimes), this round table is an open discussion forum for infrastructure maintainers from all distributions and maybe other large projects which are running their own infrastructure.</abstract>
+    <description>After a short overview about the infrastructure issues a linux distribution can have, these issues can be discussed between the infrastructure maintainers of different distributions and other interested parties. Besides learning about how other people handle infrastructure issues, this round table should also be a means of getting to know the people behind the infrastructure of other distributions.
+
+All infrastructure personnel attending FOSDEM is invited to join us in this round table.</description>
     <persons>
      <person id="182">Ralph Angenendt</person>
     </persons>
@@ -909,8 +1052,8 @@ The focus right now is to deliver the best possible SyncML client for Moblin and
    
 Spacewalk's monitoring feature lets you view monitoring status for your systems alongside their software update status. Spacewalk also has virtualization capabilities to enable you to provision, control, manage, and monitor virtual Xen and KVM guests.</description>
     <persons>
-     <person id="763">Sandro Mathys</person>
      <person id="764">Marcus Moeller</person>
+     <person id="763">Sandro Mathys</person>
     </persons>
     <links>
     </links>
@@ -927,8 +1070,8 @@ Spacewalk's monitoring feature lets you view monitoring status for your systems 
     <track>Distributions</track>
     <type>Podium</type>
     <language>English</language>
-    <abstract>tba</abstract>
-    <description></description>
+    <abstract>The co-operation between Nokia and non-Nokia members of the Maemo community has evolved radically over the lifetime of the project. Since its inception in 2008, the Maemo Community Council has become a key element of how the Maemo community co-operates with Nokia in setting priorities for the project. The council is elected by the Maemo Community, and represents the community's interests to Nokia, and has a large say in the priorities of the maemo.org staff, a group of people paid by Nokia to work on the Maemo project.</abstract>
+    <description>This presentation will present the history and achievement of the council, with a view to identifying lessons which other vendor-led communities might be able to learn from the governance structure which has been put in place.</description>
     <persons>
      <person id="51">Dave Neary</person>
     </persons>
@@ -969,6 +1112,25 @@ Spacewalk's monitoring feature lets you view monitoring status for your systems 
      <person id="292">Petteri Räty</person>
     </persons>
     <links>
+    </links>
+   </event>
+   <event id="1113">
+    <start>16:15</start>
+    <duration>00:30</duration>
+    <room>H.1308</room>
+    <tag>dist_bootchart2</tag>
+    <title>bootchart2</title>
+    <subtitle></subtitle>
+    <track>Distributions</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>A showcase of the latest developments on [http://www.gnome.org/~michael/blog/2010-01-21.html bootchart2]</abstract>
+    <description></description>
+    <persons>
+     <person id="441">Michael Meeks</person>
+    </persons>
+    <links>
+     <link href="http://github.com/mmeeks/bootchart">http://github.com/mmeeks/bootchart</link>
     </links>
    </event>
    <event id="960">
@@ -1085,7 +1247,7 @@ We'll have a Q&amp;A session afterwards, where we explicitly want to introduce n
 
 There will be time left for questions and discussion. It is expected the audience will be moderately technically skilled, and possess a basic understanding of color management.</description>
     <persons>
-     <person id="729">Richard Hugues</person>
+     <person id="729">Richard Hughes</person>
     </persons>
     <links>
     </links>
@@ -1103,7 +1265,7 @@ There will be time left for questions and discussion. It is expected the audienc
     <abstract>This talk would give an outline of the status of multimedia support in WebKitGTK+ thanks to GStreamer. How it was done until recently, what we improved and what we plan to work on during 2010.</abstract>
     <description></description>
     <persons>
-     <person id="727">Philippe Normand</person>
+     <person id="210">Philippe Normand</person>
     </persons>
     <links>
     </links>
@@ -1121,7 +1283,7 @@ There will be time left for questions and discussion. It is expected the audienc
     <abstract>This year, GUADEC will take place in The Hague, The Netherlands on July 24th-30th. In this small presentation I will introduce the venue, and ask for help organising this edition of GUADEC.</abstract>
     <description></description>
     <persons>
-     <person id="734">Koen Martens</person>
+     <person id="638">Koen Martens</person>
     </persons>
     <links>
     </links>
@@ -1154,8 +1316,8 @@ There will be time left for questions and discussion. It is expected the audienc
     <track>GNOME</track>
     <type>Podium</type>
     <language>English</language>
-    <abstract>High-Level Debugging and the Misha Research IDE</abstract>
-    <description>Misha Research I.D.E., apart from introducing new debugging facilities (that I would also like to see and implement for Anjuta), is a great example of how new innovative widgets and programming interfaces can be implemented on top of the gtk+/pygtk libraries and the gnome platform.</description>
+    <abstract>Misha is a debug-oriented research I.D.E. developed at the Technical University of Crete and published under the GPLv3 license that introduces among other things: syntax-aware navigation, data-displaying and editing, reverse execution, debugging scripting and inter-language evaluation through the integration of its source-level debugger (gdb) with a full-fledged source parser, data visualisation tools and other free software technologies.</abstract>
+    <description>Misha, apart from introducing new debugging facilities (that we would also like to see and implement for Anjuta), is a great example of how new innovative widgets and programming interfaces can be implemented on top of the gtk+/pygtk libraries and the gnome platform.</description>
     <persons>
      <person id="726">Nick Papoylias</person>
     </persons>
@@ -1199,8 +1361,8 @@ I would like to present how the application works on the inside, for example the
     <abstract>Getting Things GNOME! is a Python todo-list manager inspired by the Getting Things Done method.</abstract>
     <description>GTG was first introduced during FOSDEM 2009. This talk will be a brief retrospective of one year of development and what we have learned from them. We will also cover the basis of GTG structure, have a brief look at the future and, if everybody is still not asleep, explain the first steps to contribute to GTG because, in GTG, fixing a bug is often easier than writing the bug report.</description>
     <persons>
-     <person id="732">Lionel Dricot</person>
      <person id="771">Bertrand Rousseau</person>
+     <person id="732">Lionel Dricot</person>
     </persons>
     <links>
     </links>
@@ -1225,28 +1387,230 @@ I would like to present how the application works on the inside, for example the
    </event>
   </room>
   <room name="H.2213">
-  </room>
-  <room name="H.2214">
-   <event id="893">
-    <start>12:30</start>
+   <event id="1061">
+    <start>13:00</start>
     <duration>00:15</duration>
-    <room>H.2214</room>
-    <tag>kde_welcome</tag>
-    <title>Welcome to the KDE devroom</title>
+    <room>H.2213</room>
+    <tag>xmpp_devroom</tag>
+    <title>Welcome to the XMPP devroom</title>
     <subtitle></subtitle>
-    <track>KDE</track>
+    <track>Jabber+XMPP</track>
     <type>Podium</type>
     <language>English</language>
-    <abstract>Welcome to the KDE developer room.</abstract>
+    <abstract></abstract>
     <description></description>
     <persons>
-     <person id="95">Bart Coppens</person>
+     <person id="22">Peter Saint-Andre</person>
     </persons>
     <links>
     </links>
    </event>
+   <event id="1062">
+    <start>13:15</start>
+    <duration>00:45</duration>
+    <room>H.2213</room>
+    <tag>xmpp_magic</tag>
+    <title>The Extraordinary, Magical Powers and Possibilities of XMPP</title>
+    <subtitle></subtitle>
+    <track>Jabber+XMPP</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract></abstract>
+    <description></description>
+    <persons>
+     <person id="586">Remko Tronçon</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1063">
+    <start>14:00</start>
+    <duration>00:30</duration>
+    <room>H.2213</room>
+    <tag>xmpp_q_a</tag>
+    <title>Stump the XMPP Experts! Open Q&amp;A</title>
+    <subtitle></subtitle>
+    <track>Jabber+XMPP</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>Open question and answers session with the XMPP Council and XMPP book authors.</abstract>
+    <description></description>
+    <persons>
+     <person id="22">Peter Saint-Andre</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1064">
+    <start>14:30</start>
+    <duration>00:30</duration>
+    <room>H.2213</room>
+    <tag>xmpp_socnet</tag>
+    <title>Building Federated Social Networks on XMPP</title>
+    <subtitle></subtitle>
+    <track>Jabber+XMPP</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract></abstract>
+    <description></description>
+    <persons>
+     <person id="817">Tuomas Koski</person>
+     <person id="589">Simon Tennant</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1065">
+    <start>15:00</start>
+    <duration>00:30</duration>
+    <room>H.2213</room>
+    <tag>xmpp_social_web</tag>
+    <title>XMPP and the Social Web</title>
+    <subtitle></subtitle>
+    <track>Jabber+XMPP</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract></abstract>
+    <description></description>
+    <persons>
+     <person id="819">Alard Weisscher</person>
+     <person id="818">Laurent Eschenauer</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1066">
+    <start>15:30</start>
+    <duration>00:30</duration>
+    <room>H.2213</room>
+    <tag>xmpp_pubsub</tag>
+    <title>PubSub Gone Wild: Info Sharing at Mediamatic</title>
+    <subtitle></subtitle>
+    <track>Jabber+XMPP</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract></abstract>
+    <description></description>
+    <persons>
+     <person id="200">Ralph Meijer</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1067">
+    <start>16:00</start>
+    <duration>00:30</duration>
+    <room>H.2213</room>
+    <tag>xmpp_mirabeau</tag>
+    <title>Mirabeau: Creating Personal Media Networks</title>
+    <subtitle></subtitle>
+    <track>Jabber+XMPP</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>Mirabeau: Creating Personal Media Networks and Bridging UPnP Devices over the Internet with XMPP</abstract>
+    <description></description>
+    <persons>
+     <person id="210">Philippe Normand</person>
+     <person id="457">Frank Scholz</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1068">
+    <start>16:30</start>
+    <duration>00:30</duration>
+    <room>H.2213</room>
+    <tag>xmpp_strophe</tag>
+    <title>You Got Your XMPP in My Website: Using Strophe.js for Fun and Profit</title>
+    <subtitle></subtitle>
+    <track>Jabber+XMPP</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract></abstract>
+    <description></description>
+    <persons>
+     <person id="588">Jack Moffitt</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1069">
+    <start>17:00</start>
+    <duration>00:30</duration>
+    <room>H.2213</room>
+    <tag>xmpp_lt</tag>
+    <title>XMPP Lightning Talks</title>
+    <subtitle></subtitle>
+    <track>Jabber+XMPP</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract></abstract>
+    <description></description>
+    <persons>
+     <person id="22">Peter Saint-Andre</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1070">
+    <start>17:30</start>
+    <duration>00:30</duration>
+    <room>H.2213</room>
+    <tag>xmpp_jingle</tag>
+    <title>Jingle Nodes: An Open Alternative to Skype</title>
+    <subtitle></subtitle>
+    <track>Jabber+XMPP</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract></abstract>
+    <description></description>
+    <persons>
+     <person id="820">Tiago Camargo</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1071">
+    <start>18:00</start>
+    <duration>00:30</duration>
+    <room>H.2213</room>
+    <tag>xmpp_mu_jingle</tag>
+    <title>Multi-User Jingle: Voice and Video Conferencing with XMPP</title>
+    <subtitle></subtitle>
+    <track>Jabber+XMPP</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract></abstract>
+    <description></description>
+    <persons>
+     <person id="124">Dafydd Harries</person>
+     <person id="821">Sjoerd Simons</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1072">
+    <start>18:30</start>
+    <duration>00:30</duration>
+    <room>H.2213</room>
+    <tag>xmpp_lt_more</tag>
+    <title>More XMPP Lightning Talks</title>
+    <subtitle></subtitle>
+    <track>Jabber+XMPP</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract></abstract>
+    <description></description>
+    <persons>
+     <person id="22">Peter Saint-Andre</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+  </room>
+  <room name="H.2214">
    <event id="894">
-    <start>12:45</start>
+    <start>13:00</start>
     <duration>00:45</duration>
     <room>H.2214</room>
     <tag>kde_sc_demo</tag>
@@ -1264,7 +1628,7 @@ I would like to present how the application works on the inside, for example the
     </links>
    </event>
    <event id="895">
-    <start>13:30</start>
+    <start>13:45</start>
     <duration>00:45</duration>
     <room>H.2214</room>
     <tag>kde_pim</tag>
@@ -1277,6 +1641,24 @@ I would like to present how the application works on the inside, for example the
     <description>Paul takes us through the abilities of Kontact and its related applications. He will look at Akonadi the desktop neutral platform used as the backend for much of KDE PIM.</description>
     <persons>
      <person id="525">Paul Adams</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1079">
+    <start>14:30</start>
+    <duration>00:15</duration>
+    <room>H.2214</room>
+    <tag>kde_group_photo</tag>
+    <title>KDE Group Photo</title>
+    <subtitle></subtitle>
+    <track>KDE</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract></abstract>
+    <description></description>
+    <persons>
+     <person id="95">Bart Coppens</person>
     </persons>
     <links>
     </links>
@@ -1374,6 +1756,108 @@ I would like to present how the application works on the inside, for example the
    </event>
   </room>
   <room name="AW1.105">
+   <event id="1048">
+    <start>14:00</start>
+    <duration>01:00</duration>
+    <room>AW1.105</room>
+    <tag>jboss_camunda</tag>
+    <title>Camunda</title>
+    <subtitle></subtitle>
+    <track>JBoss</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract></abstract>
+    <description></description>
+    <persons>
+     <person id="809">Falko Menge</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1054">
+    <start>15:00</start>
+    <duration>01:00</duration>
+    <room>AW1.105</room>
+    <tag>jboss_jopr</tag>
+    <title>Systems management with RHQ and Jopr</title>
+    <subtitle></subtitle>
+    <track>JBoss</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>Jopr is the open source systems management and monitoring platform from JBoss / Red Hat.  While it is specially tailored towards JBoss projects, it can be easily extended in various ways.</abstract>
+    <description>This talk will present the Jopr / RHQ system and its architecture and then talk about the extension points and how to write extensions for monitoring, management and alerting.
+
+This presentation will also talk about the relation to RHQ-project.org, which used to be the upstream to Jopr and which now includes the Jopr bits.</description>
+    <persons>
+     <person id="813">Heikko Rupp</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1049">
+    <start>16:00</start>
+    <duration>01:00</duration>
+    <room>AW1.105</room>
+    <tag>jboss_drools</tag>
+    <title>Drools</title>
+    <subtitle></subtitle>
+    <track>JBoss</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract></abstract>
+    <description></description>
+    <persons>
+     <person id="810">Mark Proctor</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1050">
+    <start>17:00</start>
+    <duration>01:00</duration>
+    <room>AW1.105</room>
+    <tag>jboss_mobicents</tag>
+    <title>Mobicents</title>
+    <subtitle></subtitle>
+    <track>JBoss</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>JAIN SLEE is a specification (JSR 240) of a real-time and event-based platform in JAVA. It can be seen as the equivalent of the JEE but for real-time and oriented to Telecommunication, especially NgIN and IMS.</abstract>
+    <description>However, it could be used for any other JAVA applications requiring performance. In this talk we will introduce the JAIN SLEE throug the Mobicents project, the first certified-JAINSLEE 1.1 and open source application server from RedHat.
+
+The presentation will cover:
+* The JAIN SLEE component model and the event-driven programming
+* The mobicents JAIN SLEE 1.2 features and the introduction to EclipSLEE the Service Creation Environment on Eclipse
+* IMS example: we will show how we can implement a SIP registrar with JAIN SLEE. We will also show how a JAIN SLEE AS might be integrated in an IMS infrastructure.</description>
+    <persons>
+     <person id="811">Sabri Skhiri</person>
+    </persons>
+    <links>
+     <link href="http://www.jainslee.org/">JAIN SLEE</link>
+     <link href="http://jcp.org/en/jsr/detail?id=240">JSR-240</link>
+     <link href="http://en.wikipedia.org/wiki/NGIN">NgIN</link>
+     <link href="http://en.wikipedia.org/wiki/IP_Multimedia_Subsystem">IMS</link>
+     <link href="http://www.mobicents.org/">Mobicents</link>
+    </links>
+   </event>
+   <event id="1051">
+    <start>18:00</start>
+    <duration>01:00</duration>
+    <room>AW1.105</room>
+    <tag>jboss_esb</tag>
+    <title>JBoss ESB</title>
+    <subtitle></subtitle>
+    <track>JBoss</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract></abstract>
+    <description></description>
+    <persons>
+     <person id="812">Yoeri Roels</person>
+    </persons>
+    <links>
+    </links>
+   </event>
   </room>
   <room name="AW1.115">
   </room>
@@ -1697,7 +2181,7 @@ The PostgreSQL database is at the heart of the point of sale application and in 
     <tag>coreboot_intro</tag>
     <title>coreboot introduction</title>
     <subtitle></subtitle>
-    <track>coreboot</track>
+    <track>Coreboot</track>
     <type>Podium</type>
     <language>English</language>
     <abstract>The BIOS and it's successor EFI are considered by many to be the final frontier for open source software in commodity PCs. This talk introduces the open source BIOS replacement coreboot (formerly known as LinuxBIOS) and the projects that surround it, including many popular payloads that combine with coreboot to make up an innovative firmware for PCs.</abstract>
@@ -1716,7 +2200,7 @@ The PostgreSQL database is at the heart of the point of sale application and in 
     <tag>coreboot_pc_details</tag>
     <title>coreboot and PC technical details</title>
     <subtitle></subtitle>
-    <track>coreboot</track>
+    <track>Coreboot</track>
     <type>Podium</type>
     <language>English</language>
     <abstract>A modern PC is quite different from the 1980s original, and while the BIOS still lingers after 30 years it must now solve many tricky problems.</abstract>
@@ -1734,7 +2218,7 @@ The PostgreSQL database is at the heart of the point of sale application and in 
     <tag>coreboot_acpi</tag>
     <title>ACPI and Suspend/Resume under coreboot</title>
     <subtitle></subtitle>
-    <track>coreboot</track>
+    <track>Coreboot</track>
     <type>Podium</type>
     <language>English</language>
     <abstract>Ever wanted to know more about ACPI? This talk will introduce the software part of ACPI as well as provide the necessary hardware details to get the bigger picture.</abstract>
@@ -1752,7 +2236,7 @@ The PostgreSQL database is at the heart of the point of sale application and in 
     <tag>coreboot_porting</tag>
     <title>coreboot board porting</title>
     <subtitle></subtitle>
-    <track>coreboot</track>
+    <track>Coreboot</track>
     <type>Podium</type>
     <language>English</language>
     <abstract>You don't like your BIOS? Want coreboot instead? Here is my story...</abstract>
@@ -1770,7 +2254,7 @@ The PostgreSQL database is at the heart of the point of sale application and in 
     <tag>coreboot_flashrom</tag>
     <title>Flashrom, the universal flash tool</title>
     <subtitle></subtitle>
-    <track>coreboot</track>
+    <track>Coreboot</track>
     <type>Podium</type>
     <language>English</language>
     <abstract>Flashrom is the open source utility of choice to identify, read, write, verify and erase flash chips.</abstract>
@@ -1784,112 +2268,126 @@ This talk introduces flashrom, and explains its structure and implementation. Co
     <links>
     </links>
    </event>
+   <event id="1033">
+    <start>18:00</start>
+    <duration>01:00</duration>
+    <room>AW1.124</room>
+    <tag>coreboot_bios_reveng</tag>
+    <title>Flash enable BIOS reverse engineering</title>
+    <subtitle></subtitle>
+    <track>Coreboot</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>Many board makers provide extra write protection for their BIOS chips. The developers at the flashrom project have to devote part of their time on finding out what protection is present and how this can be disabled.</abstract>
+    <description>Some of this information comes from the BIOS itself, and the procedures for some common BIOSes, and the tools involved will be introduced in this talk. Part of the time will be spent on digging through an actual BIOS with a crude tool like ndisasm.</description>
+    <persons>
+     <person id="798">Luc Verhaegen</person>
+    </persons>
+    <links>
+    </links>
+   </event>
   </room>
   <room name="AW1.125">
-   <event id="868">
-    <start>13:15</start>
-    <duration>00:30</duration>
-    <room>AW1.125</room>
-    <tag>java_debian_packaging</tag>
-    <title>Packaging Java Software for Debian</title>
-    <subtitle></subtitle>
-    <track>Free Java</track>
-    <type>Podium</type>
-    <language>English</language>
-    <abstract>The talk wants to give a brief overview of the current state and recent trends of Java packaging in Debian.</abstract>
-    <description>Around half of the time should be reserved for discussions and coordination between attending developers of Linux distributions and upstream projects.
-
-A wiki site is used to collect discussion points beforehand: [http://wiki.debian.org/Java/DevJam/2010/FosdemProposedTalks/JavaPackaging]</description>
-    <persons>
-     <person id="293">Thomas Koch</person>
-    </persons>
-    <links>
-     <link href="http://wiki.debian.org/Java/DevJam/2010/FosdemProposedTalks/JavaPackaging">http://wiki.debian.org/Java/DevJam/2010/FosdemProposedTalks/JavaPackaging</link>
-    </links>
-   </event>
-   <event id="869">
-    <start>15:00</start>
-    <duration>00:30</duration>
-    <room>AW1.125</room>
-    <tag>java_groovy</tag>
-    <title>Groovy: the cool side of Java</title>
-    <subtitle></subtitle>
-    <track>Free Java</track>
-    <type>Podium</type>
-    <language>English</language>
-    <abstract>The purpose of this talk is to introduce Groovy using a practical approach by showing the differences and the improvements that Groovy bring, compared with an older programming language class.
-
-Since groovy is based on the JVM, it is natural to compare it with Java language.</abstract>
-    <description>We will start from a couple of java classes and we will rewrite it using Groovy and we will see how Groovy removes the ceremony and give a shorter and more understandable code.
-
-During the talk will be also explained theory concepts around groovy implementations time to time will be faced.
-Despite the topic, this talk is open to java and non-java developers.</description>
-    <persons>
-     <person id="577">Luca Foppiano</person>
-    </persons>
-    <links>
-    </links>
-   </event>
-   <event id="870">
-    <start>15:45</start>
-    <duration>00:30</duration>
-    <room>AW1.125</room>
-    <tag>java_lambda_jsr292</tag>
-    <title>Lambda + JSR292</title>
-    <subtitle></subtitle>
-    <track>Free Java</track>
-    <type>Podium</type>
-    <language>English</language>
-    <abstract>This talk outline why and how anonymous functions also called lambdas should be implemented using method handle, one feature introduced by JSR 292 in Java VM.</abstract>
-    <description>I will introduce a proposed syntax that is slighly different from the one proposed by Mark Reinhold, and explain how the syntax can be translated to a bytecode understandable by a JDK7 VM. Then I will discuss the possible reification of function types. I will finish by demoing a prototype of java compiler patched with lambdas implemented using method handles.</description>
-    <persons>
-     <person id="567">Remi Forax</person>
-    </persons>
-    <links>
-     <link href="http://openjdk.java.net/projects/lambda">Project Lambda</link>
-     <link href="http://openjdk.java.net/projects/mlvm">MLVM</link>
-    </links>
-   </event>
-   <event id="871">
-    <start>16:30</start>
-    <duration>00:30</duration>
-    <room>AW1.125</room>
-    <tag>java_wizard4j</tag>
-    <title>Wizard4j</title>
-    <subtitle></subtitle>
-    <track>Free Java</track>
-    <type>Podium</type>
-    <language>English</language>
-    <abstract>Introduction and a Getting Started to the wizard4j project.</abstract>
-    <description>The wizard4j project defines a flowchart xml language to describe flowcharts in a formal way (so this logic is no longer burried in the rest of the code). Next it provides an engine written in java to 'run' these flowcharts. The target audience for this project are java software developers. Any java application that has some 'flowchart logic' inside (configuration wizards, helpdesk guidelines, surveys, template preprocessing, ...) can benefit from wizard4j, especially when this logic is complex or requires frequent updates.</description>
-    <persons>
-     <person id="710">Dirk Ooms</person>
-    </persons>
-    <links>
-     <link href="http://wizard4j.org/">http://wizard4j.org/</link>
-    </links>
-   </event>
-   <event id="872">
-    <start>17:15</start>
-    <duration>00:30</duration>
-    <room>AW1.125</room>
-    <tag>java_play</tag>
-    <title>Web Development with the Play! framework</title>
-    <subtitle></subtitle>
-    <track>Free Java</track>
-    <type>Podium</type>
-    <language>English</language>
-    <abstract>Java web development is often based on a growing stack of software layers. This increasing complexity is impacting productivity and causing frustration of developers in each step of development, maintenance and deployment. The Play framework aims to bring back the fun with a simpler and cleaner stack, introducing conventions over configuration and encouraging RESTful architectures.</abstract>
-    <description>Version 1.0 have been released in October 2009 under the Apache 2 Licence. We will present the framework, explain and demonstrate how it is used to develop web applications, and introduce the vision and roadmap for the next versions.</description>
-    <persons>
-     <person id="711">Erwan Loisant</person>
-    </persons>
-    <links>
-     <link href="http://www.playframework.org/">http://www.playframework.org/</link>
-    </links>
-   </event>
   </room>
   <room name="AW1.126">
+   <event id="1056">
+    <start>14:15</start>
+    <duration>00:45</duration>
+    <room>AW1.126</room>
+    <tag>ruby_database_comparison</tag>
+    <title>A rubyist's naive comparison of some database systems and toolkits</title>
+    <subtitle></subtitle>
+    <track>Ruby+Rails</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>This talk will be a quick comparison of some of the many relational and non relational database systems that can be used with ruby.</abstract>
+    <description>I will focus on features, syntax and performance. This is not a talk by a database expert but simply a modest attempt to show the differences between some of the possibilities offered and clear things up a bit.</description>
+    <persons>
+     <person id="815">Marc Lainez</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1059">
+    <start>15:00</start>
+    <duration>00:45</duration>
+    <room>AW1.126</room>
+    <tag>ruby_mongomapper</tag>
+    <title>Persisting dynamic data with MongoMapper</title>
+    <subtitle></subtitle>
+    <track>Ruby+Rails</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>What is [http://www.mongodb.org/ MongoDB] and how can you use it in a Ruby project.</abstract>
+    <description>Introduction to [http://www.mongodb.org/ MongoDB], [http://github.com/jnunemaker/mongomapper/ MongoMapper] and advanced usage of the tools given by MongoMapper. Short look at other Document Oriented Databases.</description>
+    <persons>
+     <person id="607">Bernard Grymonpon</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1073">
+    <start>16:00</start>
+    <duration>00:30</duration>
+    <room>AW1.126</room>
+    <tag>ruby_smalltalkification</tag>
+    <title>The Ruby Smalltalkification</title>
+    <subtitle></subtitle>
+    <track>Ruby+Rails</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>Smalltalk can be considered as the grand father of many modern programming languages. It is also commonly agreed that it is dead; is it really the case?</abstract>
+    <description>Ruby is explicitly inspired by Smalltalk (among others) and can be seen as a 'Smalltalk dialect with files'. This short talk will walk through the fundamental differences and similarities between the two languages.
+
+Do expect source code during this presentation.</description>
+    <persons>
+     <person id="822">François Stephany</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1058">
+    <start>16:30</start>
+    <duration>00:45</duration>
+    <room>AW1.126</room>
+    <tag>ruby_ror_good_practices</tag>
+    <title>25 good practices in Ruby on Rails development</title>
+    <subtitle></subtitle>
+    <track>Ruby+Rails</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>This is a collection of small tips and tricks related to developing web applications using the Ruby on Rails framework, gathered from my personal experience of more than 2 years of work at [http://www.belighted.com Belighted].</abstract>
+    <description>For each tip, we will have a look at the underlying motivation and provide code examples to better understand how to apply it to your own applications.</description>
+    <persons>
+     <person id="284">Nicolas Jacobeus</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1057">
+    <start>17:15</start>
+    <duration>00:45</duration>
+    <room>AW1.126</room>
+    <tag>ruby_crbac</tag>
+    <title>Context Based Access Control gem for Rails</title>
+    <subtitle></subtitle>
+    <track>Ruby+Rails</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>The CBAC system contains the following features:
+* Separate authorization logic from your code
+* Supports Role Based Access Control. Authorization based on group membership.
+* Supports Context Based Access Control. Group membership is determined on user and context of requested resource.
+* Easy to use.
+* Authorization on the level of controller methods. Specify authorization per controller method.</abstract>
+    <description></description>
+    <persons>
+     <person id="816">Bert Meerman</person>
+    </persons>
+    <links>
+     <link href="http://cbac.rubyforge.org/intro.html">http://cbac.rubyforge.org/intro.html</link>
+    </links>
+   </event>
   </room>
   <room name="H.3227">
   </room>
@@ -1928,6 +2426,112 @@ Despite the topic, this talk is open to java and non-java developers.</descripti
      <person id="42">Klaus Behrla</person>
     </persons>
     <links>
+    </links>
+   </event>
+  </room>
+  <room name="AY">
+   <event id="868">
+    <start>13:15</start>
+    <duration>00:30</duration>
+    <room>AY</room>
+    <tag>java_debian_packaging</tag>
+    <title>Packaging Java Software for Debian</title>
+    <subtitle></subtitle>
+    <track>Free Java</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>The talk wants to give a brief overview of the current state and recent trends of Java packaging in Debian.</abstract>
+    <description>During the half-hour presentation, topics and issues will be outlined.
+
+Afterwards the Room is free for people to stay and discuss. The aim is, to bring together people from different linux distributions to share experiences together with developers of upstream projects.
+
+A wiki site is used to collect discussion points beforehand: [http://wiki.debian.org/Java/DevJam/2010/FosdemProposedTalks/JavaPackaging]</description>
+    <persons>
+     <person id="293">Thomas Koch</person>
+    </persons>
+    <links>
+     <link href="http://wiki.debian.org/Java/DevJam/2010/FosdemProposedTalks/JavaPackaging">http://wiki.debian.org/Java/DevJam/2010/FosdemProposedTalks/JavaPackaging</link>
+    </links>
+   </event>
+   <event id="869">
+    <start>15:00</start>
+    <duration>00:30</duration>
+    <room>AY</room>
+    <tag>java_groovy</tag>
+    <title>Groovy: the cool side of Java</title>
+    <subtitle></subtitle>
+    <track>Free Java</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>The purpose of this talk is to introduce Groovy using a practical approach by showing the differences and the improvements that Groovy bring, compared with an older programming language class.
+
+Since groovy is based on the JVM, it is natural to compare it with Java language.</abstract>
+    <description>We will start from a couple of java classes and we will rewrite it using Groovy and we will see how Groovy removes the ceremony and give a shorter and more understandable code.
+
+During the talk will be also explained theory concepts around groovy implementations time to time will be faced.
+Despite the topic, this talk is open to java and non-java developers.</description>
+    <persons>
+     <person id="577">Luca Foppiano</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="870">
+    <start>15:45</start>
+    <duration>00:30</duration>
+    <room>AY</room>
+    <tag>java_lambda_jsr292</tag>
+    <title>Lambda + JSR292</title>
+    <subtitle></subtitle>
+    <track>Free Java</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>This talk outline why and how anonymous functions also called lambdas should be implemented using method handle, one feature introduced by JSR 292 in Java VM.</abstract>
+    <description>I will introduce a proposed syntax that is slighly different from the one proposed by Mark Reinhold, and explain how the syntax can be translated to a bytecode understandable by a JDK7 VM. Then I will discuss the possible reification of function types. I will finish by demoing a prototype of java compiler patched with lambdas implemented using method handles.</description>
+    <persons>
+     <person id="567">Remi Forax</person>
+    </persons>
+    <links>
+     <link href="http://openjdk.java.net/projects/lambda">Project Lambda</link>
+     <link href="http://openjdk.java.net/projects/mlvm">MLVM</link>
+    </links>
+   </event>
+   <event id="871">
+    <start>16:30</start>
+    <duration>00:30</duration>
+    <room>AY</room>
+    <tag>java_wizard4j</tag>
+    <title>Wizard4j</title>
+    <subtitle></subtitle>
+    <track>Free Java</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>Introduction and a Getting Started to the wizard4j project.</abstract>
+    <description>The wizard4j project defines a flowchart xml language to describe flowcharts in a formal way (so this logic is no longer burried in the rest of the code). Next it provides an engine written in java to 'run' these flowcharts. The target audience for this project are java software developers. Any java application that has some 'flowchart logic' inside (configuration wizards, helpdesk guidelines, surveys, template preprocessing, ...) can benefit from wizard4j, especially when this logic is complex or requires frequent updates.</description>
+    <persons>
+     <person id="710">Dirk Ooms</person>
+    </persons>
+    <links>
+     <link href="http://wizard4j.org/">http://wizard4j.org/</link>
+    </links>
+   </event>
+   <event id="872">
+    <start>17:15</start>
+    <duration>00:30</duration>
+    <room>AY</room>
+    <tag>java_play</tag>
+    <title>Web Development with the Play! framework</title>
+    <subtitle></subtitle>
+    <track>Free Java</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>Java web development is often based on a growing stack of software layers. This increasing complexity is impacting productivity and causing frustration of developers in each step of development, maintenance and deployment. The Play framework aims to bring back the fun with a simpler and cleaner stack, introducing conventions over configuration and encouraging RESTful architectures.</abstract>
+    <description>Version 1.0 have been released in October 2009 under the Apache 2 Licence. We will present the framework, explain and demonstrate how it is used to develop web applications, and introduce the vision and roadmap for the next versions.</description>
+    <persons>
+     <person id="711">Erwan Loisant</person>
+    </persons>
+    <links>
+     <link href="http://www.playframework.org/">http://www.playframework.org/</link>
     </links>
    </event>
   </room>
@@ -2111,6 +2715,34 @@ Attendees should have a solid grasp of the C language, and know how to build and
     <description>This talk presents the various MooTools projects and how they help with web application development. We will focus in detail on the MooTools Core Library and its inner workings. The talk will cover the functionality found in Core including the class oriented inheritance model and the merits of extending the native types in JavaScript. We will also discuss how the Framework extends beyond Browsers into any JavaScript environment and how this can enhance application development.</description>
     <persons>
      <person id="674">Christoph Pojer</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1055">
+    <start>12:00</start>
+    <duration>00:45</duration>
+    <room>Chavanne</room>
+    <tag></tag>
+    <title>Javascript charting with YUI Flot</title>
+    <subtitle></subtitle>
+    <track>Javascript</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>Web developers who want to add charts and graphs to their web sites have three options. 
+1. Use server side generated chart images 
+2. Use flash 
+3. Use canvas + javascript</abstract>
+    <description>Web developers who want to add charts and graphs to their web sites have three options. 
+1. Use server side generated chart images 
+2. Use flash 
+3. Use canvas + javascript
+
+Option 1 is often the best unless you need some level of interactivity at which point you're stuck with choosing between flash that has problems with focus on linux, and has never been a favourite of FOSS developers, or using canvas + javascript with incomplete support for Internet Explorer through excanvas.  YUI-flot follows option 3. 
+
+YUI-flot came about as an attempt to bring the popular flot plugin for jQuery into the hands of YUI developers, and in this talk, I'll cover a little bit about what you can do with YUI-Flot, and a little more about what I learnt while developing it.</description>
+    <persons>
+     <person id="814">Philip Tellis</person>
     </persons>
     <links>
     </links>
@@ -2341,14 +2973,14 @@ By one means or another CAcert is now ploughing the ground for Single-Sign-On wi
     <tag>keysigning</tag>
     <title>Keysigning Party</title>
     <subtitle></subtitle>
-    <track>Lightning Talks</track>
-    <type>Podium</type>
+    <track>Keysigning</track>
+    <type>Meeting</type>
     <language>English</language>
     <abstract>GPG/PGP and CAcert keysigning party</abstract>
     <description>See [http://fosdem.org/keysigning] for details.</description>
     <persons>
-     <person id="260">Philip Paeps</person>
      <person id="755">Ulrich Schroeter</person>
+     <person id="260">Philip Paeps</person>
     </persons>
     <links>
     </links>
@@ -2383,15 +3015,9 @@ If you don't know them, they will hurt you. No matter how expert you are, there 
     <track>Lightning Talks</track>
     <type>Lightning-Talk</type>
     <language>English</language>
-    <abstract>Take a regular old-fashioned linear schoolbook, and then imagine each chapter having alternative versions specifically tailored for the reader.
+    <abstract>Imagine having a schoolbook where a pupil and her teacher can choose the depth of topic, clarity of text, pedagogical method, amount and difficulty of homework - as needed and necessary.
 
-
-
-You get a book that works both for pupils that read slow and pupils that zip through the text faster than their classmates. Add alternatives for the teacher (pedagogical methods, teaching style), the school (variations on which chapters should be in-depth or which topics should be prioritized) and the parents (a topic summary to read before helping with homework) - and you end up with a book that can only be made using free software development methods.
-
-
-
-Kaizendo.org - from Kaizen-do, "the way of incremental improvement" - is a project for making these books possible. We have just started, and we need people who would like to help! :)</abstract>
+This talk introduces the Kaizendo.org project where this is the ambition - to create a tool which makes authoring of custom books not only possible but as easy as posting a comment on a forum.</abstract>
     <description>Take your regular old-fashioned linear schoolbook and imagine each chapter having alternative versions specifically tailored for the reader.
 
 
@@ -2588,28 +3214,218 @@ Integrating CASE tools and hosted UmlCanvas, creates a collaborative platform th
    </event>
   </room>
   <room name="Lameere">
-  </room>
-  <room name="H.1301">
-   <event id="940">
-    <start>09:00</start>
-    <duration>00:15</duration>
-    <room>H.1301</room>
-    <tag>moz_welcome_sunday</tag>
-    <title>Welcome to the Mozilla devroom</title>
+   <event id="1089">
+    <start>10:00</start>
+    <duration>00:30</duration>
+    <room>Lameere</room>
+    <tag>emb_open_mcare</tag>
+    <title>OPEN-MCARE: Open Heart for Elderly Care</title>
     <subtitle></subtitle>
-    <track>Mozilla</track>
+    <track>Embedded</track>
     <type>Podium</type>
     <language>English</language>
-    <abstract></abstract>
-    <description></description>
+    <abstract>This project uses an ARM embedded open platform to develop the mobile health care system (Open Mobile Care, OPEN-MCARE).</abstract>
+    <description>OPEN-MCARE is an assistant with positioning, health care, entertainment, multi-functional operations. If the smooth progress of this project, in addition to the academic contribution to the outcome of this program hope to be able to reduce the real burden of the families and to improve the quality of life for the elderly, so that mobility of the elderly, have a happy, healthy, free and dignified life.</description>
     <persons>
-     <person id="344">Tristan Nitot</person>
+     <person id="834">Kuo-Kun Tseng</person>
     </persons>
     <links>
     </links>
    </event>
+   <event id="1088">
+    <start>10:30</start>
+    <duration>00:30</duration>
+    <room>Lameere</room>
+    <tag>emb_seriesfinale</tag>
+    <title>SeriesFinale, a TV shows' tracker for Maemo 5</title>
+    <subtitle></subtitle>
+    <track>Embedded</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>SeriesFinale is a TV series browser and tracker application for Maemo 5. Its goal is to help you manage the TV shows you watch regularly and keep track of the episodes you have seen so far.</abstract>
+    <description>The shows and episodes listings can be retrieved automatically from the web presenting you with information about the subject of the show/episode, director, actors, guest stars, etc. Episodes are presented in a check list view to allow checking and keeping track of the ones that have been already seen.</description>
+    <persons>
+     <person id="731">Joaquim Rocha</person>
+    </persons>
+    <links>
+     <link href="http://www.joaquimrocha.com/2009/12/06/seriesfinale/">SeriesFinale demo</link>
+    </links>
+   </event>
+   <event id="1092">
+    <start>11:00</start>
+    <duration>00:30</duration>
+    <room>Lameere</room>
+    <tag>emb_android_apt</tag>
+    <title>apt-get for Android - with GUI</title>
+    <subtitle></subtitle>
+    <track>Embedded</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>When launched, Google created a central point of distributing applications for the Android platform: the Android Market.This approach, although being an undefined standard for most of the major mobile families - Apple as AppStore for their iphone - has limitations, specially in user freedom and flexibility for the development.
+
+Aptoide tries to create a way of sharing applications for Android in a way that the users are in control of what they distribute, how they distribute and what they want to see shared.</abstract>
+    <description>We will present the Aptoide concept and compare this to philosophies - central point vs distributed repositories - commenting on each pros and cons, and trying to merged them together.
+
+In the end of the day, this talk proposes to show Android developers a new way of put their applications available which is an alternative of closed and inflexible Google's Android market.</description>
+    <persons>
+     <person id="837">Roberto Jacinto</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1094">
+    <start>11:30</start>
+    <duration>00:30</duration>
+    <room>Lameere</room>
+    <tag>emb_ofono</tag>
+    <title>Ofono and how to use the Nokia modem plugin</title>
+    <subtitle></subtitle>
+    <track>Embedded</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>oFono is an open source project for mobile telephony (GSM/UMTS). It provides a high-level D-Bus API for applications, and a plug-in API for adapting to different modem hardware.</abstract>
+    <description>This talk gives an overview of how to run oFono on the Nokia N900 device running Maemo, as well as with (most) Nokia phones over USB.</description>
+    <persons>
+     <person id="839">Aki Niemi</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1081">
+    <start>13:00</start>
+    <duration>01:00</duration>
+    <room>Lameere</room>
+    <tag>emb_cross_build</tag>
+    <title>Cross Build Systems: Present &amp; Future</title>
+    <subtitle></subtitle>
+    <track>Embedded</track>
+    <type>Workshop</type>
+    <language>English</language>
+    <abstract>There are lots of cross build systems out there these days. While all of these projects have their own focus, concept and design, there are a lot of problems most of us know very well, for example cross build problems,developing patches in an upstream-acceptable way etc.</abstract>
+    <description>In this workshop, all participating build system groups will get the opportunity to present three slides and five minutes, in order to outline:
+* short project description
+* plans for the future
+* ideas to collaborate
+
+After that, we'll collect and discuss those ideas in order to create benefit for both, the involved projects and the whole open-source eco-system.
+
+Any project interested in participation, please write us a mail to crossdev@send-patches.org, in order to organize the presentations.</description>
+    <persons>
+     <person id="828">Yann E. Morin</person>
+     <person id="629">Robert Schwebel</person>
+     <person id="827">Peter Korsgaard</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1085">
+    <start>14:00</start>
+    <duration>01:00</duration>
+    <room>Lameere</room>
+    <tag>emb_rockbox</tag>
+    <title>Rockbox: open source firmware replacement for music players</title>
+    <subtitle></subtitle>
+    <track>Embedded</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>An overview of [http://www.rockbox.org/ Rockbox], an open source firmware replacement for mp3 players and how we work to reverser engineer portable music consumer electronics devices to put Free Software on them.</abstract>
+    <description></description>
+    <persons>
+     <person id="831">Daniel Stenberg</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1091">
+    <start>15:00</start>
+    <duration>01:00</duration>
+    <room>Lameere</room>
+    <tag>emb_media_controller</tag>
+    <title>Media Controller, harnessing the full power of tomorrow's video devices</title>
+    <subtitle></subtitle>
+    <track>Embedded</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>Back when the first version of the Video 4 Linux (V4L) API was written, video acquisition and output devices available to Linux users ands developers only offered basic functions. With the introduction of hardware compression, V4L showed its limits and the new V4L2 API saw the light of the day in the 2.5.x kernels. Video hardware available today once again pushes the Linux video API to its limits, and there's no doubt that tomorrow's devices will offer even more complex features.</abstract>
+    <description>Several V4L developers go together during the Linux Plumbers Conference 2009 to discuss a possible future extension to the V4L subsystem called the Media Controller.
+
+Targeted at both embedded and desktop hardware, the Media Controller will let userspace applications access media hardware internals to discover and control device internals. This talk will introduce the Media Controller concept and present the current state of the draft implementation.</description>
+    <persons>
+     <person id="836">Laurent Pinchart</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1087">
+    <start>16:00</start>
+    <duration>01:00</duration>
+    <room>Lameere</room>
+    <tag>emb_dspbridge</tag>
+    <title>ARM and DSP talking to each other in OMAP3: the dspbridge</title>
+    <subtitle></subtitle>
+    <track>Embedded</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>The microprocessor OMAP 3430 contains a dual-core architecture consisting on an ARM Cortex-A8 (General-Purpose Processor) and a DSP C64x (as an Image-Video-Audio Accelerator).
+
+The dspbridge is a kernel driver for the OMAP3 architecture. It provides a interface to control and communicate with the DSP, enabling parallel processing in embedded devices.</abstract>
+    <description>This talk will be about how to build a system with the dspbridge driver and how to use it for multimedia applications.</description>
+    <persons>
+     <person id="833">Víctor Manuel Jáquez Leal</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1096">
+    <start>17:00</start>
+    <duration>00:30</duration>
+    <room>Lameere</room>
+    <tag>emb_nanonote</tag>
+    <title>Copyleft Hardware and the Ben Nanonote</title>
+    <subtitle></subtitle>
+    <track>Embedded</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>Making Legal Open Source Hardware in China investigates the Shanzhai technology culture in China, analyzes its positive and negative aspects, and announces a new legal approach to build off the best parts of Shanzhai technology.</abstract>
+    <description>This approach uses a mixture of Creative Commons licensing for hardware plans, Free Software licensing for software used to run the hardware, and open patents for the novel technological innovations.
+
+Do you have Qi Inside your hardware? Ben Nanonote is the first real product on market using the approach mentioned above, we will describe it in deep and doing a live demo on the device.</description>
+    <persons>
+     <person id="843">Mirko Lindner</person>
+     <person id="842">Jon Phillips</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1090">
+    <start>17:30</start>
+    <duration>00:30</duration>
+    <room>Lameere</room>
+    <tag>emb_ambienttalk</tag>
+    <title>Scripting Mobile Devices with AmbientTalk</title>
+    <subtitle></subtitle>
+    <track>Embedded</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>This talk is about programming mobile handheld devices with a scripting language called AmbientTalk.</abstract>
+    <description>This language has been designed with the goal of easily prototyping applications that run on mobile devices interacting via a wireless network. 
+
+Programming such applications traditionally involves interacting with low-level APIs in order to perform basic tasks like service discovery and communicating with remote services. We introduce the AmbientTalk scripting language, its implementation on top of the Java Micro edition platform (J2ME).
+
+AmbientTalk is an experimental object-oriented distributed programming language developed at the Software Languages Lab at
+the Vrije Universiteit Brussel, Belgium. The language is primarily targeted at writing programs deployed in mobile ad hoc networks.
+
+AmbientTalk is meant to serve as an experimentation platform to experiment with new language features or programming abstractions to facilitate the construction of software that has to run in highly volatile networks exhibiting intermittent connectivity and little infrastructure.</description>
+    <persons>
+     <person id="835">Wolfgang De Meuter</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+  </room>
+  <room name="H.1301">
    <event id="941">
-    <start>09:15</start>
+    <start>09:30</start>
     <duration>00:30</duration>
     <room>H.1301</room>
     <tag>moz_oss_meetups</tag>
@@ -2622,15 +3438,15 @@ Integrating CASE tools and hosted UmlCanvas, creates a collaborative platform th
     <description>Despite the modern way of communicating, personal contact still is the best way to get to know each other. Meeting the people behind the names in reality is a great experience, and helps users of finding their way into open source communites to engage themselves. Therefore, Mozilla and OpenOffice.org jointly organize the so-called "Open-Source-Treffen" ("Open Source Meetings") to help open source projects in meeting their end-users and vice versa. Members of the community can get in touch with their users to gather valuable feedback, and open source adopters meet other supporters from their area.
 In the German city of Munich, the "Open-Source-Treffen" have been taking place regularly, and the idea is to spread the word for other areas, engaging community members to set up more meetings. Carsten Book of Mozilla and Florian Effenberger of OpenOffice.org, founders of the "Open-Source-Treffen", introduce their vision and tell about the previous experiences. Audience for this talk are open source communities wishing to set up their own meetings as well as interested users who love to learn more about the idea.</description>
     <persons>
-     <person id="466">Carsten Book</person>
      <person id="745">Florian Effenberger</person>
+     <person id="466">Carsten Book</person>
     </persons>
     <links>
     </links>
    </event>
    <event id="942">
-    <start>09:45</start>
-    <duration>00:45</duration>
+    <start>10:00</start>
+    <duration>00:30</duration>
     <room>H.1301</room>
     <tag>moz_mozmill</tag>
     <title>Mozmill</title>
@@ -2665,37 +3481,54 @@ In the German city of Munich, the "Open-Source-Treffen" have been taking place r
      <link href="https://wiki.mozilla.org/L20n">https://wiki.mozilla.org/L20n</link>
     </links>
    </event>
-   <event id="944">
-    <start>12:00</start>
-    <duration>01:00</duration>
+   <event id="938">
+    <start>11:15</start>
+    <duration>01:15</duration>
     <room>H.1301</room>
-    <tag>moz_panel</tag>
-    <title>Mozilla Panel Discussion</title>
+    <tag>moz_firefox_mobile</tag>
+    <title>Firefox Mobile</title>
     <subtitle></subtitle>
     <track>Mozilla</track>
     <type>Podium</type>
     <language>English</language>
-    <abstract>A panel discussion. Topic TBD</abstract>
+    <abstract></abstract>
     <description></description>
     <persons>
-     <person id="747">Mitchell Baker</person>
-     <person id="473">Mark Surman</person>
-     <person id="344">Tristan Nitot</person>
+     <person id="261">Mark Finkle</person>
     </persons>
     <links>
     </links>
    </event>
-   <event id="945">
-    <start>14:00</start>
-    <duration>01:00</duration>
+   <event id="936">
+    <start>13:00</start>
+    <duration>00:15</duration>
     <room>H.1301</room>
-    <tag>moz_messaging</tag>
-    <title>Messaging + Thunderbird</title>
+    <tag>moz_womoz</tag>
+    <title>Women and Mozilla (WoMoz)</title>
     <subtitle></subtitle>
     <track>Mozilla</track>
     <type>Podium</type>
     <language>English</language>
-    <abstract>tba</abstract>
+    <abstract>Summary of related FOSDEM events, roadmap for 2010, and reaching out to women developers present at FOSDEM.</abstract>
+    <description></description>
+    <persons>
+     <person id="743">Delphine Lebédel</person>
+    </persons>
+    <links>
+     <link href="http://www.womoz.org/blog/?p=231">http://www.womoz.org/blog/?p=231</link>
+    </links>
+   </event>
+   <event id="945">
+    <start>13:15</start>
+    <duration>00:45</duration>
+    <room>H.1301</room>
+    <tag>moz_messaging</tag>
+    <title>Messaging/Thunderbird</title>
+    <subtitle></subtitle>
+    <track>Mozilla</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract></abstract>
     <description></description>
     <persons>
      <person id="180">Ludovic Hirlimann</person>
@@ -2703,9 +3536,46 @@ In the German city of Munich, the "Open-Source-Treffen" have been taking place r
     <links>
     </links>
    </event>
+   <event id="1076">
+    <start>14:00</start>
+    <duration>00:30</duration>
+    <room>H.1301</room>
+    <tag>moz_jetpack</tag>
+    <title>Explore Jetpack</title>
+    <subtitle></subtitle>
+    <track>Mozilla</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>Jetpack is one of the most dynamic project in Mozilla these days.</abstract>
+    <description>The talk will be split into three pieces. First, I'll present the concept and how the project is being developed. Then, I'll make sure there's time for your questions. Finally, I'll try to make sure you know how to join us :)</description>
+    <persons>
+     <person id="175">Zbigniew Braniecki</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1077">
+    <start>14:30</start>
+    <duration>00:45</duration>
+    <room>H.1301</room>
+    <tag>moz_drumbeat</tag>
+    <title>Mozilla Drumbeat in Europe</title>
+    <subtitle></subtitle>
+    <track>Mozilla</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>Actions, ideas and projects for an open Internet</abstract>
+    <description></description>
+    <persons>
+     <person id="473">Mark Surman</person>
+     <person id="824">Alina Mierlus</person>
+    </persons>
+    <links>
+    </links>
+   </event>
    <event id="946">
-    <start>15:00</start>
-    <duration>01:00</duration>
+    <start>15:30</start>
+    <duration>00:45</duration>
     <room>H.1301</room>
     <tag>moz_lightningtalks</tag>
     <title>Mozilla Lightning Talks</title>
@@ -2717,15 +3587,39 @@ In the German city of Munich, the "Open-Source-Treffen" have been taking place r
     <description>==Digitally signing email, why and how ?==
 Introduction on digitally signing emails. How does it work. Why Should People sign their emails. Howto sign emails, live demo on how to get started (Ludovic Hirlimann)
 
-==Why Mozilla Sucks==
-What users [https://wiki.mozilla.org/User:Bogomil/WMS think about us] and how we can fix it or live with it (Bogomil Shopov)
-
 ==Online Communication in the Mozilla Project==
-In virtual teams (like Mozilla) communication is as important as it is challenging. This talk will be about the importance of informal communication and how some of the groups within Mozilla handle it (Kadir Topal)</description>
+In virtual teams (like Mozilla) communication is as important as it is challenging. This talk will be about the importance of informal communication and how some of the groups within Mozilla handle it (Kadir Topal)
+
+==I see GECKO==
+5 min talk about the "I See Gecko" project, becoming live during this presentation. It's all about Open Web ... (Bogomil Shopov)
+
+==The Bugzilla REST API==
+How you can [https://wiki.mozilla.org/Bugzilla:REST_API use it] to make your Mozilla life easier (Gerv Markham)</description>
     <persons>
-     <person id="180">Ludovic Hirlimann</person>
-     <person id="748">Bogomil Shopov</person>
+     <person id="177">Gervase Markham</person>
      <person id="749">Kadir Topal</person>
+     <person id="748">Bogomil Shopov</person>
+     <person id="180">Ludovic Hirlimann</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="944">
+    <start>16:15</start>
+    <duration>00:45</duration>
+    <room>H.1301</room>
+    <tag>moz_panel</tag>
+    <title>Mozilla Panel Discussion</title>
+    <subtitle></subtitle>
+    <track>Mozilla</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>A discussion on Mozilla's mission - from Firefox to Drumbeat.</abstract>
+    <description></description>
+    <persons>
+     <person id="344">Tristan Nitot</person>
+     <person id="473">Mark Surman</person>
+     <person id="747">Mitchell Baker</person>
     </persons>
     <links>
     </links>
@@ -2762,10 +3656,12 @@ In virtual teams (like Mozilla) communication is as important as it is challengi
     <track>Distributions</track>
     <type>Podium</type>
     <language>English</language>
-    <abstract></abstract>
-    <description></description>
+    <abstract>According to a report generated in 2007 less than 10% of the CPAN packages are redistributed by Debian and Fedora and much less by the other distributions.</abstract>
+    <description>This is frustrating to the end user as they need to install many other packages directly from CPAN. Because they already have to install from CPAN they don't care asking the distributors to include those packages nor do they come and help packaging. Hence there are few packages....
+
+In this session we will try to break the vicious cycle of the chicken and the egg and find an improvement to the situation.</description>
     <persons>
-     <person id="765">Gabor Szabo</person>
+     <person id="697">Gabor Szabo</person>
     </persons>
     <links>
     </links>
@@ -2780,12 +3676,22 @@ In virtual teams (like Mozilla) communication is as important as it is challengi
     <track>Distributions</track>
     <type>Podium</type>
     <language>English</language>
-    <abstract></abstract>
-    <description></description>
+    <abstract>For a casual user, editing configuration files in /etc in an intimidating task. Manually managing configuration upgrade is even worse as it requires good knowledge to merge current configuration data with new data coming from new packages.
+
+Config::Model was designed to make user's life easier by providing a configuration GUI and handle configuration upgrades transparently.</abstract>
+    <description>This presentation will explain how to provide these capabilities and will cover:
+* the main notions or Config::Model (config tree and model)
+* how to create a model 
+* how to interface the model with the configuration files
+* how package and configuration upgrade is performed 
+* how to specify upgrade feature in the configuration model</description>
     <persons>
      <person id="766">Dominique Dumont</person>
     </persons>
     <links>
+     <link href="http://config-model.wiki.sourceforge.net/">Config::Model project site</link>
+     <link href="http://wiki.debian.org/PackageConfigUpgrade">Package upgrade with Config::Model for Debian</link>
+     <link href="http://search.cpan.org/~ddumont/">Config::Model on CPAN</link>
     </links>
    </event>
    <event id="981">
@@ -2858,12 +3764,18 @@ allow easy sharing of packaging work done for different distributions.</abstract
     <track>Distributions</track>
     <type>Podium</type>
     <language>English</language>
-    <abstract></abstract>
-    <description></description>
+    <abstract>The OpenSuSE KIWI Image System provides a complete operating system image solution for Linux supported hardware platforms as well as for virtualisation systems like Xen, Qemu or VMware.</abstract>
+    <description>The KIWI architecture was designed as a two level system. The first stage, based on a valid software package source, creates a so called physical extend according to the provided image description. The second stage creates from a required physical extend an operating system image. The result of the second stage is called a logical extend or short an image. 
+
+There are already a lot of projects using the KIWI image system today including the very popular SUSE Studio online appliance builder.
+
+This talk briefly introduces the KIWI image system and shows how to create images based on distributions other than openSUSE.</description>
     <persons>
      <person id="769">Christopher Hofmann</person>
     </persons>
     <links>
+     <link href="http://en.opensuse.org/Build_Service/KIWI">http://en.opensuse.org/Build_Service/KIWI</link>
+     <link href="http://kiwi.berlios.de/">http://kiwi.berlios.de/</link>
     </links>
    </event>
    <event id="986">
@@ -2876,12 +3788,20 @@ allow easy sharing of packaging work done for different distributions.</abstract
     <track>Distributions</track>
     <type>Podium</type>
     <language>English</language>
-    <abstract></abstract>
-    <description></description>
+    <abstract>Dracut is a generic, modular initramfs generation tool, that replaces mkinitrd and nash. Unlike existing initramfs’s, this is an attempt at having as little as possible hard-coded into the initramfs as possible.</abstract>
+    <description>The initramfs has (basically) one purpose in life — getting the rootfs mounted so that we can transition to the real rootfs. This is all driven off of device availability. 
+
+Therefore, instead of scripts hard-coded to do various things, we depend on udev to create device nodes for us and then when we have the rootfs’s device node, we mount and carry on. Dracut is modular and very easy to extend and customize.
+
+In this talk you will learn how Dracut works, how to extend Dracut with your own modules and identify problems in this early boot process.</description>
     <persons>
      <person id="770">Harald Hoyer</person>
     </persons>
     <links>
+     <link href="http://sourceforge.net/projects/dracut/">http://sourceforge.net/projects/dracut/</link>
+     <link href="https://apps.sourceforge.net/trac/dracut/wiki">https://apps.sourceforge.net/trac/dracut/wiki</link>
+     <link href="http://dracut.git.sourceforge.net/">http://dracut.git.sourceforge.net/</link>
+     <link href="https://fedoraproject.org/wiki/Dracut">https://fedoraproject.org/wiki/Dracut</link>
     </links>
    </event>
    <event id="985">
@@ -2906,22 +3826,26 @@ allow easy sharing of packaging work done for different distributions.</abstract
    </event>
   </room>
   <room name="H.1308">
-   <event id="963">
+   <event id="969">
     <start>10:00</start>
     <duration>00:45</duration>
     <room>H.1308</room>
-    <tag>dist_project_builder</tag>
-    <title>Continuous Packaging with Project-Builder.org</title>
+    <tag>dist_tx</tag>
+    <title>Transactional Roll-backs and Upgrades</title>
     <subtitle></subtitle>
     <track>Distributions</track>
     <type>Podium</type>
     <language>English</language>
-    <abstract></abstract>
-    <description></description>
+    <abstract>As part of the MANCOOSI project, looking to improve upon the upgrade process of packages, Caixa Mágica and several other European partners are researching and developing solutions for various, related topics of the package upgrade process. One aspect is that of looking at whether Roll-Back is feasible and what mechanisms are best for making this sort of approach work alongside existing package meta-installers.</abstract>
+    <description>We will state what we define as Roll-Back and the associated problems of trying to achieve this process. To do this we investigate current state-of-the-art mechanisms available for 'Roll-Back' and configuration management and then state what our current methodology is for trying to tackle and achieve Roll-Back for our apt-rpm based distribution. We outline some of the decisions and assumptions  that have been taken and indicate what the project members believe the outcome will be. 
+
+We will then invite questions from the audience to try and promote a few talking points.</description>
     <persons>
-     <person id="757">Bruno Cornec</person>
+     <person id="760">John Thomson</person>
     </persons>
     <links>
+     <link href="http://www.mancoosi.org/">MANCOOSI project</link>
+     <link href="http://www.caixamagica.pt/">Caixa Mágica</link>
     </links>
    </event>
    <event id="964">
@@ -2934,8 +3858,18 @@ allow easy sharing of packaging work done for different distributions.</abstract
     <track>Distributions</track>
     <type>Podium</type>
     <language>English</language>
-    <abstract></abstract>
-    <description></description>
+    <abstract>YOURI stands for "Youri Offers an Upload &amp; Repository Infrastucture". It aims to build tools making management of a coherent set of packages easier.</abstract>
+    <description>Running a package distribution project involves a lot of tasks:
+* allow individual maintainers to upload packages in a central repository
+* create packages index for packages managers such as urpmi or yum
+* synchronise developement resources such as CVS or bugzilla
+* advertise new packages
+* sign packages numerically
+* check individual packages consistency
+* check global repository consistency
+* etc...
+
+The quick'n'dirty approach of using a pile of dedicated shell scripts, with hardcoded distributer-specific policies, generally results quickly in a maintainance nightmare for admins and a discrepancy nightmare for users. YOURI aims to leverage those issues by providing a generic package management framework, focused on code reusability and modularity.</description>
     <persons>
      <person id="758">Guillaume Rousse</person>
     </persons>
@@ -3000,6 +3934,26 @@ We also show how, in the context of the Mancoosi project, we are using the CUDF 
     <links>
     </links>
    </event>
+   <event id="1116">
+    <start>13:45</start>
+    <duration>00:45</duration>
+    <room>H.1308</room>
+    <tag>dist_debian_ubuntu</tag>
+    <title>Debian and Ubuntu</title>
+    <subtitle></subtitle>
+    <track>Distributions</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>* Ubuntu development process and how it relates to Debian
+* Current state of Debian/Ubuntu relationships
+* Future</abstract>
+    <description></description>
+    <persons>
+     <person id="152">Lucas Nussbaum</person>
+    </persons>
+    <links>
+    </links>
+   </event>
    <event id="968">
     <start>14:45</start>
     <duration>00:45</duration>
@@ -3010,34 +3964,56 @@ We also show how, in the context of the Mancoosi project, we are using the CUDF 
     <track>Distributions</track>
     <type>Podium</type>
     <language>English</language>
-    <abstract></abstract>
-    <description></description>
+    <abstract>The talk will describe current development efforts @rpm5.org to add ACID properties to RPM package management.</abstract>
+    <description>All operations involved in installing a package, not only the package metadata, but also the system calls, content, and scripts run by RPM will be logged within a transaction using a two-phase apply -&gt; commit/abort so that all RPM operations can become stateless and invertible.
+
+The talk will specifically focus on and overview of the log management tools and the rpmdb schema changes necessary to use Berkeley DB ACID and transactional log extensions to add ACID properties to RPM package management.
+
+Connections with the parallel Mancoosi WP3 efforts to model/simulate package script behavior using a Domain Specific Language will also be described, time permitting.</description>
     <persons>
      <person id="187">Jeff Johnson</person>
     </persons>
     <links>
     </links>
    </event>
-   <event id="969">
+   <event id="963">
     <start>15:30</start>
     <duration>00:45</duration>
     <room>H.1308</room>
-    <tag>dist_tx</tag>
-    <title>Transactional Roll-backs and Upgrades</title>
+    <tag>dist_project_builder</tag>
+    <title>Continuous Packaging with Project-Builder.org</title>
     <subtitle></subtitle>
     <track>Distributions</track>
     <type>Podium</type>
     <language>English</language>
-    <abstract>As part of the MANCOOSI project, looking to improve upon the upgrade process of packages, Caixa Mágica and several other European partners are researching and developing solutions for various, related topics of the package upgrade process. One aspect is that of looking at whether Roll-Back is feasible and what mechanisms are best for making this sort of approach work alongside existing package meta-installers.</abstract>
-    <description>We will state what we define as Roll-Back and the associated problems of trying to achieve this process. To do this we investigate current state-of-the-art mechanisms available for 'Roll-Back' and configuration management and then state what our current methodology is for trying to tackle and achieve Roll-Back for our apt-rpm based distribution. We outline some of the decisions and assumptions  that have been taken and indicate what the project members believe the outcome will be. 
+    <abstract>With the increasing role of FLOSS in enterprise, some development techniques linked to it also know a momentum. Continuous integration (shared sources repository, automatic build, automatic test) is such an example. The new process called continuous packaging should still be promoted and developed as best practice for industry.
 
-We will then invite questions from the audience to try and promote a few talking points.</description>
+Project-Builder.org is a new GPL v2 tool designed to help projects developers producing easily packages for multiple OS and architectures, on a regular basis, from a single source repository.</abstract>
+    <description>90% of users and admins prefer to install packages rather than tar files or content from a [D]VCS. But packages don't necessarily follow the development stream of projects, to package alpha, beta. Giving the possibility for projects to distribute seamlessly packages for whatever step of their development is clearly a gain for the whole community.
+
+The various aspects covered by the tool are:
+* only produce software packages (ease integration in deployment severs, provide inheritance mecanisms, and Virtual Machines (VM) or Environments (VE))
+* ease the various steps of solution life cycle (controlled ipact of installation/uninstallation, dependencies management, identical deliveries up to the customer, announce management, web site delivery, metadata management)
+* help new projects in the provisioning of packages (templates and skeletons for the various supported OS, generated structure, help in VM/VE build)
+* Avoid code or metadata duplication, as well as has no impact on the original project (macro system, separate repository)
+* Neutral in term of Unix environment (repository, system, package type  agnostic)
+
+These features help reducing the development cost by providing a process, method and tools to realize continuous packaging during the whole project life cycle.
+Today the tool supports:
+* Multiple repository (none - aka tar balls, SVN, CVS, Git, Mercurial, SVK...)
+* Multiple systems ((RPM Linux - Red Hat, openSUSE, Mandriva, ..., deb Linux - Debian, Ubuntu, ..., ebuild - Gentoo, pkg Solaris/OpenSolaris, ...)
+* Multiple build environments (local, VM - QEMU, KVM, ..., VE - mock, rinse, pbuilder, ...)
+* Multiple repository manager (yum, urpmi, apt, ...)
+and this at various phasis (development, test, integration, delivery)
+
+It aims at becoming a tools for the vcs-pkg.org initiative
+It's today used for projects as diverse as FOSSology, MondoRescue, LinuxCOE, GOsa², itself, ...
+
+The presentation will describe the needs of the various people around a FLOSS project (user, admin, developer, packager), how packaging is a must have in the project, why package early, package often is the right mantra, and how Project-Builder.org can help them all achieve those goals.</description>
     <persons>
-     <person id="760">John Thomson</person>
+     <person id="757">Bruno Cornec</person>
     </persons>
     <links>
-     <link href="http://www.mancoosi.org/">MANCOOSI project</link>
-     <link href="http://www.caixamagica.pt/">Caixa Mágica</link>
     </links>
    </event>
    <event id="970">
@@ -3075,8 +4051,8 @@ It is a reworked version of a talk that has been done at DebConf8, where the tar
     <abstract></abstract>
     <description></description>
     <persons>
-     <person id="130">Christophe Fergeau</person>
      <person id="95">Bart Coppens</person>
+     <person id="130">Christophe Fergeau</person>
     </persons>
     <links>
     </links>
@@ -3094,7 +4070,7 @@ It is a reworked version of a talk that has been done at DebConf8, where the tar
     <abstract>GUPnP is an object-oriented C library to ease the task for writing UPnP/DLNA applications. Rygel is a collection of DLNA services built on top of GUPnP in Vala language.</abstract>
     <description>I will start the presentation with an introduction of both projects and how they are designed from ground-up for both desktop and mobile environments. After that I will introduce the existing and planed features. I will then introduce the plugin API of Rygel with the help of a Sample plugin, followed by a demo and Q&amp;A session in the end.</description>
     <persons>
-     <person id="733">Zeeshan Ali</person>
+     <person id="374">Zeeshan Ali</person>
     </persons>
     <links>
     </links>
@@ -3124,6 +4100,35 @@ Coherence is a framework written in Python, that greatly simlifies the entry int
      <link href="http://coherence-project.org/">http://coherence-project.org/</link>
     </links>
    </event>
+   <event id="1114">
+    <start>11:45</start>
+    <duration>00:45</duration>
+    <room>H.1309</room>
+    <tag>xd_desktopcouch</tag>
+    <title>Make your users happy, "cloudify" your app with desktopcouch</title>
+    <subtitle></subtitle>
+    <track>CrossDesktop</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>There is growing number on devices running Linux and your applications have to adapt to this new environment, using desktopcouch will allow your application to replicate your uses preferences and data over their devices with little development time.</abstract>
+    <description>In this dev-talk you will learn how to use desktopcouch as the data back-end of your software.
+
+The talk will focus on:
+* Records: What are they and how to work with them and reuse existing ones.
+* CRUD operations using desktopcouch.
+* Views: A look into views in CouchDb and how are those managed in desktopcouch.
+* Use CouchGrid as a way to create TreeView for you UI.
+
+All of the above will be described through a practical exercise using python and PyGTK.</description>
+    <persons>
+     <person id="854">Manuel de la Peña</person>
+    </persons>
+    <links>
+     <link href="https://launchpad.net/desktopcouch">https://launchpad.net/desktopcouch</link>
+     <link href="http://www.freedesktop.org/wiki/Specifications/desktopcouch">http://www.freedesktop.org/wiki/Specifications/desktopcouch</link>
+     <link href="http://www.understated.co.uk/2009/starting-out-with-desktop-couch/">http://www.understated.co.uk/2009/starting-out-with-desktop-couch/</link>
+    </links>
+   </event>
    <event id="915">
     <start>13:00</start>
     <duration>00:45</duration>
@@ -3139,7 +4144,7 @@ Coherence is a framework written in Python, that greatly simlifies the entry int
 
 There will be time left for questions and discussion. It is expected the audience will be technically skilled, and possess a comprehensive understanding of package management.</description>
     <persons>
-     <person id="729">Richard Hugues</person>
+     <person id="729">Richard Hughes</person>
     </persons>
     <links>
     </links>
@@ -3149,18 +4154,27 @@ There will be time left for questions and discussion. It is expected the audienc
     <duration>00:45</duration>
     <room>H.1309</room>
     <tag>xd_nepomuk_sparql</tag>
-    <title>Nepomuk/SPARQL</title>
+    <title>The Semantic Desktop, SPARQL and You!</title>
     <subtitle></subtitle>
-    <track>GNOME</track>
+    <track>CrossDesktop</track>
     <type>Podium</type>
     <language>English</language>
-    <abstract>The Nepomuk desktop ontologies, our most recent enhancements to our SPARQL support (for example subqueries), glib-sparql, write back support and perhaps also libqttracker (which is a Qt library, but it's a very nice API to look at for building client libraries like glib-sparql).</abstract>
-    <description></description>
+    <abstract>You've probably heard about the Semantic Web and the Semantic Desktop. But what lies behind the buzzwords? Let's look together at at effective examples, running code and actual applications. Be inspired, tame the sparql beast and join the future of desktop computing!</abstract>
+    <description>We will demonstrate:
+* "Daily Catchup", which uses Tracker to mash together feeds from Facebook, Twitter and Flickr
+* Solang, a photo browser built on SPARQL
+* FSter, a FUSE file system to browse files by their metadata information
+* Gnome Activity Journal: see what you did when.</description>
     <persons>
-     <person id="116">Philip Van Hoof</person>
+     <person id="808">Roberto Guido</person>
      <person id="772">Rob Taylor</person>
+     <person id="116">Philip Van Hoof</person>
     </persons>
     <links>
+     <link href="http://projects.gnome.org/solang">Solang</link>
+     <link href="http://gitorious.org/itsme/fster">FSter</link>
+     <link href="http://labs.codethink.co.uk">Daily Catchup</link>
+     <link href="http://seilo.geekyogre.com/2010/01/gaj-not-just-mockups/">Gnome Activity Journal</link>
     </links>
    </event>
    <event id="902">
@@ -3192,9 +4206,30 @@ There will be time left for questions and discussion. It is expected the audienc
     <type>Podium</type>
     <language>English</language>
     <abstract>From the SyncML Protocol to Free and Open Implementations</abstract>
-    <description>Data synchronization is still mostly a missing piece in the free desktop puzzle: solutions that are reliable and ready for the mythical Average User just aren't available. This talk presents the SyncML protocol, introduces the Synthesis SyncML engine (developed since 2000, open sourced 2009) and outlines how SyncEvolution is used as the synchronization solution in Moblin, GNOME and other Linux desktop systems - stay tuned for more news about this.</description>
+    <description>Data synchronization is still mostly a missing piece in the free desktop puzzle: solutions that are reliable and ready for the mythical Average User just aren't available. This talk presents the SyncML protocol, introduces the Synthesis SyncML engine (developed since 2000, open sourced 2009) and outlines how SyncEvolution is used as the synchronization solution in Moblin, GNOME and other Linux desktop systems. This is intended to be a technical talk with time for discussion. For a more end-user oriented project presentation, attend the Lightning Talk on Saturday, 18h00.</description>
     <persons>
      <person id="704">Patrick Ohly</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1078">
+    <start>16:00</start>
+    <duration>00:45</duration>
+    <room>H.1309</room>
+    <tag>xd_aegis</tag>
+    <title>Open Accessibility Everywhere: software from AEGIS</title>
+    <subtitle></subtitle>
+    <track>CrossDesktop</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>[http://www.aegis-project.eu/ AEGIS] is a European Commission funded project to embed accessibility into mainstream software.</abstract>
+    <description>Open source desktops have a head start with regard to accessibility, and we demonstrate some of the projects we are working on:
+* A web-cam based gesture switch - smile to click a button :-)
+* A "concept coding" plugin for openoffice for symbol based communication
+* [http://www.inference.phy.cam.ac.uk/dasher/ Dasher] - that familiar from the GNOME desktop</description>
+    <persons>
+     <person id="825">Patrick Welche</person>
     </persons>
     <links>
     </links>
@@ -3214,8 +4249,8 @@ There will be time left for questions and discussion. It is expected the audienc
     <abstract>Welcome to the Mono developer room!</abstract>
     <description></description>
     <persons>
-     <person id="773">Ruben Vermeersch</person>
      <person id="774">Stéphane Delcroix</person>
+     <person id="773">Ruben Vermeersch</person>
     </persons>
     <links>
     </links>
@@ -3424,8 +4459,8 @@ This talk will cover several points :
     <abstract></abstract>
     <description></description>
     <persons>
-     <person id="773">Ruben Vermeersch</person>
      <person id="774">Stéphane Delcroix</person>
+     <person id="773">Ruben Vermeersch</person>
     </persons>
     <links>
     </links>
@@ -3433,7 +4468,7 @@ This talk will cover several points :
   </room>
   <room name="H.2214">
    <event id="1046">
-    <start>09:45</start>
+    <start>09:00</start>
     <duration>00:15</duration>
     <room>H.2214</room>
     <tag>drupal_welcome</tag>
@@ -3450,6 +4485,25 @@ This talk will cover several points :
     <links>
     </links>
    </event>
+   <event id="1097">
+    <start>09:15</start>
+    <duration>00:45</duration>
+    <room>H.2214</room>
+    <tag>drupal_views3</tag>
+    <title>Views 3</title>
+    <subtitle></subtitle>
+    <track>Drupal</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>With Views 3 there was a chance to clean up the code a bit and implement cool new features. For example group-by support or OR.</abstract>
+    <description></description>
+    <persons>
+     <person id="845">Daniel Wehner</person>
+    </persons>
+    <links>
+     <link href="http://drupal.org/project/views">http://drupal.org/project/views</link>
+    </links>
+   </event>
    <event id="1038">
     <start>10:00</start>
     <duration>00:45</duration>
@@ -3460,14 +4514,8 @@ This talk will cover several points :
     <track>Drupal</track>
     <type>Podium</type>
     <language>English</language>
-    <abstract>Implementing AHAH (Asynchronous HTML and HTTP) requires some Form API
-voodoo to get it done right. At first instance it can be hard to get a
-grasp at the concepts of AHAH. If you're a novice to AHAH, it's really
-easy to implement it wrong and hurt the Form API.</abstract>
-    <description>Wim Leers' AHAH
-helper module simplifies the implementation and with his Hierarchical
-Select module AHAH can be taken even further. This presentation wraps
-up everything AHAH.</description>
+    <abstract>Implementing AHAH (Asynchronous HTML and HTTP) requires some Form API voodoo to get it done right. At first instance it can be hard to get a grasp at the concepts of AHAH. If you're a novice to AHAH, it's really easy to implement it wrong and hurt the Form API.</abstract>
+    <description>Wim Leers' AHAH helper module simplifies the implementation and with his Hierarchical Select module AHAH can be taken even further. This presentation wraps up everything AHAH.</description>
     <persons>
      <person id="800">Matthias Vandermaesen</person>
     </persons>
@@ -3484,10 +4532,8 @@ up everything AHAH.</description>
     <track>Drupal</track>
     <type>Podium</type>
     <language>English</language>
-    <abstract>Practical presentation on making a mobile device friendly version of
-your Drupal site.</abstract>
-    <description>The presentation is non-technical, and covers mainly
-configuration and a little bit of css.</description>
+    <abstract>Practical presentation on making a mobile device friendly version of your Drupal site.</abstract>
+    <description>The presentation is non-technical, and covers mainly configuration and a little bit of css.</description>
     <persons>
      <person id="801">Simon Elliot</person>
     </persons>
@@ -3623,6 +4669,29 @@ functionality on top of it!</description>
      <person id="805">Florian Lorétan</person>
     </persons>
     <links>
+    </links>
+   </event>
+   <event id="1098">
+    <start>16:30</start>
+    <duration>00:45</duration>
+    <room>H.2214</room>
+    <tag>drupal_semantic</tag>
+    <title>Drupal and the semantic web</title>
+    <subtitle></subtitle>
+    <track>Drupal</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>As of Drupal 7 will use RDFa markup in core, in this session I will:
+* explain what the implications are of this and why this matters
+* give a short introduction to the Semantic web, RDF, RDFa and SPARQL in human language
+* give a short overview of the RDF modules that are available in contrib
+* talk about some of the potential use cases of all these magical technologies</abstract>
+    <description></description>
+    <persons>
+     <person id="846">Kristof van Tomme</person>
+    </persons>
+    <links>
+     <link href="http://www.slideshare.net/kvantomme/semantic-web-and-drupal-an-introduction">http://www.slideshare.net/kvantomme/semantic-web-and-drupal-an-introduction</link>
     </links>
    </event>
   </room>
@@ -3761,6 +4830,27 @@ The goal of this session is to emphasis the distinct requirements addressed in R
      <link href="http://wiki.freedesktop.org/wiki/Software/gallium">http://wiki.freedesktop.org/wiki/Software/gallium</link>
      <link href="http://aros.sourceforge.net/">http://aros.sourceforge.net/</link>
      <link href="http://www.haiku-os.org/">http://www.haiku-os.org/</link>
+    </links>
+   </event>
+   <event id="1099">
+    <start>12:45</start>
+    <duration>00:15</duration>
+    <room>AW1.105</room>
+    <tag>altos_flashrom</tag>
+    <title>Porting challenge: Flashrom, the universal flash tool</title>
+    <subtitle></subtitle>
+    <track>Alt-OS</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>Flashrom is the open source utility of choice to read and write flash chips and a real porting challenge because it needs full hardware access from userspace.</abstract>
+    <description>Some say that only X.org needs a similar level of hardware access. Flashrom is working under Linux, *BSD, OpenSolaris, Mac
+OS X and Windows (somewhat) and people use it to reflash BIOSes, graphics/network/SATA cards, a game console and to control a boatload of external flash programmers.
+
+This talk gives a short overview of flashrom and its architecture, and then goes into detail about the work needed to port it to your favourite OS.</description>
+    <persons>
+     <person id="797">Carl-Daniel Hailfinger</person>
+    </persons>
+    <links>
     </links>
    </event>
    <event id="926">
@@ -4036,8 +5126,8 @@ Over the years we realized more experimentation time was needed to succeed. Whic
 
 We will also discuss the project status, our current work and what can be expected in 2010.</description>
     <persons>
-     <person id="93">Quentin Mathé</person>
      <person id="793">David Chisnall</person>
+     <person id="93">Quentin Mathé</person>
     </persons>
     <links>
      <link href="http://www.etoileos.com/">http://www.etoileos.com/</link>
@@ -4181,8 +5271,20 @@ That way, programmers can get the best of both world, mixing Smalltalk and Objec
     <track>NoSQL</track>
     <type>Podium</type>
     <language>English</language>
-    <abstract>tba</abstract>
-    <description></description>
+    <abstract>An introduction to the NoSQL scene: the subfamilies, the projects, as well as their advantages &amp; drawbacks compared to each other or traditional SQL systems.</abstract>
+    <description>1. 40 years in the desert: yes, the relational model is actually celebrating its [http://portal.acm.org/citation.cfm?id=362685 40th birthday] this year. Let's take an unbiased look about what’s great and not-so-great about it.
+
+2. A not-so-novel idea: precursors &amp; roots of NoSQL systems from the 70s to the 00s. NoSQL projects are not just defined in opposition to SQL; they come from approaches as old or sometimes older than the relational model itself.
+
+3. The odd couple family: why those very separate projects, efforts and models have been grouped together under one brand in the public’s mind. Plus, a possible categorization of the sub-families within the movement.
+
+4. “What's in a name? That which we call a NoSQL system, by any other name would be as frackin’ sweet”: Obligatory, rapid mention of the controversy around the name and why nobody should care.
+
+5. SQL vs. NoSQL, Live from... THE THUNDERDOME: a breakdown of where NoSQL sub-families tend to shine (and where SQL should probably be used instead.)
+
+6. It's Alive: production examples of NoSQL systems.
+
+7. (If time allows.) The road ahead: future developments, business development possibilities, missing approaches &amp; projects.</description>
     <persons>
      <person id="784">Tim Anglade</person>
     </persons>
@@ -4684,6 +5786,102 @@ We'll cover MySQL Cluster, MySQL DRBD, MultiMaster based HA setups and different
    </event>
   </room>
   <room name="AW1.124">
+   <event id="1107">
+    <start>09:00</start>
+    <duration>00:30</duration>
+    <room>AW1.124</room>
+    <tag>openmoko_history</tag>
+    <title>Openmoko: 20 Minutes of history</title>
+    <subtitle></subtitle>
+    <track>Openmoko</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>This presentation gives a short overview about how it came to the Openmoko project its successes and its failures.</abstract>
+    <description></description>
+    <persons>
+     <person id="171">Michael Lauer</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1108">
+    <start>09:30</start>
+    <duration>00:45</duration>
+    <room>AW1.124</room>
+    <tag>openmoko_android</tag>
+    <title>Android on Freerunner</title>
+    <subtitle></subtitle>
+    <track>Openmoko</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>Android on Freerunner: Past, present and future of porting Android on the Openmoko Freerunner GTA02</abstract>
+    <description>The Android on Freerunner project aims at porting Android to the Openmoko Freerunner GTA02. The current working release is based on the work done by Koolu for Android Cupcake and includes patches by the community.
+
+In this talk, the project background is explained. A few words are dedicated to the Openmoko Freerunner and why it's considered as a true open phone. We will present the overview of the current functionalities of Android on the Freerunner.
+
+Looking at the roadmap, we cast some light on the short term and longer term objectives.
+
+This will a great opportunity to meet the people behind the project and see Android on the Freerunner in action.</description>
+    <persons>
+     <person id="851">Niels Heyvaert</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1109">
+    <start>10:15</start>
+    <duration>00:45</duration>
+    <room>AW1.124</room>
+    <tag>openmoko_freesmartphone</tag>
+    <title>Freesmartphone.org: DBus-Middleware for mobile devices</title>
+    <subtitle></subtitle>
+    <track>Openmoko</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>This presentation gives a look about the freesmartphone.org mobile device middleware, its services, its target platforms, and how it can be used easily on the command line.</abstract>
+    <description></description>
+    <persons>
+     <person id="171">Michael Lauer</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1110">
+    <start>11:00</start>
+    <duration>00:30</duration>
+    <room>AW1.124</room>
+    <tag>openmoko_shr</tag>
+    <title>SHR: A FSO based Openembedded distribution</title>
+    <subtitle></subtitle>
+    <track>Openmoko</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>SHR is currently the most popular distribution for the OpenMoko FreeRunner and intends to be successful on other devices too. SHR uses E17 as UI, is build around the telephone API of freesmartphone.org and is build with the build-framework from openembedded.org.</abstract>
+    <description>SHR is a community driven GNU/Linux distribution for smartphones. It currently targets Openmoko models Neo 1973 and Neo FreeRunner, but is not designed for these only.</description>
+    <persons>
+     <person id="852">Thomas Zimmermann</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1111">
+    <start>11:30</start>
+    <duration>00:30</duration>
+    <room>AW1.124</room>
+    <tag>openmoko_hackable_1</tag>
+    <title>hackable:1, a Debian/Gnome distribution for hackable devices</title>
+    <subtitle></subtitle>
+    <track>Openmoko</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>hackable:1 intends to implement the Gnome Mobile platform with a Debian base on embedded phones.</abstract>
+    <description>The Openmoko is the currently the most open phone and  therefore the first platform hackable:1 runs on.</description>
+    <persons>
+     <person id="853">David Wagner</person>
+    </persons>
+    <links>
+    </links>
+   </event>
    <event id="1034">
     <start>13:00</start>
     <duration>00:45</duration>
@@ -4821,6 +6019,39 @@ Come to this talk if you have an interest in doing web application development a
      <link href="http://www.webtoolkit.eu/jwt">http://www.webtoolkit.eu/jwt</link>
     </links>
    </event>
+   <event id="1047">
+    <start>13:15</start>
+    <duration>00:30</duration>
+    <room>AW1.125</room>
+    <tag>java_arm</tag>
+    <title>The ARM Optimised Interpreter and Thumb2 JIT</title>
+    <subtitle></subtitle>
+    <track>Free Java</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>The ARM architecture in constrained devices such as smartphones and low end netbooks presents unique challenges for the VM writer. The ARM Optimised Interpreter delivers performance improvement of up to five times the C interpreter in the OpenJDK Zero port while maintaining smooth performance throughout. This talk looks at the techniques used and explores how they could be extended to other architectures.
+
+The second part of the talk will look inside the Thumb2 JIT. The principle design goal of the Thumb2 JIT was to optimise time of first execution rather than peak performance. As such the design goals were to produce a JIT giving very fast compile time while generating reasonable and compact code.</abstract>
+    <description>The ARM architecture is typically used in constrained devices such as smartphones and low end netbooks. Typically a constrained device has
+* Single, not multiple core
+* Relatively fast core speed (800MHz)
+* Small primary cache (32K I+D)
+* Small secondary cache
+* Slow memory system (typically 300nS)
+* Small memory system (typically 512M)
+
+This means that the system is almost completely constrained by the memory system. A single cache miss can cost up to 270 cycles.
+
+This presents particular challenges for the VM writer. A traditional JIT solution may not offer the best performance because of cache trashing. For larger applications the interpreter may actually offer better performance than a JIT.
+
+Over the past year I have been working on a project to improve the Java performance on these devices. I have implemented this by writing an optimised ARM Interpreter in hand crafted ARM assembler and coupling this with a Thumb2 JIT which interacts quickly and seamlessly with the interpreter.</description>
+    <persons>
+     <person id="807">Edward Nevill</person>
+    </persons>
+    <links>
+     <link href="http://mint.camswl.com/openjdk.htm">http://mint.camswl.com/openjdk.htm</link>
+    </links>
+   </event>
    <event id="876">
     <start>15:00</start>
     <duration>00:30</duration>
@@ -4858,8 +6089,156 @@ Come to this talk if you have an interest in doing web application development a
     <links>
     </links>
    </event>
+   <event id="1060">
+    <start>16:30</start>
+    <duration>00:15</duration>
+    <room>AW1.125</room>
+    <tag>java_icedtea_plugin</tag>
+    <title>IcedTea NP Plugin: the next generation Open Source Java Plugin</title>
+    <subtitle></subtitle>
+    <track>Free Java</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>Removal of OJI from Gecko has made it necessary to re-write the current IcedTea Plugin. The new IcedTea NP Plugin uses the newer, preferred NPRuntime API. It solves many of the issues surrounding the old plugin.</abstract>
+    <description>This talk will focus on the features of the new plugin, and it's advantages over the old one.</description>
+    <persons>
+     <person id="560">Deepak Bhole</person>
+    </persons>
+    <links>
+    </links>
+   </event>
   </room>
   <room name="AW1.126">
+   <event id="1100">
+    <start>10:00</start>
+    <duration>00:45</duration>
+    <room>AW1.126</room>
+    <tag>bsd_freebsd</tag>
+    <title>Introduction to FreeBSD</title>
+    <subtitle></subtitle>
+    <track>BSD</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>If you never heard of FreeBSD or want to know what it's all about this talk is for you.</abstract>
+    <description>The speaker will touch topics like the differences and similarities between Linux and FreeBSD, FreeBSD's project model and unique features which make FreeBSD a great operating system.</description>
+    <persons>
+     <person id="416">Marius Nünnerich</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1101">
+    <start>11:00</start>
+    <duration>00:45</duration>
+    <room>AW1.126</room>
+    <tag>bsd_newcons</tag>
+    <title>The Newcons Project</title>
+    <subtitle></subtitle>
+    <track>BSD</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>Last year I gave a talk on the state of FreeBSD's console driver called syscons. Since then I've started working on a new console driver architecture for the kernel, which I'm hoping will be finished before FreeBSD 9.0.</abstract>
+    <description>This talk will describe how the new console driver is implemented and will highlight some of its key features, such as exclusive support for UTF-8 and reduced graphics I/O.</description>
+    <persons>
+     <person id="633">Ed Schouten</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1102">
+    <start>12:00</start>
+    <duration>00:45</duration>
+    <room>AW1.126</room>
+    <tag>bsd_autotools</tag>
+    <title>Building systems with autotools and libtool</title>
+    <subtitle></subtitle>
+    <track>BSD</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>This talk is an introduction how to create portable build systems with autotools.</abstract>
+    <description>The speaker will explain the required steps with an example project.
+
+The second part is about why self-made makefiles often are worse than the auto generated ones.</description>
+    <persons>
+     <person id="417">Benny Siegert</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1103">
+    <start>13:00</start>
+    <duration>00:45</duration>
+    <room>AW1.126</room>
+    <tag>bsd_debugging</tag>
+    <title>Debugging the FreeBSD kernel for dummies</title>
+    <subtitle></subtitle>
+    <track>BSD</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>FreeBSD aims to provide a high-quality modern operating system, however adding new features inevitably introduces bugs. Although several kernel debugging tools have been added and evolved in the last years, the quality of the kernel problem reports show that only a few FreeBSD users know how (or are willing) to take advantage of them.</abstract>
+    <description>This talk will present the tools most commonly used when investigating problems in the kernel, some techniques to extact useful information, and the most commonly made mistakes to look for when inspecting the code. I will also give a few practical tips and examples on how not to turn kernel debugging into a frustrating experience.</description>
+    <persons>
+     <person id="405">Shteryana Shopova</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1104">
+    <start>14:00</start>
+    <duration>00:45</duration>
+    <room>AW1.126</room>
+    <tag>bsd_license</tag>
+    <title>Because the License Matters:  BSD as the Foundation for Commercial Point of Sale Applications</title>
+    <subtitle></subtitle>
+    <track>BSD</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>In his presentation Marc Balmer will show how and why his company micro systems choose BSD Unix and BSD licensed software as the foundation for a commercial point of sale application.</abstract>
+    <description>He will address economic aspects of using BSD licensed software in commercial software as well as technical challenges that had to be solved to make a stock BSD operating system run on specialised point of sale hardware.  And last, but not least, he will talk about how the BSD community at large can profit from commercial developments and what a company that uses BSD software can do to support BSD in return.</description>
+    <persons>
+     <person id="632">Marc Balmer</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1105">
+    <start>15:00</start>
+    <duration>00:45</duration>
+    <room>AW1.126</room>
+    <tag>bsd_debian</tag>
+    <title>Debian GNU/kFreeBSD</title>
+    <subtitle></subtitle>
+    <track>BSD</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>With its upcoming release Debian 6.0 aka Squeeze, for the first time, Debian users will have the choice between a Linux and a FreeBSD kernel.</abstract>
+    <description>Lets see what awaits the user when choosing a FreeBSD kernel.</description>
+    <persons>
+     <person id="847">Axel Beckert</person>
+    </persons>
+    <links>
+    </links>
+   </event>
+   <event id="1106">
+    <start>16:00</start>
+    <duration>00:45</duration>
+    <room>AW1.126</room>
+    <tag>bsd_mercurial</tag>
+    <title>Tracking FreeBSD customizations with a local Mercurial branch</title>
+    <subtitle></subtitle>
+    <track>BSD</track>
+    <type>Podium</type>
+    <language>English</language>
+    <abstract>The conversion of the main FreeBSD source repository to Subversion has opened the possibility of tracking one or more FreeBSD branches closely and with a fine-grained changeset based approach.</abstract>
+    <description>This talk is about one of the ways the distributed Mercurial SCM can be used to periodically pull sets of changesets from the main FreeBSD svn repository and import them as atomic commits to a local branch.
+
+Then we will describe two different ways to use the local branch as a basis for FreeBSD customizations: how to keep a stack of patches as a linear 'customization layer' on top of FreeBSD, and how to keep another local branch with its own merge history.</description>
+    <persons>
+     <person id="848">Giorgos Keramidas</person>
+    </persons>
+    <links>
+    </links>
+   </event>
   </room>
   <room name="H.3227">
   </room>
@@ -4918,6 +6297,8 @@ Come to this talk if you have an interest in doing web application development a
     <links>
     </links>
    </event>
+  </room>
+  <room name="AY">
   </room>
  </day>
 </schedule>
