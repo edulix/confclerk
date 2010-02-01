@@ -9,6 +9,9 @@ MapWindow::MapWindow(const QPixmap &aImage, const QString &aName, QWidget *aPare
     //map->setScaledContents(true);
     //map->setPixmap(aImage.scaled(QSize(800,480),Qt::KeepAspectRatioByExpanding,Qt::SmoothTransformation));
     map->setPixmap(aImage.scaled(QSize(640,480),Qt::KeepAspectRatioByExpanding,Qt::SmoothTransformation));
+#elif N810
+    showMaximized();
+    map->setPixmap(aImage.scaled(QSize(400,300),Qt::KeepAspectRatioByExpanding,Qt::SmoothTransformation));
 #else
     map->setPixmap(aImage);
 #endif
