@@ -2,7 +2,7 @@ Source: fosdem-schedule
 Section: user/support
 Priority: optional
 Maintainer: Matus Uzak <matus.uzak@ixonos.com>
-Build-Depends: libc6 (>= 2.5.0-1), libgcc1 (>= 1:4.2.1), libqt4-dev (>= 4.5), liqt4-dbus (>= 4.5), libqt4-sql (>= 4.5), libqt4-sql-sqlite (>= 4.5) 
+Build-Depends: libqt4-dev (>= 4.5), libalarm-dev (>= 1.1.14), maemo-optify (>= 0.2.1) 
 Standards-Version: 3.7.2
 
 Package: fosdem-schedule
