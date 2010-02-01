@@ -4,6 +4,9 @@
 
 #include <QApplication>
 #include <QDir>
+#include <QDebug>
+
+#include <dbus-1.0/dbus/dbus-protocol.h>
 
 int Alarm::addAlarm(int aEventId, const QDateTime &aDateTime)
 {
@@ -16,14 +19,11 @@ int Alarm::addAlarm(int aEventId, const QDateTime &aDateTime)
     alarm_event_set_alarm_appid(eve, APPID);
 
     /* for Deleting purposes */
-    alarm_event_set_message(eve, QString::number(aEventId).toLocal8Bit().data()); 
+    alarm_event_set_message(eve, QString::number(aEventId).toLocal8Bit().data());
 
     /* Use absolute time triggering */
     eve->alarm_time = time(0) + 5; //aDateTime.toTime_t();
     eve->flags = ALARM_EVENT_BOOT;
-
-    QString command = QDir::currentPath() + "/" + *qApp->argv() + 
-      QString(" %1").arg(QString::number(aEventId));
 
     /* Add exec command action */
     act = alarm_event_add_actions(eve, 1);
@@ -32,22 +32,22 @@ int Alarm::addAlarm(int aEventId, const QDateTime &aDateTime)
     // setup this action to be a "DBus command"
     act->flags |= ALARM_ACTION_WHEN_RESPONDED;
     act->flags |= ALARM_ACTION_TYPE_DBUS;
-    
-    // DBus params for this action 
-    alarm_action_set_dbus_interface(act, "org.freedesktop.Notifications");
-    alarm_action_set_dbus_service(act, "org.freedesktop.Notifications");
-    alarm_action_set_dbus_path(act, "/org/freedesktop/Notifications");
-    alarm_action_set_dbus_name(act, "SystemNoteDialog");
-    
+
+    // DBus params for this action
+    alarm_action_set_dbus_interface(act, "org.fosdem.schedule.AlarmInterface");
+    alarm_action_set_dbus_service(act, "org.fosdem.schedule");
+    alarm_action_set_dbus_path(act, "/Fosdem");
+    alarm_action_set_dbus_name(act, "Alarm");
+
     // DBus arguments for the action
-    alarm_action_set_dbus_args(act, aEventId);
+    alarm_action_set_dbus_args(act,  DBUS_TYPE_INT32, &aEventId, DBUS_TYPE_INVALID);
 
     //    act->flags |= ALARM_ACTION_TYPE_EXEC;
     //     alarm_action_set_exec_command(act, command.toLocal8Bit().data());
     //    alarm_event_set_icon(eve, "fosdem");
     //    alarm_event_set_title(eve, "FOSDEM'10");
-    // adds assigned cookie at the end of command string 
-    //    act->flags |= ALARM_ACTION_EXEC_ADD_COOKIE; 
+    // adds assigned cookie at the end of command string
+    //    act->flags |= ALARM_ACTION_EXEC_ADD_COOKIE;
 
     /* Add stop button action */
     /* TODO: send a DBus message to remove that alarm from database */
@@ -55,7 +55,7 @@ int Alarm::addAlarm(int aEventId, const QDateTime &aDateTime)
     alarm_action_set_label(act, "Stop");
     act->flags |= ALARM_ACTION_WHEN_RESPONDED;
     act->flags |= ALARM_ACTION_TYPE_NOP;
-  
+
     /* Add snooze button action */
     act = alarm_event_add_actions(eve, 1);
     alarm_action_set_label(act, "Snooze");

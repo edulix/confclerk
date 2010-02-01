@@ -32,7 +32,7 @@ void TreeView::mouseReleaseEvent(QMouseEvent *aEvent)
 }
 
 // returns bool if some Control was clicked
-bool TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aPoint) 
+bool TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aPoint)
 {
     bool handled = false;
 
@@ -68,7 +68,7 @@ bool TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
                 // have to emit 'eventHasChanged' signal on all events in conflict
                 for(int i=0; i<conflicts.count(); i++)
                     emit(eventHasChanged(conflicts[i].id()));
-                
+
                 // since the Favourite icon has changed, update TreeViews accordingly
                 // all TreeViews have to listen on this signal
                 emit(eventHasChanged(event.id(),true));
@@ -141,7 +141,7 @@ void TreeView::handleItemClicked(const QModelIndex &index)
 {
     if(!index.parent().isValid()) // time-group
     {
-        if(isExpanded(index)) 
+        if(isExpanded(index))
             setExpanded(index, false);
         else
             setExpanded(index, true);

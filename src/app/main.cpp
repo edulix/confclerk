@@ -1,11 +1,14 @@
 #include <mainwindow.h>
 
 #include <QtGui/QApplication>
-#ifdef MAEMO
-#include <alarmdialog.h>
-#endif /* MAEMO */
+//#ifdef MAEMO
+//#include <alarmdialog.h>
+//#endif /* MAEMO */
 
 #include <sqlengine.h>
+
+#include "alarmdbus.h"
+#include "alarmdbusadaptorp.h"
 
 int main(int argc, char *argv[])
 {
@@ -24,16 +27,32 @@ int main(int argc, char *argv[])
     // an alarm dialog is to be displayed
     // Usage: $ ./fosdem eventId alarmId
     // Example: $ ./fosdem 521 13
-    if(argc==3) 
-        window = new AlarmDialog(argc,argv);
-    else if(argc==2) // display Event dialog automatically
-        window = new MainWindow(atoi(argv[1])); // eventId = argv[1]
-    else
+//    if(argc==3)
+//        window = new AlarmDialog(argc,argv);
+//    else if(argc==2) // display Event dialog automatically
+//        window = new MainWindow(atoi(argv[1])); // eventId = argv[1]
+//    else
         window = new MainWindow;
 #else
     window = new MainWindow;
 #endif /* MAEMO */
     window->show();
+
+    // Alarm Dbus
+
+    CAlarmDBus *alarmDBus = new CAlarmDBus(window);
+    new AlarmDBusAdaptor(alarmDBus);
+    //QDBusConnection connection = QDBusConnection::sessionBus();
+    QDBusConnection connection = QDBusConnection::sessionBus();
+
+    if(connection.registerObject("/Fosdem", alarmDBus) == true)
+    {
+    	if( connection.registerService("org.fosdem.schedule") == false)
+    	{
+    		qDebug() << "dbus register service failed";
+    	}
+    }
+
     return a.exec();
 }
 

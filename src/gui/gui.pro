@@ -83,8 +83,8 @@ SOURCES += roomstabcontainer.cpp \
     mapwindow.cpp \
     proxysettingsdialog.cpp
 
-maemo { 
-    FORMS += alarmdialog.ui
-    HEADERS += alarmdialog.h
-    SOURCES += alarmdialog.cpp
-}
+#maemo { 
+#    FORMS += alarmdialog.ui
+#    HEADERS += alarmdialog.h
+#    SOURCES += alarmdialog.cpp
+#}
