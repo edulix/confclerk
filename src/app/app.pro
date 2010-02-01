@@ -2,7 +2,7 @@ include(../global.pri)
 TEMPLATE = app
 TARGET = fosdem-schedule
 DESTDIR = ../bin
-QT += sql xml network dbus
+QT += sql xml network dbus 
 
 # module dependencies
 LIBS += -L$$DESTDIR -lgui -lmvc -lsql
@@ -16,10 +16,14 @@ maemo {
     TARGETDEPS += $$DESTDIR/libqalarm.a
 }
 
-HEADERS += appsettings.h
+HEADERS += appsettings.h \
+    alarmdbus.h \
+	alarmdbusadaptorp.h
 
 SOURCES += main.cpp \
-           appsettings.cpp
+           appsettings.cpp \
+    alarmdbus.cpp \
+	alarmdbusadaptor.cpp
 
 RESOURCES += ../icons.qrc \
              ../maps.qrc \

@@ -3,7 +3,7 @@ TEMPLATE = lib
 TARGET = mvc
 DESTDIR = ../bin
 CONFIG += static
-QT += sql
+QT += sql 
 
 # module dependencies
 LIBS += -L$$DESTDIR \
@@ -26,11 +26,11 @@ HEADERS += event.h \
     delegate.h \
     eventmodel.h \
     treeview.h \
-    room.h
+    room.h 
 SOURCES += event.cpp \
     conference.cpp \
     track.cpp \
     delegate.cpp \
     eventmodel.cpp \
     treeview.cpp \
-    room.cpp
+    room.cpp 

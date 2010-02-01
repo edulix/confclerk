@@ -4,7 +4,7 @@
 
 #include <QApplication>
 #include <QDir>
-#include <QDebug>
+#include <QFileInfo>
 
 #include <dbus-1.0/dbus/dbus-protocol.h>
 
@@ -29,18 +29,28 @@ int Alarm::addAlarm(int aEventId, const QDateTime &aDateTime)
     act = alarm_event_add_actions(eve, 1);
     alarm_action_set_label(act, "FOSDEM'10");
 
-    // setup this action to be a "DBus command"
+    QFileInfo fi(*qApp->argv());
+    QString name(fi.fileName());
+
+    QString command = QDir::currentPath() + "/" + name + QString(" %1").arg(QString::number(aEventId));
+    //QString command =  *qApp->argv() + QString(" %1").arg(QString::number(aEventId));
+    alarm_action_set_exec_command(act, command.toLocal8Bit().data());
+    act->flags |= ALARM_ACTION_TYPE_EXEC;
     act->flags |= ALARM_ACTION_WHEN_RESPONDED;
-    act->flags |= ALARM_ACTION_TYPE_DBUS;
+    act->flags |= ALARM_ACTION_EXEC_ADD_COOKIE; // adds assigned cookie at the end of command string
 
-    // DBus params for this action
-    alarm_action_set_dbus_interface(act, "org.fosdem.schedule.AlarmInterface");
-    alarm_action_set_dbus_service(act, "org.fosdem.schedule");
-    alarm_action_set_dbus_path(act, "/Fosdem");
-    alarm_action_set_dbus_name(act, "Alarm");
-
-    // DBus arguments for the action
-    alarm_action_set_dbus_args(act,  DBUS_TYPE_INT32, &aEventId, DBUS_TYPE_INVALID);
+//    // setup this action to be a "DBus command"
+//    act->flags |= ALARM_ACTION_WHEN_RESPONDED;
+//    act->flags |= ALARM_ACTION_TYPE_DBUS;
+//
+//    // DBus params for this action
+//    alarm_action_set_dbus_interface(act, "org.fosdem.schedule.AlarmInterface");
+//    alarm_action_set_dbus_service(act, "org.fosdem.schedule");
+//    alarm_action_set_dbus_path(act, "/Fosdem");
+//    alarm_action_set_dbus_name(act, "Alarm");
+//
+//    // DBus arguments for the action
+//    alarm_action_set_dbus_args(act,  DBUS_TYPE_INT32, &aEventId, DBUS_TYPE_INVALID);
 
     //    act->flags |= ALARM_ACTION_TYPE_EXEC;
     //     alarm_action_set_exec_command(act, command.toLocal8Bit().data());

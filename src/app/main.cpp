@@ -1,13 +1,15 @@
 #include <mainwindow.h>
 
 #include <QtGui/QApplication>
+#include <sqlengine.h>
+
+#include "eventdialog.h"
+
 #ifdef MAEMO
 //#include <alarmdialog.h>
 #include <alarmdbus.h>
 #include <alarmdbusadaptorp.h>
 #endif /* MAEMO */
-
-#include <sqlengine.h>
 
 
 int main(int argc, char *argv[])
@@ -22,37 +24,40 @@ int main(int argc, char *argv[])
     SqlEngine::initialize(); // creates "SQLITE" DB connection
 
     QWidget *window;
-#ifdef MAEMO
-    // if the app is run with two cmd-line arguments
-    // an alarm dialog is to be displayed
-    // Usage: $ ./fosdem eventId alarmId
-    // Example: $ ./fosdem 521 13
-//    if(argc==3)
-//        window = new AlarmDialog(argc,argv);
-//    else if(argc==2) // display Event dialog automatically
-//        window = new MainWindow(atoi(argv[1])); // eventId = argv[1]
-//    else
-        window = new MainWindow;
-#else
+
     window = new MainWindow;
-#endif /* MAEMO */
-    window->show();
+
 
 #ifdef MAEMO
     // Alarm Dbus
     CAlarmDBus *alarmDBus = new CAlarmDBus(window);
     new AlarmDBusAdaptor(alarmDBus);
-    //QDBusConnection connection = QDBusConnection::sessionBus();
     QDBusConnection connection = QDBusConnection::sessionBus();
 
     if(connection.registerObject("/Fosdem", alarmDBus) == true)
     {
     	if( connection.registerService("org.fosdem.schedule") == false)
     	{
-    		qDebug() << "dbus register service failed";
+    		if(argc>1)
+    		{
+        		QDBusInterface *interface = new QDBusInterface("org.fosdem.schedule",
+        		                                               "/Fosdem",
+        		                                               "org.fosdem.schedule.AlarmInterface",
+        		                                               connection);
+        		interface->call("Alarm",atoi(argv[1]));
+        		return 0;
+    		}
     	}
     }
+
+    if(argc > 1)
+    {
+        EventDialog dialog(atoi(argv[1]),window);
+        dialog.exec();
+    }
 #endif
+
+    window->show();
 
     return a.exec();
 }

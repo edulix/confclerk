@@ -9,12 +9,8 @@ LIBS += -lalarm
 DEPENDPATH += .
 
 HEADERS += alarm.h \
-		   alarmdbus.h \
-		   alarmdbusadaptorp.h
 
 SOURCES += alarm.cpp \
-		   alarmdbus.cpp \
-		   alarmdbusadaptor.cpp
 
 INCLUDEPATH += ../gui \
     ../mvc \ 
