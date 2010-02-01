@@ -43,7 +43,9 @@ QString SqlEngine::login(const QString &aDatabaseType, const QString &aDatabaseN
 
         // copy conference Db from resource, instead of creating
         // empty tables and then parsing the schedule
+        QFile dbFile(aDatabaseName);
         QFile(":/fosdem.sqlite").copy(aDatabaseName);
+        dbFile.setPermissions(QFile::ReadOwner | QFile::WriteOwner | QFile::ReadGroup | QFile::WriteGroup);
         database.open();
     }
     else
