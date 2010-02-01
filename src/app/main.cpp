@@ -1,14 +1,14 @@
 #include <mainwindow.h>
 
 #include <QtGui/QApplication>
-//#ifdef MAEMO
+#ifdef MAEMO
 //#include <alarmdialog.h>
-//#endif /* MAEMO */
+#include "alarmdbus.h"
+#include "alarmdbusadaptorp.h"
+#endif /* MAEMO */
 
 #include <sqlengine.h>
 
-#include "alarmdbus.h"
-#include "alarmdbusadaptorp.h"
 
 int main(int argc, char *argv[])
 {
@@ -38,8 +38,8 @@ int main(int argc, char *argv[])
 #endif /* MAEMO */
     window->show();
 
+#ifdef MAEMO
     // Alarm Dbus
-
     CAlarmDBus *alarmDBus = new CAlarmDBus(window);
     new AlarmDBusAdaptor(alarmDBus);
     //QDBusConnection connection = QDBusConnection::sessionBus();
@@ -52,6 +52,7 @@ int main(int argc, char *argv[])
     		qDebug() << "dbus register service failed";
     	}
     }
+#endif
 
     return a.exec();
 }
