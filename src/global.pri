@@ -6,10 +6,17 @@
 # Define 'MAEMO' specific CONFIG/DEFINE
 # To handle 'MAEMO' specific soruces/code
 DISTRO = $$system(cat /etc/issue)
-contains( DISTRO, [Mm]aemo) {
+contains( DISTRO, [Mm]aemo ) {
     # for 'MAEMO' specific source code parts
     DEFINES += MAEMO
     # for eg. including 'MAEMO' specific files
     CONFIG += maemo
+}
+
+contains( DISTRO, [Ii]nternet ) {
+    contains( DISTRO, [Tt]ablet ) {
+        # Nokia N810 device
+        DEFINES += N810
+    }
 }
 

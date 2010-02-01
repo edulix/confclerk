@@ -31,6 +31,11 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
 {
     setupUi(this);
 
+#ifdef N810
+    tabWidget->setTabText(1,"Favs");
+    //tabWidget->setTabText(2,"Day");
+#endif
+
     // first time run aplication: -> let's have it direct connection in this case
     if(!AppSettings::contains("proxyIsDirectConnection"))
         AppSettings::setDirectConnection(true);
@@ -140,6 +145,9 @@ void MainWindow::aboutApp()
     QDialog dialog(this);
     Ui::AboutDialog ui;
     ui.setupUi(&dialog);
+#ifdef N810
+    dialog.setFixedWidth(width());
+#endif
     dialog.exec();
 }
 

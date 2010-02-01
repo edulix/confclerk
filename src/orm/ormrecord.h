@@ -176,9 +176,9 @@ template <typename T>
 QSqlRecord OrmRecord<T>::toRecord(const QList<QSqlField> & columnList)
 {
     QSqlRecord record;
-    foreach (const QSqlField & col, columnList)
+    for(int i=0; i< columnList.count(); i++)
     {
-        record.append(col);
+        record.append(columnList[i]);
     }
     return record;
 }

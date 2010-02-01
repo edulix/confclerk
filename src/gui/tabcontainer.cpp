@@ -49,6 +49,9 @@ void TabContainer::itemClicked(const QModelIndex &aIndex)
         return;
 
     EventDialog dialog(static_cast<Event*>(aIndex.internalPointer())->id(),this);
+#ifdef N810
+    dialog.setFixedWidth(static_cast<QWidget*>(parent())->width());
+#endif
     connect(&dialog, SIGNAL(eventHasChanged(int,bool)), this, SIGNAL(eventHasChanged(int,bool)));
     dialog.exec();
     disconnect(&dialog, SIGNAL(eventHasChanged(int,bool)), this, SIGNAL(eventHasChanged(int,bool)));
@@ -78,6 +81,9 @@ void TabContainer::displayMap(const QModelIndex &aIndex)
 void TabContainer::displayConflicts(const QModelIndex &aIndex)
 {
     ConflictsDialog dialog(static_cast<Event*>(aIndex.internalPointer())->id(),this);
+#ifdef N810
+    dialog.setFixedWidth(static_cast<QWidget*>(parent())->width());
+#endif
     connect(&dialog, SIGNAL(eventHasChanged(int,bool)), this, SIGNAL(eventHasChanged(int,bool)));
     dialog.exec();
     disconnect(&dialog, SIGNAL(eventHasChanged(int,bool)), this, SIGNAL(eventHasChanged(int,bool)));
