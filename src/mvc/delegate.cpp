@@ -35,10 +35,10 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
 
     painter->save();
     QColor bkgrColor = Qt::cyan;
+    //QColor bkgrColor = QColor(0xAA,0xAA,0xAA);
+    QColor conflictColor = Qt::yellow;
 
     QPen borderPen(bkgrColor.darker());
-    //QColor bkgrColor = QColor(0,0,113);
-    //QPen borderPen(Qt::cyan);
     if(hasParent(index))
     {
         int aux = option.rect.height() - mControls[FavouriteControlOn]->drawPoint().y() - mControls[FavouriteControlOn]->image()->height();
@@ -66,15 +66,17 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
 
         //Time conflicts are colored differently
         if(static_cast<Event*>(index.internalPointer())->hasTimeConflict())
-            bkgrColor = Qt::yellow;
+            bkgrColor = conflictColor;
+
+        QLinearGradient itemGradient(option.rect.topLeft(), option.rect.bottomLeft());
+        itemGradient.setColorAt(0.0, Qt::white);
+        itemGradient.setColorAt(0.25, bkgrColor);
+        itemGradient.setColorAt(0.5, bkgrColor);
+        itemGradient.setColorAt(0.75, bkgrColor);
+        itemGradient.setColorAt(1.0, Qt::white);
 
         if(isLast(index))
         {
-            QLinearGradient lastGradient(option.rect.topLeft(), option.rect.bottomLeft());
-            lastGradient.setColorAt(0.0, Qt::white);
-            lastGradient.setColorAt(0.5, bkgrColor);
-            lastGradient.setColorAt(1.0, Qt::white);
-
             QPainterPath endPath;
             endPath.moveTo(option.rect.topLeft());
             endPath.lineTo(option.rect.bottomLeft()-QPoint(0, RADIUS));
@@ -83,8 +85,8 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
             endPath.arcTo(option.rect.right()-2*RADIUS, option.rect.bottom()-2*RADIUS, 2*RADIUS, 2*RADIUS, 270, 90);
             endPath.lineTo(option.rect.topRight());
 
-            painter->setBrush( bkgrColor );
-            //painter->setBrush(lastGradient);
+            //painter->setBrush( bkgrColor );
+            painter->setBrush(itemGradient);
             painter->setPen(borderPen);
             painter->drawPath(endPath);
 
@@ -92,15 +94,8 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         }
         else // middle elements
         {
-            QLinearGradient middleGradient(option.rect.topLeft(), option.rect.bottomLeft());
-            middleGradient.setColorAt(0.0, Qt::white);
-            middleGradient.setColorAt(0.25, bkgrColor);
-            middleGradient.setColorAt(0.5, Qt::white);
-            middleGradient.setColorAt(0.75, bkgrColor);
-            middleGradient.setColorAt(1.0, Qt::white);
-
-            painter->setBrush( bkgrColor );
-            //painter->setBrush(middleGradient);
+            //painter->setBrush( bkgrColor );
+            painter->setBrush(itemGradient);
             painter->setPen(Qt::NoPen);
             painter->drawRect(option.rect);
 
