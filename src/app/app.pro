@@ -22,7 +22,8 @@ SOURCES += main.cpp \
            appsettings.cpp
 
 RESOURCES += ../icons.qrc \
-             ../maps.qrc
+             ../maps.qrc \
+             ../db.qrc
 
 # instalation related
 

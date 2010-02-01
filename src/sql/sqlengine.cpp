@@ -32,12 +32,19 @@ QString SqlEngine::login(const QString &aDatabaseType, const QString &aDatabaseN
     bool result = false;
     if(!QFile::exists(aDatabaseName)) // the DB (tables) doesn't exists, and so we have to create one
     {
+        /*
         // creating empty DB + tables
         // ??? what is the best way of creating new empty DB ???
         // we can either:
         //  - create new DB + tables by issuing corresponding queries (used solution)
         //  - create new DB from resource, which contains empty DB with tables
         result = createTables(database);
+        */
+
+        // copy conference Db from resource, instead of creating
+        // empty tables and then parsing the schedule
+        QFile(":/fosdem.sqlite").copy(aDatabaseName);
+        database.open();
     }
     else
     {
