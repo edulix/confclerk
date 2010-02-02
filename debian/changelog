@@ -1,4 +1,8 @@
-fosdem-schedule (0.1) unstable; urgency=low
+fosdem-schedule (0.2) unstable; urgency=low
+
+  * Release 0.2
+	
+ -- Matus Uzak <matus.uzak@ixonos.com>  Tue, 2 Feb 2010 13:00:00 +0100
 
   * Initial release
 

@@ -1,0 +1,52 @@
+This is the README file for the fosdem-schedule distribution.  
+
+  Copyright (C) 2010 Ixonos Plc. 
+
+  Copying and distribution of this file, with or without modification,
+  are permitted in any medium without royalty provided the copyright
+  notice and this notice are preserved.
+
+fosdem-schedule is an application written in Qt, which makes the FOSDEM
+conference schedule available offline.  It displays the conference schedule
+from various views, support searches on various items (speaker, speech topic,
+location, etc.) and enables you to select favorite events and create your own
+schedule.  For Nokia N810 and N900.
+
+See the file ./INSTALL for building and installation instructions.
+
+Primary distribution point: http://sourceforge.net/projects/fosdem-maemo/
+
+Home page: http://sourceforge.net/apps/mediawiki/fosdem-maemo/
+
+Mailing list: fosdem-maemo-devel@lists.sourceforge.net
+- please use this list for all discussion: bug reports, enhancements, etc.
+- archived at: http://sourceforge.net/mailarchive/forum.php?forum_name=fosdem-maemo-devel
+- anyone is welcome to join the list; to do so, visit
+  https://lists.sourceforge.net/lists/listinfo/fosdem-maemo-devel
+
+Bug reports:
+ Please include enough information for the maintainers to reproduce the
+ problem.  Generally speaking, that means:
+- the contents of any input files necessary to reproduce the bug
+  and command line invocations of the program(s) involved (crucial!).
+- a description of the problem and any samples of the erroneous output.
+- the version number of the program(s) involved (use --version).
+- hardware, operating system, and compiler versions (uname -a).
+- anything else that you think would be helpful.
+
+Patches are most welcome; if possible, please make them with diff -c and
+include ChangeLog entries.
+
+fosdem-schedule is free software.  See the file COPYING for copying conditions.
+
+About FOSDEM 2010:
+
+The tenth FOSDEM is a two-day event organized by volunteers to promote the
+widespread use of Free and Open Source software.  Taking place in the beautiful
+city of Brussels (Belgium), FOSDEM meetings are recognized as "The best Free
+Software and Open Source events in Europe".
+
+FOSDEM name and FOSDEM brain icon are Trademarks of FOSDEM ASBL, which gave
+this project the rights to use the brain icon and name.  Copying and
+distribution of the FOSDEM brain icon must follow the Creative Commons
+Attribution-Noncommercial-No Derivative Works 2.0 Belgium License.
