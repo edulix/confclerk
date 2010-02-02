@@ -1,5 +1,5 @@
-#ifndef SINGLE_INSTANCE_H
-#define SINGLE_INSTANCE_H
+#ifndef ALARM_DBUS_H
+#define ALARM_DBUS_H
 
 #include <QObject>
 #include <QtDBus/QtDBus>
@@ -21,4 +21,4 @@ private:
 };
 
 
-#endif // SINGLE_INSTANCE_H
+#endif // ALARM_DBUS_H

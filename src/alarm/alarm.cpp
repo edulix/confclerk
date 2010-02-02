@@ -6,7 +6,7 @@
 #include <QDir>
 #include <QFileInfo>
 
-#include <dbus-1.0/dbus/dbus-protocol.h>
+//#include <dbus-1.0/dbus/dbus-protocol.h>
 
 int Alarm::addAlarm(int aEventId, const QDateTime &aDateTime)
 {
@@ -22,7 +22,7 @@ int Alarm::addAlarm(int aEventId, const QDateTime &aDateTime)
     alarm_event_set_message(eve, QString::number(aEventId).toLocal8Bit().data());
 
     /* Use absolute time triggering */
-    eve->alarm_time = time(0) + 5; //aDateTime.toTime_t();
+    eve->alarm_time = aDateTime.toTime_t();
     eve->flags = ALARM_EVENT_BOOT;
 
     /* Add exec command action */
