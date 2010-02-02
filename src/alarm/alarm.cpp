@@ -6,6 +6,8 @@
 #include <QDir>
 #include <QFileInfo>
 
+#include <QDebug>
+
 //#include <dbus-1.0/dbus/dbus-protocol.h>
 
 int Alarm::addAlarm(int aEventId, const QDateTime &aDateTime)
@@ -22,6 +24,7 @@ int Alarm::addAlarm(int aEventId, const QDateTime &aDateTime)
     alarm_event_set_message(eve, QString::number(aEventId).toLocal8Bit().data());
 
     /* Use absolute time triggering */
+    //eve->alarm_time = time(0) + 5; // for testing (5 seconds from now)
     eve->alarm_time = aDateTime.toTime_t();
     eve->flags = ALARM_EVENT_BOOT;
 
@@ -29,11 +32,8 @@ int Alarm::addAlarm(int aEventId, const QDateTime &aDateTime)
     act = alarm_event_add_actions(eve, 1);
     alarm_action_set_label(act, "FOSDEM'10");
 
-    QFileInfo fi(*qApp->argv());
-    QString name(fi.fileName());
-
-    QString command = QDir::currentPath() + "/" + name + QString(" %1").arg(QString::number(aEventId));
-    //QString command =  *qApp->argv() + QString(" %1").arg(QString::number(aEventId));
+    QString command = QFileInfo(*qApp->argv()).absoluteFilePath() + QString(" %1").arg(QString::number(aEventId));
+    qDebug() << "Setting alarm: " << command;
     alarm_action_set_exec_command(act, command.toLocal8Bit().data());
     act->flags |= ALARM_ACTION_TYPE_EXEC;
     act->flags |= ALARM_ACTION_WHEN_RESPONDED;
