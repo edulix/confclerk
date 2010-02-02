@@ -3,10 +3,10 @@ This NEWS file records noteworthy changes, very tersely.
 
 Version 0.2 (2 Feb 2010)
 * Search tab has been added.
-* Alarms are handled by alarmd, which requests native alarm dialogs.    
+* Alarms handled by alarmd, which requests native alarm dialogs (N900 only).
 * A service is registered to DBus, the application is handling calls from alarm
   dialogs to reflect alarm states into the database.  The application is
-  started if required.
+  started if required (N900 only).
 
 Version 0.1 (19 Jan 2010) 
 
