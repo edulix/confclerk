@@ -35,6 +35,7 @@ class NoSuchEventException
 class Event : public OrmRecord<Event>
 {
 public:
+    Event();
     static const QSqlRecord sColumns;
     static QString const sTableName;
 public:
@@ -63,10 +64,10 @@ public:
     QString abstract() const { return value("abstract").toString(); }
     QString description() const { return value("description").toString(); }
     // records from other tables associated with 'id'
-    QString room() const;
-    int roomId() const;
+    QString room();
+    int roomId();
     QStringList persons();
-    QMap<QString,QString> links() const;
+    QMap<QString,QString> links();
 
     void setId(int id) { setValue("id", id); }
     void setConferenceId(int conferenceId) { setValue("xid_conference", conferenceId); }
@@ -90,7 +91,10 @@ public:
 friend class EventTest;
 
 private:
-    QStringList personsList;
+    QStringList mPersonsList;
+    QMap<QString,QString> mLinksList;
+    int mRoomId;
+    QString mRoomName;
 };
 
 #endif // EVENT_H

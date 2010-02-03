@@ -37,6 +37,10 @@ QSqlRecord const Event::sColumns = Event::toRecord(QList<QSqlField>()
     << QSqlField("abstract", QVariant::String)
     << QSqlField("description", QVariant::String));
 
+Event::Event() :
+    mRoomId( 0 )
+{
+}
 
 Event Event::getById(int id, int conferenceId)
 {
@@ -115,37 +119,48 @@ QList<Event> Event::getFavByDate(const QDate& date, int conferenceId)
     return load(query);
 }
 
-QString Event::room() const
+QString Event::room()
 {
-    QSqlQuery query;
-    // TODO: conference ID isn't used here
-    query.prepare("SELECT name FROM room WHERE id = (SELECT xid_room FROM event_room WHERE xid_event = :id)");
-    query.bindValue(":id", id());
-    query.exec();
-    // TODO: handle qeury error
-    //qDebug() << query.lastError();
-    if(query.next())
-        return query.record().value("name").toString();
-    else
-        return QString("not-available");
+    if ( mRoomName.isEmpty() )
+    {
+        QSqlQuery query;
+        // TODO: conference ID isn't used here
+        query.prepare("SELECT name FROM room WHERE id = :roomId");
+        query.bindValue(":roomId", roomId());
+        query.exec();
+        // TODO: handle qeury error
+        //qDebug() << query.lastError();
+        if(query.next())
+            mRoomName = query.record().value("name").toString();
+        else
+            mRoomName = QString("not-available");
+    }
+    return mRoomName;
 }
 
-int Event::roomId() const
+int Event::roomId()
 {
-    QSqlQuery query;
-    query.prepare("SELECT xid_room FROM event_room WHERE xid_event = :id");
-    query.bindValue(":id", id());
-    if (!query.isActive())
-        if (!query.exec())
-            throw OrmSqlException(query.lastError().text());
-    if (!query.next())
-        throw OrmNoObjectException();
-    return query.record().value("xid_room").toInt();
+    if ( mRoomId == 0 )
+    {
+        QSqlQuery query;
+        query.prepare("SELECT xid_room FROM event_room WHERE xid_event = :id");
+        query.bindValue(":id", id());
+        if (!query.isActive())
+            if (!query.exec())
+                throw OrmSqlException(query.lastError().text());
+        if (!query.next())
+        {
+            qDebug() << "No room found for event id: " << id();
+            throw OrmNoObjectException();
+        }
+        mRoomId = query.record().value("xid_room").toInt();
+    }
+    return mRoomId;
 }
 
 QStringList Event::persons()
 {
-    if( personsList.isEmpty() )
+    if( mPersonsList.isEmpty() )
     {
         QSqlQuery query;
         // TODO: conference ID isn't used here
@@ -156,27 +171,28 @@ QStringList Event::persons()
         //qDebug() << query.lastError();
 
         while(query.next())
-            personsList.append(query.record().value("name").toString());
+            mPersonsList.append(query.record().value("name").toString());
     }
 
-    return personsList;
+    return mPersonsList;
 }
 
-QMap<QString,QString> Event::links() const
+QMap<QString,QString> Event::links()
 {
-    QSqlQuery query;
-    query.prepare("SELECT name,url FROM link WHERE xid_event = :id AND xid_conference = :conf");
-    query.bindValue(":id", id());
-    query.bindValue(":conf", conferenceId());
-    query.exec();
-    // TODO: handle qeury error
-    //qDebug() << query.lastError();
+    if ( mLinksList.isEmpty() )
+    {
+        QSqlQuery query;
+        query.prepare("SELECT name,url FROM link WHERE xid_event = :id AND xid_conference = :conf");
+        query.bindValue(":id", id());
+        query.bindValue(":conf", conferenceId());
+        query.exec();
+        // TODO: handle qeury error
+        //qDebug() << query.lastError();
 
-    QMap<QString,QString> links;
-    while(query.next())
-        links.insert(query.record().value("name").toString(), query.record().value("url").toString());
-
-    return links;
+        while(query.next())
+            mLinksList.insert(query.record().value("name").toString(), query.record().value("url").toString());
+    }
+    return mLinksList;
 }
 
 bool Event::hasTimeConflict() const
