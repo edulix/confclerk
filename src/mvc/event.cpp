@@ -143,21 +143,23 @@ int Event::roomId() const
     return query.record().value("xid_room").toInt();
 }
 
-QStringList Event::persons() const
+QStringList Event::persons()
 {
-    QSqlQuery query;
-    // TODO: conference ID isn't used here
-    query.prepare("SELECT person.name FROM person INNER JOIN event_person ON person.id = event_person.xid_person AND event_person.xid_event = :id");
-    query.bindValue(":id", id());
-    query.exec();
-    // TODO: handle qeury error
-    //qDebug() << query.lastError();
+    if( personsList.isEmpty() )
+    {
+        QSqlQuery query;
+        // TODO: conference ID isn't used here
+        query.prepare("SELECT person.name FROM person INNER JOIN event_person ON person.id = event_person.xid_person AND event_person.xid_event = :id");
+        query.bindValue(":id", id());
+        query.exec();
+        // TODO: handle qeury error
+        //qDebug() << query.lastError();
 
-    QStringList persons;
-    while(query.next())
-        persons.append(query.record().value("name").toString());
+        while(query.next())
+            personsList.append(query.record().value("name").toString());
+    }
 
-    return persons;
+    return personsList;
 }
 
 QMap<QString,QString> Event::links() const

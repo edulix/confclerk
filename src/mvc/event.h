@@ -65,7 +65,7 @@ public:
     // records from other tables associated with 'id'
     QString room() const;
     int roomId() const;
-    QStringList persons() const;
+    QStringList persons();
     QMap<QString,QString> links() const;
 
     void setId(int id) { setValue("id", id); }
@@ -88,6 +88,9 @@ public:
     void setLinks(const QMap<QString,QString> &aLinks);
 
 friend class EventTest;
+
+private:
+    QStringList personsList;
 };
 
 #endif // EVENT_H
