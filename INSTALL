@@ -31,6 +31,9 @@ Maemo Package Building
 
 1. Type `qmake' to generate Makefiles.
 2. Check the "Build-Depends" section of the control file for required packages.
-   Ignore the version strings when building a package for Maemo 3 (Diablo).
+   Maemo 3 (Diablo) specific:
+   - Ignore the version strings when building a package for Maemo 3 (Diablo).
+   - Optification of the package is not explicitly required, to disable it
+     comment out the "maemo-optify $(PKG_NAME)" line in debian/rules.  
 3. Type `dpkg-buildpackage -rfakeroot -b -uc' to build a package.  
  
