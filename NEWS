@@ -1,6 +1,9 @@
 
 This NEWS file records noteworthy changes, very tersely.
 
+Version 0.3 (3 Feb 2010)
+* Performance improvement for events. 
+
 Version 0.2 (2 Feb 2010)
 * Search tab has been added.
 * Alarms handled by alarmd, which requests native alarm dialogs (N900 only).
@@ -9,7 +12,6 @@ Version 0.2 (2 Feb 2010)
   started if required (N900 only).
 
 Version 0.1 (19 Jan 2010) 
-
 * A user can select favourite events, which are displayed in "Favourites" tab.
 * FOSDEM icon is displayed in application manager and in applications menu.        
 * Optification of the package is done using maemo-optify script.
