@@ -43,7 +43,12 @@ int Alarm::addAlarm(int aEventId, const QDateTime &aDateTime)
 
     /* Use absolute time triggering */
     //eve->alarm_time = time(0) + 5; // for testing (5 seconds from now)
-    eve->alarm_time = aDateTime.toTime_t();
+    QDateTime local( aDateTime);
+    qDebug() << "UTC: " << local.toTime_t();
+    local.setTimeSpec(Qt::LocalTime);
+    qDebug() << "LocalTime: " << local.toTime_t();
+    
+    eve->alarm_time = local.toTime_t();
     eve->flags = ALARM_EVENT_BOOT;
 
     /* Add exec command action */

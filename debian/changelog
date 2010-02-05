@@ -1,4 +1,8 @@
-fosdem-schedule (0.3) stable; urgency=low
+fosdem-schedule (0.4) stable; urgency=low
+  
+  * Release 0.4
+	
+ -- Marek Timko <marek.timko@ixonos.com>  Tue, 5 Feb 2010 16:40:26 +0100
 
   * Release 0.3
 	
