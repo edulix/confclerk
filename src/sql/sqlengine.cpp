@@ -293,7 +293,7 @@ bool SqlEngine::createTables(QSqlDatabase &aDatabase)
             "description VARCHAR, "
             "favourite INTEGER DEFAULT 0, "
             "alarm INTEGER DEFAULT 0, "
-            "PRIMARY KEY (xid_conference,id), "
+            "PRIMARY KEY (xid_conference,id) ON CONFLICT REPLACE, "
             "FOREIGN KEY(xid_conference) REFERENCES CONFERENCE(id), "
             "FOREIGN KEY(xid_track) REFERENCES TRACK(id));");
 
@@ -301,7 +301,7 @@ bool SqlEngine::createTables(QSqlDatabase &aDatabase)
             "xid_conference INTEGER NOT NULL, "
             "xid_event INTEGER NOT NULL, "
             "xid_person INTEGER NOT NULL, "
-            "UNIQUE ( xid_conference, xid_event, xid_person ) ON CONFLICT IGNORE, "
+            "UNIQUE ( xid_conference, xid_event, xid_person ) ON CONFLICT REPLACE, "
             "FOREIGN KEY(xid_conference) REFERENCES CONFERENCE(id), "
             "FOREIGN KEY(xid_event) REFERENCES EVENT(id), "
             "FOREIGN KEY(xid_person) REFERENCES PERSON(id));");
@@ -310,7 +310,7 @@ bool SqlEngine::createTables(QSqlDatabase &aDatabase)
             "xid_conference INTEGER NOT NULL, "
             "xid_event INTEGER NOT NULL, "
             "xid_room INTEGER NOT NULL, "
-            "UNIQUE ( xid_conference, xid_event, xid_room ) ON CONFLICT IGNORE, "
+            "UNIQUE ( xid_conference, xid_event, xid_room ) ON CONFLICT REPLACE, "
             "FOREIGN KEY(xid_conference) REFERENCES CONFERENCE(id), "
             "FOREIGN KEY(xid_event) REFERENCES EVENT(id), "
             "FOREIGN KEY(xid_room) REFERENCES ROOM(id));");
@@ -321,7 +321,7 @@ bool SqlEngine::createTables(QSqlDatabase &aDatabase)
             "xid_event INTEGER NOT NULL, "
             "name VARCHAR, "
             "url VARCHAR NOT NULL, "
-            "UNIQUE ( xid_conference, xid_event, url ) ON CONFLICT IGNORE, "
+            "UNIQUE ( xid_conference, xid_event, url ) ON CONFLICT REPLACE, "
             "FOREIGN KEY(xid_conference) REFERENCES CONFERENCE(id), "
             "FOREIGN KEY(xid_event) REFERENCES EVENT(id));");
     }
