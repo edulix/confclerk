@@ -47,7 +47,7 @@ int Alarm::addAlarm(int aEventId, const QDateTime &aDateTime)
     qDebug() << "UTC: " << local.toTime_t();
     local.setTimeSpec(Qt::LocalTime);
     qDebug() << "LocalTime: " << local.toTime_t();
-    
+
     eve->alarm_time = local.toTime_t();
     eve->flags = ALARM_EVENT_BOOT;
 

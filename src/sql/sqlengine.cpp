@@ -152,7 +152,10 @@ void SqlEngine::addEventToDB(QHash<QString,QString> &aEvent)
             trackId = track.insert();
             /*qDebug() << QString("DEBUG: Track %1 added to DB").arg(name);*/
         }
-        QDateTime startDateTime = QDateTime(QDate::fromString(aEvent["date"],DATE_FORMAT),QTime::fromString(aEvent["start"],TIME_FORMAT));
+        QDateTime startDateTime;
+        startDateTime.setTimeSpec(Qt::UTC);
+        startDateTime = QDateTime(QDate::fromString(aEvent["date"],DATE_FORMAT),QTime::fromString(aEvent["start"],TIME_FORMAT),Qt::UTC);
+        qDebug() << "startDateTime: " << startDateTime.toString();
         QString values = QString("'%1', '%2', '%3', '%4', '%5', '%6', '%7', ? , ? , ? , ? , ? , '%8', '%9'") \
                          .arg(aEvent["conference_id"]) \
                          .arg(aEvent["id"]) \
@@ -168,6 +171,7 @@ void SqlEngine::addEventToDB(QHash<QString,QString> &aEvent)
             QString("INSERT INTO EVENT (xid_conference, id, start, duration, xid_track, type, language, tag, title, subtitle, abstract, description, favourite, alarm) VALUES (%1)")
             .arg(values);
 
+        qDebug() << query;
         QSqlQuery result;
         result.prepare(query);
         result.bindValue(0,aEvent["tag"]);
@@ -368,7 +372,6 @@ int SqlEngine::searchEvent(int aConferenceId, const QHash<QString,QString> &aCol
 
     execQuery( db, query );
 
-    //TODO: retun number of rows from SEARCH_EVENT
     return 1;
 }
 
