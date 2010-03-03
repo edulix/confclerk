@@ -1,6 +1,6 @@
 [Desktop Entry]
 Encoding=UTF-8
-Version=0.4
+Version=0.4.1
 Type=Application
 Name=FOSDEM'10
 Exec=/usr/bin/fosdem-schedule
