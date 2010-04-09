@@ -156,29 +156,48 @@ void SqlEngine::addEventToDB(QHash<QString,QString> &aEvent)
         startDateTime.setTimeSpec(Qt::UTC);
         startDateTime = QDateTime(QDate::fromString(aEvent["date"],DATE_FORMAT),QTime::fromString(aEvent["start"],TIME_FORMAT),Qt::UTC);
         qDebug() << "startDateTime: " << startDateTime.toString();
-        QString values = QString("'%1', '%2', '%3', '%4', '%5', '%6', '%7', ? , ? , ? , ? , ? , '%8', '%9'") \
-                         .arg(aEvent["conference_id"]) \
-                         .arg(aEvent["id"]) \
-                         .arg(QString::number(startDateTime.toTime_t())) \
-                         .arg(-QTime::fromString(aEvent["duration"],TIME_FORMAT).secsTo(QTime(0,0))) \
-                         .arg(trackId) \
-                         .arg(aEvent["type"]) \
-                         .arg(aEvent["language"]) \
-                         .arg("0") \
-                         .arg("0");
 
-        QString query =
-            QString("INSERT INTO EVENT (xid_conference, id, start, duration, xid_track, type, language, tag, title, subtitle, abstract, description, favourite, alarm) VALUES (%1)")
-            .arg(values);
+        bool event_exists = false;
+        {
+            QSqlQuery check_event_query;
+            check_event_query.prepare("SELECT * FROM EVENT WHERE xid_conference = :xid_conference AND id = :id");
+            check_event_query.bindValue(":xid_conference", aEvent["xid_conference"]);
+            check_event_query.bindValue(":id", aEvent["id"]);
+            if (check_event_query.isActive() and check_event_query.isSelect() and check_event_query.first()) {
+                event_exists = true;
+            }
+        }
 
-        qDebug() << query;
         QSqlQuery result;
-        result.prepare(query);
-        result.bindValue(0,aEvent["tag"]);
-        result.bindValue(1,aEvent["title"]);
-        result.bindValue(2,aEvent["subtitle"]);
-        result.bindValue(3,aEvent["abstract"]);
-        result.bindValue(4,aEvent["description"]);
+        if (event_exists) {
+            result.prepare("UPDATE EVENT SET"
+                            " start = :start"
+                            ", duration = :duration"
+                            ", xid_track = :xid_track"
+                            ", type = :type"
+                            ", language = :language"
+                            ", tag = :tag"
+                            ", title = :title"
+                            ", subtitle = :subtitle"
+                            ", abstract = :abstract"
+                            ", description = :description"
+                                " WHERE id = :id AND xid_conference = :xid_conference");
+        } else {
+            result.prepare("INSERT INTO EVENT "
+                            " (xid_conference, id, start, duration, xid_track, type, "
+                                " language, tag, title, subtitle, abstract, description) "
+                            " VALUES (:xid_conference, :id, :start, :duration, :xid_track "
+                                ":language, :tag, :title, :subtitle, :abstract, :description)");
+        }
+        result.bindValue(":xid_conference", aEvent["conference_id"]);
+        result.bindValue(":start", QString::number(startDateTime.toTime_t()));
+        result.bindValue(":duration", -QTime::fromString(aEvent["duration"],TIME_FORMAT).secsTo(QTime(0,0)));
+        result.bindValue(":xid_track", trackId);
+        static const QList<QString> props = QList<QString>()
+            << "id" << "type" << "language" << "tag" << "title" << "subtitle" << "abstract" << "description";
+        foreach (QString prop_name, props) {
+            result.bindValue(QString(":") + prop_name, aEvent[prop_name]);
+        }
         result.exec();
     }
 }
@@ -297,7 +316,7 @@ bool SqlEngine::createTables(QSqlDatabase &aDatabase)
             "description VARCHAR, "
             "favourite INTEGER DEFAULT 0, "
             "alarm INTEGER DEFAULT 0, "
-            "PRIMARY KEY (xid_conference,id) ON CONFLICT REPLACE, "
+            "PRIMARY KEY (xid_conference,id), "
             "FOREIGN KEY(xid_conference) REFERENCES CONFERENCE(id), "
             "FOREIGN KEY(xid_track) REFERENCES TRACK(id));");
 
