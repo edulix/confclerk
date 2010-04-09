@@ -375,6 +375,20 @@ int SqlEngine::searchEvent(int aConferenceId, const QHash<QString,QString> &aCol
     return 1;
 }
 
+bool SqlEngine::beginTransaction()
+{
+    QSqlDatabase db = QSqlDatabase::database();
+
+    return execQuery(db, "BEGIN IMMEDIATE TRANSACTION");
+}
+
+bool SqlEngine::commitTransaction()
+{
+    QSqlDatabase db = QSqlDatabase::database();
+
+    return execQuery(db, "COMMIT");
+}
+
 bool SqlEngine::execQuery(QSqlDatabase &aDatabase, const QString &aQuery)
 {
     //qDebug() << "\nSQL: " << aQuery;

@@ -37,6 +37,9 @@ class SqlEngine : public QObject
         static void addLinkToDB(QHash<QString,QString> &aLink);
         static void addRoomToDB(QHash<QString,QString> &aRoom);
 
+        static bool beginTransaction();
+        static bool commitTransaction();
+
         // search Events for ....
         static int searchEvent(int conferenceId, const QHash<QString,QString> &columns, const QString &keyword);
     private:

@@ -37,6 +37,8 @@ int ScheduleXmlParser::parseData(const QByteArray &aData)
 
     QDomElement scheduleElement = document.firstChildElement("schedule");
 
+    SqlEngine::beginTransaction();
+
     int confId = 0;
     if (!scheduleElement.isNull())
     {
@@ -144,6 +146,7 @@ int ScheduleXmlParser::parseData(const QByteArray &aData)
             } // parsing room elements
         } // parsing day elements
     } // schedule element
+    SqlEngine::commitTransaction();
 
     return confId;
 }
