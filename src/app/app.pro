@@ -27,12 +27,15 @@ SOURCES += main.cpp \
     alarmdbus.cpp \
 	alarmdbusadaptor.cpp
 
-# qmake cannot work properly if the resource file does not exist already
-system(rm -f ../fosdem.sqlite && sqlite3 ../fosdem.sqlite <../fosdem.sql)
-
 RESOURCES += ../icons.qrc \
-             ../maps.qrc \
-             ../db.qrc
+             ../maps.qrc
+
+# qmake cannot work properly if the resource file does not exist already
+system(rm -f ../fosdem.sqlite && sqlite3 ../fosdem.sqlite <../fosdem.sql) {
+ RESOURCES += ../db.qrc
+} else {
+ error(sqlite3 failed)
+}
 
 db.target = ../fosdem.sqlite
 db.depends = ../fosdem.sql
