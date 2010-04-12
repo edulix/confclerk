@@ -349,7 +349,7 @@ CREATE TABLE EVENT ( xid_conference INTEGER  NOT NULL
     , description VARCHAR
     , favourite INTEGER DEFAULT 0
     , alarm INTEGER DEFAULT 0
-    , PRIMARY KEY (xid_conference ,id) ON CONFLICT REPLACE
+    , PRIMARY KEY (xid_conference ,id)
     , FOREIGN KEY(xid_conference) REFERENCES CONFERENCE(id)
     , FOREIGN KEY(xid_track) REFERENCES TRACK(id));
 INSERT INTO "EVENT" VALUES(1,819,1265446800,2700,1,'Podium','English','welcome','Welcome','','FOSDEM Opening Talk','FOSDEM was started under the name OSDEM (Open Source Developers of Europe Meeting) by Raphael Bauduin. Raphael says that, since he felt he lacked the brains to properly contribute to the open source community, he wanted to contribute by launching a European event in Brussels. It was an immediate success, with speakers coming from all over.
