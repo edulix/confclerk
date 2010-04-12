@@ -18,10 +18,10 @@
  */
 #include <mainwindow.h>
 
-#include <QtGui/QApplication>
 #include <sqlengine.h>
 
 #include "eventdialog.h"
+#include "application.h"
 
 #ifdef MAEMO
 //#include <alarmdialog.h>
@@ -36,8 +36,8 @@ int main(int argc, char *argv[])
     Q_INIT_RESOURCE(maps);
     Q_INIT_RESOURCE(db);
 
-    QApplication a(argc, argv);
-    QApplication::setWindowIcon(QIcon(":/icons/fosdem.png"));
+    Application a(argc, argv);
+    Application::setWindowIcon(QIcon(":/icons/fosdem.png"));
 
     SqlEngine::initialize(); // creates "SQLITE" DB connection
 

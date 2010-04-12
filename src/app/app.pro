@@ -17,10 +17,12 @@ maemo {
 }
 
 HEADERS += appsettings.h \
+        application.h \
     alarmdbus.h \
 	alarmdbusadaptorp.h
 
 SOURCES += main.cpp \
+           application.cpp \
            appsettings.cpp \
     alarmdbus.cpp \
 	alarmdbusadaptor.cpp
