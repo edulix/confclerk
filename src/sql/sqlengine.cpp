@@ -161,9 +161,16 @@ void SqlEngine::addEventToDB(QHash<QString,QString> &aEvent)
         {
             QSqlQuery check_event_query;
             check_event_query.prepare("SELECT * FROM EVENT WHERE xid_conference = :xid_conference AND id = :id");
-            check_event_query.bindValue(":xid_conference", aEvent["xid_conference"]);
+            check_event_query.bindValue(":xid_conference", aEvent["conference_id"]);
             check_event_query.bindValue(":id", aEvent["id"]);
-            if (check_event_query.isActive() and check_event_query.isSelect() and check_event_query.first()) {
+            if (!check_event_query.exec()) {
+                qWarning() << "check event failed, conference id:" << aEvent["xid_conference"]
+                        << "event id:" << aEvent["id"]
+                        << "error:" << check_event_query.lastError()
+                        ;
+                return;
+            }
+            if (check_event_query.isActive() and check_event_query.isSelect() and check_event_query.next()) {
                 event_exists = true;
             }
         }
@@ -186,7 +193,7 @@ void SqlEngine::addEventToDB(QHash<QString,QString> &aEvent)
             result.prepare("INSERT INTO EVENT "
                             " (xid_conference, id, start, duration, xid_track, type, "
                                 " language, tag, title, subtitle, abstract, description) "
-                            " VALUES (:xid_conference, :id, :start, :duration, :xid_track "
+                            " VALUES (:xid_conference, :id, :start, :duration, :xid_track, :type, "
                                 ":language, :tag, :title, :subtitle, :abstract, :description)");
         }
         result.bindValue(":xid_conference", aEvent["conference_id"]);
@@ -198,7 +205,9 @@ void SqlEngine::addEventToDB(QHash<QString,QString> &aEvent)
         foreach (QString prop_name, props) {
             result.bindValue(QString(":") + prop_name, aEvent[prop_name]);
         }
-        result.exec();
+        if (!result.exec()) {
+            qWarning() << "event insert/update failed:" << result.lastError();
+        }
     }
 }
 
