@@ -37,6 +37,7 @@
 #include "daynavigatorwidget.h"
 #include "importschedulewidget.h"
 #include "mapwindow.h"
+#include "settingsdialog.h"
 
 #include <tabcontainer.h>
 #include <appsettings.h>
@@ -85,7 +86,8 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     // event conference map button clicked
     connect(showMapButton, SIGNAL(clicked()), SLOT(conferenceMapClicked()));
 
-    connect(tabWidget, SIGNAL(infoIconClicked()), SLOT(aboutApp()));
+    connect(aboutAction, SIGNAL(triggered()), SLOT(aboutApp()));
+    connect(settingsAction, SIGNAL(triggered()), SLOT(setup()));
 
     selectConference->setDuplicatesEnabled(false);
     int confCount = Conference::getAll().count();
@@ -231,3 +233,17 @@ void MainWindow::conferenceChanged(int aIndex)
     setWindowTitle(Conference::getById(Conference::activeConference()).title());
 }
 
+void MainWindow::setup()
+{
+    SettingsDialog dialog;
+    dialog.exec();
+
+    qDebug() << "Setting-up proxy: " << AppSettings::proxyAddress() << ":" << AppSettings::proxyPort();
+    QNetworkProxy proxy(
+            AppSettings::isDirectConnection() ? QNetworkProxy::NoProxy : QNetworkProxy::HttpProxy,
+            AppSettings::proxyAddress(),
+            AppSettings::proxyPort(),
+            PROXY_USERNAME,
+            PROXY_PASSWD);
+    QNetworkProxy::setApplicationProxy(proxy);
+}

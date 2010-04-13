@@ -19,7 +19,6 @@
 #include "importschedulewidget.h"
 
 #include <schedulexmlparser.h>
-#include "proxysettingsdialog.h"
 
 #include <QDir>
 #include <QFile>
@@ -51,7 +50,6 @@ ImportScheduleWidget::ImportScheduleWidget(QWidget *aParent)
     importAction->hide();
     connect(online, SIGNAL(clicked()), SLOT(downloadSchedule()));
 
-    connect(proxySettings, SIGNAL(clicked()), SLOT(setupProxy()));
     mNetworkAccessManager = new QNetworkAccessManager(this);
     connect(mNetworkAccessManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(networkQueryFinished(QNetworkReply*)));
     mNetworkAccessManager->setProxy(QNetworkProxy::applicationProxy());
@@ -118,6 +116,8 @@ void ImportScheduleWidget::downloadSchedule()
 {
     QNetworkRequest request;
     request.setUrl(QUrl(SCHEDULE_URL));
+
+    mNetworkAccessManager->setProxy(QNetworkProxy::applicationProxy());
     mNetworkAccessManager->get(request);
 }
 
@@ -126,33 +126,16 @@ void ImportScheduleWidget::importData(const QByteArray &aData)
     browse->hide();
     online->hide();
     progressBar->show();
-    proxySettings->hide();
+    // proxySettings->hide();
 
     int confId = mXmlParser->parseData(aData);
 
     progressBar->hide();
     browse->show();
     online->show();
-    proxySettings->show();
+    // proxySettings->show();
     importScheduleLabel->setText("Import schedule: ");
 
     emit(scheduleImported(confId));
-}
-
-void ImportScheduleWidget::setupProxy()
-{
-    ProxySettingsDialog dialog;
-    dialog.exec();
-
-    qDebug() << "Setting-up proxy: " << AppSettings::proxyAddress() << ":" << AppSettings::proxyPort();
-    QNetworkProxy proxy(
-            AppSettings::isDirectConnection() ? QNetworkProxy::NoProxy : QNetworkProxy::HttpProxy,
-            AppSettings::proxyAddress(),
-            AppSettings::proxyPort(),
-            PROXY_USERNAME,
-            PROXY_PASSWD);
-    QNetworkProxy::setApplicationProxy(proxy);
-
-    mNetworkAccessManager->setProxy(QNetworkProxy::applicationProxy());
 }
 

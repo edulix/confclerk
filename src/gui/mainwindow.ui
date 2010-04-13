@@ -21,7 +21,7 @@
   <widget class="QWidget" name="centralwidget" >
    <layout class="QGridLayout" name="gridLayout" >
     <item row="0" column="0" >
-     <widget class="TabWidget" name="tabWidget" >
+     <widget class="QTabWidget" name="tabWidget" >
       <property name="currentIndex" >
        <number>2</number>
       </property>
@@ -305,14 +305,49 @@
    </layout>
   </widget>
   <widget class="QStatusBar" name="statusbar" />
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>903</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuMenu">
+    <property name="title">
+     <string>Menu</string>
+    </property>
+    <addaction name="settingsAction"/>
+    <addaction name="aboutAction"/>
+   </widget>
+   <addaction name="menuMenu"/>
+  </widget>
+  <action name="actionSettings">
+   <property name="text">
+    <string>Settings</string>
+   </property>
+  </action>
+  <action name="settingsAction">
+   <property name="icon">
+    <iconset resource="../icons.qrc">
+     <normaloff>:/icons/settings.png</normaloff>:/icons/settings.png</iconset>
+   </property>
+   <property name="text">
+    <string>Settings</string>
+   </property>
+  </action>
+  <action name="aboutAction">
+   <property name="icon">
+    <iconset resource="../icons.qrc">
+     <normaloff>:/icons/info.png</normaloff>:/icons/info.png</iconset>
+   </property>
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>TabWidget</class>
-   <extends>QTabWidget</extends>
-   <header>tabwidget.h</header>
-   <container>1</container>
-  </customwidget>
   <customwidget>
    <class>ImportScheduleWidget</class>
    <extends>QWidget</extends>

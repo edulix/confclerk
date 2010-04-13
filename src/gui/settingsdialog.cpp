@@ -16,12 +16,12 @@
  * You should have received a copy of the GNU General Public License along with
  * fosdem-schedule.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "proxysettingsdialog.h"
+#include "settingsdialog.h"
 
 #include <appsettings.h>
 #include <QDebug>
 
-ProxySettingsDialog::ProxySettingsDialog(QWidget *aParent)
+SettingsDialog::SettingsDialog(QWidget *aParent)
     : QDialog(aParent)
 {
     setupUi(this);
@@ -38,12 +38,12 @@ ProxySettingsDialog::ProxySettingsDialog(QWidget *aParent)
         proxyWidget->hide();
 }
 
-void ProxySettingsDialog::connectionTypeChanged(bool aState)
+void SettingsDialog::connectionTypeChanged(bool aState)
 {
     aState ? proxyWidget->hide() : proxyWidget->show();
 }
 
-void ProxySettingsDialog::saveDialogData()
+void SettingsDialog::saveDialogData()
 {
     // serialize dialog data
     AppSettings::setProxyAddress(address->text());

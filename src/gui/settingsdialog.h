@@ -16,18 +16,18 @@
  * You should have received a copy of the GNU General Public License along with
  * fosdem-schedule.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef PROXYSETTINGSDIALOG_H
-#define PROXYSETTINGSDIALOG_H
+#ifndef SETTINGSDIALOG_H
+#define SETTINGSDIALOG_H
 
 #include <QDialog>
-#include "ui_proxysettingsdialog.h"
+#include "ui_settingsdialog.h"
 
-class ProxySettingsDialog : public QDialog, Ui::ProxySettingsDialog
+class SettingsDialog : public QDialog, Ui::SettingsDialog
 {
     Q_OBJECT
 public:
-    ProxySettingsDialog(QWidget *aParent = NULL);
-    ~ProxySettingsDialog() {}
+    SettingsDialog(QWidget *aParent = NULL);
+    ~SettingsDialog() {}
 private slots:
     void connectionTypeChanged(bool aState);
     void saveDialogData();

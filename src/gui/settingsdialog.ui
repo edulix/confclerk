@@ -1,6 +1,6 @@
 <ui version="4.0" >
- <class>ProxySettingsDialog</class>
- <widget class="QDialog" name="ProxySettingsDialog" >
+ <class>SettingsDialog</class>
+ <widget class="QDialog" name="SettingsDialog" >
   <property name="geometry" >
    <rect>
     <x>0</x>
@@ -16,10 +16,16 @@
    </sizepolicy>
   </property>
   <property name="windowTitle" >
-   <string>Proxy settings</string>
+   <string>Settings</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout" >
    <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Proxy Settings</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
     <widget class="QCheckBox" name="directConnection" >
      <property name="text" >
       <string>Direct connection</string>
@@ -70,7 +76,7 @@
      <property name="sizeHint" stdset="0" >
       <size>
        <width>20</width>
-       <height>10</height>
+          <height>24</height>
       </size>
      </property>
     </spacer>
@@ -98,6 +104,9 @@
       </widget>
      </item>
     </layout>
+   </item>
+  </layout>
+ </widget>
    </item>
   </layout>
  </widget>

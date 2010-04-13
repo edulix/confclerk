@@ -68,23 +68,9 @@
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="proxySettings" >
-       <property name="text" >
-        <string>...</string>
-       </property>
-       <property name="icon" >
-        <iconset resource="../icons.qrc" >
-         <normaloff>:/icons/settings.png</normaloff>:/icons/settings.png</iconset>
-       </property>
-       <property name="autoRaise" >
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="browse" >
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+      <widget class="QPushButton" name="browse">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>

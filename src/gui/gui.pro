@@ -45,7 +45,7 @@ FORMS += searchhead.ui \
     conflictsdialog.ui \
     tabcontainer.ui \
     mapwindow.ui \
-    proxysettingsdialog.ui
+    settingsdialog.ui
 
 HEADERS += roomstabcontainer.h \
     nowtabcontainer.h \
@@ -63,7 +63,7 @@ HEADERS += roomstabcontainer.h \
     tabwidget.h \
     tabcontainer.h \
     mapwindow.h \
-    proxysettingsdialog.h
+    settingsdialog.h
 
 SOURCES += roomstabcontainer.cpp \
     nowtabcontainer.cpp \
@@ -81,7 +81,7 @@ SOURCES += roomstabcontainer.cpp \
     tabwidget.cpp \
     tabcontainer.cpp \
     mapwindow.cpp \
-    proxysettingsdialog.cpp
+    settingsdialog.cpp
 
 #maemo { 
 #    FORMS += alarmdialog.ui
