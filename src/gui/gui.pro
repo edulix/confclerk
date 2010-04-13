@@ -60,7 +60,6 @@ HEADERS += roomstabcontainer.h \
     daynavigatorwidget.h \
     importschedulewidget.h \
     eventdialog.h \
-    tabwidget.h \
     tabcontainer.h \
     mapwindow.h \
     settingsdialog.h
@@ -78,7 +77,6 @@ SOURCES += roomstabcontainer.cpp \
     daynavigatorwidget.cpp \
     importschedulewidget.cpp \
     eventdialog.cpp \
-    tabwidget.cpp \
     tabcontainer.cpp \
     mapwindow.cpp \
     settingsdialog.cpp
