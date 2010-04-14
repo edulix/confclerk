@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>DayNavigatorWidget</class>
- <widget class="QWidget" name="DayNavigatorWidget" >
-  <property name="geometry" >
+ <widget class="QWidget" name="DayNavigatorWidget">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,38 +10,38 @@
     <height>198</height>
    </rect>
   </property>
-  <property name="sizePolicy" >
-   <sizepolicy vsizetype="Expanding" hsizetype="Minimum" >
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Form</string>
   </property>
-  <property name="layoutDirection" >
+  <property name="layoutDirection">
    <enum>Qt::LeftToRight</enum>
   </property>
-  <layout class="QGridLayout" name="gridLayout" >
-   <item row="1" column="0" >
-    <layout class="QVBoxLayout" name="verticalLayout" >
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="0">
+    <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QToolButton" name="nextDayButton" >
-       <property name="text" >
+      <widget class="QToolButton" name="nextDayButton">
+       <property name="text">
         <string>...</string>
        </property>
-       <property name="autoRaise" >
+       <property name="autoRaise">
         <bool>true</bool>
        </property>
-       <property name="arrowType" >
+       <property name="arrowType">
         <enum>Qt::UpArrow</enum>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QWidget" native="1" name="selectedDate" >
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Expanding" hsizetype="Minimum" >
+      <widget class="QWidget" name="selectedDate" native="true">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -48,14 +49,14 @@
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="prevDayButton" >
-       <property name="text" >
+      <widget class="QToolButton" name="prevDayButton">
+       <property name="text">
         <string>...</string>
        </property>
-       <property name="autoRaise" >
+       <property name="autoRaise">
         <bool>true</bool>
        </property>
-       <property name="arrowType" >
+       <property name="arrowType">
         <enum>Qt::DownArrow</enum>
        </property>
       </widget>

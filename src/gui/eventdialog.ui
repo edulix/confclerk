@@ -1,118 +1,119 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>EventDialog</class>
- <widget class="QDialog" name="EventDialog" >
-  <property name="geometry" >
+ <widget class="QDialog" name="EventDialog">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>485</width>
-    <height>352</height>
+    <height>368</height>
    </rect>
   </property>
-  <property name="sizePolicy" >
-   <sizepolicy vsizetype="MinimumExpanding" hsizetype="Preferred" >
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Details</string>
   </property>
-  <property name="autoFillBackground" >
+  <property name="autoFillBackground">
    <bool>false</bool>
   </property>
-  <layout class="QGridLayout" name="gridLayout" >
-   <item row="0" column="0" >
-    <layout class="QVBoxLayout" name="verticalLayout" >
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QLabel" name="title" >
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Minimum" hsizetype="Preferred" >
+      <widget class="QLabel" name="title">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="font" >
+       <property name="font">
         <font>
          <weight>75</weight>
          <bold>true</bold>
          <underline>true</underline>
         </font>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>Title goes here</string>
        </property>
-       <property name="alignment" >
+       <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
-       <property name="wordWrap" >
+       <property name="wordWrap">
         <bool>true</bool>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QScrollArea" name="scrollArea" >
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Expanding" hsizetype="Preferred" >
+      <widget class="QScrollArea" name="scrollArea">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="widgetResizable" >
+       <property name="widgetResizable">
         <bool>true</bool>
        </property>
-       <widget class="QWidget" name="scrollAreaWidgetContents" >
-        <property name="geometry" >
+       <widget class="QWidget" name="scrollAreaWidgetContents">
+        <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>461</width>
-          <height>254</height>
+          <width>463</width>
+          <height>270</height>
          </rect>
         </property>
-        <layout class="QGridLayout" name="gridLayout_2" >
-         <item row="0" column="0" >
-          <widget class="QWidget" native="1" name="content" >
-           <property name="sizePolicy" >
-            <sizepolicy vsizetype="Expanding" hsizetype="Preferred" >
+        <layout class="QGridLayout" name="gridLayout_2">
+         <item row="0" column="0">
+          <widget class="QWidget" name="content" native="true">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <layout class="QVBoxLayout" name="verticalLayout_2" >
+           <layout class="QVBoxLayout" name="verticalLayout_2">
             <item>
-             <widget class="QGroupBox" name="personsGB" >
-              <property name="sizePolicy" >
-               <sizepolicy vsizetype="MinimumExpanding" hsizetype="Preferred" >
+             <widget class="QGroupBox" name="personsGB">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
-              <property name="font" >
+              <property name="font">
                <font>
                 <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
-              <property name="title" >
+              <property name="title">
                <string>Persons</string>
               </property>
-              <layout class="QVBoxLayout" name="verticalLayout_3" >
+              <layout class="QVBoxLayout" name="verticalLayout_3">
                <item>
-                <widget class="QLabel" name="persons" >
-                 <property name="font" >
+                <widget class="QLabel" name="persons">
+                 <property name="font">
                   <font>
                    <weight>50</weight>
                    <bold>false</bold>
                   </font>
                  </property>
-                 <property name="text" >
+                 <property name="text">
                   <string>PERSONS</string>
                  </property>
-                 <property name="wordWrap" >
+                 <property name="wordWrap">
                   <bool>true</bool>
                  </property>
-                 <property name="openExternalLinks" >
+                 <property name="openExternalLinks">
                   <bool>true</bool>
                  </property>
                 </widget>
@@ -121,38 +122,38 @@
              </widget>
             </item>
             <item>
-             <widget class="QGroupBox" name="abstractGB" >
-              <property name="sizePolicy" >
-               <sizepolicy vsizetype="MinimumExpanding" hsizetype="Preferred" >
+             <widget class="QGroupBox" name="abstractGB">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
-              <property name="font" >
+              <property name="font">
                <font>
                 <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
-              <property name="title" >
+              <property name="title">
                <string>Abstract</string>
               </property>
-              <layout class="QVBoxLayout" name="verticalLayout_4" >
+              <layout class="QVBoxLayout" name="verticalLayout_4">
                <item>
-                <widget class="QLabel" name="abstract" >
-                 <property name="font" >
+                <widget class="QLabel" name="abstract">
+                 <property name="font">
                   <font>
                    <weight>50</weight>
                    <bold>false</bold>
                   </font>
                  </property>
-                 <property name="text" >
+                 <property name="text">
                   <string>ABSTRACT</string>
                  </property>
-                 <property name="wordWrap" >
+                 <property name="wordWrap">
                   <bool>true</bool>
                  </property>
-                 <property name="openExternalLinks" >
+                 <property name="openExternalLinks">
                   <bool>true</bool>
                  </property>
                 </widget>
@@ -161,38 +162,38 @@
              </widget>
             </item>
             <item>
-             <widget class="QGroupBox" name="descriptionGB" >
-              <property name="font" >
+             <widget class="QGroupBox" name="descriptionGB">
+              <property name="font">
                <font>
                 <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
-              <property name="title" >
+              <property name="title">
                <string>Description</string>
               </property>
-              <layout class="QVBoxLayout" name="verticalLayout_5" >
+              <layout class="QVBoxLayout" name="verticalLayout_5">
                <item>
-                <widget class="QLabel" name="description" >
-                 <property name="sizePolicy" >
-                  <sizepolicy vsizetype="MinimumExpanding" hsizetype="Preferred" >
+                <widget class="QLabel" name="description">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
-                 <property name="font" >
+                 <property name="font">
                   <font>
                    <weight>50</weight>
                    <bold>false</bold>
                   </font>
                  </property>
-                 <property name="text" >
+                 <property name="text">
                   <string>DESCRIPTION</string>
                  </property>
-                 <property name="wordWrap" >
+                 <property name="wordWrap">
                   <bool>true</bool>
                  </property>
-                 <property name="openExternalLinks" >
+                 <property name="openExternalLinks">
                   <bool>true</bool>
                  </property>
                 </widget>
@@ -201,38 +202,38 @@
              </widget>
             </item>
             <item>
-             <widget class="QGroupBox" name="linksGB" >
-              <property name="font" >
+             <widget class="QGroupBox" name="linksGB">
+              <property name="font">
                <font>
                 <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
-              <property name="title" >
+              <property name="title">
                <string>Links</string>
               </property>
-              <layout class="QVBoxLayout" name="verticalLayout_6" >
+              <layout class="QVBoxLayout" name="verticalLayout_6">
                <item>
-                <widget class="QLabel" name="links" >
-                 <property name="sizePolicy" >
-                  <sizepolicy vsizetype="MinimumExpanding" hsizetype="Preferred" >
+                <widget class="QLabel" name="links">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
-                 <property name="font" >
+                 <property name="font">
                   <font>
                    <weight>50</weight>
                    <bold>false</bold>
                   </font>
                  </property>
-                 <property name="text" >
+                 <property name="text">
                   <string>LINKS</string>
                  </property>
-                 <property name="wordWrap" >
+                 <property name="wordWrap">
                   <bool>true</bool>
                  </property>
-                 <property name="openExternalLinks" >
+                 <property name="openExternalLinks">
                   <bool>true</bool>
                  </property>
                 </widget>
@@ -248,14 +249,14 @@
       </widget>
      </item>
      <item>
-      <spacer name="verticalSpacer_2" >
-       <property name="orientation" >
+      <spacer name="verticalSpacer_2">
+       <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
-       <property name="sizeType" >
+       <property name="sizeType">
         <enum>QSizePolicy::Minimum</enum>
        </property>
-       <property name="sizeHint" stdset="0" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>20</width>
          <height>10</height>
@@ -264,35 +265,35 @@
       </spacer>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout" >
+      <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QToolButton" name="alarmButton" >
-         <property name="text" >
+        <widget class="QToolButton" name="alarmButton">
+         <property name="text">
           <string>...</string>
          </property>
-         <property name="icon" >
-          <iconset resource="../icons.qrc" >
+         <property name="icon">
+          <iconset resource="../icons.qrc">
            <normaloff>:/icons/alarm-offBig.png</normaloff>:/icons/alarm-offBig.png</iconset>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QToolButton" name="favouriteButton" >
-         <property name="text" >
+        <widget class="QToolButton" name="favouriteButton">
+         <property name="text">
           <string>...</string>
          </property>
-         <property name="icon" >
-          <iconset resource="../icons.qrc" >
+         <property name="icon">
+          <iconset resource="../icons.qrc">
            <normaloff>:/icons/favourite-offBig.png</normaloff>:/icons/favourite-offBig.png</iconset>
          </property>
         </widget>
        </item>
        <item>
-        <spacer name="horizontalSpacer" >
-         <property name="orientation" >
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>40</width>
            <height>20</height>
@@ -301,8 +302,8 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="okButton" >
-         <property name="text" >
+        <widget class="QPushButton" name="okButton">
+         <property name="text">
           <string>OK</string>
          </property>
         </widget>
@@ -314,7 +315,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../icons.qrc" />
+  <include location="../icons.qrc"/>
  </resources>
  <connections>
   <connection>
@@ -323,11 +324,11 @@
    <receiver>EventDialog</receiver>
    <slot>close()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>287</x>
      <y>84</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>169</x>
      <y>53</y>
     </hint>
