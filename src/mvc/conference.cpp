@@ -29,7 +29,8 @@ QSqlRecord const Conference::sColumns = Conference::toRecord(QList<QSqlField>()
     << QSqlField("days", QVariant::Int)
     << QSqlField("day_change", QVariant::Int)
     << QSqlField("timeslot_duration", QVariant::Int)
-    << QSqlField("active", QVariant::Bool));
+    << QSqlField("active", QVariant::Bool)
+    << QSqlField("url", QVariant::String));
 
 QString const Conference::sTableName = QString("conference");
 
@@ -56,6 +57,10 @@ int Conference::activeConference()
     QList<int> activeConfs;
     while(query.next())
         activeConfs.append(query.record().value("id").toInt());
+
+    qDebug() << __PRETTY_FUNCTION__
+        << "activeConfs.count()" << activeConfs.count()
+        ;
 
     if(activeConfs.count()==0) // no active DB
         return 1;

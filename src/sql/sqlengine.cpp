@@ -101,21 +101,21 @@ void SqlEngine::addConferenceToDB(QHash<QString,QString> &aConference)
 
         if(!confId) // conference 'aConference' isn't in the table => insert
         {
-            QString values = QString("'%1', '%2', '%3', '%4', '%5', '%6', '%7', '%8', '%9'") \
-                             .arg(aConference["title"]) \
-                             .arg(aConference["subtitle"]) \
-                             .arg(aConference["venue"]) \
-                             .arg(aConference["city"]) \
-                             .arg(QDateTime(QDate::fromString(aConference["start"],DATE_FORMAT),QTime(0,0),Qt::UTC).toTime_t()) \
-                             .arg(QDateTime(QDate::fromString(aConference["end"],DATE_FORMAT),QTime(0,0),Qt::UTC).toTime_t()) \
-                             .arg(aConference["days"]) \
-                             .arg(-QTime::fromString(aConference["day_change"],TIME_FORMAT).secsTo(QTime(0,0))) \
-                             .arg(-QTime::fromString(aConference["timeslot_duration"],TIME_FORMAT).secsTo(QTime(0,0)));
-                             values.append(QString(", '%1'").arg(confsList.count()>0?"0":"1"));
-
-            QString query = QString("INSERT INTO CONFERENCE (title,subtitle,venue,city,start,end,days,day_change,timeslot_duration,active) VALUES (%1)").arg(values);
-            QSqlQuery result (query, db);
-            aConference["id"] = result.lastInsertId().toString(); // 'id' is assigned automatically
+            QSqlQuery query(db);
+            query.prepare("INSERT INTO CONFERENCE (title,url,subtitle,venue,city,start,end,days,"
+                                                    "day_change,timeslot_duration,active) "
+                            " VALUES (:title,:url,:subtitle,:venue,:city,:start,:end,:days,"
+                                                    ":day_change,:timeslot_duration,:active)");
+            foreach (QString prop_name, (QList<QString>() << "title" << "url" << "subtitle" << "venue" << "city" << "days")) {
+                query.bindValue(QString(":") + prop_name, aConference[prop_name]);
+            }
+            query.bindValue(":start", QDateTime(QDate::fromString(aConference["start"],DATE_FORMAT),QTime(0,0),Qt::UTC).toTime_t());
+            query.bindValue(":end", QDateTime(QDate::fromString(aConference["end"],DATE_FORMAT),QTime(0,0),Qt::UTC).toTime_t());
+            query.bindValue(":day_change", -QTime::fromString(aConference["day_change"],TIME_FORMAT).secsTo(QTime(0,0)));
+            query.bindValue(":day_change", -QTime::fromString(aConference["timeslot_duration"],TIME_FORMAT).secsTo(QTime(0,0)));
+            query.bindValue(":active", confsList.count() > 0 ? 0 : 1);
+            query.exec();
+            aConference["id"] = query.lastInsertId().toString(); // 'id' is assigned automatically
         }
     }
 }

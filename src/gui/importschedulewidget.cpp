@@ -29,7 +29,12 @@
 #include <QDebug>
 #include <appsettings.h>
 
-const QString SCHEDULE_URL = "http://fosdem.org/2010/schedule/xml";
+// TODO: this is temporary
+#include <QInputDialog>
+
+#include "conference.h"
+
+// const QString SCHEDULE_URL = "http://fosdem.org/2010/schedule/xml";
 
 const QString PROXY_USERNAME;
 const QString PROXY_PASSWD;
@@ -90,7 +95,7 @@ void ImportScheduleWidget::browseSchedule()
             return;
         }
 
-        importData(file.readAll());
+        importData(file.readAll(), QString());
 
     }
     else
@@ -107,27 +112,50 @@ void ImportScheduleWidget::networkQueryFinished(QNetworkReply *aReply)
     }
     else
     {
-        importData(aReply->readAll());
+        importData(aReply->readAll(), aReply->url().toEncoded());
     }
 }
 
 void ImportScheduleWidget::downloadSchedule()
 {
     QNetworkRequest request;
-    request.setUrl(QUrl(SCHEDULE_URL));
+
+    // TODO: make a nicer GUI
+    // basically, you have to do the following things:
+    // 1. store schedule URL for each conteferce
+    // 2. allow refreshing of the current conference schedule with "1 button click"
+    // 3. allow changing of the URL for a conference;
+    //     run refresh together with it is ok and even justified by usability,
+    //     but it must not loose this change if refresh not available.
+    //     So it cannot be done as "do like #4 and rely on REPLACE".
+    // 4. allow getting the new conference by URL
+
+    QString url_default;
+    try {
+        url_default = Conference::getById(Conference::activeConference()).getUrl();
+    } catch (OrmException& e) {
+        qWarning() << "failed to get default URL:" << e.text();
+    }
+
+    bool ok = false;
+    QString url = QInputDialog::getText(this, "URL request", "Put proper schedule URL or let it try with it", QLineEdit::Normal, url_default, &ok);
+    if (!ok) { // cancel pressed
+        return;
+    }
+    request.setUrl(QUrl(url));
 
     mNetworkAccessManager->setProxy(QNetworkProxy::applicationProxy());
     mNetworkAccessManager->get(request);
 }
 
-void ImportScheduleWidget::importData(const QByteArray &aData)
+void ImportScheduleWidget::importData(const QByteArray &aData, const QString& url)
 {
     browse->hide();
     online->hide();
     progressBar->show();
     // proxySettings->hide();
 
-    int confId = mXmlParser->parseData(aData);
+    int confId = mXmlParser->parseData(aData, url);
 
     progressBar->hide();
     browse->show();

@@ -30,7 +30,7 @@ ScheduleXmlParser::ScheduleXmlParser(QObject *aParent)
 {
 }
 
-int ScheduleXmlParser::parseData(const QByteArray &aData)
+int ScheduleXmlParser::parseData(const QByteArray &aData, const QString& url)
 {
     QDomDocument document;
     document.setContent (aData, false);
@@ -56,6 +56,7 @@ int ScheduleXmlParser::parseData(const QByteArray &aData)
             conference["days"] = conferenceElement.firstChildElement("days").text(); // int
             conference["day_change"] = conferenceElement.firstChildElement("day_change").text(); // time
             conference["timeslot_duration"] = conferenceElement.firstChildElement("timeslot_duration").text(); // time
+            conference["url"] = url;
             SqlEngine::addConferenceToDB(conference);
             confId = conference["id"].toInt();
             emit(parsingSchedule(conference["title"]));

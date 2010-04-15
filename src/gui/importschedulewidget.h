@@ -41,7 +41,7 @@ class ImportScheduleWidget : public QWidget, Ui::ImportScheduleWidget
     signals:
         void scheduleImported(int confId);
     private:
-        void importData(const QByteArray &aData);
+        void importData(const QByteArray &aData, const QString& url);
     private:
         ScheduleXmlParser *mXmlParser;
         QNetworkAccessManager *mNetworkAccessManager;

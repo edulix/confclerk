@@ -48,6 +48,16 @@ public:
     int dayChange() const { return value("day_change").toInt(); } // in seconds from 00:00
     int timeslotDuration() const { return value("timeslot_duration").toInt(); } // in seconds
     bool isActive() const { return value("active").toBool(); }
+    QString getUrl() const
+    {
+        QVariant val = value("url");
+        qDebug() << __PRETTY_FUNCTION__ << val;
+        if (val.isValid()) {
+            return val.toString();
+        } else {
+            return QString();
+        }
+    }
 
     void setId(int id) { setValue("id", id); }
     void setTitle(const QString& title) { setValue("title", title); }
@@ -60,6 +70,7 @@ public:
     void setDayChange(int dayChange) { setValue("day_change", dayChange); }
     void setTimeslotDuration(int timeslotDuration) { setValue("timeslot_duration", timeslotDuration); }
     void setActive(bool active) { setValue("active", (int)((active))); }
+    void setUrl(const QString& url) { setValue("url", url.isNull() ? QVariant() : url); }
 };
 
 #endif /* CONFERENCE_H */
