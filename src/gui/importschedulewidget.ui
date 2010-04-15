@@ -31,7 +31,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>Import schedule: </string>
+        <string>Schedule:</string>
        </property>
       </widget>
      </item>

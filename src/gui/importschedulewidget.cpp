@@ -206,7 +206,7 @@ void ImportScheduleWidget::importData(const QByteArray &aData, const QString& ur
     browse->show();
     online->show();
     // proxySettings->show();
-    importScheduleLabel->setText("Import schedule: ");
+    importScheduleLabel->setText("Schedule:");
 
     emit(scheduleImported(confId));
 }
