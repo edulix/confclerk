@@ -17,6 +17,7 @@
  * fosdem-schedule.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "conference.h"
+#include "../sql/sqlengine.h"
 
 QSqlRecord const Conference::sColumns = Conference::toRecord(QList<QSqlField>()
     << QSqlField("id", QVariant::Int)
@@ -51,20 +52,27 @@ QList<Conference> Conference::getAll()
 
 int Conference::activeConference()
 {
-    QSqlQuery query("SELECT id FROM conference WHERE active = 1");
-    query.exec();
+    {
+        QSqlQuery query("SELECT id FROM conference WHERE active = 1");
+        query.exec();
 
-    QList<int> activeConfs;
-    while(query.next())
-        activeConfs.append(query.record().value("id").toInt());
+        // TODO: change it so that it will select somw existing ID
 
-    qDebug() << __PRETTY_FUNCTION__
-        << "activeConfs.count()" << activeConfs.count()
-        ;
+        if (query.next()) {
+            return query.record().value("id").toInt();
+        }
+    }
 
-    if(activeConfs.count()==0) // no active DB
-        return 1;
-    else // even if there are more active confs, the first from the list is confidered active
-        return activeConfs[0];
+    QSqlQuery query2("SELECT id FROM conference ORDER BY id");
+    if (query2.next()) {
+        return query2.record().value("id").toInt();
+    }
+
+    return -1;
+}
+
+void Conference::deleteConference(int id)
+{
+    SqlEngine::deleteConference(id);
 }
 

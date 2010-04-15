@@ -320,12 +320,54 @@ bool SqlEngine::commitTransaction()
     return execQuery(db, "COMMIT");
 }
 
+void SqlEngine::deleteConference(int id)
+{
+    QSqlDatabase db = QSqlDatabase::database();
+
+    if ( !db.isValid() || !db.isOpen()) {
+        return;
+    }
+
+    beginTransaction();
+
+    QHash<QString, QVariant> params;
+    params["xid_conference"] = id;
+    execQueryWithParameter(db, "DELETE FROM LINK WHERE xid_conference = :xid_conference", params);
+    execQueryWithParameter(db, "DELETE FROM EVENT_ROOM WHERE xid_conference = :xid_conference", params);
+    execQueryWithParameter(db, "DELETE FROM EVENT_PERSON WHERE xid_conference = :xid_conference", params);
+    execQueryWithParameter(db, "DELETE FROM EVENT WHERE xid_conference = :xid_conference", params);
+    execQueryWithParameter(db, "DELETE FROM CONFERENCE WHERE id = :xid_conference", params);
+    execQuery(db, "DELETE FROM ROOM WHERE NOT EXISTS(SELECT * FROM EVENT_ROOM WHERE xid_room = ROOM.id)");
+    execQuery(db, "DELETE FROM PERSON WHERE NOT EXISTS(SELECT * FROM EVENT_PERSON WHERE xid_person = PERSON.id)");
+
+    commitTransaction();
+}
+
 bool SqlEngine::execQuery(QSqlDatabase &aDatabase, const QString &aQuery)
 {
     //qDebug() << "\nSQL: " << aQuery;
 
     QSqlQuery sqlQuery(aDatabase);
     if( !sqlQuery.exec(aQuery) ){
+       qDebug() << "SQL ERR: " << sqlQuery.lastError().number() << ", " << sqlQuery.lastError().text();
+       return false;
+    }
+    else{
+       //qDebug() << "SQL OK.\n";
+       return true;
+    }
+}
+
+bool SqlEngine::execQueryWithParameter(QSqlDatabase &aDatabase, const QString &aQuery, const QHash<QString, QVariant>& params)
+{
+    qDebug() << "SQL:" << aQuery << "params:" << params;
+
+    QSqlQuery sqlQuery(aDatabase);
+    sqlQuery.prepare(aQuery);
+    foreach (QString param_key, params.keys()) {
+        sqlQuery.bindValue(param_key, params[param_key]);
+    }
+    if( !sqlQuery.exec() ){
        qDebug() << "SQL ERR: " << sqlQuery.lastError().number() << ", " << sqlQuery.lastError().text();
        return false;
     }

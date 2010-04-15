@@ -35,6 +35,7 @@ public:
     static Conference getById(int id);
     static QList<Conference> getAll();
     static int activeConference();
+    static void deleteConference(int id);
 
 public:
     int id() const { return value("id").toInt(); }

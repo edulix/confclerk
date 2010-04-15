@@ -43,6 +43,7 @@ class ImportScheduleWidget : public QWidget, Ui::ImportScheduleWidget
         void on_newFromUrl();
     signals:
         void scheduleImported(int confId);
+        void scheduleDeleted(const QString& title);
     private:
         void importFromNetwork(const QString& url);
         void importData(const QByteArray &aData, const QString& url);

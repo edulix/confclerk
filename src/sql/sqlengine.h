@@ -36,6 +36,7 @@ class SqlEngine : public QObject
         static void addPersonToDB(QHash<QString,QString> &aPerson);
         static void addLinkToDB(QHash<QString,QString> &aLink);
         static void addRoomToDB(QHash<QString,QString> &aRoom);
+        static void deleteConference(int id);
 
         static bool beginTransaction();
         static bool commitTransaction();
@@ -45,6 +46,7 @@ class SqlEngine : public QObject
     private:
         static QString login(const QString &aDatabaseType, const QString &aDatabaseName);
         static bool execQuery(QSqlDatabase &aDatabase, const QString &aQuery);
+        static bool execQueryWithParameter(QSqlDatabase &aDatabase, const QString &aQuery, const QHash<QString, QVariant>& params);
 };
 
 #endif /* SQLENGINE_H */

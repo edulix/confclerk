@@ -26,6 +26,7 @@
 #include <QNetworkProxy>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
+#include <QMessageBox>
 #include <QDebug>
 #include <appsettings.h>
 
@@ -166,7 +167,21 @@ void ImportScheduleWidget::on_newFromUrl()
 
 void ImportScheduleWidget::on_delete()
 {
-    // TODO: implement
+    int active_id = Conference::activeConference();
+    Conference active_conference = Conference::getById(active_id);
+
+    QMessageBox::StandardButton answer = 
+        QMessageBox::question(0
+            , "Deletion confirmation"
+            , QString("Really delete the %1 conference").arg(active_conference.title())
+            , QMessageBox::Yes | QMessageBox::No
+            , QMessageBox::No);
+
+    if (answer == QMessageBox::Yes) {
+        QString title = active_conference.title();
+        Conference::deleteConference(active_id);
+        emit(scheduleDeleted(title));
+    }
 }
 
 void ImportScheduleWidget::importFromNetwork(const QString& url)

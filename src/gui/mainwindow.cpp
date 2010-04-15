@@ -74,6 +74,7 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     int confId = Conference::activeConference();
 
     connect(importScheduleWidget, SIGNAL(scheduleImported(int)), SLOT(scheduleImported(int)));
+    connect(importScheduleWidget, SIGNAL(scheduleDeleted(const QString&)), SLOT(scheduleDeleted(const QString&)));
 
     // event details have changed
     connect(dayTabContainer, SIGNAL(eventHasChanged(int,bool)), SLOT(eventHasChanged(int,bool)));
@@ -157,6 +158,19 @@ void MainWindow::scheduleImported(int aConfId)
             selectConferenceWidget->show();
 
         conferenceChanged(idx);
+    }
+}
+
+void MainWindow::scheduleDeleted(const QString& title)
+{
+    int idx = selectConference->findText(title);
+
+    if (idx == -1) {
+        // should not happen
+        qWarning() << __PRETTY_FUNCTION__ << "removed non-existent item:" << title;
+    } else {
+        // will it signal "changed"?
+        selectConference->removeItem(idx);
     }
 }
 
