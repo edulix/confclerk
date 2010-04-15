@@ -24,9 +24,7 @@
 const QString EventModel::COMMA_SEPARATOR = ", ";
 
 EventModel::EventModel()
-{
-    mEvents.clear();
-}
+{ }
 
 void EventModel::createTimeGroups()
 {
@@ -62,6 +60,8 @@ void EventModel::createTimeGroups()
     }
 
     mGroups.last().mChildCount = mEvents.count() - mGroups.last().mFirstEventIndex;
+
+    reset();
 }
 
 void EventModel::createTrackGroups() {
@@ -199,15 +199,12 @@ int EventModel::rowCount (const QModelIndex & parent) const
 
 void EventModel::clearModel()
 {
-    for(int i = 0;i < mGroups.count();i++){
-        QModelIndex idx = index(i, 0);
-        Group group = mGroups[i];
-        beginRemoveRows(idx, 0, group.mChildCount - 1);
-        /*bool ok =*/ removeRows(0, group.mChildCount, idx);
-        endRemoveRows();
-        //qDebug() << "removing " << group.mChildCount << " events from group:" << i << idx.data() << ":" << ok;
-    }
+    qDebug() << __PRETTY_FUNCTION__ << this << mEvents.count();
+    mGroups.clear();
     mEvents.clear();
+    mParents.clear();
+
+    reset();
 }
 
 void EventModel::loadEvents(const QDate &aDate, int aConferenceId)

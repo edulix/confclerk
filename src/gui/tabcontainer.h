@@ -35,6 +35,7 @@ public:
     TabContainer(QWidget *aParent = NULL);
     virtual ~TabContainer() {}
 
+    void clearModel();
 protected:
     virtual void loadEvents( const QDate &aDate, const int aConferenceId )
     {

@@ -55,9 +55,13 @@ TabContainer::TabContainer(QWidget *aParent)
 
 void TabContainer::updateTreeView(const QDate &aDate)
 {
+    int active_id = Conference::activeConference();
     dayNavigator->show();
-    loadEvents( aDate, Conference::activeConference() );
-    treeView->reset();
+    if (active_id > 0) {
+        loadEvents(aDate, active_id);
+    } else {
+        static_cast<EventModel*>(treeView->model())->clearModel();
+    }
 }
 
 void TabContainer::itemClicked(const QModelIndex &aIndex)
@@ -130,5 +134,10 @@ void TabContainer::updateTreeViewModel(int aEventId, bool aReloadModel)
 void TabContainer::setDates(const QDate &aStart, const QDate &aEnd)
 {
     dayNavigator->setDates(aStart, aEnd);
+}
+
+void TabContainer::clearModel()
+{
+    static_cast<EventModel*>(treeView->model())->clearModel();
 }
 

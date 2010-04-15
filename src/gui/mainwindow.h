@@ -42,6 +42,9 @@ private slots:
 private:
     void fillAndShowConferenceHeader();
     void initTabs();
+    void unsetConference();
+
+    QString saved_title;
 };
 
 #endif /* MAINWINDOW_H */

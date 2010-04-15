@@ -50,6 +50,8 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
 {
     setupUi(this);
 
+    saved_title = windowTitle();
+
 #ifdef N810
     tabWidget->setTabText(1,"Favs");
     //tabWidget->setTabText(2,"Day");
@@ -98,22 +100,17 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
         fillAndShowConferenceHeader();
         setWindowTitle(Conference::getById(confId).title());
 
-        if(confCount==1) // don't have to show 'selectConference' widget, if there is only one conference in the DB
-            selectConferenceWidget->hide();
-        else
+        QList<Conference> confs = Conference::getAll();
+        QListIterator<Conference> i(confs);
+        while(i.hasNext())
         {
-            // have to fill comboBox with available conferences
-            QList<Conference> confs = Conference::getAll();
-            QListIterator<Conference> i(confs);
-            while(i.hasNext())
-            {
-                Conference conf = i.next();
-                selectConference->addItem(conf.title(),conf.id());
-            }
-            int idx = selectConference->findText(Conference::getById(Conference::activeConference()).title());
-            selectConference->setCurrentIndex(idx);
+            Conference conf = i.next();
+            selectConference->addItem(conf.title(),conf.id());
         }
+        int idx = selectConference->findText(Conference::getById(Conference::activeConference()).title());
+        selectConference->setCurrentIndex(idx);
         connect(selectConference, SIGNAL(currentIndexChanged(int)), SLOT(conferenceChanged(int)));
+        conferenceChanged(idx);
     }
     else
     {
@@ -154,8 +151,7 @@ void MainWindow::scheduleImported(int aConfId)
         int idx = selectConference->findText(conf.title());
         selectConference->setCurrentIndex(idx);
 
-        if(confCount>1)
-            selectConferenceWidget->show();
+        selectConferenceWidget->show();
 
         conferenceChanged(idx);
     }
@@ -168,6 +164,14 @@ void MainWindow::scheduleDeleted(const QString& title)
     if (idx == -1) {
         // should not happen
         qWarning() << __PRETTY_FUNCTION__ << "removed non-existent item:" << title;
+        // this happens when you remove the only conference (the list is not ptoperly inited in this case)
+        // now make sure that conferencet
+        if (selectConference->count() > 0) {
+            selectConference->setCurrentIndex(0);
+            conferenceChanged(0);
+        } else {
+            conferenceChanged(-1);
+        }
     } else {
         // will it signal "changed"?
         selectConference->removeItem(idx);
@@ -237,10 +241,36 @@ void MainWindow::initTabs()
     nowTabContainer->updateTreeView(QDate::currentDate());
 }
 
+void MainWindow::unsetConference()
+{
+    dayTabContainer->clearModel();
+    tracksTabContainer->clearModel();
+    roomsTabContainer->clearModel();
+    favsTabContainer->clearModel();
+    searchTabContainer->clearModel();
+    searchTabContainer->searchAgainClicked();
+    nowTabContainer->clearModel();
+
+    conferenceHeader->hide();
+    setWindowTitle(saved_title);
+}
+
 void MainWindow::conferenceChanged(int aIndex)
 {
-    Conference::getById(Conference::activeConference()).update("active",0);
-    Conference::getById(selectConference->itemData(aIndex).toInt()).update("active",1);
+    if (aIndex < 0) {
+        // no conferences left? reset all views
+        unsetConference();
+        return;
+    }
+
+    try {
+        Conference::getById(Conference::activeConference()).update("active",0);
+        Conference::getById(selectConference->itemData(aIndex).toInt()).update("active",1);
+    } catch (OrmException& e) {
+        // cannon set an active conference
+        unsetConference();
+        return;
+    }
 
     initTabs();
     fillAndShowConferenceHeader();
