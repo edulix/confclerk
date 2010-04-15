@@ -47,7 +47,6 @@ ImportScheduleWidget::ImportScheduleWidget(QWidget *aParent)
     progressBar->hide();
 
     cancel->hide();
-    importAction->hide();
     connect(online, SIGNAL(clicked()), SLOT(downloadSchedule()));
 
     mNetworkAccessManager = new QNetworkAccessManager(this);

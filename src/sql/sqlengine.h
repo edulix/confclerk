@@ -44,7 +44,6 @@ class SqlEngine : public QObject
         static int searchEvent(int conferenceId, const QHash<QString,QString> &columns, const QString &keyword);
     private:
         static QString login(const QString &aDatabaseType, const QString &aDatabaseName);
-        static bool createTables(QSqlDatabase &aDatabase);
         static bool execQuery(QSqlDatabase &aDatabase, const QString &aQuery);
 };
 
