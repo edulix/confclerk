@@ -1289,7 +1289,7 @@ CREATE TABLE EVENT_PERSON ( xid_conference INTEGER NOT NULL
     , xid_person INTEGER NOT NULL
     , UNIQUE ( xid_conference , xid_event , xid_person ) ON CONFLICT REPLACE
     , FOREIGN KEY(xid_conference) REFERENCES CONFERENCE(id)
-    , FOREIGN KEY(xid_event) REFERENCES EVENT(id)
+    , FOREIGN KEY(xid_conference, xid_event) REFERENCES EVENT(xid_conference, id)
     , FOREIGN KEY(xid_person) REFERENCES PERSON(id));
 INSERT INTO "EVENT_PERSON" VALUES(1,819,46);
 INSERT INTO "EVENT_PERSON" VALUES(1,803,665);
@@ -1621,7 +1621,7 @@ CREATE TABLE EVENT_ROOM ( xid_conference INTEGER NOT NULL
     , xid_room INTEGER NOT NULL
     , UNIQUE ( xid_conference , xid_event , xid_room ) ON CONFLICT REPLACE
     , FOREIGN KEY(xid_conference) REFERENCES CONFERENCE(id)
-    , FOREIGN KEY(xid_event) REFERENCES EVENT(id)
+    , FOREIGN KEY(xid_conference, xid_event) REFERENCES EVENT(xid_conference, id)
     , FOREIGN KEY(xid_room) REFERENCES ROOM(id));
 INSERT INTO "EVENT_ROOM" VALUES(1,819,1);
 INSERT INTO "EVENT_ROOM" VALUES(1,803,1);
@@ -1930,7 +1930,7 @@ CREATE TABLE LINK ( id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL
     , url VARCHAR NOT NULL
     , UNIQUE ( xid_conference , xid_event , url ) ON CONFLICT REPLACE
     , FOREIGN KEY(xid_conference) REFERENCES CONFERENCE(id)
-    , FOREIGN KEY(xid_event) REFERENCES EVENT(id));
+    , FOREIGN KEY(xid_conference, xid_event) REFERENCES EVENT(xid_conference, id));
 INSERT INTO "LINK" VALUES(1421,1,809,'Homepage','http://sourceware.org/systemtap/');
 INSERT INTO "LINK" VALUES(1422,1,808,'Flapjack','http://flapjack-project.com/');
 INSERT INTO "LINK" VALUES(1423,1,808,'cucumber-nagios','http://auxesis.github.com/cucumber-nagios');
