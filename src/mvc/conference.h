@@ -59,6 +59,7 @@ public:
         }
     }
 
+    #if 0
     void setId(int id) { setValue("id", id); }
     void setTitle(const QString& title) { setValue("title", title); }
     void setSubtitle(const QString& subtitle) { setValue("subtitle", subtitle); }
@@ -70,7 +71,12 @@ public:
     void setDayChange(int dayChange) { setValue("day_change", dayChange); }
     void setTimeslotDuration(int timeslotDuration) { setValue("timeslot_duration", timeslotDuration); }
     void setActive(bool active) { setValue("active", (int)((active))); }
-    void setUrl(const QString& url) { setValue("url", url.isNull() ? QVariant() : url); }
+    #endif
+    void setUrl(const QString& url)
+    {
+        setValue("url", url.isNull() ? QVariant() : url);
+        update("url");
+    }
 };
 
 #endif /* CONFERENCE_H */

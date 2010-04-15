@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>699</width>
+    <width>710</width>
     <height>79</height>
    </rect>
   </property>
@@ -36,9 +36,32 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="online">
+      <widget class="QPushButton" name="changeUrl">
        <property name="text">
-        <string>Online</string>
+        <string>Change Url</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="online">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>10</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Reresh</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="newConfFromUrl">
+       <property name="text">
+        <string>From Url</string>
        </property>
       </widget>
      </item>
@@ -51,7 +74,14 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>Browse</string>
+        <string>From File</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="delConf">
+       <property name="text">
+        <string>Delete</string>
        </property>
       </widget>
      </item>

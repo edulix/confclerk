@@ -38,9 +38,13 @@ class ImportScheduleWidget : public QWidget, Ui::ImportScheduleWidget
         void showParsingProgress(int progress);
         void networkQueryFinished(QNetworkReply *aReply);
         void downloadSchedule();
+        void on_changeUrl();
+        void on_delete();
+        void on_newFromUrl();
     signals:
         void scheduleImported(int confId);
     private:
+        void importFromNetwork(const QString& url);
         void importData(const QByteArray &aData, const QString& url);
     private:
         ScheduleXmlParser *mXmlParser;

@@ -54,6 +54,10 @@ ImportScheduleWidget::ImportScheduleWidget(QWidget *aParent)
     cancel->hide();
     connect(online, SIGNAL(clicked()), SLOT(downloadSchedule()));
 
+    connect(changeUrl, SIGNAL(clicked()), SLOT(on_changeUrl()));
+    connect(newConfFromUrl, SIGNAL(clicked()), SLOT(on_newFromUrl()));
+    connect(delConf, SIGNAL(clicked()), SLOT(on_delete()));
+
     mNetworkAccessManager = new QNetworkAccessManager(this);
     connect(mNetworkAccessManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(networkQueryFinished(QNetworkReply*)));
     mNetworkAccessManager->setProxy(QNetworkProxy::applicationProxy());
@@ -118,7 +122,6 @@ void ImportScheduleWidget::networkQueryFinished(QNetworkReply *aReply)
 
 void ImportScheduleWidget::downloadSchedule()
 {
-    QNetworkRequest request;
 
     // TODO: make a nicer GUI
     // basically, you have to do the following things:
@@ -130,18 +133,45 @@ void ImportScheduleWidget::downloadSchedule()
     //     So it cannot be done as "do like #4 and rely on REPLACE".
     // 4. allow getting the new conference by URL
 
-    QString url_default;
-    try {
-        url_default = Conference::getById(Conference::activeConference()).getUrl();
-    } catch (OrmException& e) {
-        qWarning() << "failed to get default URL:" << e.text();
+    // FIXME: it will throw
+    // GUI should not show this button if there is no active conf
+    importFromNetwork(Conference::getById(Conference::activeConference()).getUrl());
+}
+
+void ImportScheduleWidget::on_changeUrl()
+{
+    // FIXME: it will throw
+    // GUI should not show this button if there is no active conf
+    Conference active_conference = Conference::getById(Conference::activeConference());
+    bool ok = false;
+    QString new_url =
+        QInputDialog::getText(this, "URL request", "Enter the new URL for conference schedule"
+                                , QLineEdit::Normal
+                                , active_conference.getUrl()
+                                , &ok);
+    if (ok) {
+        active_conference.setUrl(new_url);
+    }
+}
+
+void ImportScheduleWidget::on_newFromUrl()
+{
+    bool ok = false;
+    QString url = QInputDialog::getText(this, "URL request", "Put the schedule URL", QLineEdit::Normal, "", &ok);
+    if (ok) {
+        importFromNetwork(url);
     }
 
-    bool ok = false;
-    QString url = QInputDialog::getText(this, "URL request", "Put proper schedule URL or let it try with it", QLineEdit::Normal, url_default, &ok);
-    if (!ok) { // cancel pressed
-        return;
-    }
+}
+
+void ImportScheduleWidget::on_delete()
+{
+    // TODO: implement
+}
+
+void ImportScheduleWidget::importFromNetwork(const QString& url)
+{
+    QNetworkRequest request;
     request.setUrl(QUrl(url));
 
     mNetworkAccessManager->setProxy(QNetworkProxy::applicationProxy());
