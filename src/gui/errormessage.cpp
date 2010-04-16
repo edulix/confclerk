@@ -16,23 +16,26 @@
  * You should have received a copy of the GNU General Public License along with
  * fosdem-schedule.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "application.h"
 #include "errormessage.h"
 
-#include <ormrecord.h>
+#include <cstdio>
 
-// if the application uses exceptions,
-// there is always a possibility that some will leak uncached from event handler
-// crashing the application is too big punishment for it
-bool Application::notify(QObject* receiver, QEvent* event)
+#include <QTextStream>
+#ifdef QT_MAEMO5_LIB
+#include <QMaemo5InformationBox>
+#else
+#include <QMessageBox>
+#endif
+
+void error_message(const QString& message)
 {
-    try {
-        return QApplication::notify(receiver, event);
-    } catch (OrmException& e) {
-        error_message("UNCAUGHT OrmException: " + e.text());
-        return false;
-    } catch (...) {
-        error_message("UNCAUGHT EXCEPTION: unknown");
-        return false;
-    }
+    QTextStream(stderr) << "ERROR: " << message << "\n";
+#ifdef QT_MAEMO5_LIB
+    // by default the message is white on yellow, which is unusable
+    // but some html here works
+    // remove it as soon as they fix the colors
+    QMaemo5InformationBox::information(0, "<font color=\"black\">" + message + "</font>");
+#else
+    QMessageBox::warning(0, "Error", message);
+#endif
 }

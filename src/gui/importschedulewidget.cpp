@@ -34,6 +34,7 @@
 #include <QInputDialog>
 
 #include "conference.h"
+#include "errormessage.h"
 
 // const QString SCHEDULE_URL = "http://fosdem.org/2010/schedule/xml";
 
@@ -113,7 +114,7 @@ void ImportScheduleWidget::networkQueryFinished(QNetworkReply *aReply)
 {
     if ( aReply->error() != QNetworkReply::NoError )
     {
-        qDebug() << "Error occured during download: " << aReply->errorString();
+        error_message(QString("Error occured during download: ") + aReply->errorString());
     }
     else
     {
@@ -208,6 +209,8 @@ void ImportScheduleWidget::importData(const QByteArray &aData, const QString& ur
     // proxySettings->show();
     importScheduleLabel->setText("Schedule:");
 
-    emit(scheduleImported(confId));
+    if (confId > 0) {
+        emit(scheduleImported(confId));
+    }
 }
 

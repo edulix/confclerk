@@ -22,6 +22,7 @@
 
 #include "schedulexmlparser.h"
 #include "sqlengine.h"
+#include "../gui/errormessage.h"
 
 #include <QDebug>
 
@@ -33,7 +34,11 @@ ScheduleXmlParser::ScheduleXmlParser(QObject *aParent)
 int ScheduleXmlParser::parseData(const QByteArray &aData, const QString& url)
 {
     QDomDocument document;
-    document.setContent (aData, false);
+    QString xml_error;
+    if (!document.setContent (aData, false, &xml_error)) {
+        error_message("Could not parse schedule: " + xml_error);
+        return -1;
+    }
 
     QDomElement scheduleElement = document.firstChildElement("schedule");
 

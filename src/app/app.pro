@@ -3,6 +3,9 @@ TEMPLATE = app
 TARGET = fosdem-schedule
 DESTDIR = ../bin
 QT += sql xml network dbus 
+CONFIG(maemo5) {
+    QT += maemo5
+}
 
 # module dependencies
 LIBS += -L$$DESTDIR -lgui -lmvc -lsql

@@ -81,6 +81,12 @@ SOURCES += roomstabcontainer.cpp \
     mapwindow.cpp \
     settingsdialog.cpp
 
+HEADERS += errormessage.h
+SOURCES += errormessage.cpp
+CONFIG(maemo5) {
+    QT += maemo5
+}
+
 #maemo { 
 #    FORMS += alarmdialog.ui
 #    HEADERS += alarmdialog.h

@@ -16,23 +16,11 @@
  * You should have received a copy of the GNU General Public License along with
  * fosdem-schedule.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "application.h"
-#include "errormessage.h"
+#ifndef ERRORMESSAGE_H
+#define ERRORMESSAGE_H
 
-#include <ormrecord.h>
+#include <QString>
 
-// if the application uses exceptions,
-// there is always a possibility that some will leak uncached from event handler
-// crashing the application is too big punishment for it
-bool Application::notify(QObject* receiver, QEvent* event)
-{
-    try {
-        return QApplication::notify(receiver, event);
-    } catch (OrmException& e) {
-        error_message("UNCAUGHT OrmException: " + e.text());
-        return false;
-    } catch (...) {
-        error_message("UNCAUGHT EXCEPTION: unknown");
-        return false;
-    }
-}
+void error_message(const QString& message);
+
+#endif
