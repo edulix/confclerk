@@ -4,8 +4,21 @@ Tue, 19 Jan 2010 10:07:40 +0100.
 It was downloaded from <fill in http/ftp site>
 
 Upstream Author: <put author(s) name and email here>
+ also contains works by (see AUTHORS in the source tree for more info):
+    Takuo KITAME <kitame@debian.org>
+    Ulisse Perusin <uli.peru@gmail.com>
+    Riccardo Buzzotta <raozuzu@yahoo.it>
+    Josef Vybíral <cornelius@vybiral.info>
+    Hylke Bons <h.bons@student.rug.nl>
+    Ricardo González <rick@jinlabs.com>
+    Lapo Calamandrei <calamandrei@gmail.com>
+    Rodney Dawes <dobey@novell.com>
+    Luca Ferretti <elle.uca@libero.it>
+    Tuomas Kuosmanen <tigert@gimp.org>
+    Andreas Nilsson <nisses.mail@home.se>
+    Jakub Steiner <jimmac@novell.com>
 
-Copyright: 2010 Ixonos Plc.
+Copyright: 2010 Ixonos Plc. and authors shown above in "also"
 
 License:
 
