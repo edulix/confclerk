@@ -45,6 +45,7 @@ int ScheduleXmlParser::parseData(const QByteArray &aData, const QString& url)
     SqlEngine::beginTransaction();
 
     int confId = 0;
+    QString conference_title;
     if (!scheduleElement.isNull())
     {
         QDomElement conferenceElement = scheduleElement.firstChildElement("conference");
@@ -64,7 +65,8 @@ int ScheduleXmlParser::parseData(const QByteArray &aData, const QString& url)
             conference["url"] = url;
             SqlEngine::addConferenceToDB(conference);
             confId = conference["id"].toInt();
-            emit(parsingSchedule(conference["title"]));
+            conference_title = conference["title"];
+            emit(parsingScheduleBegin());
         }
 
         // we need to get count of all events in order to emit 'progressStatus' signal
@@ -153,6 +155,7 @@ int ScheduleXmlParser::parseData(const QByteArray &aData, const QString& url)
         } // parsing day elements
     } // schedule element
     SqlEngine::commitTransaction();
+    emit parsingScheduleEnd(conference_title);
 
     return confId;
 }

@@ -49,7 +49,7 @@ public:
     int dayChange() const { return value("day_change").toInt(); } // in seconds from 00:00
     int timeslotDuration() const { return value("timeslot_duration").toInt(); } // in seconds
     bool isActive() const { return value("active").toBool(); }
-    QString getUrl() const
+    QString url() const
     {
         QVariant val = value("url");
         qDebug() << __PRETTY_FUNCTION__ << val;

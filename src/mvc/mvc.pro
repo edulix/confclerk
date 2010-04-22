@@ -26,11 +26,13 @@ HEADERS += event.h \
     delegate.h \
     eventmodel.h \
     treeview.h \
-    room.h 
+    room.h \
+    conferencemodel.h
 SOURCES += event.cpp \
     conference.cpp \
     track.cpp \
     delegate.cpp \
     eventmodel.cpp \
     treeview.cpp \
-    room.cpp 
+    room.cpp \
+    conferencemodel.cpp

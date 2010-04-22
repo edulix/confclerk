@@ -16,25 +16,29 @@
  * You should have received a copy of the GNU General Public License along with
  * fosdem-schedule.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef SCHEDULEXMLPARSER_H_
-#define SCHEDULEXMLPARSER_H_
+#ifndef URL_INPUT_DIALOG_H
+#define URL_INPUT_DIALOG_H
 
-#include <QObject>
+#include "ui_urlinputdialog.h"
 
-class ScheduleXmlParser : public QObject
-{
+class UrlInputDialog : public QDialog, private Ui::UrlInputDialog {
     Q_OBJECT
-    public:
-        ScheduleXmlParser (QObject *aParent = NULL);
+public:
+    enum {
+        Cancel,
+        HaveUrl,
+        HaveFile
+    };
+    UrlInputDialog(QWidget* parent);
+    virtual ~UrlInputDialog() { }
 
-    public slots:
-        int parseData(const QByteArray &aData, const QString& url); // returns 'confId' of parsed conference schedule
-
-    signals:
-        void progressStatus(int aStatus);
-        void parsingScheduleBegin();
-        void parsingScheduleEnd(const QString& title);
+    QString url() { return saved_result; }
+private slots:
+    void acceptClicked();
+    void rejectClicked();
+    void openFileClicked();
+private:
+    QString saved_result;
 };
 
-#endif /* SCHEDULEXMLPARSER_H_ */
-
+#endif

@@ -39,13 +39,14 @@ maemo {
 FORMS += searchhead.ui \
     mainwindow.ui \
     daynavigatorwidget.ui \
-    importschedulewidget.ui \
     about.ui \
     eventdialog.ui \
     conflictsdialog.ui \
     tabcontainer.ui \
     mapwindow.ui \
-    settingsdialog.ui
+    settingsdialog.ui \
+    conferenceeditor.ui \
+    urlinputdialog.ui
 
 HEADERS += roomstabcontainer.h \
     nowtabcontainer.h \
@@ -58,11 +59,12 @@ HEADERS += roomstabcontainer.h \
     conflictsdialog.h \
     mainwindow.h \
     daynavigatorwidget.h \
-    importschedulewidget.h \
     eventdialog.h \
     tabcontainer.h \
     mapwindow.h \
-    settingsdialog.h
+    settingsdialog.h \
+    conferenceeditor.h \
+    urlinputdialog.h
 
 SOURCES += roomstabcontainer.cpp \
     nowtabcontainer.cpp \
@@ -75,11 +77,12 @@ SOURCES += roomstabcontainer.cpp \
     conflictsdialog.cpp \
     mainwindow.cpp \
     daynavigatorwidget.cpp \
-    importschedulewidget.cpp \
     eventdialog.cpp \
     tabcontainer.cpp \
     mapwindow.cpp \
-    settingsdialog.cpp
+    settingsdialog.cpp \
+    conferenceeditor.cpp \
+    urlinputdialog.cpp
 
 HEADERS += errormessage.h
 SOURCES += errormessage.cpp

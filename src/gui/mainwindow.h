@@ -23,6 +23,12 @@
 
 #include <ui_mainwindow.h>
 
+#include "conferencemodel.h"
+
+class ScheduleXmlParser;
+class QNetworkAccessManager;
+class QNetworkReply;
+
 class MainWindow : public QMainWindow, private Ui::MainWindow
 {
     Q_OBJECT
@@ -31,20 +37,34 @@ public:
     // Event dialog for given Event ID
     MainWindow(int aEventId = 0, QWidget *aParent = NULL);
     ~MainWindow() {}
+signals:
+    void conferenceRemoved();
 private slots:
     void scheduleImported(int aConfId);
     void scheduleDeleted(const QString& title);
     void aboutApp();
     void conferenceMapClicked();
     void eventHasChanged(int aEventId, bool aReloadModel);
-    void conferenceChanged(int aIndex);
     void setup();
+    // TODO: remove
+    void showConferences();
+    void networkQueryFinished(QNetworkReply*);
+    void importFromNetwork(const QString&);
+    void importFromFile(const QString&);
+    void removeConference(int);
+    void changeConferenceUrl(int, const QString&);
+
+    void useConference(int id);
+    void unsetConference();
 private:
     void fillAndShowConferenceHeader();
     void initTabs();
-    void unsetConference();
+    void importData(const QByteArray &aData, const QString& url);
 
     QString saved_title;
+    ConferenceModel* conferenceModel;
+    ScheduleXmlParser *mXmlParser;
+    QNetworkAccessManager *mNetworkAccessManager;
 };
 
 #endif /* MAINWINDOW_H */

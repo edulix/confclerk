@@ -21,6 +21,8 @@
 #include <QTreeView>
 #include <QFile>
 #include <QNetworkProxy>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
 
 #include <sqlengine.h>
 
@@ -32,12 +34,15 @@
 
 #include <QDialog>
 #include <QMessageBox>
+
 #include "ui_about.h"
 #include <eventdialog.h>
 #include "daynavigatorwidget.h"
-#include "importschedulewidget.h"
 #include "mapwindow.h"
 #include "settingsdialog.h"
+#include "conferenceeditor.h"
+#include "schedulexmlparser.h"
+#include "errormessage.h"
 
 #include <tabcontainer.h>
 #include <appsettings.h>
@@ -47,6 +52,9 @@ const QString PROXY_PASSWD;
 
 MainWindow::MainWindow(int aEventId, QWidget *aParent)
     : QMainWindow(aParent)
+    , conferenceModel(new ConferenceModel(this))
+    , mXmlParser(new ScheduleXmlParser(this))
+    , mNetworkAccessManager(new QNetworkAccessManager(this))
 {
     setupUi(this);
 
@@ -73,10 +81,13 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
             PROXY_PASSWD);
     QNetworkProxy::setApplicationProxy(proxy);
 
-    int confId = Conference::activeConference();
-
+    #if 0
+    // list of conferences must be maintained by ConferenceEditor
+    // here must be one of the signals from the closing ConferenceEditor (or model):
+    // selectedConf(conference), noConf()
     connect(importScheduleWidget, SIGNAL(scheduleImported(int)), SLOT(scheduleImported(int)));
     connect(importScheduleWidget, SIGNAL(scheduleDeleted(const QString&)), SLOT(scheduleDeleted(const QString&)));
+    #endif
 
     // event details have changed
     connect(dayTabContainer, SIGNAL(eventHasChanged(int,bool)), SLOT(eventHasChanged(int,bool)));
@@ -87,17 +98,26 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     connect(searchTabContainer, SIGNAL(eventHasChanged(int,bool)), SLOT(eventHasChanged(int,bool)));
 
     // event conference map button clicked
+    #if 0
+    // TODO: think about it when return to maps
     connect(showMapButton, SIGNAL(clicked()), SLOT(conferenceMapClicked()));
+    #endif
 
     connect(aboutAction, SIGNAL(triggered()), SLOT(aboutApp()));
     connect(settingsAction, SIGNAL(triggered()), SLOT(setup()));
+    connect(conferencesAction, SIGNAL(triggered()), SLOT(showConferences()));
 
-    selectConference->setDuplicatesEnabled(false);
+    useConference(Conference::activeConference());
+
+    #if 0
+    // TODO: remove GUI
+    // initialisation of model and pick active conference from there and call conferenceChanged()
+    // selectConference->setDuplicatesEnabled(false);
     int confCount = Conference::getAll().count();
     if(confCount)
     {
         initTabs();
-        fillAndShowConferenceHeader();
+        // fillAndShowConferenceHeader();
         setWindowTitle(Conference::getById(confId).title());
 
         QList<Conference> confs = Conference::getAll();
@@ -105,20 +125,24 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
         while(i.hasNext())
         {
             Conference conf = i.next();
-            selectConference->addItem(conf.title(),conf.id());
+            // TODO: remove GUI
+            // selectConference->addItem(conf.title(),conf.id());
         }
-        int idx = selectConference->findText(Conference::getById(Conference::activeConference()).title());
-        selectConference->setCurrentIndex(idx);
-        connect(selectConference, SIGNAL(currentIndexChanged(int)), SLOT(conferenceChanged(int)));
-        conferenceChanged(idx);
+        // TODO: remove GUI
+        // int idx = selectConference->findText(Conference::getById(Conference::activeConference()).title());
+        // selectConference->setCurrentIndex(idx);
+        // connect(selectConference, SIGNAL(currentIndexChanged(int)), SLOT(conferenceChanged(int)));
+        // conferenceChanged(idx);
     }
     else
     {
-        conferenceHeader->hide();
-        selectConferenceWidget->hide();
-        // go to the 'conferenceTab', so the user can import the schedule
-        tabWidget->setCurrentIndex(6); // 6 - conference tab
+        // TODO: remove GUI
+        // conferenceHeader->hide();
+        // selectConferenceWidget->hide();
+        // // go to the 'conferenceTab', so the user can import the schedule
+        // tabWidget->setCurrentIndex(6); // 6 - conference tab
     }
+    #endif
 
     // open dialog for given Event ID
     // this is used in case Alarm Dialog request application to start
@@ -132,11 +156,19 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
         catch(OrmNoObjectException&) {} // just start application
         catch(...) {} // just start application
     }
+
+    connect(mNetworkAccessManager, SIGNAL(finished(QNetworkReply*)), SLOT(networkQueryFinished(QNetworkReply*)));
+
+    connect(mXmlParser, SIGNAL(parsingScheduleBegin()), conferenceModel, SLOT(newConferenceBegin()));
+    connect(mXmlParser, SIGNAL(parsingScheduleEnd(const QString&)), conferenceModel, SLOT(newConferenceEnd(const QString&)));
 }
 
 void MainWindow::scheduleImported(int aConfId)
 {
     Q_UNUSED(aConfId);
+
+    // TODO: this all goes to ConferenceEditor and model of conferences
+    #if 0
 
     Conference conf = Conference::getById(aConfId);
     if( selectConference->findText(conf.title()) < 0 ) // item doesn't exist
@@ -155,10 +187,14 @@ void MainWindow::scheduleImported(int aConfId)
 
         conferenceChanged(idx);
     }
+    #endif
 }
 
 void MainWindow::scheduleDeleted(const QString& title)
 {
+    Q_UNUSED(title);
+    // TODO: this all goes to ConferenceEditor and model of conferences
+    #if 0
     int idx = selectConference->findText(title);
 
     if (idx == -1) {
@@ -176,6 +212,7 @@ void MainWindow::scheduleDeleted(const QString& title)
         // will it signal "changed"?
         selectConference->removeItem(idx);
     }
+    #endif
 }
 
 void MainWindow::aboutApp()
@@ -212,24 +249,28 @@ void MainWindow::eventHasChanged(int aEventId, bool aReloadModel)
     searchTabContainer->updateTreeViewModel(aEventId);
 }
 
-void MainWindow::fillAndShowConferenceHeader()
+void MainWindow::useConference(int id)
 {
-    int confId = Conference::activeConference();
-    conferenceTitle->setText(Conference::getById(confId).title());
-    conferenceSubtitle->setText(Conference::getById(confId).subtitle());
-    conferenceWhere->setText(Conference::getById(confId).city() + ", " + Conference::getById(confId).venue());
-    conferenceWhen->setText(
-            Conference::getById(confId).start().toString("dd-MM-yyyy")
-            + ", " +
-            Conference::getById(confId).end().toString("dd-MM-yyyy"));
-    conferenceHeader->show();
+    try {
+        Conference::getById(Conference::activeConference()).update("active",0);
+        Conference::getById(id).update("active",1);
+
+        initTabs();
+    } catch (OrmException& e) {
+        // cannon set an active conference
+        unsetConference();
+        return;
+    }
+
 }
 
 void MainWindow::initTabs()
 {
     int confId = Conference::activeConference();
-    QDate startDate = Conference::getById(confId).start();
-    QDate endDate = Conference::getById(confId).end();
+    Conference active = Conference::getById(confId);
+    QDate startDate = active.start();
+    QDate endDate = active.end();
+    setWindowTitle(active.title());
 
     // 'dayNavigator' emits signal 'dateChanged' after setting valid START:END dates
     dayTabContainer->setDates(startDate, endDate);
@@ -251,30 +292,9 @@ void MainWindow::unsetConference()
     searchTabContainer->searchAgainClicked();
     nowTabContainer->clearModel();
 
-    conferenceHeader->hide();
+    // TODO:  remove
+    // conferenceHeader->hide();
     setWindowTitle(saved_title);
-}
-
-void MainWindow::conferenceChanged(int aIndex)
-{
-    if (aIndex < 0) {
-        // no conferences left? reset all views
-        unsetConference();
-        return;
-    }
-
-    try {
-        Conference::getById(Conference::activeConference()).update("active",0);
-        Conference::getById(selectConference->itemData(aIndex).toInt()).update("active",1);
-    } catch (OrmException& e) {
-        // cannon set an active conference
-        unsetConference();
-        return;
-    }
-
-    initTabs();
-    fillAndShowConferenceHeader();
-    setWindowTitle(Conference::getById(Conference::activeConference()).title());
 }
 
 void MainWindow::setup()
@@ -291,3 +311,112 @@ void MainWindow::setup()
             PROXY_PASSWD);
     QNetworkProxy::setApplicationProxy(proxy);
 }
+
+/** Create and run ConferenceEditor dialog, making required connections for it.
+
+This method manages, which classes actually perform changes in conference list.
+
+There are several classes that modify the conferences:
+this:
+ deletion and URL update.
+this, mXmlParser and mNetworkAccessManager:
+ addition and refresh.
+*/
+void MainWindow::showConferences()
+{
+    ConferenceEditor dialog(conferenceModel, this);
+
+    // TODO: connect signals about progress of network and parsing
+
+    connect(&dialog, SIGNAL(haveConferenceUrl(const QString&)), SLOT(importFromNetwork(const QString&)));
+    connect(&dialog, SIGNAL(haveConferenceFile(const QString&)), SLOT(importFromFile(const QString&)));
+    connect(&dialog, SIGNAL(removeConferenceRequested(int)), SLOT(removeConference(int)));
+    connect(&dialog, SIGNAL(changeUrlRequested(int, const QString&)),
+                    SLOT(changeConferenceUrl(int, const QString&)));
+
+    connect(&dialog, SIGNAL(haveConferenceSelected(int)), SLOT(useConference(int)));
+    connect(&dialog, SIGNAL(noneConferenceSelected()), SLOT(unsetConference()));
+
+    connect(mXmlParser, SIGNAL(parsingScheduleBegin()), &dialog, SLOT(importStarted()));
+    connect(mXmlParser, SIGNAL(progressStatus(int)), &dialog, SLOT(showParsingProgress(int)));
+    connect(mXmlParser, SIGNAL(parsingScheduleEnd(const QString&)), &dialog, SLOT(importFinished(const QString&)));
+
+    connect(this, SIGNAL(conferenceRemoved()), &dialog, SLOT(conferenceRemoved()));
+
+    dialog.exec();
+}
+
+void MainWindow::networkQueryFinished(QNetworkReply *aReply)
+{
+    if ( aReply->error() != QNetworkReply::NoError )
+    {
+        error_message(QString("Error occured during download: ") + aReply->errorString());
+    }
+    else
+    {
+        qDebug() << __PRETTY_FUNCTION__ << ": have data";
+        importData(aReply->readAll(), aReply->url().toEncoded());
+    }
+}
+
+void MainWindow::importData(const QByteArray &aData, const QString& url)
+{
+    // TODO: remove GUI
+    // instead send signals to the child dialog
+    #if 0
+    browse->hide();
+    online->hide();
+    progressBar->show();
+    // proxySettings->hide();
+    #endif
+
+    int confId = mXmlParser->parseData(aData, url);
+
+    #if 0
+    progressBar->hide();
+    browse->show();
+    online->show();
+    // proxySettings->show();
+    importScheduleLabel->setText("Schedule:");
+
+    #endif
+    if (confId > 0) {
+        emit(scheduleImported(confId));
+    }
+}
+
+void MainWindow::importFromNetwork(const QString& url)
+{
+    qDebug() << __PRETTY_FUNCTION__;
+    QNetworkRequest request;
+    request.setUrl(QUrl(url));
+
+    mNetworkAccessManager->setProxy(QNetworkProxy::applicationProxy());
+    mNetworkAccessManager->get(request);
+}
+
+void MainWindow::importFromFile(const QString& filename)
+{
+    qDebug() << __PRETTY_FUNCTION__;
+    QFile file(filename);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {    
+        static const QString format("Cannot read \"%1\": error %2");
+        error_message(format.arg(filename, QString::number(file.error())));
+    }
+
+    importData(file.readAll(), "");
+}
+
+void MainWindow::removeConference(int id)
+{
+    Conference::deleteConference(id);
+    conferenceModel->conferenceRemoved();
+
+    emit conferenceRemoved();
+}
+
+void MainWindow::changeConferenceUrl(int id, const QString& url)
+{
+    Conference::getById(id).setUrl(url);
+}
+
