@@ -81,14 +81,6 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
             PROXY_PASSWD);
     QNetworkProxy::setApplicationProxy(proxy);
 
-    #if 0
-    // list of conferences must be maintained by ConferenceEditor
-    // here must be one of the signals from the closing ConferenceEditor (or model):
-    // selectedConf(conference), noConf()
-    connect(importScheduleWidget, SIGNAL(scheduleImported(int)), SLOT(scheduleImported(int)));
-    connect(importScheduleWidget, SIGNAL(scheduleDeleted(const QString&)), SLOT(scheduleDeleted(const QString&)));
-    #endif
-
     // event details have changed
     connect(dayTabContainer, SIGNAL(eventHasChanged(int,bool)), SLOT(eventHasChanged(int,bool)));
     connect(favsTabContainer, SIGNAL(eventHasChanged(int,bool)), SLOT(eventHasChanged(int,bool)));
@@ -96,12 +88,6 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     connect(roomsTabContainer, SIGNAL(eventHasChanged(int,bool)), SLOT(eventHasChanged(int,bool)));
     connect(nowTabContainer, SIGNAL(eventHasChanged(int,bool)), SLOT(eventHasChanged(int,bool)));
     connect(searchTabContainer, SIGNAL(eventHasChanged(int,bool)), SLOT(eventHasChanged(int,bool)));
-
-    // event conference map button clicked
-    #if 0
-    // TODO: think about it when return to maps
-    connect(showMapButton, SIGNAL(clicked()), SLOT(conferenceMapClicked()));
-    #endif
 
     connect(aboutAction, SIGNAL(triggered()), SLOT(aboutApp()));
     connect(settingsAction, SIGNAL(triggered()), SLOT(setup()));
@@ -115,38 +101,10 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
 	clearTabs();
     }
 
+    // TODO: open conferences at startup?
     #if 0
-    // TODO: remove GUI
-    // initialisation of model and pick active conference from there and call conferenceChanged()
-    // selectConference->setDuplicatesEnabled(false);
-    int confCount = Conference::getAll().count();
-    if(confCount)
-    {
-        initTabs();
-        // fillAndShowConferenceHeader();
-        setWindowTitle(Conference::getById(confId).title());
-
-        QList<Conference> confs = Conference::getAll();
-        QListIterator<Conference> i(confs);
-        while(i.hasNext())
-        {
-            Conference conf = i.next();
-            // TODO: remove GUI
-            // selectConference->addItem(conf.title(),conf.id());
-        }
-        // TODO: remove GUI
-        // int idx = selectConference->findText(Conference::getById(Conference::activeConference()).title());
-        // selectConference->setCurrentIndex(idx);
-        // connect(selectConference, SIGNAL(currentIndexChanged(int)), SLOT(conferenceChanged(int)));
-        // conferenceChanged(idx);
-    }
-    else
-    {
-        // TODO: remove GUI
-        // conferenceHeader->hide();
-        // selectConferenceWidget->hide();
-        // // go to the 'conferenceTab', so the user can import the schedule
-        // tabWidget->setCurrentIndex(6); // 6 - conference tab
+    if(!confCount)
+        tabWidget->setCurrentIndex(6); // 6 - conference tab
     }
     #endif
 
@@ -167,58 +125,6 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
 
     connect(mXmlParser, SIGNAL(parsingScheduleBegin()), conferenceModel, SLOT(newConferenceBegin()));
     connect(mXmlParser, SIGNAL(parsingScheduleEnd(const QString&)), conferenceModel, SLOT(newConferenceEnd(const QString&)));
-}
-
-void MainWindow::scheduleImported(int aConfId)
-{
-    Q_UNUSED(aConfId);
-
-    // TODO: this all goes to ConferenceEditor and model of conferences
-    #if 0
-
-    Conference conf = Conference::getById(aConfId);
-    if( selectConference->findText(conf.title()) < 0 ) // item doesn't exist
-    {
-        disconnect(selectConference, SIGNAL(currentIndexChanged(int)), this, SLOT(conferenceChanged(int)));
-        selectConference->addItem(conf.title(),conf.id());
-        connect(selectConference, SIGNAL(currentIndexChanged(int)), SLOT(conferenceChanged(int)));
-    }
-    int confCount = Conference::getAll().count();
-    if(confCount)
-    {
-        int idx = selectConference->findText(conf.title());
-        selectConference->setCurrentIndex(idx);
-
-        selectConferenceWidget->show();
-
-        conferenceChanged(idx);
-    }
-    #endif
-}
-
-void MainWindow::scheduleDeleted(const QString& title)
-{
-    Q_UNUSED(title);
-    // TODO: this all goes to ConferenceEditor and model of conferences
-    #if 0
-    int idx = selectConference->findText(title);
-
-    if (idx == -1) {
-        // should not happen
-        qWarning() << __PRETTY_FUNCTION__ << "removed non-existent item:" << title;
-        // this happens when you remove the only conference (the list is not ptoperly inited in this case)
-        // now make sure that conferencet
-        if (selectConference->count() > 0) {
-            selectConference->setCurrentIndex(0);
-            conferenceChanged(0);
-        } else {
-            conferenceChanged(-1);
-        }
-    } else {
-        // will it signal "changed"?
-        selectConference->removeItem(idx);
-    }
-    #endif
 }
 
 void MainWindow::aboutApp()
@@ -269,7 +175,9 @@ void MainWindow::useConference(int id)
 	// dont run initTabs() here
         // it takes much CPU, making travelling between conferences in ConferenceEditor longer
         // and is not seen in maemo WM anyway
-	// instead run it explicitly where needed
+	// instead run it explicitly
+        // 1. at startup
+        // 2. when ConferenceEditor finished
         // dont forget to protect the calls by try-catch!
 
         // just in case, clear conference selection instead
@@ -348,8 +256,6 @@ void MainWindow::showConferences()
 {
     ConferenceEditor dialog(conferenceModel, this);
 
-    // TODO: connect signals about progress of network and parsing
-
     connect(&dialog, SIGNAL(haveConferenceUrl(const QString&)), SLOT(importFromNetwork(const QString&)));
     connect(&dialog, SIGNAL(haveConferenceFile(const QString&)), SLOT(importFromFile(const QString&)));
     connect(&dialog, SIGNAL(removeConferenceRequested(int)), SLOT(removeConference(int)));
@@ -364,6 +270,9 @@ void MainWindow::showConferences()
     connect(mXmlParser, SIGNAL(parsingScheduleEnd(const QString&)), &dialog, SLOT(importFinished(const QString&)));
 
     connect(this, SIGNAL(conferenceRemoved()), &dialog, SLOT(conferenceRemoved()));
+
+    // TODO: propagate press of showMapButton here
+    // connect(showMapButton, SIGNAL(clicked()), SLOT(conferenceMapClicked()));
 
     dialog.exec();
 
@@ -390,28 +299,7 @@ void MainWindow::networkQueryFinished(QNetworkReply *aReply)
 
 void MainWindow::importData(const QByteArray &aData, const QString& url)
 {
-    // TODO: remove GUI
-    // instead send signals to the child dialog
-    #if 0
-    browse->hide();
-    online->hide();
-    progressBar->show();
-    // proxySettings->hide();
-    #endif
-
-    int confId = mXmlParser->parseData(aData, url);
-
-    #if 0
-    progressBar->hide();
-    browse->show();
-    online->show();
-    // proxySettings->show();
-    importScheduleLabel->setText("Schedule:");
-
-    #endif
-    if (confId > 0) {
-        emit(scheduleImported(confId));
-    }
+    mXmlParser->parseData(aData, url);
 }
 
 void MainWindow::importFromNetwork(const QString& url)

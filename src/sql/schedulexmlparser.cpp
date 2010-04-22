@@ -31,13 +31,13 @@ ScheduleXmlParser::ScheduleXmlParser(QObject *aParent)
 {
 }
 
-int ScheduleXmlParser::parseData(const QByteArray &aData, const QString& url)
+void ScheduleXmlParser::parseData(const QByteArray &aData, const QString& url)
 {
     QDomDocument document;
     QString xml_error;
     if (!document.setContent (aData, false, &xml_error)) {
         error_message("Could not parse schedule: " + xml_error);
-        return -1;
+        return;
     }
 
     QDomElement scheduleElement = document.firstChildElement("schedule");
@@ -155,8 +155,10 @@ int ScheduleXmlParser::parseData(const QByteArray &aData, const QString& url)
         } // parsing day elements
     } // schedule element
     SqlEngine::commitTransaction();
-    emit parsingScheduleEnd(conference_title);
-
-    return confId;
+    if (!conference_title.isNull()) {
+        emit parsingScheduleEnd(conference_title);
+    } else {
+        error_message("Could not parse schedule");
+    }
 }
 

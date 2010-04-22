@@ -40,8 +40,6 @@ public:
 signals:
     void conferenceRemoved();
 private slots:
-    void scheduleImported(int aConfId);
-    void scheduleDeleted(const QString& title);
     void aboutApp();
     void conferenceMapClicked();
     void eventHasChanged(int aEventId, bool aReloadModel);
