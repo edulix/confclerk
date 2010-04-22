@@ -59,6 +59,7 @@ private slots:
 private:
     void fillAndShowConferenceHeader();
     void initTabs();
+    void clearTabs();
     void importData(const QByteArray &aData, const QString& url);
 
     QString saved_title;

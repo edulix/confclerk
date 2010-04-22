@@ -108,6 +108,12 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     connect(conferencesAction, SIGNAL(triggered()), SLOT(showConferences()));
 
     useConference(Conference::activeConference());
+    // optimization, see useConference() code
+    try {
+	initTabs();
+    } catch (OrmException) {
+	clearTabs();
+    }
 
     #if 0
     // TODO: remove GUI
@@ -253,9 +259,24 @@ void MainWindow::useConference(int id)
 {
     try {
         Conference::getById(Conference::activeConference()).update("active",0);
-        Conference::getById(id).update("active",1);
+        Conference new_active = Conference::getById(id);
+        new_active.update("active",1);
 
-        initTabs();
+	// looks like it does not work at n900
+        setWindowTitle(new_active.title());
+
+        // optimization.
+	// dont run initTabs() here
+        // it takes much CPU, making travelling between conferences in ConferenceEditor longer
+        // and is not seen in maemo WM anyway
+	// instead run it explicitly where needed
+        // dont forget to protect the calls by try-catch!
+
+        // just in case, clear conference selection instead
+        clearTabs();
+
+        // end of optimization
+        // initTabs();
     } catch (OrmException& e) {
         // cannon set an active conference
         unsetConference();
@@ -270,7 +291,6 @@ void MainWindow::initTabs()
     Conference active = Conference::getById(confId);
     QDate startDate = active.start();
     QDate endDate = active.end();
-    setWindowTitle(active.title());
 
     // 'dayNavigator' emits signal 'dateChanged' after setting valid START:END dates
     dayTabContainer->setDates(startDate, endDate);
@@ -282,7 +302,7 @@ void MainWindow::initTabs()
     nowTabContainer->updateTreeView(QDate::currentDate());
 }
 
-void MainWindow::unsetConference()
+void MainWindow::clearTabs()
 {
     dayTabContainer->clearModel();
     tracksTabContainer->clearModel();
@@ -291,9 +311,11 @@ void MainWindow::unsetConference()
     searchTabContainer->clearModel();
     searchTabContainer->searchAgainClicked();
     nowTabContainer->clearModel();
+}
 
-    // TODO:  remove
-    // conferenceHeader->hide();
+void MainWindow::unsetConference()
+{
+    clearTabs();
     setWindowTitle(saved_title);
 }
 
@@ -344,6 +366,13 @@ void MainWindow::showConferences()
     connect(this, SIGNAL(conferenceRemoved()), &dialog, SLOT(conferenceRemoved()));
 
     dialog.exec();
+
+    // optimization, see useConference() code
+    try {
+        initTabs();
+    } catch (OrmException) {
+        clearTabs();
+    }
 }
 
 void MainWindow::networkQueryFinished(QNetworkReply *aReply)
