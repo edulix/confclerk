@@ -169,6 +169,7 @@ void ConferenceEditor::importStarted()
 {
     addBtn->hide();
     removeBtn->hide();
+    buttons->layout()->removeItem(buttonsSpacer);
     progressBar->setValue(0);
     progressBar->show();
 
@@ -186,6 +187,7 @@ void ConferenceEditor::importFinished(const QString& title)
 {
     qDebug() << __PRETTY_FUNCTION__ << title;
     addBtn->show();
+    buttons->layout()->addItem(buttonsSpacer);
     progressBar->hide();
 
     QApplication::processEvents();
