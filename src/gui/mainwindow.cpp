@@ -38,7 +38,6 @@
 #include "ui_about.h"
 #include <eventdialog.h>
 #include "daynavigatorwidget.h"
-#include "mapwindow.h"
 #include "settingsdialog.h"
 #include "conferenceeditor.h"
 #include "schedulexmlparser.h"
@@ -136,19 +135,6 @@ void MainWindow::aboutApp()
     dialog.setFixedWidth(width());
 #endif
     dialog.exec();
-}
-
-void MainWindow::conferenceMapClicked()
-{
-    QString mapPath = QString(":/maps/campus.png");
-    if(!QFile::exists(mapPath))
-        mapPath = QString(":/maps/rooms/not-available.png");
-
-    QString roomName;
-
-    QPixmap map(mapPath);
-    MapWindow window(map,roomName,this);
-    window.exec();
 }
 
 void MainWindow::eventHasChanged(int aEventId, bool aReloadModel)
@@ -270,9 +256,6 @@ void MainWindow::showConferences()
     connect(mXmlParser, SIGNAL(parsingScheduleEnd(const QString&)), &dialog, SLOT(importFinished(const QString&)));
 
     connect(this, SIGNAL(conferenceRemoved()), &dialog, SLOT(conferenceRemoved()));
-
-    // TODO: propagate press of showMapButton here
-    // connect(showMapButton, SIGNAL(clicked()), SLOT(conferenceMapClicked()));
 
     dialog.exec();
 

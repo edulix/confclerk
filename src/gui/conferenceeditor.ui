@@ -216,7 +216,7 @@
              </widget>
             </item>
             <item row="1" column="3">
-             <widget class="QPushButton" name="showMapButton_2">
+             <widget class="QPushButton" name="showMapButton">
               <property name="text">
                <string>MAP</string>
               </property>

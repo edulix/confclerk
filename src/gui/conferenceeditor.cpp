@@ -20,6 +20,7 @@
 
 #include "conferencemodel.h"
 #include "urlinputdialog.h"
+#include "mapwindow.h"
 
 #include <QInputDialog>
 #include <QItemSelectionModel>
@@ -47,6 +48,7 @@ ConferenceEditor::ConferenceEditor(ConferenceModel* model, QWidget* parent)
     connect(removeBtn, SIGNAL(clicked()), SLOT(removeClicked()));
     connect(changeUrl, SIGNAL(clicked()), SLOT(changeUrlClicked()));
     connect(refreshBtn, SIGNAL(clicked()), SLOT(refreshClicked()));
+    connect(showMapButton, SIGNAL(clicked()), SLOT(conferenceMapClicked()));
 
     // it's OK to emit selection signals here
     // because they are not yet connected to anybody
@@ -205,4 +207,17 @@ void ConferenceEditor::importFinished(const QString& title)
         }
     }
     itemSelected(QModelIndex(), QModelIndex());
+}
+
+void ConferenceEditor::conferenceMapClicked()
+{
+    QString mapPath = QString(":/maps/campus.png");
+    if(!QFile::exists(mapPath))
+        mapPath = QString(":/maps/rooms/not-available.png");
+
+    QString roomName;
+
+    QPixmap map(mapPath);
+    MapWindow window(map,roomName,this);
+    window.exec();
 }
