@@ -187,6 +187,10 @@ void ConferenceEditor::importFinished(const QString& title)
 {
     qDebug() << __PRETTY_FUNCTION__ << title;
     addBtn->show();
+    // removeItem should be shown later, but it takes some time,
+    // and not looks good
+    // anyway it will be shown a bit later
+    removeBtn->show();
     buttons->layout()->addItem(buttonsSpacer);
     progressBar->hide();
 
