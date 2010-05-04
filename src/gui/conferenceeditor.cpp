@@ -49,6 +49,7 @@ ConferenceEditor::ConferenceEditor(ConferenceModel* model, QWidget* parent)
     connect(changeUrl, SIGNAL(clicked()), SLOT(changeUrlClicked()));
     connect(refreshBtn, SIGNAL(clicked()), SLOT(refreshClicked()));
     connect(showMapButton, SIGNAL(clicked()), SLOT(conferenceMapClicked()));
+    connect(buttonBox, SIGNAL(rejected()), SLOT(close()));
 
     // it's OK to emit selection signals here
     // because they are not yet connected to anybody

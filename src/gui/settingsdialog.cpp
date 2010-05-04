@@ -31,7 +31,7 @@ SettingsDialog::SettingsDialog(QWidget *aParent)
     port->setValue(AppSettings::proxyPort());
     directConnection->setChecked(AppSettings::isDirectConnection());
 
-    connect(okButton, SIGNAL(clicked()), SLOT(saveDialogData()));
+    connect(buttonBox, SIGNAL(accepted()), SLOT(saveDialogData()));
     connect(directConnection, SIGNAL(clicked(bool)), SLOT(connectionTypeChanged(bool)));
 
     if(directConnection->isChecked())
