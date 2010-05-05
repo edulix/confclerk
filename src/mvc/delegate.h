@@ -43,13 +43,17 @@ class Delegate : public QItemDelegate
         class Control
         {
             public:
-                Control(ControlId aControlId, const QString &aImageName)
-                    : mId(aControlId)
-                    , mImage(new QImage(aImageName))
-                    , mDrawPoint(QPoint(0,0))
-                { }
+                Control(ControlId aControlId, const QString &aImageName, const Control* prev_control);
+
                 inline QImage *image() const { return mImage; }
                 inline void setDrawPoint(const QPoint &aPoint) { mDrawPoint = aPoint; }
+                inline QRect drawRect(const QRect &aRect) const // helper for determining if Control was clicked
+                {
+                    return QRect(drawPoint(aRect), drawPoint(aRect)+QPoint(mImage->size().width(),mImage->size().height()));
+                }
+                void paint(QPainter* painter, const QRect rect);
+
+            private:
                 inline QPoint drawPoint(const QRect &aRect = QRect()) const // for painter to draw Control
                 {
                     if(aRect == QRect()) // null rectangle
@@ -57,11 +61,7 @@ class Delegate : public QItemDelegate
                     else
                         return QPoint(aRect.x()+aRect.width(),aRect.y()) + mDrawPoint; // returns absolute drawing point
                 }
-                inline QRect drawRect(const QRect &aRect) const // helper for determining if Control was clicked
-                {
-                    return QRect(drawPoint(aRect), drawPoint(aRect)+QPoint(mImage->size().width(),mImage->size().height()));
-                }
-            private:
+
                 ControlId mId;
                 QImage *mImage;
                 QPoint mDrawPoint; // relative 'start-drawing' position (may hold negative values)

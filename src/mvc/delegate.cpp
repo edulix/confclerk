@@ -61,7 +61,11 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
     QPen borderPen(bkgrColor.darker());
     if(hasParent(index))
     {
-        int aux = option.rect.height() - mControls[FavouriteControlOn]->drawPoint().y() - mControls[FavouriteControlOn]->image()->height();
+        // entry horisontal layout:
+        // * spacer (aka y position of image)
+        // * image
+        // * rest is text, which is 1 line of title with big letters and 2 lines of Presenter and Track
+        int aux = option.rect.height() - SPACER - mControls[FavouriteControlOn]->image()->height();
         Event *event = static_cast<Event*>(index.internalPointer());
         // font SMALL
         QFont fontSmall = option.font;
@@ -131,30 +135,27 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         }
 
         // draw Controls
-        // favourite
         if(event->isFavourite())
-            painter->drawImage(mControls[FavouriteControlOn]->drawPoint(option.rect),*mControls[FavouriteControlOn]->image());
+            mControls[FavouriteControlOn]->paint(painter, option.rect);
         else
-            painter->drawImage(mControls[FavouriteControlOff]->drawPoint(option.rect),*mControls[FavouriteControlOff]->image());
+            mControls[FavouriteControlOff]->paint(painter, option.rect);
 #ifdef MAEMO
-        // alarm
         if(event->hasAlarm())
-            painter->drawImage(mControls[AlarmControlOn]->drawPoint(option.rect),*mControls[AlarmControlOn]->image());
+            mControls[AlarmControlOn]->paint(painter, option.rect);
         else
-            painter->drawImage(mControls[AlarmControlOff]->drawPoint(option.rect),*mControls[AlarmControlOff]->image());
+            mControls[AlarmControlOff]->paint(painter, option.rect);
 #endif
-        // map
-        if (event->room()->hasMap()) {
-            painter->drawImage(mControls[MapControl]->drawPoint(option.rect),*mControls[MapControl]->image());
-        }
-        // Time conflict
+        if (event->room()->hasMap())
+            mControls[MapControl]->paint(painter, option.rect);
         if(event->hasTimeConflict())
-            painter->drawImage(mControls[WarningControl]->drawPoint(option.rect),*mControls[WarningControl]->image());
+            mControls[WarningControl]->paint(painter, option.rect);
 
         // draw texts
-        QPointF titlePointF(mControls[FavouriteControlOn]->drawPoint(option.rect));
-        titlePointF.setX(option.rect.x()+SPACER);
-        titlePointF.setY(titlePointF.y()+mControls[FavouriteControlOn]->image()->height());
+        // it starts just below the image
+        // ("position of text" is lower-left angle of the first letter,
+        //  so the first line is actually at the same height as the image)
+        QPointF titlePointF(option.rect.x() + SPACER,
+                            option.rect.y() + SPACER + mControls[FavouriteControlOn]->image()->height());
         QTime start = event->start().time();
         painter->setFont(fontBig);
         painter->drawText(titlePointF,start.toString("hh:mm") + "-" + start.addSecs(event->duration()).toString("hh:mm") + ", " + event->roomName());
@@ -336,60 +337,55 @@ Delegate::ControlId Delegate::whichControlClicked(const QModelIndex &aIndex, con
     return ControlNone;
 }
 
+Delegate::Control::Control(ControlId aControlId, const QString &aImageName, const Control* prev_control)
+    : mId(aControlId)
+    , mImage(new QImage(aImageName))
+    , mDrawPoint(QPoint(0,0))
+{
+    QPoint p;
+    if (prev_control == NULL) {
+        p = QPoint(0, SPACER);
+    } else {
+        p = prev_control->drawPoint();
+    }
+    p.setX(p.x()-image()->width()-SPACER);
+    setDrawPoint(p);
+}
+
+void Delegate::Control::paint(QPainter* painter, const QRect rect)
+{
+    painter->drawImage(drawPoint(rect),*image());
+}
+
 void Delegate::defineControls()
 {
-    Control *control;
-    QPoint p(0,0);
     // FAVOURITE ICONs
     // on
-    control = new Control(FavouriteControlOn,QString(":icons/favourite-onBig.png"));
-    p = QPoint(0,SPACER);
-    p.setX(p.x()-control->image()->width()-SPACER);
-    control->setDrawPoint(p);
-    mControls.insert(FavouriteControlOn,control);
+    mControls.insert(FavouriteControlOn, new Control(FavouriteControlOn, QString(":icons/favourite-onBig.png"), NULL));
     // off
-    control = new Control(FavouriteControlOff,QString(":icons/favourite-offBig.png"));
-    p = QPoint(0,SPACER);
-    p.setX(p.x()-control->image()->width()-SPACER);
-    control->setDrawPoint(p);
-    mControls.insert(FavouriteControlOff,control);
+    mControls.insert(FavouriteControlOff, new Control(FavouriteControlOff, QString(":icons/favourite-offBig.png"), NULL));
 
 #ifdef MAEMO
     // ALARM ICONs
     // on
-    control = new Control(AlarmControlOn,QString(":icons/alarm-onBig.png"));
-    p = mControls[FavouriteControlOn]->drawPoint();
-    p.setX(p.x()-control->image()->width()-SPACER);
-    control->setDrawPoint(p);
-    mControls.insert(AlarmControlOn,control);
+    mControls.insert(AlarmControlOn,
+                    new Control(AlarmControlOn, QString(":icons/alarm-onBig.png"), mControls[FavouriteControlOn]));
     // off
-    control = new Control(AlarmControlOff,QString(":icons/alarm-offBig.png"));
-    p = mControls[FavouriteControlOff]->drawPoint();
-    p.setX(p.x()-control->image()->width()-SPACER);
-    control->setDrawPoint(p);
-    mControls.insert(AlarmControlOff,control);
+    mControls.insert(AlarmControlOff,
+                    new Control(AlarmControlOff, QString(":icons/alarm-offBig.png"), mControls[FavouriteControlOff]));
 
     // MAP ICON
-    control = new Control(MapControl,QString(":icons/compassBig.png"));
-    p = mControls[AlarmControlOn]->drawPoint();
-    p.setX(p.x()-control->image()->width()-SPACER);
-    control->setDrawPoint(p);
-    mControls.insert(MapControl,control);
+    mControls.insert(MapControl,
+                    new Control(MapControl, QString(":icons/compassBig.png"), mControls[AlarmControlOn]));
 #else
     // MAP ICON
-    control = new Control(MapControl,QString(":icons/compassBig.png"));
-    p = mControls[FavouriteControlOn]->drawPoint();
-    p.setX(p.x()-control->image()->width()-SPACER);
-    control->setDrawPoint(p);
-    mControls.insert(MapControl,control);
+    mControls.insert(MapControl,
+                    new Control(MapControl, QString(":icons/compassBig.png"), mControls[FavouriteControlOn]));
 #endif
 
     // WARNING ICON
-    control = new Control(WarningControl,QString(":icons/exclamation.png"));
-    p = mControls[MapControl]->drawPoint();
-    p.setX(p.x()-control->image()->width()-SPACER);
-    control->setDrawPoint(p);
-    mControls.insert(WarningControl,control);
+    mControls.insert(WarningControl,
+                    new Control(WarningControl, QString(":icons/exclamation.png"), mControls[MapControl]));
 }
 
 bool Delegate::isPointFromRect(const QPoint &aPoint, const QRect &aRect) const
