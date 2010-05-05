@@ -23,6 +23,8 @@
 #include <QDebug>
 #include <QPainter>
 
+#include "room.h"
+
 const int RADIUS = 10;
 const int SPACER = 10;
 
@@ -60,6 +62,7 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
     if(hasParent(index))
     {
         int aux = option.rect.height() - mControls[FavouriteControlOn]->drawPoint().y() - mControls[FavouriteControlOn]->image()->height();
+        Event *event = static_cast<Event*>(index.internalPointer());
         // font SMALL
         QFont fontSmall = option.font;
         fontSmall.setBold(false);
@@ -83,7 +86,7 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         //int spacer = (fmSmall.boundingRect("999").width() < SPACER) ? SPACER : fmSmall.boundingRect("999").width();
 
         //Time conflicts are colored differently
-        if(static_cast<Event*>(index.internalPointer())->hasTimeConflict())
+        if(event->hasTimeConflict())
             bkgrColor = conflictColor;
 
         QLinearGradient itemGradient(option.rect.topLeft(), option.rect.bottomLeft());
@@ -129,25 +132,26 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
 
         // draw Controls
         // favourite
-        if(static_cast<Event*>(index.internalPointer())->isFavourite())
+        if(event->isFavourite())
             painter->drawImage(mControls[FavouriteControlOn]->drawPoint(option.rect),*mControls[FavouriteControlOn]->image());
         else
             painter->drawImage(mControls[FavouriteControlOff]->drawPoint(option.rect),*mControls[FavouriteControlOff]->image());
 #ifdef MAEMO
         // alarm
-        if(static_cast<Event*>(index.internalPointer())->hasAlarm())
+        if(event->hasAlarm())
             painter->drawImage(mControls[AlarmControlOn]->drawPoint(option.rect),*mControls[AlarmControlOn]->image());
         else
             painter->drawImage(mControls[AlarmControlOff]->drawPoint(option.rect),*mControls[AlarmControlOff]->image());
 #endif
         // map
-        painter->drawImage(mControls[MapControl]->drawPoint(option.rect),*mControls[MapControl]->image());
+        if (event->room()->hasMap()) {
+            painter->drawImage(mControls[MapControl]->drawPoint(option.rect),*mControls[MapControl]->image());
+        }
         // Time conflict
-        if(static_cast<Event*>(index.internalPointer())->hasTimeConflict())
+        if(event->hasTimeConflict())
             painter->drawImage(mControls[WarningControl]->drawPoint(option.rect),*mControls[WarningControl]->image());
 
         // draw texts
-        Event *event = static_cast<Event*>(index.internalPointer());
         QPointF titlePointF(mControls[FavouriteControlOn]->drawPoint(option.rect));
         titlePointF.setX(option.rect.x()+SPACER);
         titlePointF.setY(titlePointF.y()+mControls[FavouriteControlOn]->image()->height());
