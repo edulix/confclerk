@@ -325,15 +325,11 @@ Delegate::ControlId Delegate::whichControlClicked(const QModelIndex &aIndex, con
     while (i.hasNext())
     {
         ControlId id = i.next();
-        if(mControls[id]->drawRect(static_cast<QTreeView*>(parent())->visualRect(aIndex)).contains(aPoint))
+        Control *control = mControls[id];
+        if (control->enabled()
+            and control->drawRect(static_cast<QTreeView*>(parent())->visualRect(aIndex)).contains(aPoint))
         {
-            if(id == WarningControl)
-            {
-                if(static_cast<Event*>(aIndex.internalPointer())->hasTimeConflict())
-                    return id;
-            }
-            else
-                return id;
+            return id;
         }
     }
 
