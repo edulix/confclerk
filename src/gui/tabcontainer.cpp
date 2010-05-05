@@ -27,6 +27,8 @@
 
 #include "eventdialog.h"
 #include "mapwindow.h"
+#include "room.h"
+#include "errormessage.h"
 
 #include "conflictsdialog.h"
 
@@ -83,20 +85,22 @@ void TabContainer::displayMap(const QModelIndex &aIndex)
 {
     Event *event = static_cast<Event*>(aIndex.internalPointer());
 
-    // room names are stored in lower-case format
-    // room names are stored without dots in the name, eg. "aw.1124.png" -> "aw1124.png"
-    QString mapPath = QString(":/maps/rooms/%1.png").arg(event->room().toLower().remove("."));
-    if(!QFile::exists(mapPath))
-        mapPath = QString(":/maps/rooms/not-available.png");
-
-    QString roomName;
-    if(mapPath.contains("not-available", Qt::CaseInsensitive))
-        roomName = QString("Map is not available: %1").arg(event->room());
-    else
-        roomName = event->room();
+    Room room = Room::retrieve(event->roomId());
+    QVariant mapPathV = room.map();
+    QString mapPath;
+    if (!mapPathV.isValid()) {
+        error_message("No map for this room");
+        return;
+    } else {
+        mapPath = mapPathV.toString();
+        if (!QFile::exists(mapPath)) {
+            error_message("Map for this room not found: " + mapPath);
+            return;
+        }
+    }
 
     QPixmap map(mapPath);
-    MapWindow window(map,roomName,this);
+    MapWindow window(map, room.name(),this);
     window.exec();
 }
 

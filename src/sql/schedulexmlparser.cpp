@@ -102,7 +102,7 @@ void ScheduleXmlParser::parseData(const QByteArray &aData, const QString& url)
                         room["name"] = roomElement.attribute("name");
                         room["event_id"] = eventElement.attribute("id");
                         room["conference_id"] = QString::number(confId,10);
-                        room["picture"] = "NOT DEFINED YET"; // TODO: implement some mapping to assign correct picture to specified room_name
+                        room["picture"] = ""; // TODO: implement some mapping to assign correct picture to specified room_name
                         SqlEngine::addRoomToDB(room);
 
                         // process event's nodes

@@ -34,6 +34,8 @@ public:
     void setId(int id) { setValue("id", id); }
     QString name() const { return value("name").toString(); }
     void setName(const QString & type) { setValue("name", type); }
+    // TODO: make naming consistent - either "picture" or "map"
+     QVariant map() const { return value("picture"); }
     int insert();
 public:
     static QList<Room> getAll();
