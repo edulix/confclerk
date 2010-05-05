@@ -49,16 +49,8 @@ public:
     int dayChange() const { return value("day_change").toInt(); } // in seconds from 00:00
     int timeslotDuration() const { return value("timeslot_duration").toInt(); } // in seconds
     bool isActive() const { return value("active").toBool(); }
-    QString url() const
-    {
-        QVariant val = value("url");
-        qDebug() << __PRETTY_FUNCTION__ << val;
-        if (val.isValid()) {
-            return val.toString();
-        } else {
-            return QString();
-        }
-    }
+    QString url() const { return stringFromNullable(value("url")); }
+    QString map() const { return stringFromNullable(value("map")); }
 
     #if 0
     void setId(int id) { setValue("id", id); }
@@ -77,6 +69,16 @@ public:
     {
         setValue("url", url.isNull() ? QVariant() : url);
         update("url");
+    }
+
+private:
+    static QString stringFromNullable(const QVariant& v)
+    {
+        if (v.isValid()) {
+            return v.toString();
+        } else {
+            return QString();
+        }
     }
 };
 

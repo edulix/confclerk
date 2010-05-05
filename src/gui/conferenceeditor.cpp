@@ -21,6 +21,7 @@
 #include "conferencemodel.h"
 #include "urlinputdialog.h"
 #include "mapwindow.h"
+#include "errormessage.h"
 
 #include <QInputDialog>
 #include <QItemSelectionModel>
@@ -94,6 +95,14 @@ void ConferenceEditor::itemSelected(const QModelIndex& current, const QModelInde
                 conf.start().toString("dd-MM-yyyy")
                 + ", " +
                 conf.end().toString("dd-MM-yyyy"));
+
+        QString map = conf.map();
+        if (map.isEmpty()) {
+            showMapButton->hide();
+        } else {
+            showMapButton->show();
+        }
+
         conferenceInfo->setCurrentIndex(0);
         removeBtn->show();
     }
@@ -212,9 +221,12 @@ void ConferenceEditor::importFinished(const QString& title)
 
 void ConferenceEditor::conferenceMapClicked()
 {
-    QString mapPath = QString(":/maps/campus.png");
-    if(!QFile::exists(mapPath))
-        mapPath = QString(":/maps/rooms/not-available.png");
+    Conference conf = Conference::getById(selected_id);
+    QString mapPath = conf.map();
+    if(mapPath.isEmpty() or !QFile::exists(mapPath)) {
+        error_message("Map is not available");
+        return;
+    }
 
     QString roomName;
 

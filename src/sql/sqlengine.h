@@ -47,6 +47,8 @@ class SqlEngine : public QObject
         static QString login(const QString &aDatabaseType, const QString &aDatabaseName);
         static bool execQuery(QSqlDatabase &aDatabase, const QString &aQuery);
         static bool execQueryWithParameter(QSqlDatabase &aDatabase, const QString &aQuery, const QHash<QString, QVariant>& params);
+
+        static void checkConferenceMap(QSqlDatabase &aDatabase);
 };
 
 #endif /* SQLENGINE_H */

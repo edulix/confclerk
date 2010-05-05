@@ -10,8 +10,9 @@ CREATE TABLE CONFERENCE ( id INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL
     , day_change INTEGER
     , timeslot_duration INTEGER
     , active INTEGER DEFAULT 0
-    , url VARCHAR UNIQUE);
-INSERT INTO "CONFERENCE" VALUES(1,'FOSDEM 2010','Free and Opensource Software Developers European Meeting','ULB (Campus Solbosch)','Brussels',1265414400,1265500800,2,28800,900,1,"http://fosdem.org/2010/schedule/xml");
+    , url VARCHAR UNIQUE
+    , map VARCHAR);
+INSERT INTO "CONFERENCE" VALUES(1,'FOSDEM 2010','Free and Opensource Software Developers European Meeting','ULB (Campus Solbosch)','Brussels',1265414400,1265500800,2,28800,900,1,"http://fosdem.org/2010/schedule/xml", ":/maps/campus.png");
 CREATE TABLE TRACK ( id INTEGER  PRIMARY KEY AUTOINCREMENT  NOT NULL
     , name VARCHAR UNIQUE NOT NULL );
 INSERT INTO "TRACK" VALUES(1,'Keynotes');

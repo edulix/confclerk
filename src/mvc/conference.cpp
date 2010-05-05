@@ -31,7 +31,9 @@ QSqlRecord const Conference::sColumns = Conference::toRecord(QList<QSqlField>()
     << QSqlField("day_change", QVariant::Int)
     << QSqlField("timeslot_duration", QVariant::Int)
     << QSqlField("active", QVariant::Bool)
-    << QSqlField("url", QVariant::String));
+    << QSqlField("url", QVariant::String)
+    << QSqlField("map", QVariant::String)
+    );
 
 QString const Conference::sTableName = QString("conference");
 
