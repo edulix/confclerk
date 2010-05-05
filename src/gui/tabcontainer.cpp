@@ -85,8 +85,7 @@ void TabContainer::displayMap(const QModelIndex &aIndex)
 {
     Event *event = static_cast<Event*>(aIndex.internalPointer());
 
-    Room room = Room::retrieve(event->roomId());
-    QVariant mapPathV = room.map();
+    QVariant mapPathV = event->room()->map();
     QString mapPath;
     if (!mapPathV.isValid()) {
         error_message("No map for this room");
@@ -100,7 +99,7 @@ void TabContainer::displayMap(const QModelIndex &aIndex)
     }
 
     QPixmap map(mapPath);
-    MapWindow window(map, room.name(),this);
+    MapWindow window(map, event->room()->name(),this);
     window.exec();
 }
 

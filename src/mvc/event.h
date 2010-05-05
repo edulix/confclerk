@@ -25,6 +25,8 @@
 
 #include <ormrecord.h>
 
+class Room;
+
 /**
   NoSuchEventException is thrown when required event does not exist.
 */
@@ -64,7 +66,8 @@ public:
     QString abstract() const { return value("abstract").toString(); }
     QString description() const { return value("description").toString(); }
     // records from other tables associated with 'id'
-    QString room();
+    Room* room();
+    QString roomName();
     int roomId();
     QStringList persons();
     QMap<QString,QString> links();
@@ -95,6 +98,7 @@ private:
     QMap<QString,QString> mLinksList;
     int mRoomId;
     QString mRoomName;
+    Room* room_;
 };
 
 #endif // EVENT_H

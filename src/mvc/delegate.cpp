@@ -153,7 +153,7 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         titlePointF.setY(titlePointF.y()+mControls[FavouriteControlOn]->image()->height());
         QTime start = event->start().time();
         painter->setFont(fontBig);
-        painter->drawText(titlePointF,start.toString("hh:mm") + "-" + start.addSecs(event->duration()).toString("hh:mm") + ", " + event->room());
+        painter->drawText(titlePointF,start.toString("hh:mm") + "-" + start.addSecs(event->duration()).toString("hh:mm") + ", " + event->roomName());
         // title
         titlePointF.setY(titlePointF.y()+fmBig.height()-fmBig.descent());
         painter->setFont(fontBigB);
