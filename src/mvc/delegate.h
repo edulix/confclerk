@@ -53,6 +53,8 @@ class Delegate : public QItemDelegate
                 }
                 void paint(QPainter* painter, const QRect rect);
 
+                bool enabled() const { return mEnabled; }
+                void setEnabled(bool v) { mEnabled = v; }
             private:
                 inline QPoint drawPoint(const QRect &aRect = QRect()) const // for painter to draw Control
                 {
@@ -65,6 +67,7 @@ class Delegate : public QItemDelegate
                 ControlId mId;
                 QImage *mImage;
                 QPoint mDrawPoint; // relative 'start-drawing' position (may hold negative values)
+                bool mEnabled;
         };
 
         Delegate(QTreeView *aParent); // the delegate 'owner' has to be specified in the constructor - it's used to obtain visualRect of selected item/index

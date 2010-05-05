@@ -135,6 +135,9 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         }
 
         // draw Controls
+        foreach(Control* c, mControls.values()) {
+            c->setEnabled(false);
+        }
         if(event->isFavourite())
             mControls[FavouriteControlOn]->paint(painter, option.rect);
         else
@@ -341,6 +344,7 @@ Delegate::Control::Control(ControlId aControlId, const QString &aImageName, cons
     : mId(aControlId)
     , mImage(new QImage(aImageName))
     , mDrawPoint(QPoint(0,0))
+    , mEnabled(false)
 {
     QPoint p;
     if (prev_control == NULL) {
@@ -355,6 +359,7 @@ Delegate::Control::Control(ControlId aControlId, const QString &aImageName, cons
 void Delegate::Control::paint(QPainter* painter, const QRect rect)
 {
     painter->drawImage(drawPoint(rect),*image());
+    setEnabled(true);
 }
 
 void Delegate::defineControls()
