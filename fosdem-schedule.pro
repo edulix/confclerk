@@ -8,4 +8,4 @@ qmake-qt4");
 }
 
 TEMPLATE = subdirs
-SUBDIRS = data src
+SUBDIRS = src
