@@ -104,7 +104,7 @@
      <x>0</x>
      <y>0</y>
      <width>903</width>
-     <height>25</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuMenu">
@@ -114,6 +114,7 @@
     <addaction name="settingsAction"/>
     <addaction name="aboutAction"/>
     <addaction name="conferencesAction"/>
+    <addaction name="quitAction"/>
    </widget>
    <addaction name="menuMenu"/>
   </widget>
@@ -143,6 +144,11 @@
   <action name="conferencesAction">
    <property name="text">
     <string>Conferences</string>
+   </property>
+  </action>
+  <action name="quitAction">
+   <property name="text">
+    <string>&amp;Quit</string>
    </property>
   </action>
  </widget>
@@ -181,5 +187,22 @@
  <resources>
   <include location="../icons.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>quitAction</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>451</x>
+     <y>248</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
