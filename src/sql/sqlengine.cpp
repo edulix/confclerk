@@ -210,14 +210,15 @@ void SqlEngine::addPersonToDB(QHash<QString,QString> &aPerson)
 {
     QSqlDatabase db = QSqlDatabase::database();
 
-    //TODO: check if the person doesn't exist before inserting
     if (db.isValid() && db.isOpen())
     {
+        // TODO: SQL Injection!!!
         QString values = QString("'%1', '%2', '%3'").arg(aPerson["conference_id"],aPerson["id"],aPerson["name"]);
         QString query = QString("INSERT INTO PERSON (xid_conference,id,name) VALUES (%1)").arg(values);
         QSqlQuery result (query, db);
         //LOG_AUTOTEST(query);
 
+        // TODO: SQL Injection!!!
         values = QString("'%1', '%2', '%3'").arg(aPerson["conference_id"],aPerson["event_id"],aPerson["id"]);
         query = QString("INSERT INTO EVENT_PERSON (xid_conference,xid_event,xid_person) VALUES (%1)").arg(values);
         QSqlQuery resultEventPerson (query, db);
@@ -231,29 +232,35 @@ void SqlEngine::addRoomToDB(QHash<QString,QString> &aRoom)
 
     if (db.isValid() && db.isOpen())
     {
-        QString queryExist = QString("SELECT id FROM ROOM WHERE name='%1'").arg(aRoom["name"]);
-        QSqlQuery resultExist(queryExist,db);
+        QSqlQuery query(db);
+        query.prepare("SELECT id FROM ROOM WHERE xid_conference=:conference_id and name=:name");
+        query.bindValue(":conference_id", aRoom["conference_id"]);
+        query.bindValue(":name", aRoom["name"]);
+        if (!query.exec()) qDebug() << "Could not execute select room query: " << query.lastError();
         // now we have to check whether ROOM record with 'name' exists or not,
         // - if it doesn't exist yet, then we have to add that record to 'ROOM' table
         //   and assign autoincremented 'id' to aRoom
         // - if it exists, then we need to get its 'id' and assign it to aRoom
         int roomId = -1;
-        if(resultExist.next()) // ROOM record with 'name' already exists: we need to get its 'id'
+        if(query.next()) // ROOM record with 'name' already exists: we need to get its 'id'
         {
-            roomId = resultExist.value(0).toInt();
+            roomId = query.value(0).toInt();
         }
         else // ROOM record doesn't exist yet, need to create it
         {
+            // TODO: SQL Injection!!!
             QString values = QString("'%1', '%2', '%3'").arg(aRoom["conference_id"],aRoom["name"],aRoom["picture"]);
             QString query = QString("INSERT INTO ROOM (xid_conference,name,picture) VALUES (%1)").arg(values);
             QSqlQuery result (query, db);
             roomId = result.lastInsertId().toInt(); // 'id' is assigned automatically
             //LOG_AUTOTEST(query);
         }
-
-        QString values = QString("'%1', '%2', '%3'").arg(aRoom["conference_id"],aRoom["event_id"],QString::number(roomId));
-        QString query = QString("INSERT INTO EVENT_ROOM (xid_conference,xid_event,xid_room) VALUES (%1)").arg(values);
-        QSqlQuery result (query, db);
+        query = QSqlQuery(db);
+        query.prepare("INSERT INTO EVENT_ROOM (xid_conference,xid_event,xid_room) VALUES (:conference_id, :event_id, :roomId)");
+        query.bindValue(":conference_id", aRoom["conference_id"]);
+        query.bindValue(":event_id", aRoom["event_id"]);
+        query.bindValue(":roomId", roomId);
+        if (!query.exec()) qDebug() << "Could not execute insert into event_room query:" << query.lastError();
         //LOG_AUTOTEST(query);
     }
 }
@@ -265,6 +272,7 @@ void SqlEngine::addLinkToDB(QHash<QString,QString> &aLink)
     //TODO: check if the link doesn't exist before inserting
     if (db.isValid() && db.isOpen())
     {
+        // TODO: SQL Injection!!!
         QString values = QString("'%1', '%2', '%3', '%4'").arg(aLink["event_id"],aLink["conference_id"],aLink["name"],aLink["url"]);
         QString query = QString("INSERT INTO LINK (xid_event, xid_conference, name, url) VALUES (%1)").arg(values);
         QSqlQuery result(query, db);
@@ -281,9 +289,9 @@ int SqlEngine::searchEvent(int aConferenceId, const QHash<QString,QString> &aCol
 
 
     // DROP
-    execQuery( db, "DROP TABLE IF EXISTS SEARCH_EVENT;");
+    execQuery( db, "DROP TABLE IF EXISTS SEARCH_EVENT");
     // CREATE
-    execQuery( db, "CREATE TEMP TABLE SEARCH_EVENT ( xid_conference INTEGER  NOT NULL, id INTEGER NOT NULL );");
+    execQuery( db, "CREATE TEMP TABLE SEARCH_EVENT ( xid_conference INTEGER  NOT NULL, id INTEGER NOT NULL )");
     // INSERT
     QString query = QString("INSERT INTO SEARCH_EVENT ( xid_conference, id ) "
                 "SELECT EVENT.xid_conference, EVENT.id FROM EVENT ");
