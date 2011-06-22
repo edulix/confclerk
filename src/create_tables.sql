@@ -14,20 +14,21 @@ CREATE TABLE CONFERENCE ( id INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL
     , map VARCHAR);
 
 CREATE TABLE TRACK ( id INTEGER  PRIMARY KEY AUTOINCREMENT  NOT NULL
-    , xid_conference INTEGER -- NOT NULL
+    , xid_conference INTEGER NOT NULL
     , name VARCHAR NOT NULL
     , UNIQUE (xid_conference, name));
 
-CREATE TABLE ROOM ( id INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL
-    , xid_conference INTEGER -- NOT NULL
+CREATE TABLE ROOM ( id INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL
+    , xid_conference INTEGER NOT NULL
     , name VARCHAR NOT NULL
     , picture VARCHAR NOT NULL
     , UNIQUE (xid_conference, name));
 
-CREATE TABLE PERSON ( id INTEGER PRIMARY KEY  NOT NULL
-    , xid_conference INTEGER -- NOT NULL
+CREATE TABLE PERSON ( id INTEGER NOT NULL
+    , xid_conference INTEGER NOT NULL
     , name VARCHAR NOT NULL
-    , UNIQUE (xid_conference, name)); 
+    , UNIQUE (xid_conference, name)
+    , PRIMARY KEY (id, xid_conference)); 
 
 CREATE TABLE EVENT ( xid_conference INTEGER  NOT NULL
     , id INTEGER NOT NULL
@@ -53,8 +54,7 @@ CREATE TABLE EVENT_PERSON ( xid_conference INTEGER NOT NULL
     , UNIQUE ( xid_conference , xid_event , xid_person ) ON CONFLICT REPLACE
     , FOREIGN KEY(xid_conference) REFERENCES CONFERENCE(id)
     , FOREIGN KEY(xid_conference, xid_event) REFERENCES EVENT(xid_conference, id)
-    , FOREIGN KEY(xid_person) REFERENCES PERSON(id));
-
+    , FOREIGN KEY(xid_conference, xid_person) REFERENCES PERSON(xid_conference, id));
 
 CREATE TABLE EVENT_ROOM ( xid_conference INTEGER NOT NULL
     , xid_event INTEGER NOT NULL
@@ -62,7 +62,7 @@ CREATE TABLE EVENT_ROOM ( xid_conference INTEGER NOT NULL
     , UNIQUE ( xid_conference , xid_event , xid_room ) ON CONFLICT REPLACE
     , FOREIGN KEY(xid_conference) REFERENCES CONFERENCE(id)
     , FOREIGN KEY(xid_conference, xid_event) REFERENCES EVENT(xid_conference, id)
-    , FOREIGN KEY(xid_room) REFERENCES ROOM(id));
+    , FOREIGN KEY(xid_conference, xid_room) REFERENCES ROOM(xid_conference, id));
 
 CREATE TABLE LINK ( id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL
     , xid_conference INTEGER NOT NULL
