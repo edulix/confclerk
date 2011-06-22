@@ -348,9 +348,10 @@ void SqlEngine::deleteConference(int id)
     execQueryWithParameter(db, "DELETE FROM EVENT_ROOM WHERE xid_conference = :xid_conference", params);
     execQueryWithParameter(db, "DELETE FROM EVENT_PERSON WHERE xid_conference = :xid_conference", params);
     execQueryWithParameter(db, "DELETE FROM EVENT WHERE xid_conference = :xid_conference", params);
+    execQueryWithParameter(db, "DELETE FROM ROOM WHERE xid_conference = :xid_conference", params);
+    execQueryWithParameter(db, "DELETE FROM PERSON WHERE xid_conference = :xid_conference", params);
+    execQueryWithParameter(db, "DELETE FROM TRACK WHERE xid_conference = :xid_conference", params);
     execQueryWithParameter(db, "DELETE FROM CONFERENCE WHERE id = :xid_conference", params);
-    execQuery(db, "DELETE FROM ROOM WHERE NOT EXISTS(SELECT * FROM EVENT_ROOM WHERE xid_room = ROOM.id)");
-    execQuery(db, "DELETE FROM PERSON WHERE NOT EXISTS(SELECT * FROM EVENT_PERSON WHERE xid_person = PERSON.id)");
 
     commitTransaction();
 }

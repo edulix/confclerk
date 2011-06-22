@@ -4,7 +4,9 @@ We don't have a bug tracking system yet, therefore this file contains known bugs
 -------------------------------------------------------------------
 BugId: 1
 Title: Persons are not deleted when deleting a conference.
+Status: Fixed.
 -------------------------------------------------------------------
 BugId: 2
 Title: SQL injections possible.
+Status: 
 -------------------------------------------------------------------
