@@ -10,21 +10,24 @@ CREATE TABLE CONFERENCE ( id INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL
     , day_change INTEGER
     , timeslot_duration INTEGER
     , active INTEGER DEFAULT 0
-    , url VARCHAR UNIQUE
+    , url VARCHAR
     , map VARCHAR);
 
 CREATE TABLE TRACK ( id INTEGER  PRIMARY KEY AUTOINCREMENT  NOT NULL
     , xid_conference INTEGER -- NOT NULL
-    , name VARCHAR UNIQUE NOT NULL );
+    , name VARCHAR NOT NULL
+    , UNIQUE (xid_conference, name));
 
 CREATE TABLE ROOM ( id INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL
     , xid_conference INTEGER -- NOT NULL
-    , name VARCHAR UNIQUE NOT NULL
-    , picture VARCHAR NOT NULL);
+    , name VARCHAR NOT NULL
+    , picture VARCHAR NOT NULL
+    , UNIQUE (xid_conference, name));
 
 CREATE TABLE PERSON ( id INTEGER PRIMARY KEY  NOT NULL
     , xid_conference INTEGER -- NOT NULL
-    , name VARCHAR UNIQUE NOT NULL);
+    , name VARCHAR NOT NULL
+    , UNIQUE (xid_conference, name)); 
 
 CREATE TABLE EVENT ( xid_conference INTEGER  NOT NULL
     , id INTEGER NOT NULL

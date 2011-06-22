@@ -116,7 +116,7 @@ void SqlEngine::addConferenceToDB(QHash<QString,QString> &aConference)
             query.bindValue(":day_change", -QTime::fromString(aConference["day_change"],TIME_FORMAT).secsTo(QTime(0,0)));
             query.bindValue(":day_change", -QTime::fromString(aConference["timeslot_duration"],TIME_FORMAT).secsTo(QTime(0,0)));
             query.bindValue(":active", confsList.count() > 0 ? 0 : 1);
-            query.exec();
+            if (!query.exec()) qDebug() << "Could not execute query to insert a conference:" << query.lastError();
             aConference["id"] = query.lastInsertId().toString(); // 'id' is assigned automatically
         }
     }
