@@ -20,11 +20,13 @@
 #include "track.h"
 
 QString const Track::sTableName = QString("track");
-int const Track::sTableColCount = 2;
+int const Track::sTableColCount = 3;
+const QString Track::CONFERENCEID = "xid_conference";
 const QString Track::NAME = "name";
 
 QSqlRecord const Track::sColumns = Track::toRecord(QList<QSqlField>()
     << QSqlField("id", QVariant::Int)
+    << QSqlField(CONFERENCEID, QVariant::Int)
     << QSqlField(NAME, QVariant::String));
 
 class TrackInsertException : OrmSqlException
@@ -36,7 +38,7 @@ public:
 int Track::insert()
 {
     QSqlQuery query;
-    query.prepare("INSERT INTO " + sTableName + " (" + NAME + ")" + " VALUES " + "(\"" + name() + "\")");
+    query.prepare("INSERT INTO " + sTableName + " (" + CONFERENCEID + "," + NAME + ")" + " VALUES " + "(\"" + QString::number(conferenceid()) + "\",\"" + name() + "\")");
     if (!query.exec())
     {
         throw TrackInsertException("Exec Error");

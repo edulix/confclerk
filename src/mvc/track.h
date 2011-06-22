@@ -28,10 +28,13 @@ public:
     static const QSqlRecord sColumns;
     static QString const sTableName;
     static const int sTableColCount;
+    static const QString CONFERENCEID;
     static const QString NAME;
 public:
     int id() const { return value("id").toInt(); }
     void setId(int id) { setValue("id", id); }
+    int conferenceid() const { return value("xid_conference").toInt(); }
+    void setConference(int conferenceid) { setValue("xid_conference", conferenceid); }
     QString name() const { return value("name").toString(); }
     void setName(const QString & type) { setValue("name", type); }
     int insert();

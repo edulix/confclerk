@@ -131,6 +131,7 @@ void SqlEngine::addEventToDB(QHash<QString,QString> &aEvent)
     if (db.isValid() && db.isOpen())
     {
         //insert event track to table and get track id
+        int conference = aEvent["conference_id"].toInt();
         QString name = aEvent["track"];
         Track track;
         int trackId;
@@ -141,6 +142,7 @@ void SqlEngine::addEventToDB(QHash<QString,QString> &aEvent)
             /*qDebug() << QString("DEBUG: Track %1 in DB").arg(name);*/
         }
         catch (OrmNoObjectException &e) {
+            track.setConference(conference);
             track.setName(name);
             trackId = track.insert();
             /*qDebug() << QString("DEBUG: Track %1 added to DB").arg(name);*/
@@ -211,8 +213,8 @@ void SqlEngine::addPersonToDB(QHash<QString,QString> &aPerson)
     //TODO: check if the person doesn't exist before inserting
     if (db.isValid() && db.isOpen())
     {
-        QString values = QString("'%1', '%2'").arg(aPerson["id"],aPerson["name"]);
-        QString query = QString("INSERT INTO PERSON (id,name) VALUES (%1)").arg(values);
+        QString values = QString("'%1', '%2', '%3'").arg(aPerson["conference_id"],aPerson["id"],aPerson["name"]);
+        QString query = QString("INSERT INTO PERSON (xid_conference,id,name) VALUES (%1)").arg(values);
         QSqlQuery result (query, db);
         //LOG_AUTOTEST(query);
 
@@ -242,8 +244,8 @@ void SqlEngine::addRoomToDB(QHash<QString,QString> &aRoom)
         }
         else // ROOM record doesn't exist yet, need to create it
         {
-            QString values = QString("'%1', '%2'").arg(aRoom["name"],aRoom["picture"]);
-            QString query = QString("INSERT INTO ROOM (name,picture) VALUES (%1)").arg(values);
+            QString values = QString("'%1', '%2', '%3'").arg(aRoom["conference_id"],aRoom["name"],aRoom["picture"]);
+            QString query = QString("INSERT INTO ROOM (xid_conference,name,picture) VALUES (%1)").arg(values);
             QSqlQuery result (query, db);
             roomId = result.lastInsertId().toInt(); // 'id' is assigned automatically
             //LOG_AUTOTEST(query);
