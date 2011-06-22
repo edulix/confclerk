@@ -1,6 +1,6 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource>
-    <file>fosdem.sqlite</file>
+    <file>create_tables.sql</file>
 </qresource>
 </RCC>
 

@@ -50,12 +50,15 @@ QString SqlEngine::login(const QString &aDatabaseType, const QString &aDatabaseN
     bool result = false;
     if(!QFile::exists(aDatabaseName)) // the DB (tables) doesn't exists, and so we have to create one
     {
-        // copy conference Db from resource, instead of creating
-        // empty tables and then parsing the schedule
-        QFile dbFile(aDatabaseName);
-        QFile(":/fosdem.sqlite").copy(aDatabaseName);
-        dbFile.setPermissions(QFile::ReadOwner | QFile::WriteOwner | QFile::ReadGroup | QFile::WriteGroup);
-        database.open();
+        // create Db
+        if (!database.open()) qDebug() << "Could not open database" << database.lastError();
+        QFile file(":/create_tables.sql");
+        file.open(QIODevice::ReadOnly | QIODevice::Text);
+        QString allSqlStatements = file.readAll();
+        foreach(QString sql, allSqlStatements.split(";")) {
+            QSqlQuery query(database);
+            if (!query.exec(sql)) qDebug() << "Could not execute query" << query.lastError();
+        }
     }
     else
     {
