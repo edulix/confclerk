@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=ConfClerk
+GenericName=Offline conference scheduler
+Exec=confclerk
+Icon=confclerk
+Categories=Office;Calendar;
