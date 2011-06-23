@@ -124,19 +124,11 @@
    </property>
   </action>
   <action name="settingsAction">
-   <property name="icon">
-    <iconset resource="../icons.qrc">
-     <normaloff>:/icons/settings.png</normaloff>:/icons/settings.png</iconset>
-   </property>
    <property name="text">
     <string>Settings</string>
    </property>
   </action>
   <action name="aboutAction">
-   <property name="icon">
-    <iconset resource="../icons.qrc">
-     <normaloff>:/icons/info.png</normaloff>:/icons/info.png</iconset>
-   </property>
    <property name="text">
     <string>About</string>
    </property>

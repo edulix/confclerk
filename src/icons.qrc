@@ -3,8 +3,6 @@
         <file>icons/add.png</file>
         <file>icons/remove.png</file>
         <file>icons/reload.png</file>
-        <file>icons/expand.png</file>
-        <file>icons/collapse.png</file>
         <file>icons/fosdem.png</file>
         <file>icons/brain-alone.png</file>
         <file>icons/alarm-offBig.png</file>
@@ -13,8 +11,6 @@
         <file>icons/favourite-offBig.png</file>
         <file>icons/favourite-onBig.png</file>
         <file>icons/exclamation.png</file>
-        <file>icons/info.png</file>
         <file>icons/search.png</file>
-        <file>icons/settings.png</file>
     </qresource>
 </RCC>
