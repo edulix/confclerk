@@ -10,3 +10,7 @@ BugId: 2
 Title: SQL injections possible.
 Status: Fixed.
 -------------------------------------------------------------------
+BugID 3
+Title: Pressing enter on search tab should search.
+Status:
+-------------------------------------------------------------------
