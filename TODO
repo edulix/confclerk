@@ -1,10 +1,5 @@
 fosdem-schedule -> confclerk transition:
-- Files:
-  + AUTHORS
-  + INSTALL
-  + README
 - (c) in the code
-- add history somewhere
 - rename *.pro, s/fosdem-schedule/confclerk/ in various places
 - .sqlite file location, config location
 
@@ -20,8 +15,6 @@ maemo:
 - rm debian
 
 other
-- continue NEWS
 - ChangeLog -> svn2cl
-- docs/user-stories.txt is interesting but do we need doc/?
 - copyright for icons / replace icons (gnome-icon-theme etc.)
 - add release target to .pro; and VERSION

@@ -1,52 +1,84 @@
-This is the README file for the fosdem-schedule distribution.  
+This is the README file for ConfClerk. ConfClerk is the successor of
+fosdem-schedule; cf. docs/fosdem-schedule for the historic documentation.
 
-  Copyright (C) 2010 Ixonos Plc. 
 
-  Copying and distribution of this file, with or without modification,
-  are permitted in any medium without royalty provided the copyright
-  notice and this notice are preserved.
+Description:
 
-fosdem-schedule is an application written in Qt, which makes the FOSDEM
-conference schedule available offline.  It displays the conference schedule
+ConfClerk is an application written in Qt, which makes conference
+schedules available offline.  It displays the conference schedule
 from various views, support searches on various items (speaker, speech topic,
 location, etc.) and enables you to select favorite events and create your own
-schedule.  For Nokia N810 and N900.
+schedule.
 
-See the file ./INSTALL for building and installation instructions.
+At the moment ConfClerk is able to import schedules in XML format created by
+the PentaBarf conference management system used by e.g. FOSDEM, DebConf, and
+the CCC.
 
-Primary distribution point: http://sourceforge.net/projects/fosdem-maemo/
+ConfClerk is targetted at mobile devices like the Nokia N810 and N900 but
+works on any sytem running Qt.
 
-Home page: http://sourceforge.net/apps/mediawiki/fosdem-maemo/
+See the file ./INSTALL for building and installation instructions, and
+./AUTHORS for the list of contributors.
 
-Mailing list: fosdem-maemo-devel@lists.sourceforge.net
-- please use this list for all discussion: bug reports, enhancements, etc.
-- archived at: http://sourceforge.net/mailarchive/forum.php?forum_name=fosdem-maemo-devel
-- anyone is welcome to join the list; to do so, visit
-  https://lists.sourceforge.net/lists/listinfo/fosdem-maemo-devel
 
-Bug reports:
- Please include enough information for the maintainers to reproduce the
- problem.  Generally speaking, that means:
-- the contents of any input files necessary to reproduce the bug
-  and command line invocations of the program(s) involved (crucial!).
-- a description of the problem and any samples of the erroneous output.
-- the version number of the program(s) involved (use --version).
-- hardware, operating system, and compiler versions (uname -a).
-- anything else that you think would be helpful.
+Copyright and License:
 
-Patches are most welcome; if possible, please make them with diff -c and
-include ChangeLog entries.
+  Copyright (C) 2010 Ixonos Plc.
+  Copyright (C) 2011, Philipp Spitzer, gregor herrmann
 
-fosdem-schedule is free software.  See the file COPYING for copying conditions.
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
 
-About FOSDEM 2010:
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
 
-The tenth FOSDEM is a two-day event organized by volunteers to promote the
-widespread use of Free and Open Source software.  Taking place in the beautiful
-city of Brussels (Belgium), FOSDEM meetings are recognized as "The best Free
-Software and Open Source events in Europe".
+  You should have received a copy of the GNU General Public License along
+  with this program; if not, write to the Free Software Foundation, Inc.,
+  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-FOSDEM name and FOSDEM brain icon are Trademarks of FOSDEM ASBL, which gave
-this project the rights to use the brain icon and name.  Copying and
-distribution of the FOSDEM brain icon must follow the Creative Commons
-Attribution-Noncommercial-No Derivative Works 2.0 Belgium License.
+
+//! TODO
+
+Files add.png, reload.png, remove.png in  src/icons/ directory
+are taken from Ubuntu package gnome-icon-theme. Copyright notice
+for them copied here:
+
+> This package was debianized by Takuo KITAME <kitame@debian.org> on
+> Fri, 17 Jan 2003 14:57:28 +0900.
+> 
+> It was downloaded from <http://download.gnome.org/sources/gnome-icon-theme/>
+> 
+> Copyright © 2002-2008:
+>    Ulisse Perusin <uli.peru@gmail.com>
+>    Riccardo Buzzotta <raozuzu@yahoo.it>
+>    Josef Vybíral <cornelius@vybiral.info>
+>    Hylke Bons <h.bons@student.rug.nl>
+>    Ricardo González <rick@jinlabs.com>
+>    Lapo Calamandrei <calamandrei@gmail.com>
+>    Rodney Dawes <dobey@novell.com>
+>    Luca Ferretti <elle.uca@libero.it>
+>    Tuomas Kuosmanen <tigert@gimp.org>
+>    Andreas Nilsson <nisses.mail@home.se>
+>    Jakub Steiner <jimmac@novell.com>
+
+
+
+History:
+
+ConfClerk started as fosdem-schedule, targetted at Maemo as an operating
+system and the FOSDEM conference.
+fosdem-schedule was written by Ixonos Plc., maintained at
+http://sourceforge.net/projects/fosdem-maemo/ , and released under the GNU GPL
+2 or later.
+Cf. docs/fosdem-schedule for more information.
+
+ConfClerk is the successor of fosdem-schedule, aiming at improvements and
+generalization regarding supported platforms and conference systems.
+The project was started after fosdem-schedule was not actively developped
+anymore and with the "blessing" of the fosdem-schedule developers; cf.
+http://sourceforge.net/mailarchive/forum.php?thread_name=20110621171440.GA4521%40nerys.comodo.priv.at&forum_name=fosdem-maemo-devel
+Thanks guys!

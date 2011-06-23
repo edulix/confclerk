@@ -1,0 +1,39 @@
+This is the INSTALL file for the fosdem-schedule distribution.
+
+  Copyright (C) 2010 Ixonos Plc. 
+
+  Copying and distribution of this file, with or without modification,
+  are permitted in any medium without royalty provided the copyright
+  notice and this notice are preserved.
+
+NOTE
+====
+
+fosdem-schedule is an application intended for Nokia N810 and N900 Internet
+tablet devices.  Therefor the preferred distribution is a Debian package.
+Notice the different release of the Maemo platform on each of the devices,
+which requires a specific Debian package.  
+
+Maemo is a trademark of Nokia Corporation.  Debian is a registered trademark
+owned by SPI in the United States, and managed by the debian project, as
+explained on their site.
+
+Basic Installation
+==================
+
+1. Type `qmake' to generate Makefiles.
+2. Type `make' to compile the source code.
+3. Type `make install' to install the executable.  
+4. Type `make uninstall' to remove all installed files form your system.      
+
+Maemo Package Building 
+======================
+
+1. Type `qmake' to generate Makefiles.
+2. Check the "Build-Depends" section of the control file for required packages.
+   Maemo 3 (Diablo) specific:
+   - Ignore the version strings when building a package for Maemo 3 (Diablo).
+   - Optification of the package is not explicitly required, to disable it
+     comment out the "maemo-optify $(PKG_NAME)" line in debian/rules.  
+3. Type `dpkg-buildpackage -rfakeroot -b -uc' to build a package.  
+ 

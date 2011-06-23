@@ -1,19 +1,7 @@
+This is the NEWS file for ConfClerk. ConfClerk is the successor of
+fosdem-schedule; cf. docs/fosdem-schedule for the historic documentation.
 
-This NEWS file records noteworthy changes, very tersely.
+Version 0.5
+* 
 
-Version 0.3 (3 Feb 2010)
-* Performance improvement for events. 
-
-Version 0.2 (2 Feb 2010)
-* Search tab has been added.
-* Alarms handled by alarmd, which requests native alarm dialogs (N900 only).
-* A service is registered to DBus, the application is handling calls from alarm
-  dialogs to reflect alarm states into the database.  The application is
-  started if required (N900 only).
-
-Version 0.1 (19 Jan 2010) 
-* A user can select favourite events, which are displayed in "Favourites" tab.
-* FOSDEM icon is displayed in application manager and in applications menu.        
-* Optification of the package is done using maemo-optify script.
-* There is now a `NEWS' file (this one), giving a history of
-  user-visible changes.
+//! TODO
