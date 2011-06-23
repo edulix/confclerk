@@ -50,12 +50,13 @@ int Track::insert()
         throw TrackInsertException("Last Insert Id Error");
 }
 
-Track Track::retrieveByName(QString name)
+Track Track::retrieveByName(int conferenceid, QString name)
 {
     QSqlQuery query;
     query.prepare(
             selectQuery()
-            + QString("WHERE %1.name = :name").arg(sTableName));
+            + QString("WHERE %1.xid_conference = :xid_conference and %1.name = :name").arg(sTableName));
+    query.bindValue(":xid_conference", conferenceid);
     query.bindValue(":name", name);
     return loadOne(query);
 }

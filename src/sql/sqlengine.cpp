@@ -140,7 +140,7 @@ void SqlEngine::addEventToDB(QHash<QString,QString> &aEvent)
         int trackId;
         try
         {
-            track = Track::retrieveByName(name);
+            track = Track::retrieveByName(conference, name);
             trackId = track.id();
             /*qDebug() << QString("DEBUG: Track %1 in DB").arg(name);*/
         }

@@ -42,7 +42,7 @@ public:
     static QList<Track> getAll();
     static Track retrieve(int id);
     static QString retrieveTrackName(int id);
-    static Track retrieveByName(QString name);
+    static Track retrieveByName(int conferenceid, QString name);
 };
 
 #endif /* TRACK_H_ */
