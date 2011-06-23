@@ -199,7 +199,7 @@ int EventModel::rowCount (const QModelIndex & parent) const
 
 void EventModel::clearModel()
 {
-    qDebug() << __PRETTY_FUNCTION__ << this << mEvents.count();
+    // qDebug() << __PRETTY_FUNCTION__ << this << mEvents.count();
     mGroups.clear();
     mEvents.clear();
     mParents.clear();

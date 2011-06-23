@@ -30,8 +30,8 @@
 class OrmException
 {
 public:
-    OrmException(const QString& text) : mText(text) {};
-    virtual ~OrmException(){};
+    OrmException(const QString& text) : mText(text) {}
+    virtual ~OrmException(){}
     virtual const QString& text() const { return mText; }
 private:
     QString mText;
@@ -40,15 +40,15 @@ private:
 class OrmNoObjectException : public OrmException
 {
 public:
-    OrmNoObjectException() : OrmException("No object exception"){};
-    ~OrmNoObjectException(){};
+    OrmNoObjectException() : OrmException("No object exception"){}
+    ~OrmNoObjectException(){}
 };
 
 class OrmSqlException : public OrmException
 {
 public:
-    OrmSqlException(const QString& text) : OrmException( QString("Sql error: ") + text ) {};
-    ~OrmSqlException(){};
+    OrmSqlException(const QString& text) : OrmException( QString("Sql error: ") + text ) {}
+    ~OrmSqlException(){}
 };
 
 template <typename T>

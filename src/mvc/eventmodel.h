@@ -26,7 +26,7 @@
 class EventModel : public QAbstractItemModel
 {
 public:
-    static const QString COMMA_SEPARATOR;
+    static const QString COMMA_SEPARATOR; // ", "
 public:
     EventModel();
     QVariant data(const QModelIndex& index, int role) const;
@@ -49,9 +49,9 @@ private:
         Group(const QString & title,
               int firstEventIndex) :
 
-            mTitle(title),
-            mFirstEventIndex(firstEventIndex),
-            mChildCount(0)
+            mTitle(title),                     // e.g. "16:00 - 17:30"
+            mFirstEventIndex(firstEventIndex), // first index within mEvents
+            mChildCount(0)                     // number of events in mEvents
         {}
 
         QString mTitle;

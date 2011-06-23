@@ -95,9 +95,10 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     useConference(Conference::activeConference());
     // optimization, see useConference() code
     try {
-	initTabs();
-    } catch (OrmException) {
-	clearTabs();
+        initTabs();
+    } catch (const OrmException& e) {
+        qDebug() << "OrmException:" << e.text();
+        clearTabs();
     }
 
     // TODO: open conferences at startup?

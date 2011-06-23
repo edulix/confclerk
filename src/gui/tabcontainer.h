@@ -41,7 +41,7 @@ protected:
     {
         Q_UNUSED(aDate);
         Q_UNUSED(aConferenceId);
-    };
+    }
 
 signals:
     void eventHasChanged(int aEventId, bool aReloadModel);
