@@ -26,7 +26,7 @@
 class CAlarmDBus: public QObject
 {
     Q_OBJECT
-    Q_CLASSINFO("D-Bus Interface", "org.fosdem.schedule")
+    Q_CLASSINFO("D-Bus Interface", "at.priv.toastfreeware.confclerk")
 
 public:
 	CAlarmDBus(QWidget * aParent);

@@ -36,9 +36,9 @@ QT_END_NAMESPACE
 class AlarmDBusAdaptor: public QDBusAbstractAdaptor
 {
     Q_OBJECT
-    Q_CLASSINFO("D-Bus Interface", "org.fosdem.schedule.AlarmInterface")
+    Q_CLASSINFO("D-Bus Interface", "at.priv.toastfreeware.confclerk.AlarmInterface")
     Q_CLASSINFO("D-Bus Introspection", ""
-"  <interface name=\"org.fosdem.schedule.AlarmInterface\" >\n"
+"  <interface name=\"at.priv.toastfreeware.confclerk.AlarmInterface\" >\n"
 "  <method name=\"Alarm\">\n"
 "	  <arg name=\"aEventId\" type=\"i\" direction=\"in\"/>\n"
 "  </method>\n"

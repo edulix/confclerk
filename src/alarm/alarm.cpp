@@ -54,7 +54,7 @@ int Alarm::addAlarm(int aEventId, const QDateTime &aDateTime)
 
     /* Add exec command action */
     act = alarm_event_add_actions(eve, 1);
-    alarm_action_set_label(act, "FOSDEM'10");
+    alarm_action_set_label(act, "ConfClerk");
 
     QString command = QFileInfo(*qApp->argv()).absoluteFilePath() + QString(" %1").arg(QString::number(aEventId));
     qDebug() << "Setting alarm: " << command;
@@ -68,9 +68,9 @@ int Alarm::addAlarm(int aEventId, const QDateTime &aDateTime)
 //    act->flags |= ALARM_ACTION_TYPE_DBUS;
 //
 //    // DBus params for this action
-//    alarm_action_set_dbus_interface(act, "org.fosdem.schedule.AlarmInterface");
-//    alarm_action_set_dbus_service(act, "org.fosdem.schedule");
-//    alarm_action_set_dbus_path(act, "/Fosdem");
+//    alarm_action_set_dbus_interface(act, "at.priv.toastfreeware.confclerk.AlarmInterface");
+//    alarm_action_set_dbus_service(act, "at.priv.toastfreeware.confclerk");
+//    alarm_action_set_dbus_path(act, "/ConfClerk");
 //    alarm_action_set_dbus_name(act, "Alarm");
 //
 //    // DBus arguments for the action
@@ -79,7 +79,7 @@ int Alarm::addAlarm(int aEventId, const QDateTime &aDateTime)
     //    act->flags |= ALARM_ACTION_TYPE_EXEC;
     //     alarm_action_set_exec_command(act, command.toLocal8Bit().data());
     //    alarm_event_set_icon(eve, "fosdem");
-    //    alarm_event_set_title(eve, "FOSDEM'10");
+    //    alarm_event_set_title(eve, "ConfClerk");
     // adds assigned cookie at the end of command string
     //    act->flags |= ALARM_ACTION_EXEC_ADD_COOKIE;
 

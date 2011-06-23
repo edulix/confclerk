@@ -53,15 +53,15 @@ int main(int argc, char *argv[])
     new AlarmDBusAdaptor(alarmDBus);
     QDBusConnection connection = QDBusConnection::sessionBus();
 
-    if(connection.registerObject("/Fosdem", alarmDBus) == true)
+    if(connection.registerObject("/ConfClerk", alarmDBus) == true)
     {
-    	if( connection.registerService("org.fosdem.schedule") == false)
+    	if( connection.registerService("at.priv.toastfreeware.confclerk") == false)
     	{
     		if(argc>1)
     		{
-        		QDBusInterface *interface = new QDBusInterface("org.fosdem.schedule",
-        		                                               "/Fosdem",
-        		                                               "org.fosdem.schedule.AlarmInterface",
+        		QDBusInterface *interface = new QDBusInterface("at.priv.toastfreeware.confclerk",
+        		                                               "/ConfClerk",
+        		                                               "at.priv.toastfreeware.confclerk.AlarmInterface",
         		                                               connection);
         		interface->call("Alarm",atoi(argv[1]));
         		return 0;
