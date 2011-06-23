@@ -12,7 +12,6 @@ FOSDEM specifics:
 
 maemo:
 - data/maemo/*.desktop - add generic .desktop file
-- rm debian
 
 other
 - ChangeLog -> svn2cl
