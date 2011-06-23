@@ -9,3 +9,6 @@ qmake-qt4");
 
 TEMPLATE = subdirs
 SUBDIRS = src
+
+# for changelog target:
+# svn2cl --group-by-day --reparagraph

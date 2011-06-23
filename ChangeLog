@@ -1,0 +1,1334 @@
+2011-06-23  philipp
+
+	* src/sql/sqlengine.cpp: Prevented SQL injection in function
+	  addLinkToDB.
+
+2011-06-23  gregoa
+
+	* TODO: update TODO
+
+2011-06-23  philipp
+
+	* src/sql/sqlengine.cpp: Fixed SQL error in searchEvent when no
+	  table was selected. Prevented SQL injection in searchEvent.
+
+2011-06-23  gregoa
+
+	* TODO: add TODO file
+
+2011-06-23  philipp
+
+	* src/gui/mainwindow.cpp, src/gui/tabcontainer.h,
+	  src/mvc/eventmodel.cpp, src/mvc/eventmodel.h,
+	  src/orm/ormrecord.h: Added some comments, removed and added some
+	  debug information.
+	* src/sql/sqlengine.cpp: Fixed a bug I introduced when reparing the
+	  addRoomToDB function.
+	* src/mvc/track.cpp, src/mvc/track.h, src/sql/sqlengine.cpp: Tracks
+	  are inserted now when importing new conferences.
+	* src/sql/sqlengine.cpp: void possible SQL injection in function
+	  addRoomToDB.
+	* src/app/app.pro: Removed copying the fosdem.sqlite database
+	  during the make process.
+
+2011-06-22  philipp
+
+	* src/db.qrc, src/sql/sqlengine.cpp: The database is now created
+	  from the program. We don't need to copy or provide fosdem.sqlite
+	  anymore.
+	* BUGS, src/sql/sqlengine.cpp: Persons are deleted now when a
+	  conference is removed.
+	* BUGS: Added a file with bugs that I noticed when playing with the
+	  application.
+	* src/sql/sqlengine.cpp: Rooms are inserted now for additionally
+	  imported conferences.
+	* src/create_tables.sql: Importing persons for multiple conferences
+	  works now.
+	* src/create_tables.sql, src/sql/sqlengine.cpp: Changed UNIQUE
+	  statements in the database table definition so that they make
+	  sense for multiple conferences and do no not prevent successful
+	  imports.
+
+2011-06-22  gregoa
+
+	* src/mvc/track.cpp, src/mvc/track.h, src/sql/sqlengine.cpp: Insert
+	  new field xid_conference into table track, room and person.
+
+2011-06-21  philipp
+
+	* src/create_tables.sql: Created schema for the database with
+	  additional colum xid_conference in the tables track, room and
+	  person.
+	* src/gui/mainwindow.ui: Added menu item "quit".
+	* ., src/app, src/gui, src/mvc, src/sql: Ignored some files that
+	  were created during the build.
+	* fosdem-schedule.pro: Removed data directory from subdirs so that
+	  the manually created Makefile is not overwritten by qmake -r.
+	* src/app/app.pro: Removed dbus dependency on non-maemo platforms.
+
+2010-05-05  kirilma
+
+	* src/mvc/delegate.cpp: use enabled flag instead of repeated
+	  criateria check
+	* src/mvc/delegate.cpp, src/mvc/delegate.h: add enabled flag
+	* src/mvc/delegate.cpp, src/mvc/delegate.h: refactor: more compact
+	  drawing of controls
+	* src/mvc/delegate.cpp, src/mvc/room.h: do not draw showmap button
+	  for event is there is no map for its room
+	* src/gui/tabcontainer.cpp, src/mvc/delegate.cpp,
+	  src/mvc/event.cpp, src/mvc/event.h: refactor: cache whole Room
+	  object in Event
+	* src/fosdem.sql, src/gui/tabcontainer.cpp, src/mvc/room.h,
+	  src/sql/schedulexmlparser.cpp: store room map in database
+	  
+	  show it if it's available, otherwise show a warning set proper
+	  values in default database new rooms imported as without maps
+	* src/fosdem.sql, src/gui/conferenceeditor.cpp,
+	  src/mvc/conference.cpp, src/mvc/conference.h,
+	  src/sql/sqlengine.cpp, src/sql/sqlengine.h: store path to
+	  conference map in database
+	  
+	  path stored as additional field in conference table if it's null
+	  or empty, "Show map" button is not shown if existing database
+	  does not have the field, it will be automatically added
+
+2010-05-04  kirilma
+
+	* src/gui/conferenceeditor.cpp, src/gui/conferenceeditor.ui,
+	  src/gui/settingsdialog.cpp, src/gui/settingsdialog.ui: UI tune:
+	  use buttonBox instead of single buttons to comply with platform
+	  conventions
+	  
+	  maemo5 does not print "Cancel" buttons, and names "OK"
+	  differently just use buttonBox, and it will behave properly at
+	  each platform
+
+2010-04-23  kirilma
+
+	* src/gui/conferenceeditor.cpp, src/gui/conferenceeditor.h,
+	  src/gui/conferenceeditor.ui, src/gui/mainwindow.cpp,
+	  src/gui/mainwindow.h: restore viewing of conference map
+	* src/gui/conferenceeditor.cpp, src/gui/urlinputdialog.ui: minor UI
+	  fixes
+	  
+	  fix size of UrlInputDialog restore [remove] button at the same
+	  button as [add]
+
+2010-04-22  kirilma
+
+	* src/gui/importschedulewidget.cpp, src/gui/importschedulewidget.h,
+	  src/gui/importschedulewidget.ui, src/gui/mainwindow.cpp,
+	  src/gui/mainwindow.h, src/sql/schedulexmlparser.cpp,
+	  src/sql/schedulexmlparser.h: remove obsoleted code
+	  
+	  also fix some types
+	* src/gui/mainwindow.cpp, src/gui/mainwindow.h: optimization
+	* src/gui/conferenceeditor.cpp, src/gui/conferenceeditor.ui: fine
+	  tune geometry to look nicer
+	* AUTHORS, debian/copyright: add authors for files
+	* src/gui/conferenceeditor.cpp, src/gui/conferenceeditor.h,
+	  src/gui/conferenceeditor.ui, src/gui/gui.pro,
+	  src/gui/mainwindow.cpp, src/gui/mainwindow.h,
+	  src/gui/mainwindow.ui, src/gui/urlinputdialog.cpp,
+	  src/gui/urlinputdialog.h, src/gui/urlinputdialog.ui,
+	  src/icons.qrc, src/icons/add.png, src/icons/reload.png,
+	  src/icons/remove.png, src/mvc/conference.h,
+	  src/mvc/conferencemodel.cpp, src/mvc/conferencemodel.h,
+	  src/mvc/mvc.pro, src/sql/schedulexmlparser.cpp,
+	  src/sql/schedulexmlparser.h: reworked UI for conference editing
+	  
+	  underlying representation of conference list is also changed
+	* src/sql/schedulexmlparser.h: CC: fix endlines
+
+2010-04-16  kirilma
+
+	* src/app/app.pro, src/app/application.cpp,
+	  src/gui/errormessage.cpp, src/gui/errormessage.h,
+	  src/gui/gui.pro, src/gui/importschedulewidget.cpp,
+	  src/sql/schedulexmlparser.cpp: use visible notifications of
+	  errors
+	  
+	  also early detect parsing errors
+
+2010-04-15  kirilma
+
+	* src/gui/importschedulewidget.cpp,
+	  src/gui/importschedulewidget.ui: make label shorter to place all
+	  required buttons
+	* src/gui/mainwindow.cpp, src/gui/mainwindow.h,
+	  src/gui/tabcontainer.cpp, src/gui/tabcontainer.h,
+	  src/mvc/eventmodel.cpp, src/mvc/eventmodel.h: fix deletion of
+	  last conference
+	  
+	  implement for cleaning all views in the tabs clean the models
+	  when no active conference found fix cleaning model and signalling
+	  views
+	* src/gui/importschedulewidget.cpp, src/gui/importschedulewidget.h,
+	  src/gui/mainwindow.cpp, src/gui/mainwindow.h,
+	  src/mvc/conference.cpp, src/mvc/conference.h,
+	  src/sql/sqlengine.cpp, src/sql/sqlengine.h: implement deleting a
+	  conference
+	  
+	  pass event about it to mainwindow to update select control fix
+	  Conference::activeConference() to work when first conference is
+	  removed
+	* src/gui/importschedulewidget.cpp, src/gui/importschedulewidget.h,
+	  src/gui/importschedulewidget.ui, src/mvc/conference.h: add
+	  buttons for refreshm new url and delete and partly implement
+	  corresponding actions
+	  
+	  also changed Online -> Refresh delete action is not implemented
+	  yet
+	* src/fosdem.sql, src/gui/importschedulewidget.cpp,
+	  src/gui/importschedulewidget.h, src/mvc/conference.cpp,
+	  src/mvc/conference.h, src/sql/schedulexmlparser.cpp,
+	  src/sql/schedulexmlparser.h, src/sql/sqlengine.cpp: store URL's
+	  for conferences
+	  
+	  * use it at update * let user update the url before request
+	* src/gui/importschedulewidget.cpp,
+	  src/gui/importschedulewidget.ui, src/sql/sqlengine.cpp,
+	  src/sql/sqlengine.h: remove unused code
+	* src/fosdem.sql: fix references in SQL
+
+2010-04-14  kirilma
+
+	* src/gui/about.ui, src/gui/alarmdialog.ui,
+	  src/gui/conflictsdialog.ui, src/gui/daynavigatorwidget.ui,
+	  src/gui/eventdialog.ui, src/gui/importschedulewidget.ui,
+	  src/gui/mainwindow.ui, src/gui/mapwindow.ui,
+	  src/gui/searchhead.ui, src/gui/settingsdialog.ui: save output
+	  from updater QT designer
+	  
+	  update all ui files to the output format of the new Qt Designer
+	  (version: 4.5.3really4.5.2-0ubuntu1) to avoid unrelated changes
+	  in SCM later
+
+2010-04-13  kirilma
+
+	* src/gui/gui.pro, src/gui/tabwidget.cpp, src/gui/tabwidget.h:
+	  remove unused class TabWidget
+	* src/gui/gui.pro, src/gui/importschedulewidget.cpp,
+	  src/gui/importschedulewidget.h, src/gui/importschedulewidget.ui,
+	  src/gui/mainwindow.cpp, src/gui/mainwindow.h,
+	  src/gui/mainwindow.ui, src/gui/proxysettingsdialog.cpp,
+	  src/gui/proxysettingsdialog.h, src/gui/proxysettingsdialog.ui,
+	  src/gui/settingsdialog.cpp, src/gui/settingsdialog.h,
+	  src/gui/settingsdialog.ui: move Settings and About to Window Menu
+	  
+	  * remove Setting and About controls from widgets * make instead a
+	  window menus with the corresponding actions * rename "Proxy
+	  settings" to "Settings", placing the proxy button in a control
+	  group
+
+2010-04-12  kirilma
+
+	* src/app/app.pro: build fix at maemo
+	  
+	  force order of computation some versions of qmake-qt4 require it
+	* src/fosdem.sql: remove ON CONFLICE REPLACE for events
+	* src/app/app.pro, src/fosdem.sql, src/fosdem.sqlite: generate
+	  default database instead of using binary one
+	* src/sql/sqlengine.cpp: fix event insert or update
+	  
+	  * add error reporting for queries * actually run check query *
+	  properly get conference_is from event * fix checking of non-empty
+	  result * fix insert query
+	* src/app/app.pro, src/app/application.cpp, src/app/application.h,
+	  src/app/main.cpp: catch exceptions which leak outside of event
+	  handlers
+	  
+	  If we do not do this, QT will exit from event loop.
+
+2010-04-09  kirilma
+
+	* src/sql/sqlengine.cpp: use update for events when they are
+	  already exists
+	  
+	  also use only parameters substitution for these queries
+	* src/sql/schedulexmlparser.cpp, src/sql/sqlengine.cpp,
+	  src/sql/sqlengine.h: use transactions to make import faster
+
+2010-03-03  uzakmat
+
+	* data/maemo/fosdem-schedule.desktop, debian/changelog,
+	  src/gui/about.ui: Preparing for release 0.4.1
+
+2010-03-03  timkoma
+
+	* src/alarm/alarm.cpp, src/mvc/event.cpp, src/sql/sqlengine.cpp:
+	  UTC/LocalTime fix for import conference XML, DB queries for
+	  multiple conferences fixes
+
+2010-02-05  timkoma
+
+	* src/fosdem.sqlite, src/sql/sqlengine.cpp: fix for import - ON
+	  CONFLICT REPLACE
+
+2010-02-05  uzakmat
+
+	* data/maemo/fosdem-schedule.desktop, debian/changelog,
+	  src/alarm/alarm.cpp, src/gui/about.ui: alarm UTC/localtime fix
+
+2010-02-03  uzakmat
+
+	* INSTALL: addition of Diablo specific installation instructions in
+	  INSTALL
+	* data/Makefile, data/maemo/fosdem-schedule.desktop: installation
+	  of 40x40 icons enabled because of Diablo
+	* NEWS, debian/changelog, src/gui/about.ui: release information
+	  added for release 0.3
+
+2010-02-03  timkoma
+
+	* src/mvc/event.cpp, src/mvc/event.h: performance improvement for
+	  Events
+	* src/mvc/event.cpp, src/mvc/event.h: performance improvement for
+	  load persons
+
+2010-02-02  uzakmat
+
+	* NEWS: NEWS file update
+	* src/alarm/alarm.cpp, src/alarm/alarm.h, src/alarm/calendar.cpp,
+	  src/alarm/calendar.h, src/app/alarmdbus.cpp, src/app/alarmdbus.h,
+	  src/app/alarmdbusadaptor.cpp, src/app/alarmdbusadaptorp.h,
+	  src/app/appsettings.cpp, src/app/appsettings.h, src/app/main.cpp,
+	  src/gui/alarmdialog.cpp, src/gui/alarmdialog.h,
+	  src/gui/conflictdialogcontainer.cpp,
+	  src/gui/conflictdialogcontainer.h, src/gui/conflictsdialog.cpp,
+	  src/gui/conflictsdialog.h, src/gui/daynavigatorwidget.cpp,
+	  src/gui/daynavigatorwidget.h, src/gui/dayviewtabcontainer.cpp,
+	  src/gui/dayviewtabcontainer.h, src/gui/eventdialog.cpp,
+	  src/gui/eventdialog.h, src/gui/favtabcontainer.cpp,
+	  src/gui/favtabcontainer.h, src/gui/importschedulewidget.cpp,
+	  src/gui/importschedulewidget.h, src/gui/mainwindow.cpp,
+	  src/gui/mainwindow.h, src/gui/mapwindow.cpp, src/gui/mapwindow.h,
+	  src/gui/nowtabcontainer.cpp, src/gui/nowtabcontainer.h,
+	  src/gui/proxysettingsdialog.cpp, src/gui/proxysettingsdialog.h,
+	  src/gui/roomstabcontainer.cpp, src/gui/roomstabcontainer.h,
+	  src/gui/searchhead.cpp, src/gui/searchhead.h,
+	  src/gui/searchtabcontainer.cpp, src/gui/searchtabcontainer.h,
+	  src/gui/tabcontainer.cpp, src/gui/tabcontainer.h,
+	  src/gui/tabwidget.cpp, src/gui/tabwidget.h,
+	  src/gui/trackstabcontainer.cpp, src/gui/trackstabcontainer.h,
+	  src/mvc/conference.cpp, src/mvc/conference.h,
+	  src/mvc/delegate.cpp, src/mvc/delegate.h, src/mvc/event.cpp,
+	  src/mvc/event.h, src/mvc/eventmodel.cpp, src/mvc/eventmodel.h,
+	  src/mvc/room.cpp, src/mvc/room.h, src/mvc/track.cpp,
+	  src/mvc/track.h, src/mvc/treeview.cpp, src/mvc/treeview.h,
+	  src/orm/ormrecord.h, src/sql/schedulexmlparser.cpp,
+	  src/sql/schedulexmlparser.h, src/sql/sqlengine.cpp,
+	  src/sql/sqlengine.h, src/test/main.cpp,
+	  src/test/mvc/eventtest.cpp, src/test/mvc/eventtest.h: A header
+	  with the proper copyright/lincence statement was added into each
+	  source/header file.
+
+2010-02-02  pavelpa
+
+	* src/alarm/alarm.cpp: corrected 'exec' path when adding an alarm
+
+2010-02-02  uzakmat
+
+	* NEWS: NEWS file updated
+	* AUTHORS, INSTALL, README, debian/changelog: README, INSTALL,
+	  AUTHORS - filled in
+
+2010-02-02  hanzes
+
+	* src/alarm/alarm.cpp, src/app/alarmdbus.h,
+	  src/app/alarmdbusadaptor.cpp, src/app/alarmdbusadaptorp.h: Alarm
+	  modifications
+
+2010-02-01  hanzes
+
+	* src/mvc/treeview.cpp: Alarm dbus connection added
+	* src/alarm/alarm.cpp, src/alarm/alarm.pro,
+	  src/alarm/alarmdbus.cpp, src/alarm/alarmdbus.h,
+	  src/alarm/alarmdbusadaptor.cpp, src/alarm/alarmdbusadaptorp.h,
+	  src/app/alarmdbus.cpp, src/app/alarmdbus.h,
+	  src/app/alarmdbusadaptor.cpp, src/app/alarmdbusadaptorp.h,
+	  src/app/app.pro, src/app/main.cpp, src/mvc/mvc.pro,
+	  src/mvc/treeview.cpp, src/src.pro: Alarm dbus connection added
+
+2010-02-01  pavelpa
+
+	* src/mvc/delegate.cpp: gradient for treeview items
+	* src/sql/sqlengine.cpp: changed permissions for the db - TODO:
+	  check it on the device
+	* src/app/main.cpp, src/src.pro: compilation error fix
+	* src/app/main.cpp: compilation error fix
+	* src/gui/mapwindow.cpp: N810 changes: maximized 'map' dialog
+
+2010-02-01  hanzes
+
+	* src/alarm/alarm.cpp, src/alarm/alarm.pro,
+	  src/alarm/alarmdbus.cpp, src/alarm/alarmdbus.h,
+	  src/alarm/alarmdbusadaptor.cpp, src/alarm/alarmdbusadaptorp.h,
+	  src/app/app.pro, src/app/main.cpp, src/gui/gui.pro,
+	  src/mvc/treeview.cpp, src/src.pro: Alarm dbus connection added
+
+2010-02-01  pavelpa
+
+	* src/gui/importschedulewidget.ui, src/icons.qrc,
+	  src/icons/settings.png: added 'settings' icon for setting-up
+	  proxy(network connection)
+	* src/global.pri, src/gui/mainwindow.cpp, src/gui/tabcontainer.cpp,
+	  src/orm/ormrecord.h: GUI changes for N810 device
+
+2010-02-01  uzakmat
+
+	* debian/control, debian/copyright: debian/control - Build-Depends
+	  section set
+
+2010-02-01  pavelpa
+
+	* src/app/app.pro, src/app/main.cpp, src/db.qrc, src/fosdem.sqlite,
+	  src/sql/sqlengine.cpp: created resource which contains parsed
+	  schedule, so the user doesn't have to parse it by himself
+
+2010-02-01  uzakmat
+
+	* src/alarm/alarm.cpp: alarm - example of dbus binding functional
+
+2010-02-01  pavelpa
+
+	* src/schedule.en.xml: updated schedule.en.xml to the newest
+	  version
+
+2010-01-30  pavelpa
+
+	* src/gui/about.ui, src/gui/eventdialog.ui, src/icons.qrc,
+	  src/icons/brain-alone.png: changed fosdem icon in about dialog to
+	  brain-alone icon
+	* src/gui/about.ui: changed copyright string
+	* src/mvc/delegate.cpp: number of events/alarms/favs is
+	  bottom-aligned to the bottom of the icons
+
+2010-01-29  pavelpa
+
+	* src/app/appsettings.cpp, src/app/appsettings.h,
+	  src/gui/mainwindow.cpp: if the application is run for first time,
+	  network connection is set to Direct connection
+
+2010-01-29  uzakmat
+
+	* src/alarm/alarm.cpp: initial binding of alarm to a DBus call
+
+2010-01-29  pavelpa
+
+	* src/app/app.pro, src/app/appsettings.cpp, src/app/appsettings.h,
+	  src/gui/gui.pro, src/gui/importschedulewidget.cpp,
+	  src/gui/importschedulewidget.h, src/gui/importschedulewidget.ui,
+	  src/gui/mainwindow.cpp, src/gui/proxysettingsdialog.cpp,
+	  src/gui/proxysettingsdialog.h, src/gui/proxysettingsdialog.ui:
+	  implemented 'proxy settings' dialog - user can secify proxy for
+	  network communication
+	* src/app/app.pro, src/gui/gui.pro,
+	  src/gui/importschedulewidget.cpp, src/gui/importschedulewidget.h,
+	  src/gui/mainwindow.cpp: implemented importing the schedule from
+	  the Internet - usded url: http://fosdem.org/2010/schedule/xml -
+	  todo: hard-coded PROXY has to be fixed (add proxy settings
+	  dialog)
+	* src/gui/mainwindow.cpp, src/gui/mainwindow.h,
+	  src/gui/mainwindow.ui, src/mvc/treeview.cpp: possible to have
+	  multiple conferences in the DB - possible to switch among them -
+	  conference schedules have to follow FOSDEM conference xml
+	  structure - 'select Conference' bar is visible only if there are
+	  more than one conference available
+	* src/gui/about.ui, src/gui/importschedulewidget.cpp,
+	  src/gui/importschedulewidget.ui: modified 'about' dialog -
+	  changed "Qt FOSDEM" -> "FOSDEM Schedule"
+
+2010-01-28  pavelpa
+
+	* src/gui/daynavigatorwidget.cpp, src/gui/daynavigatorwidget.h,
+	  src/gui/searchtabcontainer.cpp, src/mvc/event.cpp,
+	  src/sql/sqlengine.cpp: search fixed - only the dates (range)
+	  which contain at least one event are selectable - if there is
+	  only one event at a specified date - user can't switch to the
+	  next/prev date - if search gives no results - a message is
+	  displayed to inform user about it
+	* src/gui/conflictsdialog.cpp, src/gui/conflictsdialog.h: forgotten
+	  in previous commit
+	* src/gui/eventdialog.cpp, src/gui/eventdialog.h,
+	  src/gui/favtabcontainer.cpp, src/gui/favtabcontainer.h,
+	  src/gui/mainwindow.cpp, src/gui/mainwindow.h,
+	  src/gui/tabcontainer.cpp, src/gui/tabcontainer.h,
+	  src/mvc/treeview.cpp, src/mvc/treeview.h: some performance
+	  optimizations - favourities reloaded only if they have really
+	  changed - otherwise only event in the question is updated
+	* src/mvc/event.cpp: fixed 'conflicts' constrains
+	* src/mvc/event.cpp: 'now' events - displayed real now events, not
+	  just the testing ones
+
+2010-01-28  uzakmat
+
+	* src/app/app.pro: binary name changed to fosdem-schedule
+
+2010-01-28  pavelpa
+
+	* src/mvc/event.cpp: changed conditions for conflicts
+	* src/gui/eventdialog.cpp, src/mvc/delegate.cpp, src/mvc/event.cpp,
+	  src/mvc/event.h, src/mvc/treeview.cpp, src/sql/sqlengine.cpp:
+	  some 'delegate' drawing optimizations - removed EVENT_CONFLICT
+	  table - used one SQL SELECT instead
+	* src/mvc/treeview.cpp: conflicts updated correctly - TODO: needs
+	  to do some drawing optimizations
+
+2010-01-28  uzakmat
+
+	* data/Makefile, data/maemo/fosdem-schedule.desktop,
+	  data/maemo/fosdem.desktop, debian/control, fosdem-maemo.pro,
+	  fosdem-schedule.pro: package details updated to reflect the
+	  binary name change to fosdem-maemo
+
+2010-01-28  pavelpa
+
+	* src/gui/mainwindow.cpp, src/gui/searchhead.ui: if no conference
+	  is in the DB, the user is automatically navigated to the
+	  conference tab, so he can import one
+	* src/gui/mainwindow.cpp, src/gui/searchtabcontainer.cpp,
+	  src/gui/searchtabcontainer.h, src/gui/tabcontainer.cpp: search
+	  tab - header is hidden in case no conf exists in the DB
+	* src/gui/eventdialog.ui: event dialog GUI refactoring
+	* src/gui/about.ui, src/gui/mainwindow.ui: about dialog - added GNU
+	  GPL v2 notice
+	* src/gui/daynavigatorwidget.cpp, src/gui/mainwindow.cpp,
+	  src/gui/mainwindow.h, src/gui/mainwindow.ui,
+	  src/gui/tabwidget.cpp: conference tab header is hidden if there
+	  isn't active conference - handled some warnings
+
+2010-01-27  pavelpa
+
+	* src/gui/mainwindow.ui: tabs' order changed
+	* src/gui/mainwindow.cpp, src/gui/nowtabcontainer.h: 'nowTab'
+	  updated/loaded when application starts
+	* src/gui/nowtabcontainer.cpp, src/gui/nowtabcontainer.h: 'nowTab'
+	  list is automatically expanded
+	* src/gui/conflictdialogcontainer.cpp,
+	  src/gui/conflictdialogcontainer.h, src/gui/tabcontainer.h:
+	  'conflict' list is automatically expanded
+	* src/gui/conflictdialogcontainer.cpp,
+	  src/gui/conflictdialogcontainer.h, src/gui/conflictsdialog.cpp,
+	  src/gui/conflictsdialog.h, src/gui/favtabcontainer.cpp,
+	  src/gui/tabcontainer.cpp, src/mvc/event.cpp, src/mvc/event.h,
+	  src/mvc/eventmodel.cpp, src/mvc/eventmodel.h: 'conflict' dialog
+	  now contains list of events in conflict with given eventId
+	* src/gui/mainwindow.cpp: fixed 'copy-paste' error
+	* src/gui/conflictdialogcontainer.cpp,
+	  src/gui/conflictdialogcontainer.h, src/gui/conflictsdialog.cpp,
+	  src/gui/conflictsdialog.h, src/gui/conflictsdialog.ui,
+	  src/gui/daynavigatorwidget.cpp, src/gui/gui.pro,
+	  src/gui/mainwindow.ui, src/gui/searchtabcontainer.cpp,
+	  src/gui/tabcontainer.cpp, src/gui/tabcontainer.h,
+	  src/mvc/treeview.cpp, src/mvc/treeview.h, src/orm/ormrecord.h:
+	  implemented 'conflicts' dialog - displays rooms instead of
+	  conflicts for now - needs to implement additional methods in
+	  Event, ...
+	* src/gui/eventdialog.cpp: 'alarm' button is hidden for not MAEMO
+
+2010-01-27  timkoma
+
+	* src/gui/searchtabcontainer.cpp, src/gui/tabcontainer.ui,
+	  src/orm/ormrecord.h: search fix
+
+2010-01-27  pavelpa
+
+	* src/gui/favtabcontainer.h, src/gui/nowtabcontainer.cpp,
+	  src/gui/nowtabcontainer.h, src/gui/roomstabcontainer.cpp,
+	  src/gui/roomstabcontainer.h, src/gui/trackstabcontainer.h,
+	  src/mvc/room.cpp, src/mvc/room.h, src/mvc/track.cpp,
+	  src/mvc/track.h: removed headers from *.h and *.cpp
+	* src/app/app.pro, src/app/appsettings.cpp, src/app/appsettings.h,
+	  src/gui/alarmdialog.cpp, src/gui/eventdialog.cpp,
+	  src/gui/favtabcontainer.cpp, src/gui/mainwindow.cpp,
+	  src/gui/searchtabcontainer.cpp, src/gui/tabcontainer.cpp,
+	  src/gui/tabcontainer.h, src/mvc/conference.cpp,
+	  src/mvc/conference.h, src/mvc/eventmodel.cpp,
+	  src/sql/sqlengine.cpp: removed appsettings - created 'active'
+	  column in 'conference' table
+
+2010-01-27  timkoma
+
+	* src/app/app.pro, src/gui/dayviewtabcontainer.cpp,
+	  src/gui/dayviewtabcontainer.h, src/gui/favtabcontainer.cpp,
+	  src/gui/favtabcontainer.h, src/gui/gui.pro,
+	  src/gui/mainwindow.cpp, src/gui/mainwindow.ui,
+	  src/gui/nowtabcontainer.cpp, src/gui/nowtabcontainer.h,
+	  src/gui/roomstabcontainer.cpp, src/gui/roomstabcontainer.h,
+	  src/gui/searchhead.cpp, src/gui/searchhead.h,
+	  src/gui/searchhead.ui, src/gui/searchtabcontainer.cpp,
+	  src/gui/searchtabcontainer.h, src/gui/tabcontainer.cpp,
+	  src/gui/tabcontainer.h, src/gui/tabcontainer.ui,
+	  src/gui/trackstabcontainer.cpp, src/gui/trackstabcontainer.h:
+	  refactoring of the TABS
+
+2010-01-27  pavelpa
+
+	* src/gui/about.ui: modified 'about application' dialog
+	* src/gui/eventdialog.cpp, src/mvc/event.cpp, src/mvc/event.h:
+	  implemented 'links' in Event/EventDialog
+	* src/gui/eventdialog.cpp, src/gui/eventdialog.h,
+	  src/gui/eventdialog.ui: refactored Event 'details' dialog - TODO:
+	  implement 'links' method(s) in Event and use it in the dialog
+	* src/gui/eventdialog.cpp, src/gui/eventdialog.h,
+	  src/gui/eventdialog.ui, src/gui/tabcontainer.cpp: Event 'details'
+	  dialog now contains also 'favourite' and 'alarm' buttons, so the
+	  user can set/unset the property directly from the dialog
+	* src/gui/tabwidget.cpp: 'info' icon scaled to height of tabBar
+	* src/gui/mainwindow.cpp, src/gui/mainwindow.h,
+	  src/gui/mainwindow.ui, src/gui/tabcontainer.cpp,
+	  src/gui/tabcontainer.h, src/gui/tabcontainer.ui: 'search' tab
+	  functionality moved to 'tabcontainer'
+	* src/mvc/delegate.cpp, src/mvc/delegate.h, src/mvc/event.cpp,
+	  src/mvc/event.h, src/mvc/treeview.cpp, src/sql/sqlengine.cpp:
+	  'conflicts' modifications - preparing for the dialog showing also
+	  list of events in the conflict - created 'EVENT_CONFLICT' for
+	  flaging events in conflict state - TODO: not finished
+
+2010-01-26  pavelpa
+
+	* src/icons.qrc, src/icons/exclamation-iconOff.png,
+	  src/icons/exclamation-iconOn.png, src/icons/exclamation.png,
+	  src/mvc/delegate.cpp, src/mvc/delegate.h, src/mvc/treeview.cpp:
+	  conflicts refactoring - has to be finished
+	* src/app/main.cpp, src/gui/importschedulewidget.cpp,
+	  src/gui/importschedulewidget.h, src/gui/mainwindow.cpp,
+	  src/gui/mainwindow.h, src/sql/schedulexmlparser.cpp,
+	  src/sql/schedulexmlparser.h, src/sql/sqlengine.h: SqlEngine made
+	  STATIC
+	* src/app/app.pro, src/app/main.cpp, src/gui/gui.pro,
+	  src/gui/mainwindow.cpp, src/gui/mainwindow.h,
+	  src/gui/mainwindow.ui, src/gui/tabcontainer.cpp,
+	  src/gui/tabcontainer.h, src/gui/tabcontainer.ui,
+	  src/sql/sqlengine.h: implemented 'tab container' widget, which
+	  groups daynavigator with treeview - moved functionality from
+	  mainwindow to tabcontainer - TODO: 'search' tab not done yet
+
+2010-01-26  uzakmat
+
+	* AUTHORS, COPYING, Changelog, INSTALL, NEWS, README: Addition of
+	  files required by the GNU coding standard
+
+2010-01-26  timkoma
+
+	* src/sql/sqlengine.cpp: unique constraints added into sql
+
+2010-01-26  pavelpa
+
+	* src/gui/mainwindow.ui: just removed unused button on 'day view'
+	  tab
+	* src/gui/importschedulewidget.cpp, src/gui/importschedulewidget.h,
+	  src/gui/importschedulewidget.ui, src/gui/mainwindow.cpp:
+	  reimplemented 'import schedule'
+
+2010-01-26  timkoma
+
+	* src/gui/mainwindow.cpp, src/gui/mainwindow.ui: reload favourites
+
+2010-01-26  uzakmat
+
+	* src/alarm/alarm.cpp: Alarm implementation modified
+
+2010-01-26  pavelpa
+
+	* src/gui/mainwindow.cpp, src/gui/mainwindow.ui: removed 'MainMenu'
+	  bar from MainWindow - schedule is imported via 'conference' tab -
+	  about app is launched when user clicks 'info' button/icon
+	* src/gui/gui.pro, src/gui/importscheduledialog.cpp,
+	  src/gui/importscheduledialog.h, src/gui/importscheduledialog.ui,
+	  src/gui/importschedulewidget.cpp, src/gui/importschedulewidget.h,
+	  src/gui/importschedulewidget.ui, src/gui/mainwindow.cpp,
+	  src/gui/mainwindow.h, src/gui/mainwindow.ui,
+	  src/sql/schedulexmlparser.cpp, src/sql/schedulexmlparser.h:
+	  import schedule dialog - changed to widget - moved to
+	  'conference' tab
+
+2010-01-26  timkoma
+
+	* src/gui/mainwindow.cpp, src/gui/mainwindow.ui, src/icons.qrc,
+	  src/icons/search.png: search done
+
+2010-01-26  hanzes
+
+	* src/gui/mainwindow.cpp, src/gui/mainwindow.h: NowTreeView refresh
+	  modified
+
+2010-01-26  pavelpa
+
+	* src/gui/mainwindow.ui: "conference" tab - GUI modifications
+	* src/gui/mainwindow.cpp, src/icons.qrc, src/icons/info.png: About
+	  Application dialog is opened when "info" icon is clicked
+
+2010-01-26  hanzes
+
+	* src/alarm/calendar.cpp, src/alarm/calendar.h: Useless calendar
+	  class
+
+2010-01-26  pavelpa
+
+	* src/gui/gui.pro: forgotten in last CI
+	* src/gui/mainwindow.ui, src/gui/tabwidget.cpp,
+	  src/gui/tabwidget.h: new TabWidget - contains "info" icon/button
+	  to show "AboutApplication" dialog
+
+2010-01-25  timkoma
+
+	* src/gui/mainwindow.ui: search update
+
+2010-01-25  korrco
+
+	* src/mvc/room.cpp: room view added - finished
+	* src/gui/mainwindow.cpp: room view added - finished
+
+2010-01-25  timkoma
+
+	* src/gui/mainwindow.cpp, src/gui/mainwindow.ui,
+	  src/sql/sqlengine.cpp, src/sql/sqlengine.h: search upgrade
+
+2010-01-25  korrco
+
+	* src/gui/mainwindow.cpp, src/gui/mainwindow.h,
+	  src/gui/mainwindow.ui, src/mvc/event.cpp, src/mvc/event.h,
+	  src/mvc/eventmodel.cpp, src/mvc/eventmodel.h, src/mvc/mvc.pro,
+	  src/mvc/room.cpp, src/mvc/room.h, src/mvc/track.cpp,
+	  src/mvc/track.h: room view added - need to test it
+
+2010-01-25  pavelpa
+
+	* src/mvc/eventmodel.cpp: updated also groupings item (event parent
+	  item) if the user clicks eg. favourite/alarm icon (changes event
+	  data)
+	* src/gui/eventdialog.cpp, src/gui/eventdialog.h,
+	  src/gui/eventdialog.ui: GUI work on Event Details dialog
+
+2010-01-25  uzakmat
+
+	* data/Makefile, debian/changelog, debian/control, debian/postinst,
+	  debian/postrm, debian/rules: postinst and postrm scripts added
+	  into the debian tree
+
+2010-01-25  timkoma
+
+	* src/gui/mainwindow.cpp, src/gui/mainwindow.h,
+	  src/gui/mainwindow.ui, src/mvc/event.cpp, src/orm/ormrecord.h,
+	  src/sql/sqlengine.cpp: search update
+
+2010-01-25  korrco
+
+	* src/gui: project synchronisation
+
+2010-01-22  fortefr
+
+	* src/gui/mainwindow.cpp, src/gui/mainwindow.h,
+	  src/gui/mainwindow.ui, src/mvc/delegate.cpp: Conference map
+
+2010-01-22  pavelpa
+
+	* src/gui/mainwindow.cpp: fixed problem with storing conference ID
+	  to AppSettings
+	* src/gui/daynavigatorwidget.cpp, src/gui/daynavigatorwidget.h,
+	  src/gui/daynavigatorwidget.ui, src/gui/mainwindow.ui: day
+	  navigator widget changes - changed from Horizontal to Vertical
+
+2010-01-22  korrco
+
+	* src/gui/alarmdialog.cpp, src/gui/mainwindow.cpp: room.h and .cpp
+	  removed
+	* src/mvc/mvc.pro: room.h and .cpp removed
+	* src/mvc/delegate.cpp, src/mvc/event.cpp, src/mvc/event.h,
+	  src/mvc/eventmodel.cpp, src/mvc/eventmodel.h, src/mvc/mvc.pro,
+	  src/mvc/track.cpp, src/mvc/track.h, src/sql/sqlengine.cpp:
+	  caching removed
+	* src/gui/mainwindow.cpp: caching removed
+
+2010-01-22  pavelpa
+
+	* src/gui/mainwindow.cpp: sanity check for consitency of confId in
+	  AppSettings and the DB
+	* src/app/appsettings.cpp, src/app/appsettings.h: forgotten
+	  appsettings files
+	* src/gui/mainwindow.cpp, src/gui/mainwindow.h,
+	  src/gui/mainwindow.ui, src/mvc/event.cpp, src/mvc/event.h,
+	  src/mvc/eventmodel.cpp, src/mvc/eventmodel.h,
+	  src/mvc/treeview.cpp, src/mvc/treeview.h: implemented NOW tab
+
+2010-01-21  pavelpa
+
+	* src/gui/importscheduledialog.cpp,
+	  src/gui/importscheduledialog.ui, src/sql/schedulexmlparser.cpp,
+	  src/sql/schedulexmlparser.h: modifications to import-schedule
+	  dialog - closed automatically after parsing/importing schedule
+	* src/gui/mainwindow.cpp, src/gui/mainwindow.h,
+	  src/mvc/eventmodel.cpp, src/mvc/eventmodel.h, src/mvc/mvc.pro,
+	  src/mvc/treeview.cpp, src/mvc/treeview.h: EventModel signaling
+	  changed - if some of the data (favourite,alarm) has changed on
+	  the event, signal 'eventHasChanged' is emitted - all treeViews
+	  (eg. DayView, FavsView, TracksView, ...) have to listen on this
+	  signal Only favouritiesView is 'reset' when current tab is
+	  changed in mainWindow - 'cause time groupings have to be
+	  recreated, since favs may have changed
+	* src/gui/mainwindow.ui, src/sql/schedulexmlparser.cpp,
+	  src/sql/sql.pro, src/sql/sqlengine.cpp: check for existence of
+	  conference before inserting it into DB
+	* src/app/app.pro, src/gui/alarmdialog.cpp,
+	  src/gui/eventdialog.cpp, src/gui/gui.pro, src/gui/mainwindow.cpp,
+	  src/gui/mainwindow.ui, src/sql/schedulexmlparser.cpp: added
+	  'Conference' tab - to list conference details - implemented
+	  AppSettings for storing Application settings - stored conference
+	  ID
+	* src/app/app.pro, src/app/main.cpp, src/schedule.qrc: removed
+	  schedule resource file, which was used for testing - import
+	  schedule dialog replaces it's functionality
+
+2010-01-21  fortefr
+
+	* src/gui/mainwindow.cpp, src/gui/mainwindow.h,
+	  src/mvc/delegate.cpp, src/mvc/delegate.h, src/mvc/treeview.cpp,
+	  src/mvc/treeview.h: Warning handling
+
+2010-01-21  pavelpa
+
+	* src/gui/importscheduledialog.cpp, src/gui/importscheduledialog.h,
+	  src/gui/importscheduledialog.ui: forgotten Import Schedule Dialog
+	  files
+
+2010-01-21  uzakmat
+
+	* data/26x26/fosdem.png, data/40x40/fosdem.png,
+	  data/48x48/fosdem.png, data/64x64/fosdem.png, data/Makefile,
+	  data/maemo/fosdem.desktop, debian/changelog, debian/control,
+	  debian/files, debian/rules, src/app/app.pro: New installation
+	  path for the binary, Maemo optification added into debian/rules,
+	  new icons
+
+2010-01-21  pavelpa
+
+	* src/gui/gui.pro, src/gui/mainwindow.cpp, src/gui/mainwindow.h,
+	  src/orm/ormrecord.h, src/sql/sqlengine.cpp: import/search
+	  schedule dialog implemented
+
+2010-01-21  timkoma
+
+	* src/gui/mainwindow.cpp, src/gui/mainwindow.h,
+	  src/gui/mainwindow.ui, src/mvc/event.cpp, src/mvc/eventmodel.cpp,
+	  src/mvc/eventmodel.h, src/orm/ormrecord.h, src/sql/sqlengine.cpp:
+	  update for the search
+
+2010-01-21  fortefr
+
+	* src/mvc/delegate.cpp: Time conflict fix
+	* src/mvc/delegate.cpp, src/mvc/delegate.h: Time conflict warning
+
+2010-01-21  korrco
+
+	* src/gui/alarmdialog.cpp, src/gui/mainwindow.cpp: exception
+	  handling changed
+
+2010-01-21  pavelpa
+
+	* src/mvc/event.cpp, src/mvc/event.h, src/orm/ormrecord.h,
+	  src/sql/sqlengine.cpp: combined EVENT and VIRTUAL_EVENT =>
+	  'EVENT' now - Maemo sqlite doesn't support Full-Text-Search
+
+2010-01-21  korrco
+
+	* src/gui/mainwindow.cpp: updateTab refactored
+	* src/mvc/eventmodel.cpp: activities tab implemented
+	* src/mvc/track.cpp, src/mvc/track.h: activities tab implemented
+	* src/gui/mainwindow.cpp, src/mvc/eventmodel.cpp,
+	  src/orm/ormrecord.h, src/sql/schedulexmlparser.cpp,
+	  src/sql/sql.pro, src/sql/sqlengine.cpp: activities tab
+	  implemented
+
+2010-01-21  timkoma
+
+	* src/gui/mainwindow.cpp, src/gui/mainwindow.ui, src/mvc/event.cpp,
+	  src/mvc/event.h, src/mvc/eventmodel.cpp, src/mvc/eventmodel.h,
+	  src/orm/ormrecord.h, src/sql/sqlengine.cpp, src/sql/sqlengine.h:
+	  first working version of the search
+
+2010-01-21  pavelpa
+
+	* src/gui/eventdialog.cpp, src/gui/eventdialog.ui: event dialog -
+	  details about the Event is displayed in FullScreen mode
+	* src/gui/mapwindow.cpp: compilation error "linux" fix - caused by
+	  previous commit
+	* src/gui/mapwindow.cpp, src/gui/mapwindow.ui: map is displayed in
+	  FullScreen mode
+
+2010-01-20  pavelpa
+
+	* src/mvc/treeview.cpp, src/mvc/treeview.h: group items
+	  (time/track/...) are expanded on single-click
+	* src/gui/mainwindow.cpp, src/gui/mainwindow.h,
+	  src/gui/mainwindow.ui, src/mvc/activity.cpp, src/mvc/activity.h,
+	  src/mvc/delegate.cpp, src/mvc/event.cpp, src/mvc/event.h,
+	  src/mvc/eventmodel.cpp, src/mvc/eventmodel.h, src/mvc/mvc.pro,
+	  src/mvc/track.cpp, src/mvc/track.h, src/sql/sqlengine.cpp,
+	  src/test/mvc/eventtest.cpp: changed 'Activity' -> 'Track'
+	* src/sql/sqlengine.cpp: parsing activity from xml - 'track' from
+	  xml schedule is treated as an activity
+	* src/gui/eventdialog.cpp, src/gui/eventdialog.ui: event dialog
+	  changes - changed font/background colors - title occupies more
+	  lines if it doesn't fit in one line
+	* src/gui/alarmdialog.cpp, src/gui/alarmdialog.ui: alarm dialog
+	  changes - displayed additional Event's details - autoresizing
+	  title (if it doesn't fit in one line)
+	* src/gui/alarmdialog.ui, src/gui/mainwindow.cpp: updated alarm
+	  dialog
+
+2010-01-20  uzakmat
+
+	* data/Makefile: Makefile reverted as it was overwritten
+	  accidentally
+
+2010-01-20  pavelpa
+
+	* src/gui/alarmdialog.cpp, src/gui/mainwindow.cpp: implemented some
+	  error handling
+	* src/mvc/delegate.cpp, src/mvc/treeview.cpp: alarm icon/stuff is
+	  relevant for MAEMO only - used "MAEMO" define for conditional
+	  compilation
+	* src/alarm/alarm.cpp, src/app/main.cpp, src/gui/alarmdialog.cpp,
+	  src/gui/alarmdialog.ui, src/gui/eventdialog.cpp,
+	  src/gui/eventdialog.h, src/gui/mainwindow.cpp,
+	  src/gui/mainwindow.h: MAEMO: work on alarm - snooze alarm -
+	  cancel alarm - run application which automatically display Event
+	  dialog for given Event ID
+
+2010-01-20  fortefr
+
+	* src/icons.qrc, src/icons/exclamation-iconOff.png,
+	  src/icons/exclamation-iconOn.png, src/mvc/delegate.cpp,
+	  src/mvc/delegate.h, src/mvc/event.h: Warning icon (uncompleted)
+
+2010-01-20  timkoma
+
+	* src/gui/mainwindow.cpp, src/gui/mainwindow.h,
+	  src/gui/mainwindow.ui, src/sql/sqlengine.cpp,
+	  src/sql/sqlengine.h: temp commit for search tab
+
+2010-01-20  pavelpa
+
+	* src/app/app.pro, src/mvc/delegate.cpp: display event details in
+	  the treeView
+
+2010-01-20  korrco
+
+	* src/gui/mainwindow.cpp, src/mvc/eventmodel.cpp,
+	  src/mvc/eventmodel.h: activities viewed ordered by activity id
+	  and start time
+
+2010-01-20  fortefr
+
+	* data/Makefile, src/app/app.pro, src/icons.qrc,
+	  src/mvc/delegate.cpp: Big icons fix 2
+	* src/icons/alarm-off.png, src/icons/alarm-offBig.png,
+	  src/icons/alarm-on.png, src/icons/alarm-onBig.png,
+	  src/icons/compass.png, src/icons/compassBig.png,
+	  src/icons/favourite-off.png, src/icons/favourite-offBig.png,
+	  src/icons/favourite-on.png, src/icons/favourite-onBig.png: Big
+	  icons
+	  
+	  D icons/favourite-off.png D icons/favourite-on.png AM
+	  icons/favourite-offBig.png AM icons/favourite-onBig.png D
+	  icons/alarm-off.png D icons/compass.png D icons/alarm-on.png AM
+	  icons/alarm-offBig.png AM icons/compassBig.png AM
+	  icons/alarm-onBig.png
+
+2010-01-20  korrco
+
+	* src/mvc/activity.cpp, src/mvc/activity.h: static allocation
+	  instead of dynamic added when creating activity map
+
+2010-01-20  pavelpa
+
+	* src/mvc/delegate.cpp: some drawing modifications
+	* src/schedule.en.xml: the most recent FOSDEM 2010 schedule
+	  http://fosdem.org/schedule/xml
+
+2010-01-19  pavelpa
+
+	* src/mvc/mvc.pro: pali, nerob bordel
+	* src/gui/eventdialog.cpp, src/gui/eventdialog.ui, src/src.pro:
+	  changed abstract/description/scrollbars color in eventdialog
+
+2010-01-19  korrco
+
+	* src/gui/mainwindow.cpp, src/mvc/activity.cpp, src/mvc/activity.h,
+	  src/mvc/eventmodel.cpp, src/mvc/mvc.pro: support for view
+	  activities with their names added
+
+2010-01-19  pavelpa
+
+	* src/gui/eventdialog.cpp, src/gui/eventdialog.ui,
+	  src/gui/mainwindow.ui, src/mvc/event.cpp, src/mvc/event.h:
+	  event-dialog - displayed persons/presenters names - implemented
+	  Event::persons() method to get persons names associated with the
+	  given event ID
+	* src/gui/mainwindow.cpp, src/gui/mainwindow.h,
+	  src/mvc/treeview.cpp, src/mvc/treeview.h: single-click is used to
+	  open event dialog
+	* src/gui/mapwindow.cpp, src/gui/mapwindow.h: diplayed map is
+	  closed by single-click, instead of double-click
+	* src/alarm/alarm.h, src/gui/alarmdialog.cpp,
+	  src/gui/alarmdialog.h, src/sql/sqlengine.cpp, src/src.pro: work
+	  on alarm
+	* src/alarm/alarm.cpp, src/app/app.pro, src/app/main.cpp,
+	  src/gui/gui.pro, src/mvc/mvc.pro, src/mvc/treeview.cpp,
+	  src/schedule.en.xml: work on alarm
+
+2010-01-19  korrco
+
+	* src/gui: minimal size for tabs set
+
+2010-01-19  uzakmat
+
+	* data, data/26x26, data/26x26/fosdem.png, data/40x40,
+	  data/40x40/fosdem.png, data/48x48, data/48x48/fosdem.png,
+	  data/64x64, data/64x64/fosdem.png, data/Makefile, data/maemo,
+	  data/maemo/fosdem.desktop, debian, debian/changelog,
+	  debian/compat, debian/control, debian/copyright, debian/dirs,
+	  debian/docs, debian/files, debian/rules, fosdem-maemo.pro,
+	  src/app/app.pro, src/fosdem.pro, src/src.pro: Addition of files
+	  required for a Debian package and Maemo specific files
+
+2010-01-19  fortefr
+
+	* src/gui/mainwindow.cpp, src/gui/mainwindow.h,
+	  src/gui/mainwindow.ui: Favourites dayNavigator
+
+2010-01-19  pavelpa
+
+	* src/app/app.pro, src/app/main.cpp, src/gui/mainwindow.cpp,
+	  src/schedule.qrc: schedule.en.xml is now in resource - for
+	  testing only - will be removed from final application
+
+2010-01-19  korrco
+
+	* src/gui/mainwindow.ui: minimal size for tabs set
+
+2010-01-19  fortefr
+
+	* src/gui/mainwindow.cpp, src/gui/mainwindow.h: Update tabs 2
+	  
+	  -This line, and those below, will be ignored--
+	  
+	  M src/gui/mainwindow.cpp M src/gui/mainwindow.h
+	* src/gui/mainwindow.cpp, src/gui/mainwindow.h,
+	  src/gui/mainwindow.ui: Automatic tabs update
+	  
+	  M src/gui/mainwindow.ui M src/gui/mainwindow.cpp M
+	  src/gui/mainwindow.h
+
+2010-01-19  pavelpa
+
+	* src/gui/mainwindow.cpp, src/gui/mapwindow.cpp,
+	  src/gui/mapwindow.h, src/mvc/event.cpp: set MapDialog title
+	* src/gui/mainwindow.cpp, src/maps.qrc,
+	  src/maps/rooms/not-available.png: handled the case when the map
+	  is not available
+	* src/gui/mainwindow.cpp, src/mvc/event.cpp, src/mvc/event.h:
+	  map-name to map-path implemented - correct map is displayed
+	* src/mvc/delegate.cpp: fixed: icons overlapped
+
+2010-01-18  pavelpa
+
+	* src/gui/gui.pro, src/gui/mainwindow.cpp, src/gui/mainwindow.h,
+	  src/gui/mapwindow.cpp, src/gui/mapwindow.h, src/gui/mapwindow.ui,
+	  src/mvc/eventmodel.cpp, src/mvc/treeview.cpp, src/mvc/treeview.h:
+	  started work on displaying map - implemented mapwindow - map is
+	  hard-coded for now TODO: finish getting map path from the event
+	* src/app/app.pro, src/maps, src/maps.qrc, src/maps/campus.png,
+	  src/maps/rooms, src/maps/rooms/H-WC.png,
+	  src/maps/rooms/aw1105.png, src/maps/rooms/aw1115.png,
+	  src/maps/rooms/aw1117.png, src/maps/rooms/aw1120.png,
+	  src/maps/rooms/aw1121.png, src/maps/rooms/aw1124.png,
+	  src/maps/rooms/aw1125.png, src/maps/rooms/aw1126.png,
+	  src/maps/rooms/chavanne.png, src/maps/rooms/ferrer.png,
+	  src/maps/rooms/guillissen.png, src/maps/rooms/h1301.png,
+	  src/maps/rooms/h1302.png, src/maps/rooms/h1308.png,
+	  src/maps/rooms/h1309.png, src/maps/rooms/h2111.png,
+	  src/maps/rooms/h2213.png, src/maps/rooms/h2214.png,
+	  src/maps/rooms/infodesk.png, src/maps/rooms/janson.png,
+	  src/maps/rooms/lameere.png, src/maps/rooms/thumbs,
+	  src/maps/rooms/thumbs/H-WC.png, src/maps/rooms/thumbs/aw1105.png,
+	  src/maps/rooms/thumbs/aw1115.png,
+	  src/maps/rooms/thumbs/aw1117.png,
+	  src/maps/rooms/thumbs/aw1120.png,
+	  src/maps/rooms/thumbs/aw1121.png,
+	  src/maps/rooms/thumbs/aw1124.png,
+	  src/maps/rooms/thumbs/aw1125.png,
+	  src/maps/rooms/thumbs/aw1126.png,
+	  src/maps/rooms/thumbs/chavanne.png,
+	  src/maps/rooms/thumbs/ferrer.png,
+	  src/maps/rooms/thumbs/guillissen.png,
+	  src/maps/rooms/thumbs/h1301.png, src/maps/rooms/thumbs/h1302.png,
+	  src/maps/rooms/thumbs/h1308.png, src/maps/rooms/thumbs/h1309.png,
+	  src/maps/rooms/thumbs/h2111.png, src/maps/rooms/thumbs/h2213.png,
+	  src/maps/rooms/thumbs/h2214.png,
+	  src/maps/rooms/thumbs/infodesk.png,
+	  src/maps/rooms/thumbs/janson.png,
+	  src/maps/rooms/thumbs/lameere.png, src/maps/rooms/ua2114.png:
+	  added maps
+	* src/mvc/event.h: pali, nerob bordel
+	* src/gui/eventdialog.cpp, src/gui/eventdialog.h,
+	  src/gui/eventdialog.ui, src/gui/gui.pro, src/gui/mainwindow.cpp,
+	  src/gui/mainwindow.h, src/gui/mainwindow.ui: implemented 'Event'
+	  dialog to display relevant 'Event's info
+
+2010-01-18  korrco
+
+	* src/mvc/event.cpp, src/mvc/event.h, src/mvc/eventmodel.cpp:
+	  sorting by activity id added
+
+2010-01-18  pavelpa
+
+	* src/gui/mainwindow.ui: autoresizing activities treeView
+	* src/mvc/delegate.cpp, src/mvc/delegate.h: implemented drawing
+	  icons + number of favs/alarms in the corresponding group
+
+2010-01-18  korrco
+
+	* src/gui/mainwindow.cpp, src/gui/mainwindow.h,
+	  src/mvc/eventmodel.cpp: grouping by time equation changed - beter
+	  group deviding, also according to favourites
+	* src/gui/mainwindow.cpp, src/gui/mainwindow.h,
+	  src/mvc/eventmodel.cpp, src/orm/ormrecord.h: activities tab
+	  implemented - need to fit gui, functionality works fine
+	* src/mvc/eventmodel.cpp: activities tab implemented - not finished
+	  yet
+	* src/gui/daynavigatorwidget.cpp, src/gui/daynavigatorwidget.h,
+	  src/gui/daynavigatorwidget.ui, src/gui/mainwindow.cpp,
+	  src/gui/mainwindow.h, src/gui/mainwindow.ui,
+	  src/mvc/eventmodel.cpp, src/mvc/eventmodel.h: activities tab
+	  implemented - not finished yet
+
+2010-01-18  pavelpa
+
+	* src/alarm/alarm.cpp, src/alarm/alarm.h, src/mvc/delegate.cpp,
+	  src/mvc/event.cpp, src/mvc/event.h, src/mvc/eventmodel.cpp,
+	  src/mvc/treeview.cpp, src/sql/sqlengine.cpp: added 'alarm'
+	  columnt to the 'EVENT' table to signalize that the event
+	  has/hasn't alarm set
+
+2010-01-18  fortefr
+
+	* src/gui/mainwindow.cpp, src/gui/mainwindow.h: Favourites fix
+
+2010-01-18  pavelpa
+
+	* src/gui/gui.pro: maemo specific compilation fix
+
+2010-01-18  fortefr
+
+	* src/fosdem.pro, src/gui/mainwindow.cpp, src/gui/mainwindow.h,
+	  src/mvc/event.h, src/mvc/eventmodel.cpp, src/mvc/treeview.h: Fav
+	  table update M trunk/src/gui/mainwindow.h M
+	  trunk/src/gui/mainwindow.cpp M trunk/src/mvc/treeview.h M
+	  trunk/src/mvc/eventmodel.cpp M trunk/src/mvc/event.h M
+	  trunk/src/fosdem.pro
+
+2010-01-18  pavelpa
+
+	* src/icons/alarm-off.png, src/icons/favourite-off.png,
+	  src/mvc/delegate.cpp, src/mvc/delegate.h: added GrayScale
+	  versions (inactive/OFF) of the icons
+
+2010-01-18  hanzes
+
+	* src/sql/sqlengine.cpp: fixed sqlite statement
+
+2010-01-18  pavelpa
+
+	* src/gui/gui.pro: fixed: broken compilation for linux caused by
+	  previous commit
+	* src/alarm, src/alarm/alarm.cpp, src/alarm/alarm.h,
+	  src/alarm/alarm.pro, src/fosdem.pro, src/gui/alarmdialog.cpp,
+	  src/gui/alarmdialog.h, src/gui/alarmdialog.ui, src/gui/gui.pro:
+	  started work on alarm(libaalarm)
+	* src/gui/mainwindow.ui, src/sql/sql.pro, src/sql/sqlengine.cpp:
+	  used 'MAEMO' define to create 'non-virtual' 'VIRUAL_EVENT' table
+	  instead of 'virtual' one, only for 'MAEMO' Linux stays untouched
+	  - creates real 'virtual' table for FTS support
+
+2010-01-18  korrco
+
+	* src/gui/mainwindow.cpp: current path print added
+
+2010-01-18  fortefr
+
+	* src/mvc/event.cpp, src/mvc/event.h, src/mvc/eventmodel.cpp,
+	  src/orm/ormrecord.h, src/sql/sqlengine.cpp: Temporal
+	  virtual_event change
+
+2010-01-18  korrco
+
+	* src, src/gui, src/sql: syncing project
+
+2010-01-18  pavelpa
+
+	* src/mvc/eventmodel.cpp: fix: segfault - fixes segfault when
+	  switching days in "Day View" - TODO: needs to be verified, 'cause
+	  it looks like it shouldn't work, but it does - when calling
+	  'QAbstractItemModel::removeRows()' it returns false, but it
+	  prevents application from crash(segfault) - possible explanation
+	  is that the timing has changed and so the conditions for the
+	  segfault
+	* src/gui/mainwindow.ui: added "Quit" to "File" menu
+
+2010-01-17  pavelpa
+
+	* src/mvc/eventmodel.cpp, src/mvc/eventmodel.h,
+	  src/mvc/treeview.cpp: implemented method to force 'EventModel'
+	  emit a signal dataChanged() - so 'TreeView' know it has to redraw
+	  items corresponding to chanded indices (range of indeces)
+	* src/global.pri: created 'global.pri' file, which should cover all
+	  global definition of the project - this file has to be include in
+	  each "*.pro" file, where it's needed - defines "MAEMO" for
+	  handling 'MAEMO' specific code in source files - defines "maemo"
+	  for handling 'MAEMO' specific files in "*.pro" file(s)
+	* src/mvc/event.cpp: just minor corrections to 'event'
+	* src/gui/mainwindow.cpp, src/gui/mainwindow.ui, src/mvc/event.cpp,
+	  src/mvc/event.h, src/mvc/eventmodel.cpp, src/mvc/eventmodel.h:
+	  started work on 'favourities' - created tavourities tree view in
+	  the MainWindow 'Favourities' tab - listed some testing 'fav'
+	  events - TODO: list isn't updated dynamically, which means that
+	  the list isn't updated if the user adds/removes an event(s)
+	  to/from the 'favourities' list
+	* src/mvc/delegate.cpp, src/mvc/event.cpp, src/mvc/event.h,
+	  src/orm/ormrecord.h: implemented JOINing two tables - modified
+	  'ormrecord' to support JOINing two tables - modified 'event'
+	  accordingly, since its items/columns are splitted into two
+	  separate tables
+
+2010-01-16  pavelpa
+
+	* src/fosdem.pro, src/mvc/delegate.cpp, src/mvc/delegate.h,
+	  src/mvc/event.cpp, src/mvc/event.h, src/mvc/treeview.cpp,
+	  src/orm/ormrecord.h, src/sql/sqlengine.cpp: work on favourite -
+	  created 'favourite' column in EVENT table - modified 'ormrecord'
+	  for setting record's elements - favourities view not implemented
+
+2010-01-15  korrco
+
+	* src/sql: syncing sql directory
+
+2010-01-14  fortefr
+
+	* src/icons/compass.png: Compass icon
+	* src/gui/mainwindow.ui, src/icons.qrc, src/mvc/delegate.cpp,
+	  src/mvc/delegate.h, src/mvc/treeview.cpp: Map button/compass icon
+	  added
+	* src/gui/about.ui, src/gui/mainwindow.ui, src/orm/ormrecord.h:
+	  Testing svn, tabs added, misprint fixed
+
+2010-01-14  pavelpa
+
+	* src/app/app.pro, src/fosdem.pro, src/gui/daynavigatorwidget.cpp,
+	  src/gui/gui.pro, src/gui/mainwindow.ui, src/model, src/mvc,
+	  src/mvc/model.pro, src/mvc/mvc.pro, src/test/main.cpp,
+	  src/test/model, src/test/mvc, src/test/test.pro: just some
+	  directory renaming - renamed 'model' to 'mvc'
+	  (Model-View-Controller), since it contains also 'delegate' and
+	  'view'
+
+2010-01-13  pavelpa
+
+	* src/model/conference.h, src/sql/sqlengine.cpp: minor fix
+	* src/gui/daynavigatorwidget.cpp, src/gui/daynavigatorwidget.h,
+	  src/gui/daynavigatorwidget.ui, src/gui/gui.pro,
+	  src/gui/mainwindow.cpp, src/gui/mainwindow.h,
+	  src/gui/mainwindow.ui, src/model/conference.h,
+	  src/model/eventmodel.cpp, src/model/eventmodel.h: implemented day
+	  navigator widget - to switch between conference days
+	* src/gui/mainwindow.cpp, src/model/conference.cpp,
+	  src/model/conference.h, src/model/eventmodel.cpp,
+	  src/model/eventmodel.h, src/model/model.pro,
+	  src/sql/sqlengine.cpp: implemented 'conference' record for
+	  accessing info about the conference - events are loaded from the
+	  first day of the conference
+	* src/gui/about.ui, src/gui/gui.pro, src/gui/mainwindow.cpp,
+	  src/gui/mainwindow.h, src/gui/mainwindow.ui: added about
+	  dialog(s) - some modifications needed - About Qt: not scrollable
+	  - About app: modifications to display items in system font/colors
+	  needed
+	* src/app/main.cpp, src/icons.qrc, src/icons/fosdem.png: added
+	  application icon
+
+2010-01-12  pavelpa
+
+	* src/app/app.pro, src/fosdem.pro, src/gui/gui.pro,
+	  src/gui/mainwindow.cpp, src/gui/mainwindow.h,
+	  src/gui/mainwindow.ui, src/model/eventmodel.cpp,
+	  src/model/eventmodel.h, src/schedule.en.xml, src/sql,
+	  src/sql/schedulexmlparser.cpp, src/sql/schedulexmlparser.h,
+	  src/sql/sql.pro, src/sql/sqlengine.cpp, src/sql/sqlengine.h:
+	  implemented xml parser - parsing Schedule
+	* src/app/app.pro, src/gui/mainwindow.cpp, src/gui/mainwindow.ui,
+	  src/icons, src/icons.qrc, src/icons/alarm-off.png,
+	  src/icons/alarm-on.png, src/icons/collapse.png,
+	  src/icons/expand.png, src/icons/favourite-off.png,
+	  src/icons/favourite-on.png, src/model/delegate.cpp,
+	  src/model/delegate.h, src/model/model.pro,
+	  src/model/treeview.cpp, src/model/treeview.h: modified model-view
+	  - created own delegate to display TreeView items - contains also
+	  'controls' - which are clickable (handled in TreeView) - created
+	  own TreeView inherited from QTreeView - to handle control-clicks
+	  of the Delegate - minor modifications to MainWindow UI -
+	  QTreeView replaced by own TreeView - autoresizing of TreeView -
+	  icons added
+
+2010-01-07  korrco
+
+	* src: support for creating GUI via QtCreator added
+	* src/test: support for creating GUI via QtCreator added
+	* src/orm: support for creating GUI via QtCreator added
+	* src/model: support for creating GUI via QtCreator added
+	* src/app: support for creating GUI via QtCreator added
+	* src/gui: support for creating GUI via QtCreator added
+	* src/orm/ormrecord.h: TODO for exception handling added
+	* src/gui/gui.pro, src/gui/mainwindow.cpp, src/gui/mainwindow.h,
+	  src/gui/mainwindow.ui: support for creating GUI via QtCreator
+	  added
+
+2010-01-02  komarma
+
+	* src/app/app.pro, src/gui/gui.pro, src/gui/mainwindow.cpp,
+	  src/model/event.cpp, src/model/event.h, src/model/eventmodel.cpp,
+	  src/model/eventmodel.h, src/model/model.pro, src/orm/ormrecord.h,
+	  src/test/model/eventtest.cpp, src/test/model/eventtest.h:
+	  Creating EventModel class
+
+2009-12-31  komarma
+
+	* src/model/event.h, src/orm/ormrecord.h,
+	  src/test/model/eventtest.cpp: Fixing datetime conversion
+
+2009-12-30  komarma
+
+	* src/model/event.cpp, src/model/event.h, src/orm/ormrecord.h,
+	  src/orm/sqlcondition.cpp, src/orm/sqlcondition.h,
+	  src/test/model/eventtest.cpp, src/test/model/eventtest.h: Adding
+	  database loading and data conversion to orm module
+
+2009-12-29  komarma
+
+	* src/fosdem.pro, src/model/event.cpp, src/model/event.h,
+	  src/model/model.pro, src/orm, src/orm/orm.pro,
+	  src/orm/ormrecord.h, src/orm/sqlcondition.cpp,
+	  src/orm/sqlcondition.h, src/test/model/eventtest.cpp,
+	  src/test/model/eventtest.h, src/test/test.pro: Adding orm module
+
+2009-12-28  komarma
+
+	* src, src/app, src/app/app.pro, src/app/main.cpp, src/fosdem.pro,
+	  src/gui, src/gui/gui.pro, src/gui/mainwindow.cpp,
+	  src/gui/mainwindow.h, src/model, src/model/event.cpp,
+	  src/model/event.h, src/model/model.pro, src/test, src/test/gui,
+	  src/test/main.cpp, src/test/model, src/test/model/eventtest.cpp,
+	  src/test/model/eventtest.h, src/test/test.pro: Creating initial
+	  application directory structure.
+	* ., docs: Creating initial repository structure
+
