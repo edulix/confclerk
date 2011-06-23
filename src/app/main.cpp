@@ -40,6 +40,10 @@ int main(int argc, char *argv[])
     Application a(argc, argv);
     Application::setWindowIcon(QIcon(":/icons/fosdem.png"));
 
+    // needed by QDesktopServices
+    QCoreApplication::setOrganizationName("Toastfreeware");
+    QCoreApplication::setApplicationName("ConfClerk");
+ 
     SqlEngine::initialize(); // creates "SQLITE" DB connection
 
     QWidget *window;

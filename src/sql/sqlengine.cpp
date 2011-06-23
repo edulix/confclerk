@@ -25,6 +25,7 @@
 #include <QDateTime>
 
 #include <QDir>
+#include <QDesktopServices>
 #include "sqlengine.h"
 #include <track.h>
 #include <conference.h>
@@ -76,9 +77,12 @@ QString SqlEngine::login(const QString &aDatabaseType, const QString &aDatabaseN
 void SqlEngine::initialize()
 {
     QString databaseName;
-    if(!QDir::home().exists(".fosdem"))
-        QDir::home().mkdir(".fosdem");
-    databaseName = QDir::homePath() + "/.fosdem/" + "fosdem.sqlite";
+    QString dataDirName;
+    dataDirName = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
+    QDir dataDir = QDir(dataDirName).absolutePath();
+    if(!dataDir.exists())
+        dataDir.mkpath(dataDirName);
+    databaseName = dataDirName + "ConfClerk.sqlite";
     login("QSQLITE",databaseName);
 }
 

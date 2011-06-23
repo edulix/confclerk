@@ -23,7 +23,7 @@ const QString PROXY_ADDRESS_SETTING ("proxyAddress");
 const QString PROXY_PORT_SETTING ("proxyPort"); 
 const QString PROXY_ISDIRECT_SETTING ("proxyIsDirectConnection"); 
 
-QSettings AppSettings::mSettings("Ixonos", "FOSDEM");
+QSettings AppSettings::mSettings("Toastfreeware", "ConfClerk");
 
 QString AppSettings::proxyAddress()
 {
