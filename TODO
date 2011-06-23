@@ -17,7 +17,14 @@ maemo:
 -  convert in .pro (or leave that for the packaging)
    installation is 'broken' anyway since the removal of "SUBDIRS += data"
 
-other
+other:
 - copyright for icons / replace icons (gnome-icon-theme etc.)
 - add contact info
 - .pro: maybe play with install target
+
+--
+
+schedules:
+- FOSDEM (2011): http://fosdem.org/schedule/xml
+- DebConf (2010): http://penta.debconf.org/dc10_schedule/schedule.en.xml
+- 27C3: http://events.ccc.de/congress/2010/Fahrplan/schedule.en.xml
