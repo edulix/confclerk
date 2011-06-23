@@ -1,3 +1,50 @@
+2011-06-23  gregoa
+
+	* data/26x26, data/40x40, data/48x48, data/64x64, data/Makefile,
+	  data/confclerk.desktop, data/maemo: De-maemofy: make .desktop
+	  file generic, remove resized (old) icons and Makefile for
+	  installing them.
+	* src/app/app.pro: Add new resource file to app.pro
+	* data/data.qrc, src/app/main.cpp, src/gui/about.ui,
+	  src/gui/alarmdialog.ui, src/gui/conferenceeditor.ui,
+	  src/icons.qrc, src/icons/brain-alone.png, src/icons/fosdem.png:
+	  Icons, part 2: replace fosdem/brain icons with ConfClerk logo
+	* README, TODO, src/gui/conferenceeditor.ui,
+	  src/gui/eventdialog.cpp, src/gui/eventdialog.ui, src/icons.qrc,
+	  src/icons/add.png, src/icons/alarm-offBig.png,
+	  src/icons/alarm-onBig.png, src/icons/applications-internet.png,
+	  src/icons/appointment-soon-off.png,
+	  src/icons/appointment-soon.png, src/icons/compassBig.png,
+	  src/icons/dialog-warning.png, src/icons/emblem-new-off.png,
+	  src/icons/emblem-new.png, src/icons/exclamation.png,
+	  src/icons/favourite-offBig.png, src/icons/favourite-onBig.png,
+	  src/icons/reload.png, src/icons/remove.png, src/icons/search.png,
+	  src/mvc/delegate.cpp: Icons part 1: replace all icons (except the
+	  FOSDEM ones) with icons from current gnome-icon-theme
+	* src/gui/mainwindow.ui, src/icons.qrc, src/icons/collapse.png,
+	  src/icons/expand.png, src/icons/info.png, src/icons/settings.png:
+	  Remove unused icons.
+	* src/gui/alarmdialog.cpp: Another instance of the databasename.
+	  (NOTE: untested, this codepath is only used on maemo)
+	* TODO, src/app/appsettings.cpp, src/app/main.cpp,
+	  src/sql/sqlengine.cpp: Move config and sqlite database. They are
+	  both at the xdg-specified locations now:
+	  ~/.local/share/data/Toastfreeware/ConfClerk/ConfClerk.sqlite
+	  ~/.config/Toastfreeware/ConfClerk.conf
+	* src/alarm/alarm.cpp, src/app/alarmdbus.h,
+	  src/app/alarmdbusadaptorp.h, src/app/main.cpp: Rename DBus
+	  service. Hopefully successful.
+	* TODO: Add some conference URLs to TODO
+	* BUGS: New bug noted.
+	* BUGS: New bug noted.
+	* src/app/app.pro, src/gui/gui.pro, src/mvc/mvc.pro: qmake warning:
+	  POST_TARGETDEPS instead of TARGETDEPS
+	* fosdem-schedule.pro: Remove libs in clean target.
+	* ChangeLog, README, TODO, data/confclerk.svg,
+	  data/fosdem-schedule.svg, fosdem-schedule.pro,
+	  src/icons/appicon.svg: Move and rename logo, create a target to
+	  convert it in .pro, add copyright/license to README. Update TODO.
+
 2011-06-23  philipp
 
 	* BUGS: Checked the remaining code. Didn't find possibilities for

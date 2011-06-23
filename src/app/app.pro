@@ -1,8 +1,8 @@
 include(../global.pri)
 TEMPLATE = app
-TARGET = fosdem-schedule
+TARGET = confclerk
 DESTDIR = ../bin
-QT += sql xml network 
+QT += sql xml network
 CONFIG(maemo5) {
     QT += maemo5 dbus
 }
