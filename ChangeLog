@@ -1,5 +1,13 @@
+2011-06-23  philipp
+
+	* BUGS: Checked the remaining code. Didn't find possibilities for
+	  SQL injections anymore.
+
 2011-06-23  gregoa
 
+	* TODO: Update TODO.
+	* ChangeLog, fosdem-schedule.pro: Add release and changelog targets
+	  to project file.
 	* Changelog: Remove empty Changelog.
 
 2011-06-23  philipp

@@ -12,13 +12,16 @@ SUBDIRS = src
 
 VERSION = 0.5.0
 
-QMAKE_EXTRA_TARGETS += tarball changelog release
-QMAKE_DISTCLEAN += ChangeLog
+QMAKE_EXTRA_TARGETS += tarball icon changelog release
 
 changelog.target = ChangeLog
 changelog.commands = \
 	svn up && svn2cl --group-by-day --reparagraph
 changelog.CONFIG = phony
+
+icon.target = data/$${TARGET}.png
+icon.commands = convert data/$${TARGET}.svg data/$${TARGET}.png
+icon.depends = data/$${TARGET}.svg
 
 release.depends = tarball
 
@@ -29,4 +32,4 @@ tarball.commands = \
 	$(COPY_DIR) --parents * $${TARGET}-$${VERSION}/ ; \
 	tar -cz --exclude=.svn -f $$tarball.target $${TARGET}-$${VERSION} ; \
 	$(DEL_FILE) -r $${TARGET}-$${VERSION}
-tarball.depends = changelog
+tarball.depends = changelog icon

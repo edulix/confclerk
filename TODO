@@ -2,17 +2,22 @@ fosdem-schedule -> confclerk transition:
 - src/gui/about.ui
 - rename *.pro, s/fosdem-schedule/confclerk/ in various places
 - .sqlite file location, config location
+- svn rm data/fosdem-schedule.svg
 
 FOSDEM specifics:
 - data/NxM (fosdem logo)
-  + create confclerk logo and use in application and for .desktop
+  + use confclerk logo in application and for .desktop
 - src/maps
 - src/icons/brain-alone.png,fosdem.png
 - fosdem.sql/schedule.xml
 
 maemo:
 - data/maemo/*.desktop - add generic .desktop file
+- ./data/Makefile
+-  convert in .pro (or leave that for the packaging)
+   installation is 'broken' anyway since the removal of "SUBDIRS += data"
 
 other
 - copyright for icons / replace icons (gnome-icon-theme etc.)
 - add contact info
+- .pro: maybe play with install target
