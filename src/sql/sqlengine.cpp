@@ -153,7 +153,7 @@ void SqlEngine::addEventToDB(QHash<QString,QString> &aEvent)
         QDateTime startDateTime;
         startDateTime.setTimeSpec(Qt::UTC);
         startDateTime = QDateTime(QDate::fromString(aEvent["date"],DATE_FORMAT),QTime::fromString(aEvent["start"],TIME_FORMAT),Qt::UTC);
-        qDebug() << "startDateTime: " << startDateTime.toString();
+        // qDebug() << "startDateTime: " << startDateTime.toString();
 
         bool event_exists = false;
         {
@@ -247,7 +247,7 @@ void SqlEngine::addRoomToDB(QHash<QString,QString> &aRoom)
         aRoom["id"] = "";
         if(query.next()) // ROOM record with 'name' already exists: we need to get its 'id'
         {
-            aRoom["id"] = query.value(0).toInt();
+            aRoom["id"] = query.value(0).toString();
         }
         else // ROOM record doesn't exist yet, need to create it
         {
@@ -257,14 +257,14 @@ void SqlEngine::addRoomToDB(QHash<QString,QString> &aRoom)
             query.bindValue(":xid_name", aRoom["name"]);
             query.bindValue(":xid_picture", aRoom["picture"]);
             if (!query.exec()) qDebug() << "Could not execute 'insert into room ...' query." << query.lastError();
-            aRoom["id"] = query.lastInsertId().toInt(); // 'id' is assigned automatically
+            aRoom["id"]= query.lastInsertId().toString(); // 'id' is assigned automatically
             //LOG_AUTOTEST(query);
         }
         query = QSqlQuery(db);
-        query.prepare("INSERT INTO EVENT_ROOM (xid_conference,xid_event,xid_room) VALUES (:conference_id, :event_id, :roomId)");
+        query.prepare("INSERT INTO EVENT_ROOM (xid_conference,xid_event,xid_room) VALUES (:conference_id, :event_id, :room_id)");
         query.bindValue(":conference_id", aRoom["conference_id"]);
         query.bindValue(":event_id", aRoom["event_id"]);
-        query.bindValue(":roomId", aRoom["id"]);
+        query.bindValue(":room_id", aRoom["id"]);
         if (!query.exec()) qDebug() << "Could not 'execute insert into event_room' query:" << query.lastError();
         //LOG_AUTOTEST(query);
     }
