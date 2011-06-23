@@ -277,10 +277,13 @@ void SqlEngine::addLinkToDB(QHash<QString,QString> &aLink)
     //TODO: check if the link doesn't exist before inserting
     if (db.isValid() && db.isOpen())
     {
-        // TODO: SQL Injection!!!
-        QString values = QString("'%1', '%2', '%3', '%4'").arg(aLink["event_id"],aLink["conference_id"],aLink["name"],aLink["url"]);
-        QString query = QString("INSERT INTO LINK (xid_event, xid_conference, name, url) VALUES (%1)").arg(values);
-        QSqlQuery result(query, db);
+        QSqlQuery query(db);
+        query.prepare("INSERT INTO LINK (xid_event, xid_conference, name, url) VALUES (:xid_event, :xid_conference, :name, :url)");
+        query.bindValue(":xid_event", aLink["event_id"]);
+        query.bindValue(":xid_conference", aLink["conference_id"]);
+        query.bindValue(":name", aLink["name"]);
+        query.bindValue(":url", aLink["url"]);
+        if (!query.exec()) qDebug() << "Error executing 'insert into link' query: " << query.lastError();
         //LOG_AUTOTEST(query);
     }
 }
