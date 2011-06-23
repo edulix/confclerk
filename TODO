@@ -1,0 +1,24 @@
+fosdem-schedule -> confclerk transition:
+- Files:
+  + AUTHORS
+  + INSTALL
+  + README
+- (c) in the code
+- add history somewhere
+- rename *.pro, s/fosdem-schedule/confclerk/ in various places
+- .sqlite file location, config location
+
+other
+- continue NEWS
+- ChangeLog -> svn2cl
+- docs/user-stories.txt is interesting but do we need doc/?
+- copyright for icons
+
+FOSDEM specifics:
+- data/NxM (fosdem logo)
+  + create confclerk logo and use in application and for .desktop
+- src/maps
+
+maemo:
+- data/maemo/*.desktop - add generic .desktop file
+- rm debian
