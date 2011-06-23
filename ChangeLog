@@ -1,3 +1,109 @@
+2011-06-23  gregoa
+
+	* Changelog: Remove empty Changelog.
+
+2011-06-23  philipp
+
+	* src/sql/sqlengine.cpp: Prevented SQL injections in function
+	  addPersonToDB.
+
+2011-06-23  gregoa
+
+	* src/alarm/alarm.cpp, src/alarm/alarm.h, src/alarm/calendar.cpp,
+	  src/alarm/calendar.h, src/app/alarmdbus.cpp, src/app/alarmdbus.h,
+	  src/app/alarmdbusadaptor.cpp, src/app/alarmdbusadaptorp.h,
+	  src/app/application.cpp, src/app/application.h,
+	  src/app/appsettings.cpp, src/app/appsettings.h, src/app/main.cpp,
+	  src/gui/alarmdialog.cpp, src/gui/alarmdialog.h,
+	  src/gui/conferenceeditor.cpp, src/gui/conferenceeditor.h,
+	  src/gui/conflictdialogcontainer.cpp,
+	  src/gui/conflictdialogcontainer.h, src/gui/conflictsdialog.cpp,
+	  src/gui/conflictsdialog.h, src/gui/daynavigatorwidget.cpp,
+	  src/gui/daynavigatorwidget.h, src/gui/dayviewtabcontainer.cpp,
+	  src/gui/dayviewtabcontainer.h, src/gui/errormessage.cpp,
+	  src/gui/errormessage.h, src/gui/eventdialog.cpp,
+	  src/gui/eventdialog.h, src/gui/favtabcontainer.cpp,
+	  src/gui/favtabcontainer.h, src/gui/mainwindow.cpp,
+	  src/gui/mainwindow.h, src/gui/mapwindow.cpp, src/gui/mapwindow.h,
+	  src/gui/nowtabcontainer.cpp, src/gui/nowtabcontainer.h,
+	  src/gui/roomstabcontainer.cpp, src/gui/roomstabcontainer.h,
+	  src/gui/searchhead.cpp, src/gui/searchhead.h,
+	  src/gui/searchtabcontainer.cpp, src/gui/searchtabcontainer.h,
+	  src/gui/settingsdialog.cpp, src/gui/settingsdialog.h,
+	  src/gui/tabcontainer.cpp, src/gui/tabcontainer.h,
+	  src/gui/trackstabcontainer.cpp, src/gui/trackstabcontainer.h,
+	  src/gui/urlinputdialog.cpp, src/gui/urlinputdialog.h,
+	  src/mvc/conference.cpp, src/mvc/conference.h,
+	  src/mvc/conferencemodel.cpp, src/mvc/conferencemodel.h,
+	  src/mvc/delegate.cpp, src/mvc/delegate.h, src/mvc/event.cpp,
+	  src/mvc/event.h, src/mvc/eventmodel.cpp, src/mvc/eventmodel.h,
+	  src/mvc/room.cpp, src/mvc/room.h, src/mvc/track.cpp,
+	  src/mvc/track.h, src/mvc/treeview.cpp, src/mvc/treeview.h,
+	  src/orm/ormrecord.h, src/sql/schedulexmlparser.cpp,
+	  src/sql/schedulexmlparser.h, src/sql/sqlengine.cpp,
+	  src/sql/sqlengine.h, src/test/main.cpp,
+	  src/test/mvc/eventtest.cpp, src/test/mvc/eventtest.h: Add
+	  copyright to source.
+	* src/alarm/alarm.cpp, src/alarm/alarm.h, src/alarm/calendar.cpp,
+	  src/alarm/calendar.h, src/app/alarmdbus.cpp, src/app/alarmdbus.h,
+	  src/app/alarmdbusadaptor.cpp, src/app/alarmdbusadaptorp.h,
+	  src/app/application.cpp, src/app/application.h,
+	  src/app/appsettings.cpp, src/app/appsettings.h, src/app/main.cpp,
+	  src/gui/alarmdialog.cpp, src/gui/alarmdialog.h,
+	  src/gui/conferenceeditor.cpp, src/gui/conferenceeditor.h,
+	  src/gui/conflictdialogcontainer.cpp,
+	  src/gui/conflictdialogcontainer.h, src/gui/conflictsdialog.cpp,
+	  src/gui/conflictsdialog.h, src/gui/daynavigatorwidget.cpp,
+	  src/gui/daynavigatorwidget.h, src/gui/dayviewtabcontainer.cpp,
+	  src/gui/dayviewtabcontainer.h, src/gui/errormessage.cpp,
+	  src/gui/errormessage.h, src/gui/eventdialog.cpp,
+	  src/gui/eventdialog.h, src/gui/favtabcontainer.cpp,
+	  src/gui/favtabcontainer.h, src/gui/mainwindow.cpp,
+	  src/gui/mainwindow.h, src/gui/mapwindow.cpp, src/gui/mapwindow.h,
+	  src/gui/nowtabcontainer.cpp, src/gui/nowtabcontainer.h,
+	  src/gui/roomstabcontainer.cpp, src/gui/roomstabcontainer.h,
+	  src/gui/searchhead.cpp, src/gui/searchhead.h,
+	  src/gui/searchtabcontainer.cpp, src/gui/searchtabcontainer.h,
+	  src/gui/settingsdialog.cpp, src/gui/settingsdialog.h,
+	  src/gui/tabcontainer.cpp, src/gui/tabcontainer.h,
+	  src/gui/trackstabcontainer.cpp, src/gui/trackstabcontainer.h,
+	  src/gui/urlinputdialog.cpp, src/gui/urlinputdialog.h,
+	  src/mvc/conference.cpp, src/mvc/conference.h,
+	  src/mvc/conferencemodel.cpp, src/mvc/conferencemodel.h,
+	  src/mvc/delegate.cpp, src/mvc/delegate.h, src/mvc/event.cpp,
+	  src/mvc/event.h, src/mvc/eventmodel.cpp, src/mvc/eventmodel.h,
+	  src/mvc/room.cpp, src/mvc/room.h, src/mvc/track.cpp,
+	  src/mvc/track.h, src/mvc/treeview.cpp, src/mvc/treeview.h,
+	  src/orm/ormrecord.h, src/sql/schedulexmlparser.cpp,
+	  src/sql/schedulexmlparser.h, src/sql/sqlengine.cpp,
+	  src/sql/sqlengine.h, src/test/main.cpp,
+	  src/test/mvc/eventtest.cpp, src/test/mvc/eventtest.h: Update GPL
+	  blurb in source files.
+
+2011-06-23  philipp
+
+	* src/icons/appicon.svg: Just adapted the page size to be
+	  rectangular.
+	* src/icons/appicon.svg: This suggestion/"doodle"* for the new
+	  application icon was created just now by Christian Kling
+	  <kling_christian@gmx.at> who (he is sitting next to me right now)
+	  agreed to publish it under the GNU GPL (v2 or later).
+	  
+	  *Christian's words.
+
+2011-06-23  gregoa
+
+	* TODO, debian: Remove ./debian directory, we'll do the packaging
+	  outside the "upstream" repository.
+	* AUTHORS, INSTALL, NEWS, README, TODO, docs/fosdem-schedule,
+	  docs/fosdem-schedule/AUTHORS, docs/fosdem-schedule/Changelog,
+	  docs/fosdem-schedule/INSTALL, docs/fosdem-schedule/NEWS,
+	  docs/fosdem-schedule/README,
+	  docs/fosdem-schedule/user-stories.txt, docs/user-stories.txt:
+	  First round of documentation updates.
+	* ChangeLog, fosdem-schedule.pro: Prepare ChangeLog generation from
+	  svn logs.
+
 2011-06-23  philipp
 
 	* src/sql/sqlengine.cpp: Prevented SQL injection in function
