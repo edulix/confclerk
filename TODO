@@ -1,5 +1,5 @@
 fosdem-schedule -> confclerk transition:
-- (c) in the code
+- src/gui/about.ui
 - rename *.pro, s/fosdem-schedule/confclerk/ in various places
 - .sqlite file location, config location
 
@@ -14,6 +14,5 @@ maemo:
 - data/maemo/*.desktop - add generic .desktop file
 
 other
-- ChangeLog -> svn2cl
 - copyright for icons / replace icons (gnome-icon-theme etc.)
-- add release target to .pro; and VERSION
+- add contact info
