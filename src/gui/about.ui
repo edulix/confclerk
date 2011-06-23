@@ -181,14 +181,14 @@
                  </font>
                 </property>
                 <property name="text">
-                 <string>FOSDEM Schedule</string>
+                 <string>ConfClerk</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QLabel" name="label_2">
                 <property name="text">
-                 <string>Version 0.4.1</string>
+                 <string>(Successor of FOSDEM schedule)</string>
                 </property>
                </widget>
               </item>
@@ -202,7 +202,7 @@
               <item>
                <widget class="QLabel" name="description">
                 <property name="text">
-                 <string>FOSDEM Schedule is an application written in Qt, which makes the conference schedule available offline. Supports searches on various items (speaker, speech topic, location, etc.). For Nokia N810 and N900 Internet Tablets.</string>
+                 <string>ConfClerk is an application written in Qt, which makes conference schedules available offline.  It displays the conference schedule from various views, support searches on various items (speaker, speech topic, location, etc.) and enables you to select favorite events and create your own schedule. At the moment ConfClerk is able to import schedules in XML format created by the PentaBarf conference management system used by e.g. FOSDEM, DebConf, and the CCC.</string>
                 </property>
                 <property name="wordWrap">
                  <bool>true</bool>
@@ -258,7 +258,7 @@
                     </font>
                    </property>
                    <property name="text">
-                    <string>Berendova Monika, Hanzes Matus, Komara Martin, Korinek Pavol, Pavelka Pavol, Timko Marek, Uzak Matus, Fortes Francisco</string>
+                    <string>Berendova Monika, Hanzes Matus, Komara Martin, Korinek Pavol, Pavelka Pavol, Timko Marek, Uzak Matus, Fortes Francisco, Philipp Spitzer, gregor herrmann</string>
                    </property>
                    <property name="wordWrap">
                     <bool>true</bool>
@@ -283,7 +283,7 @@
                  </font>
                 </property>
                 <property name="title">
-                 <string>Notice</string>
+                 <string>Copyright and license</string>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_5">
                  <item>
@@ -301,7 +301,7 @@
                     </font>
                    </property>
                    <property name="text">
-                    <string>FOSDEM Schedule is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2, or (at your option) any later version.</string>
+                    <string>ConfClerk is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2, or (at your option) any later version.</string>
                    </property>
                    <property name="wordWrap">
                     <bool>true</bool>
@@ -317,7 +317,7 @@
                     </font>
                    </property>
                    <property name="text">
-                    <string>FOSDEM Schedule is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.</string>
+                    <string>ConfClerk is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.</string>
                    </property>
                    <property name="wordWrap">
                     <bool>true</bool>
@@ -330,7 +330,8 @@
               <item>
                <widget class="QLabel" name="copyright">
                 <property name="text">
-                 <string>Copyright (C) 2010 Ixonos Plc.</string>
+                 <string>Copyright (C) 2010 Ixonos Plc.
+Copyright (C) 2011 Philipp Spitzer &amp; gregor herrmann</string>
                 </property>
                </widget>
               </item>
