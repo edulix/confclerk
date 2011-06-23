@@ -12,6 +12,7 @@ SUBDIRS = src
 
 VERSION = 0.5.0
 
+QMAKE_CLEAN += src/bin/*.a
 QMAKE_EXTRA_TARGETS += tarball icon changelog release
 
 changelog.target = ChangeLog
