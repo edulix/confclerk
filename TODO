@@ -8,17 +8,20 @@ fosdem-schedule -> confclerk transition:
 - rename *.pro, s/fosdem-schedule/confclerk/ in various places
 - .sqlite file location, config location
 
-other
-- continue NEWS
-- ChangeLog -> svn2cl
-- docs/user-stories.txt is interesting but do we need doc/?
-- copyright for icons
-
 FOSDEM specifics:
 - data/NxM (fosdem logo)
   + create confclerk logo and use in application and for .desktop
 - src/maps
+- src/icons/brain-alone.png,fosdem.png
+- fosdem.sql/schedule.xml
 
 maemo:
 - data/maemo/*.desktop - add generic .desktop file
 - rm debian
+
+other
+- continue NEWS
+- ChangeLog -> svn2cl
+- docs/user-stories.txt is interesting but do we need doc/?
+- copyright for icons / replace icons (gnome-icon-theme etc.)
+- add release target to .pro; and VERSION
