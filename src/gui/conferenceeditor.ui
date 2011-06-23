@@ -222,7 +222,7 @@
               </property>
               <property name="icon">
                <iconset resource="../icons.qrc">
-                <normaloff>:/icons/compassBig.png</normaloff>:/icons/compassBig.png</iconset>
+                <normaloff>:/icons/applications-internet.png</normaloff>:/icons/applications-internet.png</iconset>
               </property>
               <property name="flat">
                <bool>true</bool>

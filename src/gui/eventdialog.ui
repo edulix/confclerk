@@ -273,7 +273,7 @@
          </property>
          <property name="icon">
           <iconset resource="../icons.qrc">
-           <normaloff>:/icons/alarm-offBig.png</normaloff>:/icons/alarm-offBig.png</iconset>
+           <normaloff>:/icons/appointment-soon-off.png</normaloff>:/icons/appointment-soon-off.png</iconset>
          </property>
         </widget>
        </item>
@@ -284,7 +284,7 @@
          </property>
          <property name="icon">
           <iconset resource="../icons.qrc">
-           <normaloff>:/icons/favourite-offBig.png</normaloff>:/icons/favourite-offBig.png</iconset>
+           <normaloff>:/icons/emblem-new-off.png</normaloff>:/icons/emblem-new-off.png</iconset>
          </property>
         </widget>
        </item>

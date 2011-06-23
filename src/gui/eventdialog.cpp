@@ -51,12 +51,12 @@ EventDialog::EventDialog(const int &aEventId, QWidget *aParent)
 
     if(event.isFavourite())
     {
-        favouriteButton->setIcon(QIcon(":/icons/favourite-onBig.png"));
+        favouriteButton->setIcon(QIcon(":/icons/emblem-new.png"));
     }
 
     if(event.hasAlarm())
     {
-        alarmButton->setIcon(QIcon(":/icons/alarm-onBig.png"));
+        alarmButton->setIcon(QIcon(":/icons/appointment-soon.png"));
     }
 }
 
@@ -68,12 +68,12 @@ void EventDialog::favouriteClicked()
     if(event.isFavourite())
     {
         event.setFavourite(false);
-        favouriteButton->setIcon(QIcon(":/icons/favourite-offBig.png"));
+        favouriteButton->setIcon(QIcon(":/icons/emblem-new-off.png"));
     }
     else
     {
         event.setFavourite(true);
-        favouriteButton->setIcon(QIcon(":/icons/favourite-onBig.png"));
+        favouriteButton->setIcon(QIcon(":/icons/emblem-new.png"));
     }
     event.update("favourite");
 
@@ -101,7 +101,7 @@ void EventDialog::alarmClicked()
     if(event.hasAlarm())
     {
         event.setHasAlarm(false); // update DB
-        alarmButton->setIcon(QIcon(":/icons/alarm-offBig.png"));
+        alarmButton->setIcon(QIcon(":/icons/appointment-soon-off.png"));
 #ifdef MAEMO
         // remove alarm from the 'alarmd' alrms list
         Alarm alarm;
@@ -112,7 +112,7 @@ void EventDialog::alarmClicked()
     else
     {
         event.setHasAlarm(true);
-        alarmButton->setIcon(QIcon(":/icons/alarm-onBig.png"));
+        alarmButton->setIcon(QIcon(":/icons/appointment-soon.png"));
 #ifdef MAEMO
         // add alarm to the 'alarmd'
         Alarm alarm;

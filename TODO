@@ -22,6 +22,8 @@ other:
 - add contact info
 - .pro: maybe play with install target
 - manpage
+  ~/.local/share/data/Toastfreeware/ConfClerk/ConfClerk.sqlite
+  ~/.config/Toastfreeware/ConfClerk.conf
 
 --
 
@@ -29,6 +31,3 @@ schedules:
 - FOSDEM (2011): http://fosdem.org/schedule/xml
 - DebConf (2010): http://penta.debconf.org/dc10_schedule/schedule.en.xml
 - 27C3: http://events.ccc.de/congress/2010/Fahrplan/schedule.en.xml
-
-~/.local/share/data/Toastfreeware/ConfClerk/ConfClerk.sqlite
-~/.config/Toastfreeware/ConfClerk.conf

@@ -5,12 +5,12 @@
         <file>icons/reload.png</file>
         <file>icons/fosdem.png</file>
         <file>icons/brain-alone.png</file>
-        <file>icons/alarm-offBig.png</file>
-        <file>icons/alarm-onBig.png</file>
-        <file>icons/compassBig.png</file>
-        <file>icons/favourite-offBig.png</file>
-        <file>icons/favourite-onBig.png</file>
-        <file>icons/exclamation.png</file>
+        <file>icons/appointment-soon-off.png</file>
+        <file>icons/appointment-soon.png</file>
+        <file>icons/applications-internet.png</file>
+        <file>icons/emblem-new-off.png</file>
+        <file>icons/emblem-new.png</file>
+        <file>icons/dialog-warning.png</file>
         <file>icons/search.png</file>
     </qresource>
 </RCC>

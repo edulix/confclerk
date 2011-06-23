@@ -363,31 +363,31 @@ void Delegate::defineControls()
 {
     // FAVOURITE ICONs
     // on
-    mControls.insert(FavouriteControlOn, new Control(FavouriteControlOn, QString(":icons/favourite-onBig.png"), NULL));
+    mControls.insert(FavouriteControlOn, new Control(FavouriteControlOn, QString(":icons/emblem-new.png"), NULL));
     // off
-    mControls.insert(FavouriteControlOff, new Control(FavouriteControlOff, QString(":icons/favourite-offBig.png"), NULL));
+    mControls.insert(FavouriteControlOff, new Control(FavouriteControlOff, QString(":icons/emblem-new-off.png"), NULL));
 
 #ifdef MAEMO
     // ALARM ICONs
     // on
     mControls.insert(AlarmControlOn,
-                    new Control(AlarmControlOn, QString(":icons/alarm-onBig.png"), mControls[FavouriteControlOn]));
+                    new Control(AlarmControlOn, QString(":icons/appointment-soon.png"), mControls[FavouriteControlOn]));
     // off
     mControls.insert(AlarmControlOff,
-                    new Control(AlarmControlOff, QString(":icons/alarm-offBig.png"), mControls[FavouriteControlOff]));
+                    new Control(AlarmControlOff, QString(":icons/appointment-soon-off.png"), mControls[FavouriteControlOff]));
 
     // MAP ICON
     mControls.insert(MapControl,
-                    new Control(MapControl, QString(":icons/compassBig.png"), mControls[AlarmControlOn]));
+                    new Control(MapControl, QString(":icons/applications-internet.png"), mControls[AlarmControlOn]));
 #else
     // MAP ICON
     mControls.insert(MapControl,
-                    new Control(MapControl, QString(":icons/compassBig.png"), mControls[FavouriteControlOn]));
+                    new Control(MapControl, QString(":icons/applications-internet.png"), mControls[FavouriteControlOn]));
 #endif
 
     // WARNING ICON
     mControls.insert(WarningControl,
-                    new Control(WarningControl, QString(":icons/exclamation.png"), mControls[MapControl]));
+                    new Control(WarningControl, QString(":icons/dialog-warning.png"), mControls[MapControl]));
 }
 
 bool Delegate::isPointFromRect(const QPoint &aPoint, const QRect &aRect) const
