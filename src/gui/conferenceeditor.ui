@@ -14,8 +14,8 @@
    <string>Edit Conferences</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../icons.qrc">
-    <normaloff>:/icons/brain-alone.png</normaloff>:/icons/brain-alone.png</iconset>
+   <iconset resource="../../data/data.qrc">
+    <normaloff>:/confclerk.svg</normaloff>:/confclerk.svg</iconset>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <property name="spacing">
@@ -341,6 +341,7 @@
  </widget>
  <resources>
   <include location="../icons.qrc"/>
+  <include location="../../data/data.qrc"/>
  </resources>
  <connections/>
 </ui>

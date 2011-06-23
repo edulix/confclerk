@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="/">
+    <file>confclerk.svg</file>
+  </qresource>
+</RCC>

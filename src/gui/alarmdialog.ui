@@ -46,7 +46,10 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="../icons.qrc">:/icons/fosdem.png</pixmap>
+          <pixmap resource="../../data/data.qrc">:/confclerk.svg</pixmap>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -156,6 +159,7 @@
  </widget>
  <resources>
   <include location="../icons.qrc"/>
+  <include location="../../data/data.qrc"/>
  </resources>
  <connections/>
 </ui>

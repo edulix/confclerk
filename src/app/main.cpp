@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
     Q_INIT_RESOURCE(db);
 
     Application a(argc, argv);
-    Application::setWindowIcon(QIcon(":/icons/fosdem.png"));
+    Application::setWindowIcon(QIcon(":/confclerk.svg"));
 
     // needed by QDesktopServices
     QCoreApplication::setOrganizationName("Toastfreeware");
