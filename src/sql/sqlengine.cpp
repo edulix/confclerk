@@ -292,35 +292,45 @@ int SqlEngine::searchEvent(int aConferenceId, const QHash<QString,QString> &aCol
     if ( !db.isValid() || !db.isOpen())
         return -1;
 
+    if (aColumns.empty()) return -1;
 
     // DROP
     execQuery( db, "DROP TABLE IF EXISTS SEARCH_EVENT");
     // CREATE
     execQuery( db, "CREATE TEMP TABLE SEARCH_EVENT ( xid_conference INTEGER  NOT NULL, id INTEGER NOT NULL )");
     // INSERT
-    QString query = QString("INSERT INTO SEARCH_EVENT ( xid_conference, id ) "
+    QString sql = QString("INSERT INTO SEARCH_EVENT ( xid_conference, id ) "
                 "SELECT EVENT.xid_conference, EVENT.id FROM EVENT ");
     if( aColumns.contains("ROOM") ){
-        query += "INNER JOIN EVENT_ROOM ON ( EVENT.xid_conference = EVENT_ROOM.xid_conference AND EVENT.id = EVENT_ROOM.xid_event ) ";
-        query += "INNER JOIN ROOM ON ( EVENT_ROOM.xid_room = ROOM.id ) ";
+        sql += "INNER JOIN EVENT_ROOM ON ( EVENT.xid_conference = EVENT_ROOM.xid_conference AND EVENT.id = EVENT_ROOM.xid_event ) ";
+        sql += "INNER JOIN ROOM ON ( EVENT_ROOM.xid_room = ROOM.id ) ";
     }
     if( aColumns.contains("PERSON") ){
-        query += "INNER JOIN EVENT_PERSON ON ( EVENT.xid_conference = EVENT_PERSON.xid_conference AND EVENT.id = EVENT_PERSON.xid_event ) ";
-        query += "INNER JOIN PERSON ON ( EVENT_PERSON.xid_person = PERSON.id ) ";
+        sql += "INNER JOIN EVENT_PERSON ON ( EVENT.xid_conference = EVENT_PERSON.xid_conference AND EVENT.id = EVENT_PERSON.xid_event ) ";
+        sql += "INNER JOIN PERSON ON ( EVENT_PERSON.xid_person = PERSON.id ) ";
     }
-    // TODO: avoid .arg
-    query += QString("WHERE EVENT.xid_conference = %1 AND (").arg( aConferenceId );
+    sql += QString("WHERE EVENT.xid_conference = %1 AND (").arg( aConferenceId );
 
     foreach (QString table, aColumns.uniqueKeys()){
         foreach (QString column, aColumns.values(table)){
-            // TODO: SQL Injection!!!
-            query += QString("%1.%2 LIKE '\%%3\%' OR ").arg( table, column, aKeyword );
+            sql += QString("%1.%2 LIKE '\%' || :%1%2 || '\%' OR ").arg( table, column );
         }
     }
-    query.chop( QString(" OR ").length() );
-    query += QString(");");
+    sql.chop( QString(" OR ").length() );
+    sql += QString(")");
 
-    execQuery( db, query );
+    QSqlQuery query(db);
+    query.prepare(sql);
+    foreach (QString table, aColumns.uniqueKeys()){
+        foreach (QString column, aColumns.values(table)){
+            query.bindValue(QString(":%1%2").arg(table, column), aKeyword );
+        }
+    }
+
+    if( !query.exec() ){
+       qDebug() << "Could not execute search query: " << query.lastError().text();
+       return -1;
+    }
 
     return 1;
 }
