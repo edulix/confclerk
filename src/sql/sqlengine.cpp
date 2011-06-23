@@ -216,17 +216,21 @@ void SqlEngine::addPersonToDB(QHash<QString,QString> &aPerson)
 
     if (db.isValid() && db.isOpen())
     {
-        // TODO: SQL Injection!!!
-        QString values = QString("'%1', '%2', '%3'").arg(aPerson["conference_id"],aPerson["id"],aPerson["name"]);
-        QString query = QString("INSERT INTO PERSON (xid_conference,id,name) VALUES (%1)").arg(values);
-        QSqlQuery result (query, db);
-        //LOG_AUTOTEST(query);
+        QSqlQuery query(db);
+        query.prepare("INSERT INTO PERSON (xid_conference,id,name) VALUES (:xid_conference, :id, :name)");
+        query.bindValue(":xid_conference", aPerson["conference_id"]);
+        query.bindValue(":id", aPerson["id"]);
+        query.bindValue(":name", aPerson["name"]);
+        query.exec(); // some queries fail due to the unique key constraint
+        // if (!query.exec()) qDebug() << "SQL query 'insert into person' failed: " << query.lastError();
 
-        // TODO: SQL Injection!!!
-        values = QString("'%1', '%2', '%3'").arg(aPerson["conference_id"],aPerson["event_id"],aPerson["id"]);
-        query = QString("INSERT INTO EVENT_PERSON (xid_conference,xid_event,xid_person) VALUES (%1)").arg(values);
-        QSqlQuery resultEventPerson (query, db);
-        //LOG_AUTOTEST(query);
+        query = QSqlQuery(db);
+        query.prepare("INSERT INTO EVENT_PERSON (xid_conference,xid_event,xid_person) VALUES (:xid_conference, :xid_event, :xid_person)");
+        query.bindValue(":xid_conference", aPerson["conference_id"]);
+        query.bindValue(":xid_event", aPerson["event_id"]);
+        query.bindValue(":xid_person", aPerson["id"]);
+        query.exec(); // some queries fail due to the unique key constraint
+        // if (!query.exec()) qDebug() << "SQL query 'insert into event_person' failed: " << query.lastError();
     }
 }
 
