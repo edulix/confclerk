@@ -244,26 +244,28 @@ void SqlEngine::addRoomToDB(QHash<QString,QString> &aRoom)
         // - if it doesn't exist yet, then we have to add that record to 'ROOM' table
         //   and assign autoincremented 'id' to aRoom
         // - if it exists, then we need to get its 'id' and assign it to aRoom
-        int roomId = -1;
+        aRoom["id"] = "";
         if(query.next()) // ROOM record with 'name' already exists: we need to get its 'id'
         {
-            roomId = query.value(0).toInt();
+            aRoom["id"] = query.value(0).toInt();
         }
         else // ROOM record doesn't exist yet, need to create it
         {
-            // TODO: SQL Injection!!!
-            QString values = QString("'%1', '%2', '%3'").arg(aRoom["conference_id"],aRoom["name"],aRoom["picture"]);
-            QString query = QString("INSERT INTO ROOM (xid_conference,name,picture) VALUES (%1)").arg(values);
-            QSqlQuery result (query, db);
-            roomId = result.lastInsertId().toInt(); // 'id' is assigned automatically
+            query = QSqlQuery(db);
+            query.prepare("INSERT INTO ROOM (xid_conference,name,picture) VALUES (:xid_conference, :name, :picture)");
+            query.bindValue(":xid_conference", aRoom["conference_id"]);
+            query.bindValue(":xid_name", aRoom["name"]);
+            query.bindValue(":xid_picture", aRoom["picture"]);
+            if (!query.exec()) qDebug() << "Could not execute 'insert into room ...' query." << query.lastError();
+            aRoom["id"] = query.lastInsertId().toInt(); // 'id' is assigned automatically
             //LOG_AUTOTEST(query);
         }
         query = QSqlQuery(db);
         query.prepare("INSERT INTO EVENT_ROOM (xid_conference,xid_event,xid_room) VALUES (:conference_id, :event_id, :roomId)");
         query.bindValue(":conference_id", aRoom["conference_id"]);
         query.bindValue(":event_id", aRoom["event_id"]);
-        query.bindValue(":roomId", roomId);
-        if (!query.exec()) qDebug() << "Could not execute insert into event_room query:" << query.lastError();
+        query.bindValue(":roomId", aRoom["id"]);
+        if (!query.exec()) qDebug() << "Could not 'execute insert into event_room' query:" << query.lastError();
         //LOG_AUTOTEST(query);
     }
 }
@@ -306,10 +308,12 @@ int SqlEngine::searchEvent(int aConferenceId, const QHash<QString,QString> &aCol
         query += "INNER JOIN EVENT_PERSON ON ( EVENT.xid_conference = EVENT_PERSON.xid_conference AND EVENT.id = EVENT_PERSON.xid_event ) ";
         query += "INNER JOIN PERSON ON ( EVENT_PERSON.xid_person = PERSON.id ) ";
     }
+    // TODO: avoid .arg
     query += QString("WHERE EVENT.xid_conference = %1 AND (").arg( aConferenceId );
 
     foreach (QString table, aColumns.uniqueKeys()){
         foreach (QString column, aColumns.values(table)){
+            // TODO: SQL Injection!!!
             query += QString("%1.%2 LIKE '\%%3\%' OR ").arg( table, column, aKeyword );
         }
     }
