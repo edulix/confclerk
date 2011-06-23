@@ -54,8 +54,11 @@ AlarmDialog::AlarmDialog(int argc, char *argv[], QWidget *aParent)
     connect(appPB, SIGNAL(clicked()), SLOT(runApp()));
     connect(snoozePB, SIGNAL(clicked()), SLOT(snooze()));
 
+    qString databaseFileName;
+    databaseFileName = QDesktopServices::storageLocation(QDesktopServices::DataLocation + "ConfClerk.sqlite" 
+    // TODO: check existence
     QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE");
-    database.setDatabaseName(QDir::homePath() + "/.fosdem/fosdem.sqlite");
+    database.setDatabaseName(databaseFileName);
     database.open();
 
     QString titleStr;
