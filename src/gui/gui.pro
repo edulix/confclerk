@@ -20,7 +20,7 @@ DEPENDPATH += . \
     ../orm \
     ../mvc \
     ../sql
-TARGETDEPS += $$DESTDIR/liborm.a \
+POST_TARGETDEPS += $$DESTDIR/liborm.a \
     $$DESTDIR/libmvc.a \
     $$DESTDIR/libsql.a
 maemo { 

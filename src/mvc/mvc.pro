@@ -11,7 +11,7 @@ LIBS += -L$$DESTDIR \
 INCLUDEPATH += ../orm ../app
 DEPENDPATH += . \
     ../orm
-TARGETDEPS += $$DESTDIR/liborm.a
+POST_TARGETDEPS += $$DESTDIR/liborm.a
 maemo { 
     LIBS += -L$$DESTDIR \
         -lqalarm \

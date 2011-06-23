@@ -11,7 +11,7 @@ CONFIG(maemo5) {
 LIBS += -L$$DESTDIR -lgui -lmvc -lsql
 INCLUDEPATH += ../gui ../sql ../mvc ../orm
 DEPENDPATH += . ../gui
-TARGETDEPS += $$DESTDIR/libmvc.a $$DESTDIR/libgui.a $$DESTDIR/libsql.a
+POST_TARGETDEPS += $$DESTDIR/libmvc.a $$DESTDIR/libgui.a $$DESTDIR/libsql.a
 maemo {
     LIBS += -L$$DESTDIR -lqalarm -lalarm
     INCLUDEPATH += ../alarm
