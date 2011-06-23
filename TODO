@@ -2,8 +2,7 @@ fosdem-schedule -> confclerk transition:
 - src/gui/about.ui
 
 FOSDEM specifics:
-- src/maps
-- schedule.xml
+- schedule.xml, fosdem.sql
 
 other:
 - add contact info

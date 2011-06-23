@@ -31,7 +31,6 @@ SOURCES += main.cpp \
            appsettings.cpp
 
 RESOURCES += ../icons.qrc \
-             ../maps.qrc \
 			 ../db.qrc \
 			 ../../data/data.qrc
 

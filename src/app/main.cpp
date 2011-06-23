@@ -34,8 +34,8 @@
 int main(int argc, char *argv[])
 {
     Q_INIT_RESOURCE(icons);
-    Q_INIT_RESOURCE(maps);
     Q_INIT_RESOURCE(db);
+    Q_INIT_RESOURCE(data);
 
     Application a(argc, argv);
     Application::setWindowIcon(QIcon(":/confclerk.svg"));

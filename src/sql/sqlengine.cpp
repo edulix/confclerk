@@ -425,7 +425,6 @@ void SqlEngine::checkConferenceMap(QSqlDatabase &aDatabase)
     sqlQuery.prepare("SELECT map FROM conference");
     if (!sqlQuery.exec()) {
         qWarning() << "column conference.map is missing; adding";
-        execQuery(aDatabase, "ALTER TABLE conference ADD COLUMN map VARCHAR")
-         and execQuery(aDatabase, "UPDATE conference SET map = ':/maps/campus.png' WHERE title = 'FOSDEM 2010'");
+        execQuery(aDatabase, "ALTER TABLE conference ADD COLUMN map VARCHAR");
     }
 }
