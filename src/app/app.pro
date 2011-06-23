@@ -32,7 +32,8 @@ SOURCES += main.cpp \
 
 RESOURCES += ../icons.qrc \
              ../maps.qrc \
-			 ../db.qrc
+			 ../db.qrc \
+			 ../../data/data.qrc
 
 # instalation related
 PREFIX = /usr/bin
