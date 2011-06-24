@@ -25,3 +25,7 @@ Title: Too many authors are shown (from other conferences).
 Severity: major
 Status: Fixed.
 -------------------------------------------------------------------
+BugID 6
+Title: Present all search results instead of grouping them by day?
+Severity: wishlist
+Status:
