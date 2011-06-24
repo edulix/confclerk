@@ -13,7 +13,7 @@ Status: Fixed.
 BugID 3
 Title: Pressing enter on search tab should search.
 Severity: minor
-Status:
+Status: Fixed.
 -------------------------------------------------------------------
 BugID 4
 Title: Make links in event detail view clickable.

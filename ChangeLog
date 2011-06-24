@@ -1,5 +1,27 @@
 2011-06-24  philipp
 
+	* src/gui/searchhead.cpp: Enter or return triggers the search now
+	  when the focus is at the searchEdit or at one of the checkboxes.
+	* BUGS: Filed bug 7: Error message when searching without having
+	  conferences
+
+2011-06-24  gregoa
+
+	* BUGS: Add another wishlist (more: design discussion) bug
+
+2011-06-24  philipp
+
+	* src/gui/tabcontainer.h, src/mvc/eventmodel.cpp: Removed
+	  unnecessary debug output and code.
+	* BUGS, src/mvc/event.cpp: Fixed bug reported by gregor: Too many
+	  authors are shown (form other conferences as well).
+
+2011-06-24  gregoa
+
+	* ChangeLog, TODO, confclerk.pro: Improve release target in .pro
+
+2011-06-24  philipp
+
 	* src/gui/daynavigatorwidget.cpp, src/mvc/treeview.cpp: Removed two
 	  unused variables to avoid compiler warnings.
 
