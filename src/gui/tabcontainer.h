@@ -38,11 +38,7 @@ public:
 
     void clearModel();
 protected:
-    virtual void loadEvents( const QDate &aDate, const int aConferenceId )
-    {
-        Q_UNUSED(aDate);
-        Q_UNUSED(aConferenceId);
-    }
+    virtual void loadEvents( const QDate &aDate, const int aConferenceId ) = 0;
 
 signals:
     void eventHasChanged(int aEventId, bool aReloadModel);

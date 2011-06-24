@@ -238,7 +238,7 @@ int EventModel::loadSearchResultEvents(const QDate &aDate, int aConferenceId)
     // check for existence of the conference in the DB
     if(Conference::getAll().count())
     {
-        qDebug() << "Loading search result Data: [" << Conference::getById(aConferenceId).title() << "] " << aDate;
+        // qDebug() << "Loading search result Data: [" << Conference::getById(aConferenceId).title() << "] " << aDate;
         try{
             mEvents = Event::getSearchResultByDate(QDate(aDate.year(), aDate.month(), aDate.day()), aConferenceId, "start");
         }
