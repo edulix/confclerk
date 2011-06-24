@@ -1,11 +1,7 @@
-fosdem-schedule -> confclerk transition:
-- src/gui/about.ui
-
-FOSDEM specifics:
+FOSDEM specifics (cleanup):
 - schedule.xml, fosdem.sql
 
 other:
-- add contact info
 - .pro: maybe play with install target
 - manpage
   ~/.local/share/data/Toastfreeware/ConfClerk/ConfClerk.sqlite
