@@ -1,5 +1,23 @@
+2011-06-24  philipp
+
+	* src/gui/daynavigatorwidget.cpp, src/mvc/treeview.cpp: Removed two
+	  unused variables to avoid compiler warnings.
+
+2011-06-24  gregoa
+
+	* src/gui/alarmdialog.cpp, src/sql/sqlengine.cpp,
+	  src/test/mvc/eventtest.cpp: Somewhere a slash was missing ...
+	* TODO: Updated TODO.
+
 2011-06-23  gregoa
 
+	* README: Add contact info to README.
+	* src/gui/about.ui: Update 'About' dialog.
+	* TODO, src/app/app.pro, src/app/main.cpp, src/maps, src/maps.qrc,
+	  src/sql/sqlengine.cpp: Remove ULB, Campus Solbosch maps.
+	* ., ChangeLog, TODO, confclerk.pro, data/fosdem-schedule.svg,
+	  fosdem-schedule.pro, src/app/app.pro: The big rename. Which was
+	  not so big after all ...
 	* data/26x26, data/40x40, data/48x48, data/64x64, data/Makefile,
 	  data/confclerk.desktop, data/maemo: De-maemofy: make .desktop
 	  file generic, remove resized (old) icons and Makefile for

@@ -12,7 +12,7 @@ SUBDIRS = src
 
 VERSION = 0.5.0
 
-QMAKE_CLEAN += src/bin/*.a
+QMAKE_DISTCLEAN += src/bin/*.a
 QMAKE_EXTRA_TARGETS += tarball icon changelog release
 
 changelog.target = ChangeLog
@@ -30,7 +30,11 @@ tarball.target = $${TARGET}-$${VERSION}.tar.gz
 tarball.commands = \
 	$(DEL_FILE) -r $${TARGET}-$${VERSION} ; \
 	$(MKDIR) $${TARGET}-$${VERSION} ; \
-	$(COPY_DIR) --parents * $${TARGET}-$${VERSION}/ ; \
+	$(COPY_DIR) * $${TARGET}-$${VERSION}/ ; \
+	$(DEL_FILE) $${TARGET}-$${VERSION}/*.pro.user \
+		$${TARGET}-$${VERSION}/$${TARGET}-$${VERSION}.tar.gz \
+		$(DEL_FILE) -r $${TARGET}-$${VERSION}/$${TARGET}-$${VERSION} \
+		$${TARGET}-$${VERSION}/Makefile ; \
 	tar -cz --exclude=.svn -f $$tarball.target $${TARGET}-$${VERSION} ; \
 	$(DEL_FILE) -r $${TARGET}-$${VERSION}
-tarball.depends = changelog icon
+tarball.depends = changelog icon distclean

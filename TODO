@@ -6,6 +6,7 @@ other:
 - manpage
   ~/.local/share/data/Toastfreeware/ConfClerk/ConfClerk.sqlite
   ~/.config/Toastfreeware/ConfClerk.conf
+- hp/track/etc.
 
 --
 
