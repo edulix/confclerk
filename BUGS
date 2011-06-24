@@ -2,11 +2,11 @@ We don't have a bug tracking system yet, therefore this file contains known bugs
 
 
 -------------------------------------------------------------------
-BugId: 1
+BugID: 1
 Title: Persons are not deleted when deleting a conference.
 Status: Fixed.
 -------------------------------------------------------------------
-BugId: 2
+BugID: 2
 Title: SQL injections possible.
 Status: Fixed.
 -------------------------------------------------------------------
@@ -19,4 +19,9 @@ BugID 4
 Title: Make links in event detail view clickable.
 Severity: wishlist
 Status:
+-------------------------------------------------------------------
+BugID 5
+Title: Too many authors are shown (from other conferences).
+Severity: major
+Status: Fixed.
 -------------------------------------------------------------------

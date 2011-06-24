@@ -157,13 +157,11 @@ QStringList Event::persons()
     if( mPersonsList.isEmpty() )
     {
         QSqlQuery query;
-        // TODO: conference ID isn't used here
-        query.prepare("SELECT person.name FROM person INNER JOIN event_person ON person.id = event_person.xid_person AND event_person.xid_event = :id AND event_person.xid_conference = :conf");
+        query.prepare("SELECT person.name FROM person INNER JOIN event_person ON person.id = event_person.xid_person AND event_person.xid_event = :id AND event_person.xid_conference = :conf1 AND person.xid_conference = :conf2");
         query.bindValue(":id", id());
-        query.bindValue(":conf", conferenceId());
-        query.exec();
-        // TODO: handle qeury error
-        //qDebug() << query.lastError();
+        query.bindValue(":conf1", conferenceId());
+        query.bindValue(":conf2", conferenceId());
+        if (!query.exec())  qDebug() << query.lastError();
 
         while(query.next())
             mPersonsList.append(query.record().value("name").toString());
@@ -226,7 +224,7 @@ QList<Event> Event::getSearchResultByDate(const QDate& date, int conferenceId, Q
 {
     QString strQuery = QString("SELECT %1 FROM EVENT INNER JOIN SEARCH_EVENT USING (xid_conference, id) ").arg(columnsForSelect());
     strQuery += QString("WHERE xid_conference = :conf AND start >= :start AND start < :end ORDER BY %1").arg(orderBy);
-    //qDebug() << strQuery;
+
     QList<Event> list;
     QSqlQuery query;
     try{
