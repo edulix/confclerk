@@ -59,7 +59,7 @@ bool TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
         return handled;
 
     int confId = Conference::activeConference();
-    QRect rect = visualRect(aIndex); // visual QRect of selected/clicked item in the list
+    // QRect rect = visualRect(aIndex); // visual QRect of selected/clicked item in the list
     Delegate *delegate = static_cast<Delegate*>(itemDelegate(aIndex));
     switch(delegate->whichControlClicked(aIndex,aPoint))
     {

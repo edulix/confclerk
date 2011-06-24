@@ -47,7 +47,7 @@ void DayNavigatorWidget::setDates(const QDate &aStartDate, const QDate &aEndDate
     mEndDate = aEndDate;
     mCurDate = aStartDate;
 
-    QRect rect = mFontMetrics->boundingRect(mCurDate.toString("MMM dd yyyy"));
+    // QRect rect = mFontMetrics->boundingRect(mCurDate.toString("MMM dd yyyy"));
 
     if(mStartDate==mEndDate) // only one day conference
     {
