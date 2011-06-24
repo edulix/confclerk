@@ -82,7 +82,7 @@ void SqlEngine::initialize()
     QDir dataDir = QDir(dataDirName).absolutePath();
     if(!dataDir.exists())
         dataDir.mkpath(dataDirName);
-    databaseName = dataDirName + "ConfClerk.sqlite";
+    databaseName = dataDirName + "/ConfClerk.sqlite";
     login("QSQLITE",databaseName);
 }
 

@@ -30,7 +30,7 @@ void EventTest::initTestCase()
 {
     // Connect to the test database. Ask Mr. Pavelka to generate one for you :)
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("fosdem-test.sqlite");
+    db.setDatabaseName("ConfClerk-test.sqlite");
     QVERIFY(db.open());
 }
 

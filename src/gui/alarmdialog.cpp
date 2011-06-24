@@ -55,7 +55,7 @@ AlarmDialog::AlarmDialog(int argc, char *argv[], QWidget *aParent)
     connect(snoozePB, SIGNAL(clicked()), SLOT(snooze()));
 
     qString databaseFileName;
-    databaseFileName = QDesktopServices::storageLocation(QDesktopServices::DataLocation + "ConfClerk.sqlite" 
+    databaseFileName = QDesktopServices::storageLocation(QDesktopServices::DataLocation + "/ConfClerk.sqlite" 
     // TODO: check existence
     QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE");
     database.setDatabaseName(databaseFileName);
