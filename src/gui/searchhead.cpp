@@ -19,11 +19,16 @@
  */
 
 #include "searchhead.h"
+#include <QShortcut>
 
 SearchHead::SearchHead(QWidget *parent)
     : QWidget(parent)
 {
 	setupUi(this);
+	QShortcut* shortcutEnter = new QShortcut(QKeySequence(Qt::Key_Enter), this, 0, 0, Qt::WidgetWithChildrenShortcut);
+	connect(shortcutEnter, SIGNAL(activated()), this, SLOT(searchButtonClicked()));
+	QShortcut* shortcutReturn = new QShortcut(QKeySequence(Qt::Key_Return), this, 0, 0, Qt::WidgetWithChildrenShortcut);
+	connect(shortcutReturn, SIGNAL(activated()), this, SLOT(searchButtonClicked()));
 	connect( searchButton, SIGNAL(clicked()), SLOT(searchButtonClicked()));
 }
 
@@ -35,6 +40,6 @@ SearchHead::~SearchHead()
 
 void SearchHead::searchButtonClicked()
 {
-    qDebug() << "SearchHead::searchButtonClicked()";
+    // qDebug() << "SearchHead::searchButtonClicked()";
     emit( searchClicked() );
 }
