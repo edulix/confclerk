@@ -1,0 +1,119 @@
+=encoding utf8
+
+=head1 NAME
+
+ConfClerk - offline conference scheduler
+
+=head1 SYNOPSIS
+
+B<confclerk>
+
+=head1 DESCRIPTION
+
+B<ConfClerk> is an application written in Qt, which makes conference
+schedules available offline.  It displays the conference schedule
+from various views, support searches on various items (speaker, speech topic,
+location, etc.) and enables you to select favorite events and create your own
+schedule.
+
+At the moment B<ConfClerk> is able to import schedules in XML format created by
+the PentaBarf conference management system used by e.g. FOSDEM, DebConf, and
+the CCC.
+
+ConfClerk is targetted at mobile devices like the Nokia N810 and N900 but
+works on any sytem running Qt.
+
+=head1 OPTIONS
+
+None.
+
+=head1 CONFIGURATION
+
+The configuration can be done via the graphical interface.
+
+The configuration is saved in the default QSettings location, i.e.:
+
+=over
+
+=item Linux
+
+F<~/.config/Toastfreeware/ConfClerk.conf>
+
+=item Windows
+
+In the registry (search for the Toastfreeware key, should be at
+F<HKEY_CURRENT_USER\Software\Toastfreeware\Desafinado>).
+
+=item Other OS
+
+Cf. the QSettings documentation at 
+L<http://doc.qt.nokia.com/stable/qsettings.html#locations-where-application-settings-are-stored>.
+
+=back
+
+=head1 FILES
+
+B<ConfClerk> keeps its database in the location proposed by the XDG Base
+Directory specification L<http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html>:
+
+So the configuration (see L</"CONFIGURATION">) is stored at
+F<~/.config/Toastfreeware/ConfClerk.conf> and the database is kept at
+F<~/.local/share/data/Toastfreeware/ConfClerk/ConfClerk.sqlite>.
+
+=head1 COPYRIGHT AND LICENSE
+
+=head2 Main code
+
+    Copyright (C) 2010 Ixonos Plc.
+    Copyright (C) 2011, Philipp Spitzer <philipp@toastfreeware.priv.at>
+    Copyright (C) 2011, gregor herrmann <gregor@toastfreeware.priv.at>
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+=head2 Additional resources
+
+=over
+
+=item data/confclerk.*:
+
+    Copyright (C) 2011, Christian Kling <kling_christian@gmx.at>
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+=item icons/*
+
+All icons are taken from the Debian package gnome-icon-theme, which contains
+the following notice (as of 2011-06-24):
+
+    Copyright © 2002-2008:
+      Ulisse Perusin <uli.peru@gmail.com>
+      Riccardo Buzzotta <raozuzu@yahoo.it>
+      Josef Vybíral <cornelius@vybiral.info>
+      Hylke Bons <h.bons@student.rug.nl>
+      Ricardo González <rick@jinlabs.com>
+      Lapo Calamandrei <calamandrei@gmail.com>
+      Rodney Dawes <dobey@novell.com>
+      Luca Ferretti <elle.uca@libero.it>
+      Tuomas Kuosmanen <tigert@gimp.org>
+      Andreas Nilsson <nisses.mail@home.se>
+      Jakub Steiner <jimmac@novell.com>
+
+    GNOME icon theme is distributed under the terms of either
+    GNU LGPL v.3 or Creative Commons BY-SA 3.0 license.
+
+=back

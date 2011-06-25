@@ -1,3 +1,11 @@
+2011-06-25  gregoa
+
+	* README, TODO: Add URLs for FOSDEM 2011, DebConf 2010, and 27C3 to
+	  README instead of TODO.
+	* TODO, src/fosdem.sql, src/schedule.en.xml: Remove the remaining
+	  last two fosdem files.
+	* ChangeLog, README, TODO: Update contact info.
+
 2011-06-25  philipp
 
 	* BUGS: Bugs are now reported in the trac system.

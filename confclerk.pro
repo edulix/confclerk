@@ -13,7 +13,7 @@ SUBDIRS = src
 VERSION = 0.5.0
 
 QMAKE_DISTCLEAN += src/bin/*.a
-QMAKE_EXTRA_TARGETS += tarball icon changelog release
+QMAKE_EXTRA_TARGETS += changelog icon man release tarball
 
 changelog.target = ChangeLog
 changelog.commands = \
@@ -23,6 +23,10 @@ changelog.CONFIG = phony
 icon.target = data/$${TARGET}.png
 icon.commands = convert data/$${TARGET}.svg data/$${TARGET}.png
 icon.depends = data/$${TARGET}.svg
+
+man.target = data/$${TARGET}.1
+man.commands = pod2man --utf8 --center=\"Offlince conference scheduler\" --release=\"Version $${VERSION}\" data/$${TARGET}.pod > data/$${TARGET}.1
+man.depends = data/$${TARGET}.pod
 
 release.depends = tarball
 
@@ -37,4 +41,4 @@ tarball.commands = \
 		$${TARGET}-$${VERSION}/Makefile ; \
 	tar -cz --exclude=.svn -f $$tarball.target $${TARGET}-$${VERSION} ; \
 	$(DEL_FILE) -r $${TARGET}-$${VERSION}
-tarball.depends = changelog icon distclean
+tarball.depends = changelog icon man distclean
