@@ -1,5 +1,8 @@
 2011-06-25  gregoa
 
+	* TODO: Shorten TODO.
+	* ChangeLog, confclerk.pro, data/confclerk.pod: Create a simple man
+	  page.
 	* README, TODO: Add URLs for FOSDEM 2011, DebConf 2010, and 27C3 to
 	  README instead of TODO.
 	* TODO, src/fosdem.sql, src/schedule.en.xml: Remove the remaining
