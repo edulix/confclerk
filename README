@@ -102,3 +102,10 @@ Philipp Spitzer, gregor herrmann
 Toastfreeware
 <toast+confclerk@toastfreeware.priv.at>
 http://www.toastfreeware.priv.at/confclerk/
+
+
+Tested pentabarf instances:
+
+- FOSDEM (2011): http://fosdem.org/schedule/xml
+- DebConf (2010): http://penta.debconf.org/dc10_schedule/schedule.en.xml
+- 27C3: http://events.ccc.de/congress/2010/Fahrplan/schedule.en.xml
