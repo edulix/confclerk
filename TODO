@@ -1,6 +1,3 @@
-FOSDEM specifics (cleanup):
-- schedule.xml, fosdem.sql
-
 other:
 - .pro: maybe play with install target
 - manpage
