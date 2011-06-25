@@ -1,6 +1,1 @@
-other:
-- .pro: maybe play with install target
-- manpage
-  ~/.local/share/data/Toastfreeware/ConfClerk/ConfClerk.sqlite
-  ~/.config/Toastfreeware/ConfClerk.conf
-- NEWS
+- .pro: maybe add an install target
