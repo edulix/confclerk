@@ -1,3 +1,11 @@
+2011-06-25  philipp
+
+	* BUGS: Bugs are now reported in the trac system.
+
+2011-06-24  gregoa
+
+	* BUGS, ChangeLog: Mark bug 3 as fixed.
+
 2011-06-24  philipp
 
 	* src/gui/searchhead.cpp: Enter or return triggers the search now
