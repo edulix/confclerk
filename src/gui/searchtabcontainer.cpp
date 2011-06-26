@@ -86,6 +86,8 @@ void SearchTabContainer::searchButtonClicked()
     QString keyword = searchHeader->searchEdit->text();
 
     int confId = Conference::activeConference();
+    if (confId == -1) return;
+
     SqlEngine::searchEvent( confId, columns, keyword );
 
     QDate startDate = Conference::getById(confId).start();

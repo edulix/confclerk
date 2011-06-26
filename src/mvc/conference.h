@@ -35,7 +35,7 @@ public:
 public:
     static Conference getById(int id);
     static QList<Conference> getAll();
-    static int activeConference();
+    static int activeConference(); ///< returns -1 if no conference is active
     static void deleteConference(int id);
 
 public:
