@@ -83,8 +83,7 @@ void SearchTabContainer::searchButtonClicked()
     if( searchHeader->searchRoom->isChecked() )
         columns["ROOM"] = "name";
 
-    QString keyword = searchHeader->searchEdit->text().replace( QString("%"), QString("\\%") );
-    //qDebug() << "\nKeyword to search: " << keyword;
+    QString keyword = searchHeader->searchEdit->text();
 
     int confId = Conference::activeConference();
     SqlEngine::searchEvent( confId, columns, keyword );

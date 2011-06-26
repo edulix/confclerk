@@ -309,7 +309,7 @@ int SqlEngine::searchEvent(int aConferenceId, const QHash<QString,QString> &aCol
     // DROP
     execQuery( db, "DROP TABLE IF EXISTS SEARCH_EVENT");
     // CREATE
-    execQuery( db, "CREATE TEMP TABLE SEARCH_EVENT ( xid_conference INTEGER  NOT NULL, id INTEGER NOT NULL )");
+    execQuery( db, "CREATE TABLE SEARCH_EVENT ( xid_conference INTEGER  NOT NULL, id INTEGER NOT NULL )");
     // INSERT
     QString sql = QString("INSERT INTO SEARCH_EVENT ( xid_conference, id ) "
                 "SELECT EVENT.xid_conference, EVENT.id FROM EVENT ");
