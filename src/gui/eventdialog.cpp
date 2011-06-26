@@ -44,7 +44,10 @@ EventDialog::EventDialog(const int &aEventId, QWidget *aParent)
     persons->setText(event.persons().join(" and "));
     abstract->setText(event.abstract());
     description->setText(event.description());
-    links->setText(static_cast<QStringList>(event.links().values()).join("\n"));
+    QStringList linksText = static_cast<QStringList>(event.links().values());
+    for (QStringList::iterator linkIterator = linksText.begin(); linkIterator != linksText.end(); ++linkIterator)
+        *linkIterator = QString("<a href=\"%1\">%1</a>").arg(*linkIterator);
+    links->setText(linksText.join("<br/>"));
 
     connect(favouriteButton, SIGNAL(clicked()), SLOT(favouriteClicked()));
     connect(alarmButton, SIGNAL(clicked()), SLOT(alarmClicked()));
