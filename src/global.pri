@@ -3,6 +3,10 @@
 # include this file in each "*.pro" file, where it's needed
 # USAGE: include(./global.pri)
 
+# VERSION
+VERSION = 0.5.0
+DEFINES += VERSION=\\\"$$VERSION\\\"
+
 # Define 'MAEMO' specific CONFIG/DEFINE
 # To handle 'MAEMO' specific soruces/code
 DISTRO = $$system(cat /etc/issue)

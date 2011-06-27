@@ -193,6 +193,13 @@
                </widget>
               </item>
               <item>
+               <widget class="QLabel" name="labelVersion">
+                <property name="text">
+                 <string>Version %1</string>
+                </property>
+               </widget>
+              </item>
+              <item>
                <widget class="QLabel" name="spacer">
                 <property name="text">
                  <string/>

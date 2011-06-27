@@ -3,14 +3,15 @@
 QMAKEVERSION = $$[QMAKE_VERSION]
 ISQT4 = $$find(QMAKEVERSION, ^[2-9])
 isEmpty( ISQT4 ) {
-error("Use the qmake include with Qt4.4 or greater, on Debian that is
-qmake-qt4");
+	error("Use the qmake include with Qt4.4 or greater, on Debian that is qmake-qt4");
 }
 
 TEMPLATE = subdirs
 SUBDIRS = src
 
-VERSION = 0.5.0
+# The global.pri defines the VERSION of the project
+include(src/global.pri)
+
 
 QMAKE_DISTCLEAN += src/bin/*.a
 QMAKE_EXTRA_TARGETS += changelog icon man release tarball

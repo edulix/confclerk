@@ -43,6 +43,7 @@ int main(int argc, char *argv[])
     // needed by QDesktopServices
     QCoreApplication::setOrganizationName("Toastfreeware");
     QCoreApplication::setApplicationName("ConfClerk");
+    QCoreApplication::setApplicationVersion(VERSION);
  
     SqlEngine::initialize(); // creates "SQLITE" DB connection
 
