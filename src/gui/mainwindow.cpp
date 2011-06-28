@@ -69,10 +69,12 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     if(!AppSettings::contains("proxyIsDirectConnection"))
         AppSettings::setDirectConnection(true);
 
+    /*
     if(AppSettings::isDirectConnection())
     {
         qDebug() << "Setting-up proxy: " << AppSettings::proxyAddress() << ":" << AppSettings::proxyPort();
     }
+    */
     QNetworkProxy proxy(
             AppSettings::isDirectConnection() ? QNetworkProxy::NoProxy : QNetworkProxy::HttpProxy,
             AppSettings::proxyAddress(),
@@ -221,7 +223,6 @@ void MainWindow::setup()
     SettingsDialog dialog;
     dialog.exec();
 
-    qDebug() << "Setting-up proxy: " << AppSettings::proxyAddress() << ":" << AppSettings::proxyPort();
     QNetworkProxy proxy(
             AppSettings::isDirectConnection() ? QNetworkProxy::NoProxy : QNetworkProxy::HttpProxy,
             AppSettings::proxyAddress(),
@@ -278,7 +279,6 @@ void MainWindow::networkQueryFinished(QNetworkReply *aReply)
     }
     else
     {
-        qDebug() << __PRETTY_FUNCTION__ << ": have data";
         importData(aReply->readAll(), aReply->url().toEncoded());
     }
 }
@@ -290,7 +290,6 @@ void MainWindow::importData(const QByteArray &aData, const QString& url)
 
 void MainWindow::importFromNetwork(const QString& url)
 {
-    qDebug() << __PRETTY_FUNCTION__;
     QNetworkRequest request;
     request.setUrl(QUrl(url));
 
@@ -300,7 +299,6 @@ void MainWindow::importFromNetwork(const QString& url)
 
 void MainWindow::importFromFile(const QString& filename)
 {
-    qDebug() << __PRETTY_FUNCTION__;
     QFile file(filename);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {    
         static const QString format("Cannot read \"%1\": error %2");

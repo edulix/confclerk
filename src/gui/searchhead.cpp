@@ -40,6 +40,5 @@ SearchHead::~SearchHead()
 
 void SearchHead::searchButtonClicked()
 {
-    // qDebug() << "SearchHead::searchButtonClicked()";
     emit( searchClicked() );
 }

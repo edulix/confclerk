@@ -198,7 +198,6 @@ void ConferenceEditor::showParsingProgress(int progress)
 
 void ConferenceEditor::importFinished(const QString& title)
 {
-    qDebug() << __PRETTY_FUNCTION__ << title;
     addBtn->show();
     // removeItem should be shown later, but it takes some time,
     // and not looks good

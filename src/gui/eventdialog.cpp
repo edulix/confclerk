@@ -86,8 +86,6 @@ void EventDialog::favouriteClicked()
         conflicts = Event::conflictEvents(event.id(),Conference::activeConference());
     }
 
-    qDebug() << " FAVOURITE [" << event.id() << "] -> " << event.isFavourite();
-
     // have to emit 'eventHasChanged' signal on all events in conflict
     for(int i=0; i<conflicts.count(); i++)
         emit(eventHasChanged(conflicts[i].id()));
@@ -120,11 +118,9 @@ void EventDialog::alarmClicked()
         // add alarm to the 'alarmd'
         Alarm alarm;
         int cookie = alarm.addAlarm(event.id(),QDateTime::currentDateTime().addSecs(10));
-        qDebug() << "cookie: " << cookie;
 #endif /* MAEMO */
     }
     event.update("alarm");
-    qDebug() << " ALARM [" << event.id() << "] -> " << event.hasAlarm();
     // since the Alarm icon has changed, update TreeView accordingly
     // all TreeViews have to listen on this signal
     emit(eventHasChanged(event.id()));

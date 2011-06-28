@@ -76,8 +76,6 @@ bool TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
                     event.setFavourite(true);
                 event.update("favourite");
 
-                qDebug() << " FAVOURITE [" << qVariantValue<QString>(aIndex.data()) << "] -> " << event.isFavourite();
-
                 if(event.isFavourite())
                 {
                     // event has became 'favourite' and so 'conflicts' list may have changed
@@ -118,11 +116,9 @@ bool TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
                     Alarm alarm;
                     //int cookie = alarm.addAlarm(event.id(),QDateTime::currentDateTime().addSecs(10)); // testing
                     int cookie = alarm.addAlarm(event.id(),event.start().addSecs(-15*60)); // 15 minutes before real start
-                    qDebug() << "cookie: " << cookie;
 #endif /* MAEMO */
                 }
                 event.update("alarm");
-                qDebug() << " ALARM [" << qVariantValue<QString>(aIndex.data()) << "] -> " << event.hasAlarm();
                 // since the Alarm icon has changed, update TreeView accordingly
                 // all TreeViews have to listen on this signal
                 emit(eventHasChanged(event.id()));
@@ -132,7 +128,6 @@ bool TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
         case Delegate::MapControl:
             {
                 // handle Alarm Control clicked
-                qDebug() << "MAP CLICKED: " << qVariantValue<QString>(aIndex.data());
                 emit(requestForMap(aIndex));
                 handled = true;
             }
@@ -140,7 +135,6 @@ bool TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
         case Delegate::WarningControl:
         {
 
-            qDebug() << "WARNING CLICKED: " << qVariantValue<QString>(aIndex.data());
             emit(requestForConflicts(aIndex));
             handled = true;
         }

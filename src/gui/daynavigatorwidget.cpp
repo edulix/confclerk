@@ -42,7 +42,6 @@ void DayNavigatorWidget::setDates(const QDate &aStartDate, const QDate &aEndDate
 {
     Q_ASSERT(aStartDate<=aEndDate);
 
-    //qDebug() << "DayNavigatorWidget::setDates(): " << aStartDate << ", " << aEndDate;
     mStartDate = aStartDate;
     mEndDate = aEndDate;
     mCurDate = aStartDate;
@@ -66,7 +65,6 @@ void DayNavigatorWidget::setDates(const QDate &aStartDate, const QDate &aEndDate
 
 void DayNavigatorWidget::prevDayButtonClicked()
 {
-    //qDebug() << mStartDate << ":" << mCurDate << ":" << mEndDate;
     if(mCurDate>mStartDate)
     {
         mCurDate = mCurDate.addDays(-1);
@@ -88,7 +86,6 @@ void DayNavigatorWidget::prevDayButtonClicked()
 
 void DayNavigatorWidget::nextDayButtonClicked()
 {
-    //qDebug() << mStartDate << ":" << mCurDate << ":" << mEndDate;
     if(mCurDate<mEndDate)
     {
         mCurDate = mCurDate.addDays(1);

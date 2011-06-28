@@ -132,8 +132,6 @@ void SqlEngine::addConferenceToDB(QHash<QString,QString> &aConference)
 
 void SqlEngine::addEventToDB(QHash<QString,QString> &aEvent)
 {
-    //LOG_DEBUG(QString("Adding event '%1' to DB").arg(*aEvent));
-
     QSqlDatabase db = QSqlDatabase::database();
 
     if (db.isValid() && db.isOpen())
@@ -147,18 +145,15 @@ void SqlEngine::addEventToDB(QHash<QString,QString> &aEvent)
         {
             track = Track::retrieveByName(conference, name);
             trackId = track.id();
-            /*qDebug() << QString("DEBUG: Track %1 in DB").arg(name);*/
         }
         catch (OrmNoObjectException &e) {
             track.setConference(conference);
             track.setName(name);
             trackId = track.insert();
-            /*qDebug() << QString("DEBUG: Track %1 added to DB").arg(name);*/
         }
         QDateTime startDateTime;
         startDateTime.setTimeSpec(Qt::UTC);
         startDateTime = QDateTime(QDate::fromString(aEvent["date"],DATE_FORMAT),QTime::fromString(aEvent["start"],TIME_FORMAT),Qt::UTC);
-        // qDebug() << "startDateTime: " << startDateTime.toString();
 
         bool event_exists = false;
         {
@@ -275,7 +270,6 @@ void SqlEngine::addRoomToDB(QHash<QString,QString> &aRoom)
         query.bindValue(":event_id", aRoom["event_id"]);
         query.bindValue(":room_id", aRoom["id"]);
         if (!query.exec()) qDebug() << "Could not 'execute insert into event_room' query:" << query.lastError();
-        //LOG_AUTOTEST(query);
     }
 }
 
@@ -293,7 +287,6 @@ void SqlEngine::addLinkToDB(QHash<QString,QString> &aLink)
         query.bindValue(":name", aLink["name"]);
         query.bindValue(":url", aLink["url"]);
         if (!query.exec()) qDebug() << "Error executing 'insert into link' query: " << query.lastError();
-        //LOG_AUTOTEST(query);
     }
 }
 
@@ -387,23 +380,16 @@ void SqlEngine::deleteConference(int id)
 
 bool SqlEngine::execQuery(QSqlDatabase &aDatabase, const QString &aQuery)
 {
-    //qDebug() << "\nSQL: " << aQuery;
-
     QSqlQuery sqlQuery(aDatabase);
     if( !sqlQuery.exec(aQuery) ){
        qDebug() << "SQL ERR: " << sqlQuery.lastError().number() << ", " << sqlQuery.lastError().text();
        return false;
     }
-    else{
-       //qDebug() << "SQL OK.\n";
-       return true;
-    }
+    return true;
 }
 
 bool SqlEngine::execQueryWithParameter(QSqlDatabase &aDatabase, const QString &aQuery, const QHash<QString, QVariant>& params)
 {
-    qDebug() << "SQL:" << aQuery << "params:" << params;
-
     QSqlQuery sqlQuery(aDatabase);
     sqlQuery.prepare(aQuery);
     foreach (QString param_key, params.keys()) {
@@ -413,10 +399,7 @@ bool SqlEngine::execQueryWithParameter(QSqlDatabase &aDatabase, const QString &a
        qDebug() << "SQL ERR: " << sqlQuery.lastError().number() << ", " << sqlQuery.lastError().text();
        return false;
     }
-    else{
-       //qDebug() << "SQL OK.\n";
-       return true;
-    }
+    return true;
 }
 
 void SqlEngine::checkConferenceMap(QSqlDatabase &aDatabase)

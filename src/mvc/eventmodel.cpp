@@ -200,7 +200,6 @@ int EventModel::rowCount (const QModelIndex & parent) const
 
 void EventModel::clearModel()
 {
-    // qDebug() << __PRETTY_FUNCTION__ << this << mEvents.count();
     mGroups.clear();
     mEvents.clear();
     mParents.clear();
@@ -214,7 +213,6 @@ void EventModel::loadEvents(const QDate &aDate, int aConferenceId)
     // check for existence of the conference in the DB
     if(Conference::getAll().count())
     {
-        qDebug() << "Loading Conference Data: [" << Conference::getById(aConferenceId).title() << "] " << aDate;
         mEvents = Event::getByDate(QDate(aDate.year(), aDate.month(), aDate.day()), aConferenceId, "start");
     }
     createTimeGroups();
@@ -226,7 +224,6 @@ void EventModel::loadFavEvents(const QDate &aDate, int aConferenceId)
     // check for existence of the conference in the DB
     if(Conference::getAll().count())
     {
-        qDebug() << "Loading FAV Conference Data: [" << Conference::getById(aConferenceId).title() << "] " << aDate;
         mEvents = Event::getFavByDate(QDate(aDate.year(), aDate.month(), aDate.day()), aConferenceId);
     }
     createTimeGroups();
@@ -238,7 +235,6 @@ int EventModel::loadSearchResultEvents(const QDate &aDate, int aConferenceId)
     // check for existence of the conference in the DB
     if(Conference::getAll().count())
     {
-        // qDebug() << "Loading search result Data: [" << Conference::getById(aConferenceId).title() << "] " << aDate;
         try{
             mEvents = Event::getSearchResultByDate(QDate(aDate.year(), aDate.month(), aDate.day()), aConferenceId, "start");
         }
@@ -261,7 +257,6 @@ void EventModel::loadEventsByTrack(const QDate &aDate, int aConferenceId)
     clearModel();
     if (Conference::getAll().count())
     {
-        qDebug() << "Loading Conference Data (by Track): [" << Conference::getById(aConferenceId).title() << "] " << aDate;
         mEvents = Event::getByDate(QDate(aDate.year(), aDate.month(), aDate.day()), aConferenceId, "xid_track, start");
     }
     createTrackGroups();
@@ -272,7 +267,6 @@ void EventModel::loadEventsByRoom(const QDate &aDate, int aConferenceId)
     clearModel();
     if (Conference::getAll().count())
     {
-        qDebug() << "Loading Conference Data (by Room): [" << Conference::getById(aConferenceId).title() << "] " << aDate;
         mEvents = Event::getByDateAndRoom(QDate(aDate.year(), aDate.month(), aDate.day()), aConferenceId);
     }
     createRoomGroups();
@@ -284,7 +278,6 @@ void EventModel::loadNowEvents(int aConferenceId)
     // check for existence of the conference in the DB
     if(Conference::getAll().count())
     {
-        qDebug() << "Loading Conference Data: [" << Conference::getById(aConferenceId).title() << "] scheduled NOW";
         mEvents = Event::nowEvents(aConferenceId, "start");
     }
     createTimeGroups();
@@ -296,7 +289,6 @@ void EventModel::loadConflictEvents(int aEventId, int aConferenceId)
     // check for existence of the conference in the DB
     if(Conference::getAll().count())
     {
-        qDebug() << "Loading Conference Data: [" << Conference::getById(aConferenceId).title() << "] in conflict with " << aEventId;
         mEvents = Event::conflictEvents(aEventId, aConferenceId);
     }
     createTimeGroups();
