@@ -2,7 +2,7 @@
 Version=1.0
 Type=Application
 Name=ConfClerk
-GenericName=Offline conference scheduler
+GenericName=Offline conference schedule application
 Exec=confclerk
 Icon=confclerk
 Categories=Office;Calendar;

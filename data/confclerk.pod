@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-ConfClerk - offline conference scheduler
+ConfClerk - offline conference schedule application
 
 =head1 SYNOPSIS
 
