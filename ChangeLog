@@ -1,5 +1,44 @@
+2011-06-28  philipp
+
+	* src/gui/conferenceeditor.cpp, src/gui/daynavigatorwidget.cpp,
+	  src/gui/eventdialog.cpp, src/gui/mainwindow.cpp,
+	  src/gui/searchhead.cpp, src/mvc/eventmodel.cpp,
+	  src/mvc/treeview.cpp, src/orm/ormrecord.h, src/sql/sqlengine.cpp:
+	  Removed many of the qDebug() output lines (see ticket #10).
+
+2011-06-28  gregoa
+
+	* README, data/confclerk.pod: add copyright/license for exchanged
+	  icons
+
+2011-06-28  philipp
+
+	* src/icons/emblem-new-off.png, src/icons/emblem-new.blend,
+	  src/icons/emblem-new.png: Replaced the star icons with self-made
+	  versions (Blender 2.57b) that are better distinguishable. Closes
+	  ticket #8.
+
+2011-06-27  philipp
+
+	* confclerk.pro, src/app/main.cpp, src/global.pri,
+	  src/gui/about.ui, src/gui/mainwindow.cpp: Included application
+	  version in the about dialog. This closes ticket #9.
+
+2011-06-26  philipp
+
+	* src/gui/eventdialog.cpp, src/gui/eventdialog.ui: Links in events
+	  are now clickable (resolves ticket #4).
+	* src/gui/searchtabcontainer.cpp, src/mvc/conference.h: Searching
+	  without active conference doesn't give an error message anymore
+	  (resolves ticket #7).
+	* src/gui/searchtabcontainer.cpp, src/sql/sqlengine.cpp: The '%'
+	  character doesn't have to be escaped anymore.
+	* src/gui/mainwindow.ui: The window title was still "FOSDEM
+	  Schedule".
+
 2011-06-25  gregoa
 
+	* ChangeLog, NEWS: Add entries to NEWS file.
 	* TODO: Shorten TODO.
 	* ChangeLog, confclerk.pro, data/confclerk.pod: Create a simple man
 	  page.
