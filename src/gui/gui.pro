@@ -28,7 +28,7 @@ maemo {
         -lqalarm
     INCLUDEPATH += ../alarm
     DEPENDPATH += ../alarm
-    TARGETDEPS += $$DESTDIR/libqalarm.a
+    POST_TARGETDEPS += $$DESTDIR/libqalarm.a
 }
 
 # A shamelessly long list of sources, headers and forms.

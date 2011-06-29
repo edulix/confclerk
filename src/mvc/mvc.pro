@@ -18,7 +18,7 @@ maemo {
         -lalarm
     INCLUDEPATH += ../alarm
     DEPENDPATH += ../alarm
-    TARGETDEPS += $$DESTDIR/libqalarm.a
+    POST_TARGETDEPS += $$DESTDIR/libqalarm.a
 }
 HEADERS += event.h \
     conference.h \

@@ -16,7 +16,7 @@ maemo {
     LIBS += -L$$DESTDIR -lqalarm -lalarm
     INCLUDEPATH += ../alarm
     DEPENDPATH +=  ../alarm
-    TARGETDEPS += $$DESTDIR/libqalarm.a
+    POST_TARGETDEPS += $$DESTDIR/libqalarm.a
     HEADERS += alarmdbus.h \
         alarmdbusadaptorp.h
     SOURCES += alarmdbus.cpp \

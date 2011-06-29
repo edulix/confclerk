@@ -8,7 +8,7 @@ QT += sql
 LIBS += -L$$DESTDIR -lgui -lmvc
 INCLUDEPATH += ../gui ../mvc ../orm
 DEPENDPATH += . ../gui ../mvc ../orm
-TARGETDEPS += $$DESTDIR/libmvc.a $$DESTDIR/libgui.a $$DESTDIR/liborm.a
+POST_TARGETDEPS += $$DESTDIR/libmvc.a $$DESTDIR/libgui.a $$DESTDIR/liborm.a
 
 SOURCES += main.cpp \
     mvc/EventTest.cpp
