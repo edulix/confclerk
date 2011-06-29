@@ -1,6 +1,9 @@
 This is the NEWS file for ConfClerk. ConfClerk is the successor of
 fosdem-schedule; cf. docs/fosdem-schedule for the historic documentation.
 
+Version 0.5.1
+//! TODO
+
 Version 0.5.0
 * First release of ConfClerk as the fosdem-schedule successor.
 * Continue the multi-conference feature, make sure persons/tracks/rooms are

@@ -1,3 +1,7 @@
+2011-06-29  gregoa
+
+	* ChangeLog: Update changelog.
+
 2011-06-28  philipp
 
 	* src/gui/conferenceeditor.cpp, src/gui/daynavigatorwidget.cpp,
