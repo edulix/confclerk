@@ -51,7 +51,6 @@ public:
     int timeslotDuration() const { return value("timeslot_duration").toInt(); } // in seconds
     bool isActive() const { return value("active").toBool(); }
     QString url() const { return stringFromNullable(value("url")); }
-    QString map() const { return stringFromNullable(value("map")); }
 
     #if 0
     void setId(int id) { setValue("id", id); }

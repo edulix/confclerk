@@ -35,14 +35,6 @@ public:
     void setId(int id) { setValue("id", id); }
     QString name() const { return value("name").toString(); }
     void setName(const QString & type) { setValue("name", type); }
-    // TODO: make naming consistent - either "picture" or "map"
-    QVariant map() const { return value("picture"); }
-    bool hasMap() const
-    {
-        // empty strings also treasted as NULL,
-        // as storing NULLs requires rewrite of storing code and DB scheme
-        return !isNull("picture") and !value("picture").toString().isEmpty();
-    }
     int insert();
 public:
     static QList<Room> getAll();

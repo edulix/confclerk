@@ -149,8 +149,6 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         else
             mControls[AlarmControlOff]->paint(painter, option.rect);
 #endif
-        if (event->room()->hasMap())
-            mControls[MapControl]->paint(painter, option.rect);
         if(event->hasTimeConflict())
             mControls[WarningControl]->paint(painter, option.rect);
 
@@ -375,19 +373,11 @@ void Delegate::defineControls()
     // off
     mControls.insert(AlarmControlOff,
                     new Control(AlarmControlOff, QString(":icons/appointment-soon-off.png"), mControls[FavouriteControlOff]));
-
-    // MAP ICON
-    mControls.insert(MapControl,
-                    new Control(MapControl, QString(":icons/applications-internet.png"), mControls[AlarmControlOn]));
-#else
-    // MAP ICON
-    mControls.insert(MapControl,
-                    new Control(MapControl, QString(":icons/applications-internet.png"), mControls[FavouriteControlOn]));
 #endif
 
     // WARNING ICON
     mControls.insert(WarningControl,
-                    new Control(WarningControl, QString(":icons/dialog-warning.png"), mControls[MapControl]));
+                    new Control(WarningControl, QString(":icons/dialog-warning.png"), mControls[FavouriteControlOn]));
 }
 
 bool Delegate::isPointFromRect(const QPoint &aPoint, const QRect &aRect) const

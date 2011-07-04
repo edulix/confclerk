@@ -43,7 +43,6 @@ FORMS += searchhead.ui \
     eventdialog.ui \
     conflictsdialog.ui \
     tabcontainer.ui \
-    mapwindow.ui \
     settingsdialog.ui \
     conferenceeditor.ui \
     urlinputdialog.ui
@@ -61,7 +60,6 @@ HEADERS += roomstabcontainer.h \
     daynavigatorwidget.h \
     eventdialog.h \
     tabcontainer.h \
-    mapwindow.h \
     settingsdialog.h \
     conferenceeditor.h \
     urlinputdialog.h
@@ -79,7 +77,6 @@ SOURCES += roomstabcontainer.cpp \
     daynavigatorwidget.cpp \
     eventdialog.cpp \
     tabcontainer.cpp \
-    mapwindow.cpp \
     settingsdialog.cpp \
     conferenceeditor.cpp \
     urlinputdialog.cpp

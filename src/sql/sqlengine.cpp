@@ -67,8 +67,6 @@ QString SqlEngine::login(const QString &aDatabaseType, const QString &aDatabaseN
         database.open();
     }
 
-    checkConferenceMap(database);
-
     //LOG_INFO(QString("Opening '%1' database '%2'").arg(aDatabaseType).arg(aDatabaseName));
 
     return result ? QString() : database.lastError().text();
@@ -256,10 +254,9 @@ void SqlEngine::addRoomToDB(QHash<QString,QString> &aRoom)
         else // ROOM record doesn't exist yet, need to create it
         {
             query = QSqlQuery(db);
-            query.prepare("INSERT INTO ROOM (xid_conference,name,picture) VALUES (:xid_conference, :name, :picture)");
+            query.prepare("INSERT INTO ROOM (xid_conference,name,picture) VALUES (:xid_conference, :name, '')");
             query.bindValue(":xid_conference", aRoom["conference_id"]);
             query.bindValue(":xid_name", aRoom["name"]);
-            query.bindValue(":xid_picture", aRoom["picture"]);
             if (!query.exec()) qDebug() << "Could not execute 'insert into room ...' query." << query.lastError();
             aRoom["id"]= query.lastInsertId().toString(); // 'id' is assigned automatically
             //LOG_AUTOTEST(query);
@@ -400,14 +397,4 @@ bool SqlEngine::execQueryWithParameter(QSqlDatabase &aDatabase, const QString &a
        return false;
     }
     return true;
-}
-
-void SqlEngine::checkConferenceMap(QSqlDatabase &aDatabase)
-{
-    QSqlQuery sqlQuery(aDatabase);
-    sqlQuery.prepare("SELECT map FROM conference");
-    if (!sqlQuery.exec()) {
-        qWarning() << "column conference.map is missing; adding";
-        execQuery(aDatabase, "ALTER TABLE conference ADD COLUMN map VARCHAR");
-    }
 }

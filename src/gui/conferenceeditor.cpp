@@ -21,7 +21,6 @@
 
 #include "conferencemodel.h"
 #include "urlinputdialog.h"
-#include "mapwindow.h"
 #include "errormessage.h"
 
 #include <QInputDialog>
@@ -50,7 +49,6 @@ ConferenceEditor::ConferenceEditor(ConferenceModel* model, QWidget* parent)
     connect(removeBtn, SIGNAL(clicked()), SLOT(removeClicked()));
     connect(changeUrl, SIGNAL(clicked()), SLOT(changeUrlClicked()));
     connect(refreshBtn, SIGNAL(clicked()), SLOT(refreshClicked()));
-    connect(showMapButton, SIGNAL(clicked()), SLOT(conferenceMapClicked()));
     connect(buttonBox, SIGNAL(rejected()), SLOT(close()));
 
     // it's OK to emit selection signals here
@@ -96,14 +94,6 @@ void ConferenceEditor::itemSelected(const QModelIndex& current, const QModelInde
                 conf.start().toString("dd-MM-yyyy")
                 + ", " +
                 conf.end().toString("dd-MM-yyyy"));
-
-        QString map = conf.map();
-        if (map.isEmpty()) {
-            showMapButton->hide();
-        } else {
-            showMapButton->show();
-        }
-
         conferenceInfo->setCurrentIndex(0);
         removeBtn->show();
     }
@@ -219,18 +209,3 @@ void ConferenceEditor::importFinished(const QString& title)
     itemSelected(QModelIndex(), QModelIndex());
 }
 
-void ConferenceEditor::conferenceMapClicked()
-{
-    Conference conf = Conference::getById(selected_id);
-    QString mapPath = conf.map();
-    if(mapPath.isEmpty() or !QFile::exists(mapPath)) {
-        error_message("Map is not available");
-        return;
-    }
-
-    QString roomName;
-
-    QPixmap map(mapPath);
-    MapWindow window(map,roomName,this);
-    window.exec();
-}

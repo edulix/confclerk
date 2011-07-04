@@ -64,7 +64,6 @@ private slots:
     void removeClicked();
     void changeUrlClicked();
     void refreshClicked();
-    void conferenceMapClicked();
 
 private:
     ConferenceModel* model;

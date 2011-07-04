@@ -125,13 +125,6 @@ bool TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
                 handled = true;
             }
             break;
-        case Delegate::MapControl:
-            {
-                // handle Alarm Control clicked
-                emit(requestForMap(aIndex));
-                handled = true;
-            }
-        break;
         case Delegate::WarningControl:
         {
 

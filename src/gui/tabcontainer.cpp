@@ -27,7 +27,6 @@
 #include <delegate.h>
 
 #include "eventdialog.h"
-#include "mapwindow.h"
 #include "room.h"
 #include "errormessage.h"
 
@@ -49,7 +48,6 @@ TabContainer::TabContainer(QWidget *aParent)
 
     connect(treeView, SIGNAL(eventHasChanged(int,bool)), SIGNAL(eventHasChanged(int,bool)));
     connect(treeView, SIGNAL(clicked(const QModelIndex &)), SLOT(itemClicked(const QModelIndex &)));
-    connect(treeView, SIGNAL(requestForMap(const QModelIndex &)), SLOT(displayMap(const QModelIndex &)));
     connect(treeView, SIGNAL(requestForConflicts(const QModelIndex &)), SLOT(displayConflicts(const QModelIndex &)));
 
     // day navigator is hidden by default
@@ -80,28 +78,6 @@ void TabContainer::itemClicked(const QModelIndex &aIndex)
     connect(&dialog, SIGNAL(eventHasChanged(int,bool)), this, SIGNAL(eventHasChanged(int,bool)));
     dialog.exec();
     disconnect(&dialog, SIGNAL(eventHasChanged(int,bool)), this, SIGNAL(eventHasChanged(int,bool)));
-}
-
-void TabContainer::displayMap(const QModelIndex &aIndex)
-{
-    Event *event = static_cast<Event*>(aIndex.internalPointer());
-
-    QVariant mapPathV = event->room()->map();
-    QString mapPath;
-    if (!mapPathV.isValid()) {
-        error_message("No map for this room");
-        return;
-    } else {
-        mapPath = mapPathV.toString();
-        if (!QFile::exists(mapPath)) {
-            error_message("Map for this room not found: " + mapPath);
-            return;
-        }
-    }
-
-    QPixmap map(mapPath);
-    MapWindow window(map, event->room()->name(),this);
-    window.exec();
 }
 
 void TabContainer::displayConflicts(const QModelIndex &aIndex)

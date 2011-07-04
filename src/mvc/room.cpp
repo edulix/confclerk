@@ -21,13 +21,12 @@
 #include "room.h"
 
 QString const Room::sTableName = QString("room");
-int const Room::sTableColCount = 3;
+int const Room::sTableColCount = 2;
 const QString Room::NAME = "name";
 
 QSqlRecord const Room::sColumns = Room::toRecord(QList<QSqlField>()
     << QSqlField("id", QVariant::Int)
-    << QSqlField(NAME, QVariant::String)
-    << QSqlField("picture", QVariant::String));
+    << QSqlField(NAME, QVariant::String));
 
 Room Room::retrieveByName(QString name)
 {

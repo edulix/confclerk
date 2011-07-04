@@ -216,20 +216,6 @@
              </widget>
             </item>
             <item row="1" column="3">
-             <widget class="QPushButton" name="showMapButton">
-              <property name="text">
-               <string>MAP</string>
-              </property>
-              <property name="icon">
-               <iconset resource="../icons.qrc">
-                <normaloff>:/icons/applications-internet.png</normaloff>:/icons/applications-internet.png</iconset>
-              </property>
-              <property name="flat">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="4">
              <spacer name="horizontalSpacer_4">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
