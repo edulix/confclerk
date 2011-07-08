@@ -313,9 +313,12 @@ int SqlEngine::searchEvent(int aConferenceId, const QHash<QString,QString> &aCol
     }
     sql += QString("WHERE EVENT.xid_conference = %1 AND (").arg( aConferenceId );
 
+    QStringList searchKeywords = aKeyword.split(QRegExp("\\s+"));
     foreach (QString table, aColumns.uniqueKeys()){
         foreach (QString column, aColumns.values(table)){
-            sql += QString("%1.%2 LIKE '\%' || :%1%2 || '\%' OR ").arg( table, column );
+            for (int i=0; i < searchKeywords.count(); i++){
+                 sql += QString("%1.%2 LIKE '\%' || :%1%2 || '\%' OR ").arg( table, column );
+            }
         }
     }
     sql.chop( QString(" OR ").length() );
@@ -325,7 +328,9 @@ int SqlEngine::searchEvent(int aConferenceId, const QHash<QString,QString> &aCol
     query.prepare(sql);
     foreach (QString table, aColumns.uniqueKeys()){
         foreach (QString column, aColumns.values(table)){
-            query.bindValue(QString(":%1%2").arg(table, column), aKeyword );
+            foreach (QString keyword, searchKeywords){
+                query.bindValue(QString(":%1%2").arg(table, column), keyword );
+            }
         }
     }
 
