@@ -302,7 +302,7 @@ int SqlEngine::searchEvent(int aConferenceId, const QHash<QString,QString> &aCol
     execQuery( db, "CREATE TABLE SEARCH_EVENT ( xid_conference INTEGER  NOT NULL, id INTEGER NOT NULL )");
     // INSERT
     QString sql = QString("INSERT INTO SEARCH_EVENT ( xid_conference, id ) "
-                "SELECT EVENT.xid_conference, EVENT.id FROM EVENT ");
+                "SELECT DISTINCT EVENT.xid_conference, EVENT.id FROM EVENT ");
     if( aColumns.contains("ROOM") ){
         sql += "INNER JOIN EVENT_ROOM ON ( EVENT.xid_conference = EVENT_ROOM.xid_conference AND EVENT.id = EVENT_ROOM.xid_event ) ";
         sql += "INNER JOIN ROOM ON ( EVENT_ROOM.xid_room = ROOM.id ) ";
