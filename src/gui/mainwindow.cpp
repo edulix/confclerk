@@ -135,7 +135,7 @@ void MainWindow::aboutApp()
     QDialog dialog(this);
     Ui::AboutDialog ui;
     ui.setupUi(&dialog);
-    ui.labelVersion->setText(ui.labelVersion->text().arg(qApp->applicationVersion()));
+    ui.labDescription->setText(ui.labDescription->text().arg(qApp->applicationVersion()));
 #ifdef N810
     dialog.setFixedWidth(width());
 #endif
