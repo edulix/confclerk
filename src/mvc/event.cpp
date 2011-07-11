@@ -220,14 +220,23 @@ void Event::setLinks(const QMap<QString,QString> &aLinks)
     // TODO: implement
 }
 
-QList<Event> Event::getSearchResultByDate(const QDate& date, int conferenceId, QString orderBy)
-{
+QList<Event> Event::getSearchResultByDate(const QDate& date, int conferenceId, QString orderBy) {
+    QList<Event> list;
+
+    // Check whether the temporary table SEARCH_EVENT exists (http://www.sqlite.org/faq.html#q7)
+    QSqlQuery query("SELECT count(*) FROM sqlite_temp_master WHERE type='table' and name='SEARCH_EVENT'");
+    if (!query.exec()) {
+        qDebug() << "SQL Error: " << query.lastError().text();
+        return list;
+    }
+    query.first();
+    QVariant v = query.value(0);
+    if (v.toInt() != 1) return list;
+
     QString strQuery = QString("SELECT %1 FROM EVENT INNER JOIN SEARCH_EVENT USING (xid_conference, id) ").arg(columnsForSelect());
     strQuery += QString("WHERE xid_conference = :conf AND start >= :start AND start < :end ORDER BY %1").arg(orderBy);
-
-    QList<Event> list;
-    QSqlQuery query;
-    try{
+    query = QSqlQuery();
+    try {
         if( !query.prepare( strQuery ) ){
             qDebug() << "QSqlQuery.prepare error";
             throw OrmSqlException( query.lastError().text() );
