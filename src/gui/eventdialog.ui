@@ -116,6 +116,9 @@
                  <property name="openExternalLinks">
                   <bool>true</bool>
                  </property>
+                 <property name="textInteractionFlags">
+                  <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+                 </property>
                 </widget>
                </item>
               </layout>
@@ -156,6 +159,9 @@
                  <property name="openExternalLinks">
                   <bool>true</bool>
                  </property>
+                 <property name="textInteractionFlags">
+                  <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+                 </property>
                 </widget>
                </item>
               </layout>
@@ -195,6 +201,9 @@
                  </property>
                  <property name="openExternalLinks">
                   <bool>true</bool>
+                 </property>
+                 <property name="textInteractionFlags">
+                  <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
                  </property>
                 </widget>
                </item>
@@ -240,7 +249,7 @@
                   <bool>true</bool>
                  </property>
                  <property name="textInteractionFlags">
-                  <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
+                  <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
                  </property>
                 </widget>
                </item>
