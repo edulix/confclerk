@@ -30,7 +30,6 @@
 
 void error_message(const QString& message)
 {
-    QTextStream(stderr) << "ERROR: " << message << "\n";
 #ifdef QT_MAEMO5_LIB
     // by default the message is white on yellow, which is unusable
     // but some html here works
