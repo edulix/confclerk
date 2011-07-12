@@ -313,23 +313,26 @@ int SqlEngine::searchEvent(int aConferenceId, const QHash<QString,QString> &aCol
     }
     sql += QString("WHERE EVENT.xid_conference = %1 AND (").arg( aConferenceId );
 
-    QStringList searchKeywords = aKeyword.split(QRegExp("\\s+"));
-    foreach (QString table, aColumns.uniqueKeys()){
-        foreach (QString column, aColumns.values(table)){
-            for (int i=0; i < searchKeywords.count(); i++){
-                 sql += QString("%1.%2 LIKE '\%' || :%1%2%3 || '\%' OR ").arg(table).arg(column).arg(i);
+    QStringList searchKeywords = aKeyword.trimmed().split(QRegExp("\\s+"));
+    QStringList whereAnd;
+    for (int i=0; i < searchKeywords.count(); i++) {
+        QStringList whereOr;
+        foreach (QString table, aColumns.uniqueKeys()) {
+            foreach (QString column, aColumns.values(table)){
+                 whereOr.append(QString("%1.%2 LIKE '\%' || :%1%2%3 || '\%'").arg(table).arg(column).arg(i));
             }
         }
+        whereAnd.append(whereOr.join(" OR "));
     }
-    sql.chop( QString(" OR ").length() );
+    sql += whereAnd.join(") AND (");
     sql += QString(")");
 
     QSqlQuery query(db);
     query.prepare(sql);
-    foreach (QString table, aColumns.uniqueKeys()){
-        foreach (QString column, aColumns.values(table)){
-            for (int i = 0; i != searchKeywords.size(); ++i) {
-                QString keyword = searchKeywords[i];
+    for (int i = 0; i != searchKeywords.size(); ++i) {
+        QString keyword = searchKeywords[i];
+        foreach (QString table, aColumns.uniqueKeys()) {
+            foreach (QString column, aColumns.values(table)) {
                 query.bindValue(QString(":%1%2%3").arg(table).arg(column).arg(i), keyword );
             }
         }
