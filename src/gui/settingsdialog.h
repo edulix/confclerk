@@ -29,9 +29,10 @@ class SettingsDialog : public QDialog, Ui::SettingsDialog
 public:
     SettingsDialog(QWidget *aParent = NULL);
     ~SettingsDialog() {}
+    void loadDialogData();
+    void saveDialogData();
 private slots:
     void connectionTypeChanged(bool aState);
-    void saveDialogData();
 };
 
 #endif /* PROXYSETTINGSDIALOG_H */  

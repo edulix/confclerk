@@ -221,15 +221,17 @@ void MainWindow::unsetConference()
 void MainWindow::setup()
 {
     SettingsDialog dialog;
-    dialog.exec();
-
-    QNetworkProxy proxy(
-            AppSettings::isDirectConnection() ? QNetworkProxy::NoProxy : QNetworkProxy::HttpProxy,
-            AppSettings::proxyAddress(),
-            AppSettings::proxyPort(),
-            PROXY_USERNAME,
-            PROXY_PASSWD);
-    QNetworkProxy::setApplicationProxy(proxy);
+    dialog.loadDialogData();
+    if (dialog.exec() == QDialog::Accepted) {
+        dialog.saveDialogData();
+        QNetworkProxy proxy(
+                AppSettings::isDirectConnection() ? QNetworkProxy::NoProxy : QNetworkProxy::HttpProxy,
+                AppSettings::proxyAddress(),
+                AppSettings::proxyPort(),
+                PROXY_USERNAME,
+                PROXY_PASSWD);
+        QNetworkProxy::setApplicationProxy(proxy);
+    }
 }
 
 /** Create and run ConferenceEditor dialog, making required connections for it.

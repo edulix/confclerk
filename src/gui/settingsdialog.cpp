@@ -26,23 +26,19 @@ SettingsDialog::SettingsDialog(QWidget *aParent)
     : QDialog(aParent)
 {
     setupUi(this);
+    connect(directConnection, SIGNAL(clicked(bool)), SLOT(connectionTypeChanged(bool)));
+}
 
+
+void SettingsDialog::loadDialogData()
+{
     // deserialize dialog data
     address->setText(AppSettings::proxyAddress());
     port->setValue(AppSettings::proxyPort());
     directConnection->setChecked(AppSettings::isDirectConnection());
-
-    connect(buttonBox, SIGNAL(accepted()), SLOT(saveDialogData()));
-    connect(directConnection, SIGNAL(clicked(bool)), SLOT(connectionTypeChanged(bool)));
-
-    if(directConnection->isChecked())
-        proxyWidget->hide();
+    proxyWidget->setDisabled(directConnection->isChecked());
 }
 
-void SettingsDialog::connectionTypeChanged(bool aState)
-{
-    aState ? proxyWidget->hide() : proxyWidget->show();
-}
 
 void SettingsDialog::saveDialogData()
 {
@@ -50,7 +46,12 @@ void SettingsDialog::saveDialogData()
     AppSettings::setProxyAddress(address->text());
     AppSettings::setProxyPort(port->value());
     AppSettings::setDirectConnection(directConnection->isChecked());
-
-    close();
 }
+
+
+void SettingsDialog::connectionTypeChanged(bool aState)
+{
+    proxyWidget->setDisabled(aState);
+}
+
 
