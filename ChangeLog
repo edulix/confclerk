@@ -1,5 +1,94 @@
+2011-07-13  gregoa
+
+	* NEWS: NEWS entry for 0.5.1 release.
+
+2011-07-13  philipp
+
+	* src/mvc/delegate.cpp: This is just a quick-and-dirty workaround
+	  commit to aviod a drawing problem on maemo. This commit might be
+	  reverted ...
+	* src/gui/searchhead.ui: The speaker is preselected in the search
+	  dialog now.
+	* src/mvc/delegate.cpp: First try to improve the colors (ticket
+	  #13).
+	* src/gui/mainwindow.cpp, src/gui/settingsdialog.cpp,
+	  src/gui/settingsdialog.h, src/gui/settingsdialog.ui: The cancel
+	  button on the settings dialog works now (ticket #14) and the
+	  layout of the settings dialog is stable now (ticket #15).
+	* src/gui/mainwindow.ui: Changed the menu to be non-hierarchical.
+	  Closes ticket #16.
+	* src/gui/daynavigatorwidget.cpp: Changed the placement of the date
+	  label again. Changed the date format to show the day-of-week.
+	* src/gui/daynavigatorwidget.cpp: Replaced "130" by s.width() when
+	  centering the date.
+
+2011-07-12  philipp
+
+	* src/sql/sqlengine.cpp: This commit closes ticket #12. The search
+	  terms are ANDed now and a call to trimmed() before splitting the
+	  search string avoids problems with leading/trailing spaces.
+
+2011-07-11  philipp
+
+	* src/mvc/event.cpp: Before querying the SEARCH_EVENT table, its
+	  existence is checked. Therefore a command line debug error
+	  message is avoided.
+	  
+	  This commit partly fixes ticket #10.
+	* src/gui/errormessage.cpp: Error messages reported with the
+	  function error_essage are no longer writted to std:error because
+	  they are shown to the user anyway. This commit partly resolves
+	  ticket #10.
+	* src/gui/eventdialog.ui: The description and person list of the
+	  event dialog is now selectable so that copy&paste is possible.
+
+2011-07-10  philipp
+
+	* src/gui/about.ui, src/gui/mainwindow.cpp: Tuned the about dialog.
+	* src/gui/conferenceeditor.ui: Minor tuning of the conference
+	  editor. The reload button now has a text on it.
+	* src/sql/sqlengine.cpp: Fixed bug (related to ticket #12): Only
+	  the last search term is used.
+	* src/sql/sqlengine.cpp: Undid changes to sqlengine.cpp I committed
+	  accidentally in r1318.
+
+2011-07-08  gregoa
+
+	* src/sql/sqlengine.cpp: Split search keyword string on whitespace.
+	* src/sql/sqlengine.cpp: Avoid duplicate search results by using
+	  SELECT DISTINCT when filling the SEARCH_EVENT table.
+
+2011-07-05  gregoa
+
+	* README: Add DebConf11 URL to README.
+
+2011-07-04  philipp
+
+	* src/gui/conferenceeditor.ui: Cleaning of the conferenceeditor
+	  dialog.
+	* src/create_tables.sql, src/gui/conferenceeditor.cpp,
+	  src/gui/conferenceeditor.h, src/gui/conferenceeditor.ui,
+	  src/gui/gui.pro, src/gui/mapwindow.cpp, src/gui/mapwindow.h,
+	  src/gui/mapwindow.ui, src/gui/tabcontainer.cpp,
+	  src/gui/tabcontainer.h, src/icons.qrc,
+	  src/icons/applications-internet.png, src/mvc/conference.cpp,
+	  src/mvc/conference.h, src/mvc/delegate.cpp, src/mvc/delegate.h,
+	  src/mvc/room.cpp, src/mvc/room.h, src/mvc/treeview.cpp,
+	  src/mvc/treeview.h, src/sql/schedulexmlparser.cpp,
+	  src/sql/sqlengine.cpp, src/sql/sqlengine.h: Removed the ability
+	  to show "pictures" (maps) of rooms and maps of conferences. The
+	  XML file does not contain picture/map/image information of
+	  conferences or rooms. We left the room.picture definition in the
+	  database SQL because there is no "drop column" in sqlite.
+	* src/gui/mainwindow.ui: Removed the unused status bar.
+
 2011-06-29  gregoa
 
+	* src/app/app.pro, src/gui/gui.pro, src/mvc/mvc.pro,
+	  src/test/test.pro: Some more s;TARGETDEPS;POST_TARGETDEPS;
+	* data/confclerk.desktop, data/confclerk.pod: s;scheduler;schedule
+	  application;
+	* ChangeLog, NEWS, src/global.pri: Bump version
 	* ChangeLog: Update changelog.
 
 2011-06-28  philipp
