@@ -109,20 +109,12 @@ void DayNavigatorWidget::paintEvent(QPaintEvent *aEvent)
 {
     Q_UNUSED(aEvent);
 
-    QString selectedDateStr = mCurDate.toString("MMM dd yyyy");
-
+    QString selectedDateStr = mCurDate.toString("dddd\nyyyy-MM-dd");
     QPainter painter(this);
     painter.save();
-    QRect r = selectedDate->geometry();
-    QRect s = mFontMetrics->boundingRect(selectedDateStr);
-    QPoint p = QPoint(
-            r.x() + r.width()/2 - s.height()/2 - mFontMetrics->descent(),
-            - s.width()
-            );
-
-    painter.translate(r.width()/2, r.height()/2);
+    QRect q(y()-height(), x(), height(), width());
     painter.rotate(270);
-    painter.drawText(p.y(), p.x(), selectedDateStr); // y,x,string
+    painter.drawText(q, Qt::AlignCenter, selectedDateStr);
     painter.restore();
 }
 
