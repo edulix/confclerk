@@ -111,8 +111,9 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
 
             //painter->setBrush( bkgrColor );
             painter->setBrush(itemGradient);
-            painter->setPen(borderPen);
+            painter->setPen(Qt::NoPen);
             painter->drawPath(endPath);
+            painter->setPen(borderPen);
 
             painter->setFont(option.font);
         }
@@ -124,9 +125,11 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
             painter->drawRect(option.rect);
 
             painter->setPen(borderPen);
+            /*
             // vertical lines
             painter->drawLine(option.rect.topLeft(), option.rect.bottomLeft());
             painter->drawLine(option.rect.topRight(), option.rect.bottomRight());
+            */
             // horizontal lines
             painter->drawLine(option.rect.bottomLeft(), option.rect.bottomRight());
 
