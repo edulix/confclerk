@@ -117,7 +117,7 @@ void DayNavigatorWidget::paintEvent(QPaintEvent *aEvent)
     QRect s = mFontMetrics->boundingRect(selectedDateStr);
     QPoint p = QPoint(
             r.x() + r.width()/2 - s.height()/2 - mFontMetrics->descent(),
-            - 130
+            - s.width()
             );
 
     painter.translate(r.width()/2, r.height()/2);
