@@ -106,20 +106,14 @@
      <height>23</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuMenu">
-    <property name="title">
-     <string>Menu</string>
-    </property>
-    <addaction name="settingsAction"/>
-    <addaction name="aboutAction"/>
-    <addaction name="conferencesAction"/>
-    <addaction name="quitAction"/>
-   </widget>
-   <addaction name="menuMenu"/>
+   <addaction name="conferencesAction"/>
+   <addaction name="settingsAction"/>
+   <addaction name="aboutAction"/>
+   <addaction name="quitAction"/>
   </widget>
-  <action name="actionSettings">
+  <action name="conferencesAction">
    <property name="text">
-    <string>Settings</string>
+    <string>Conferences</string>
    </property>
   </action>
   <action name="settingsAction">
@@ -130,11 +124,6 @@
   <action name="aboutAction">
    <property name="text">
     <string>About</string>
-   </property>
-  </action>
-  <action name="conferencesAction">
-   <property name="text">
-    <string>Conferences</string>
    </property>
   </action>
   <action name="quitAction">
