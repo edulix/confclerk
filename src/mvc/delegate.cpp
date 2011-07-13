@@ -55,14 +55,15 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         return;
 
     painter->save();
-    QColor bkgrColor = Qt::cyan;
+    QColor bkgrColor = option.palette.color(QPalette::Background);
     //QColor bkgrColor = QColor(0xAA,0xAA,0xAA);
     QColor conflictColor = Qt::yellow;
 
-    QPen borderPen(bkgrColor.darker());
+    QColor textColor = option.palette.color(QPalette::Text);
+    QPen borderPen(textColor);
     if(hasParent(index))
     {
-        // entry horisontal layout:
+        // entry horizontal layout:
         // * spacer (aka y position of image)
         // * image
         // * rest is text, which is 1 line of title with big letters and 2 lines of Presenter and Track
@@ -95,11 +96,8 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
             bkgrColor = conflictColor;
 
         QLinearGradient itemGradient(option.rect.topLeft(), option.rect.bottomLeft());
-        itemGradient.setColorAt(0.0, Qt::white);
-        itemGradient.setColorAt(0.25, bkgrColor);
-        itemGradient.setColorAt(0.5, bkgrColor);
-        itemGradient.setColorAt(0.75, bkgrColor);
-        itemGradient.setColorAt(1.0, Qt::white);
+        itemGradient.setColorAt(0.0, bkgrColor);
+        itemGradient.setColorAt(1.0, bkgrColor);
 
         if(isLast(index))
         {
@@ -203,9 +201,9 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         int spacer = (fmSmall.boundingRect("999").width() < SPACER) ? SPACER : fmSmall.boundingRect("999").width();
 
         QLinearGradient titleGradient(option.rect.topLeft(), option.rect.topRight());
-        //titleGradient.setColorAt(0.0, Qt::white);
+        bkgrColor = option.palette.color(QPalette::Highlight);
+        textColor = option.palette.color(QPalette::HighlightedText);
         titleGradient.setColorAt(0.0, bkgrColor);
-        titleGradient.setColorAt(0.5, Qt::white);
         titleGradient.setColorAt(1.0, bkgrColor);
 
         QPainterPath titlePath;
@@ -236,7 +234,9 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         painter->setPen(borderPen);
         painter->drawPath(titlePath);
 
-        // draw icons 
+        // draw icons
+        borderPen.setColor(textColor);
+        painter->setPen(borderPen);
         painter->setFont(fontSmall);
         QImage *image = mControls[FavouriteControlOn]->image();
         QPoint drawPoint =
