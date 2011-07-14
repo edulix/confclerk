@@ -4,6 +4,7 @@ TARGET = sql
 DESTDIR = ../bin
 CONFIG += static
 QT += sql xml
+QMAKE_CLEAN += ../bin/libsql.a
 
 # module dependencies
 LIBS += -L$$DESTDIR -lmvc -lorm

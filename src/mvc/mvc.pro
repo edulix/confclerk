@@ -4,6 +4,7 @@ TARGET = mvc
 DESTDIR = ../bin
 CONFIG += static
 QT += sql 
+QMAKE_CLEAN += ../bin/libmvc.a
 
 # module dependencies
 LIBS += -L$$DESTDIR \

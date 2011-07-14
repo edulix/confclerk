@@ -6,6 +6,7 @@ CONFIG += static
 QT += sql \
     xml \
     network
+QMAKE_CLEAN += ../bin/libgui.a
 
 # module dependencies
 LIBS += -L$$DESTDIR \
