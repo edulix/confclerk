@@ -1,6 +1,9 @@
 This is the NEWS file for ConfClerk. ConfClerk is the successor of
 fosdem-schedule; cf. docs/fosdem-schedule for the historic documentation.
 
+Version 0.5.2
+//! TODO
+
 Version 0.5.1
 * Improve search function: split search string on whitespace.
 * Various small UI changes, e.g.:

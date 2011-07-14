@@ -4,7 +4,7 @@
 # USAGE: include(./global.pri)
 
 # VERSION
-VERSION = 0.5.1
+VERSION = 0.5.2
 DEFINES += VERSION=\\\"$$VERSION\\\"
 
 # Define 'MAEMO' specific CONFIG/DEFINE
