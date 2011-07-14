@@ -117,7 +117,7 @@ void EventDialog::alarmClicked()
 #ifdef MAEMO
         // add alarm to the 'alarmd'
         Alarm alarm;
-        int cookie = alarm.addAlarm(event.id(),QDateTime::currentDateTime().addSecs(10));
+        int cookie = alarm.addAlarm(event.id(),event.title(),QDateTime::currentDateTime().addSecs(10));
 #endif /* MAEMO */
     }
     event.update("alarm");

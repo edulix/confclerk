@@ -36,7 +36,7 @@ class Alarm : public QObject
     public:
         Alarm() {}
         ~Alarm() {}
-        int addAlarm(int aEventId, const QDateTime &aDateTime); 
+        int addAlarm(int aEventId, QString aEventTitle, const QDateTime &aDateTime); 
         void deleteAlarm(int aEventId);
         static bool hasEventAlarm(int aEventId);
     signals:

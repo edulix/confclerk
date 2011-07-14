@@ -115,7 +115,7 @@ bool TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
                     // add alarm to the 'alarmd'
                     Alarm alarm;
                     //int cookie = alarm.addAlarm(event.id(),QDateTime::currentDateTime().addSecs(10)); // testing
-                    int cookie = alarm.addAlarm(event.id(),event.start().addSecs(-15*60)); // 15 minutes before real start
+                    int cookie = alarm.addAlarm(event.id(),event.title(),event.start().addSecs(-15*60)); // 15 minutes before real start
 #endif /* MAEMO */
                 }
                 event.update("alarm");

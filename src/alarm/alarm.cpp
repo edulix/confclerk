@@ -29,7 +29,7 @@
 
 //#include <dbus-1.0/dbus/dbus-protocol.h>
 
-int Alarm::addAlarm(int aEventId, const QDateTime &aDateTime)
+int Alarm::addAlarm(int aEventId, QString aEventTitle, const QDateTime &aDateTime)
 {
     cookie_t cookie = 0;
     alarm_event_t *eve = 0;
@@ -40,7 +40,9 @@ int Alarm::addAlarm(int aEventId, const QDateTime &aDateTime)
     alarm_event_set_alarm_appid(eve, APPID);
 
     /* for Deleting purposes */
-    alarm_event_set_message(eve, QString::number(aEventId).toLocal8Bit().data());
+    // ?!
+    //alarm_event_set_message(eve, QString::number(aEventId).toLocal8Bit().data());
+    alarm_event_set_message(eve, aEventTitle.toLocal8Bit().data());
 
     /* Use absolute time triggering */
     //eve->alarm_time = time(0) + 5; // for testing (5 seconds from now)
