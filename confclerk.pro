@@ -39,6 +39,6 @@ tarball.commands = \
 		$${TARGET}-$${VERSION}/$${TARGET}-$${VERSION}.tar.gz \
 		$(DEL_FILE) -r $${TARGET}-$${VERSION}/$${TARGET}-$${VERSION} \
 		$${TARGET}-$${VERSION}/Makefile ; \
-	tar -cz --exclude=.svn -f $$tarball.target $${TARGET}-$${VERSION} ; \
+	tar -cz --exclude=.svn --exclude=*.tar.gz -f $$tarball.target $${TARGET}-$${VERSION} ; \
 	$(DEL_FILE) -r $${TARGET}-$${VERSION}
 tarball.depends = changelog icon man
