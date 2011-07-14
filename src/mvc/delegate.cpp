@@ -184,7 +184,8 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         // persons
         titlePointF.setY(titlePointF.y()+fmSmall.height()-fmSmall.descent());
         painter->setFont(fontSmall);
-        painter->drawText(titlePointF,"Presenter(s): " + event->persons().join(" and "));
+        QString presenterPrefix = event->persons().count() < 2 ? "Presenter" : "Presenters";
+        painter->drawText(titlePointF,presenterPrefix + ": " + event->persons().join(" and "));
         // track
         titlePointF.setY(titlePointF.y()+fmSmall.height()-fmSmall.descent());
         painter->drawText(titlePointF,"Track: " + Track::retrieveTrackName(event->trackId()));
