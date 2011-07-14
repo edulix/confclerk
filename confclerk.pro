@@ -13,7 +13,7 @@ SUBDIRS = src
 include(src/global.pri)
 
 
-QMAKE_DISTCLEAN += src/bin/*.a
+QMAKE_DISTCLEAN += src/bin/*.a data/$${TARGET}.png data/$${TARGET}.1 ChangeLog
 QMAKE_EXTRA_TARGETS += changelog icon man release tarball
 
 changelog.target = ChangeLog
