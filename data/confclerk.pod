@@ -42,7 +42,7 @@ F<~/.config/Toastfreeware/ConfClerk.conf>
 =item Windows
 
 In the registry (search for the Toastfreeware key, should be at
-F<HKEY_CURRENT_USER\Software\Toastfreeware\Desafinado>).
+F<HKEY_CURRENT_USER\Software\Toastfreeware\ConfClerk>).
 
 =item Other OS
 
