@@ -1,6 +1,9 @@
 This is the NEWS file for ConfClerk. ConfClerk is the successor of
 fosdem-schedule; cf. docs/fosdem-schedule for the historic documentation.
 
+Version 0.5.3
+//! TODO
+
 Version 0.5.2, 2011-07-23
 * Show close button in conference dialog also if there are no conferences
   yet.
