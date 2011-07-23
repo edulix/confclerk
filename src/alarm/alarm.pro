@@ -3,6 +3,7 @@ TARGET = qalarm
 DESTDIR = ../bin
 CONFIG += static qdbus 
 QT += sql dbus
+QMAKE_CLEAN += ../bin/libqalarm.a
 
 # module dependencies
 LIBS += -lalarm
