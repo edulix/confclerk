@@ -261,19 +261,14 @@ void SqlEngine::addRoomToDB(QHash<QString,QString> &aRoom)
             aRoom["id"]= query.lastInsertId().toString(); // 'id' is assigned automatically
             //LOG_AUTOTEST(query);
         }
-        // check if event is already there, i.e. room name changed
+        
+        // remove previous conference/room records; room names might have changed
         query = QSqlQuery(db);
-        query.prepare("SELECT * FROM EVENT_ROOM WHERE xid_conference=:conference_id AND xid_event=:event_id");
+        query.prepare("DELETE FROM EVENT_ROOM WHERE xid_conference=:conference_id AND xid_event=:event_id");
         query.bindValue(":conference_id", aRoom["conference_id"]);
         query.bindValue(":event_id", aRoom["event_id"]);
         if (!query.exec()) qDebug() << "Could not execute SELECT * FROM EVENT_ROOM' query:" << query.lastError();
-        if(query.next()) // event/conference exists --> delete it
-        {
-          query.prepare("DELETE FROM EVENT_ROOM WHERE xid_conference=:conference_id AND xid_event=:event_id");
-          query.bindValue(":conference_id", aRoom["conference_id"]);
-          query.bindValue(":event_id", aRoom["event_id"]);
-          if (!query.exec()) qDebug() << "Could not execute SELECT * FROM EVENT_ROOM' query:" << query.lastError();
-        }
+        // and insert new ones
         query = QSqlQuery(db);
         query.prepare("INSERT INTO EVENT_ROOM (xid_conference,xid_event,xid_room) VALUES (:conference_id, :event_id, :room_id)");
         query.bindValue(":conference_id", aRoom["conference_id"]);
