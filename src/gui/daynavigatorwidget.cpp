@@ -119,7 +119,7 @@ void DayNavigatorWidget::paintEvent(QPaintEvent *aEvent)
     QString selectedDateStr = mCurDate.toString("dddd\nyyyy-MM-dd");
     QPainter painter(this);
     painter.save();
-    QRect q(y()-height(), x(), height(), width());
+    QRect q(y()-height()+16, x(), height(), width()); // today icon size = 32x32
     painter.rotate(270);
     painter.drawText(q, Qt::AlignCenter, selectedDateStr);
     painter.restore();
