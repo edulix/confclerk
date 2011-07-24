@@ -92,7 +92,7 @@ void ConferenceEditor::itemSelected(const QModelIndex& current, const QModelInde
         conferenceWhere->setText(conf.city() + ", " + conf.venue());
         conferenceWhen->setText(
                 conf.start().toString("dd-MM-yyyy")
-                + ", " +
+                + " - " +
                 conf.end().toString("dd-MM-yyyy"));
         conferenceInfo->setCurrentIndex(0);
         removeBtn->show();
