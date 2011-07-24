@@ -79,7 +79,9 @@ class DayNavigatorWidget : public QWidget, private Ui::DayNavigatorWidget
         void setDates(const QDate &aStartDate, const QDate &aEndDate);
     protected:
         void paintEvent(QPaintEvent *);
+        void configureNavigation();
     private slots:
+        void todayButtonClicked();
         void prevDayButtonClicked();
         void nextDayButtonClicked();
     signals:

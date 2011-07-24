@@ -34,6 +34,7 @@ DayNavigatorWidget::DayNavigatorWidget(QWidget *aParent)
     setupUi(this);
     connect(prevDayButton, SIGNAL(clicked()), SLOT(prevDayButtonClicked()));
     connect(nextDayButton, SIGNAL(clicked()), SLOT(nextDayButtonClicked()));
+    connect(todayButton, SIGNAL(clicked()), SLOT(todayButtonClicked()));
 
     mFontMetrics = new QFontMetrics(QLabel().font());
 }
@@ -63,22 +64,26 @@ void DayNavigatorWidget::setDates(const QDate &aStartDate, const QDate &aEndDate
     }
 }
 
+void DayNavigatorWidget::configureNavigation()
+{
+    // check start date
+    if(mCurDate==mStartDate || mStartDate==mEndDate)
+        prevDayButton->setDisabled(true);
+    else
+        prevDayButton->setDisabled(false);
+    // check end date
+    if(mCurDate==mEndDate || mStartDate==mEndDate)
+        nextDayButton->setDisabled(true);
+    else
+        nextDayButton->setDisabled(false);
+}
+
 void DayNavigatorWidget::prevDayButtonClicked()
 {
     if(mCurDate>mStartDate)
     {
         mCurDate = mCurDate.addDays(-1);
-        // check start date
-        if(mCurDate==mStartDate || mStartDate==mEndDate)
-            prevDayButton->setDisabled(true);
-        else
-            prevDayButton->setDisabled(false);
-        // check end date
-        if(mCurDate==mEndDate || mStartDate==mEndDate)
-            nextDayButton->setDisabled(true);
-        else
-            nextDayButton->setDisabled(false);
-
+        configureNavigation();
         emit(dateChanged(mCurDate));
         selectedDate->update();
     }
@@ -89,17 +94,19 @@ void DayNavigatorWidget::nextDayButtonClicked()
     if(mCurDate<mEndDate)
     {
         mCurDate = mCurDate.addDays(1);
-        // check start date
-        if(mCurDate==mStartDate || mStartDate==mEndDate)
-            prevDayButton->setDisabled(true);
-        else
-            prevDayButton->setDisabled(false);
-        // check end date
-        if(mCurDate==mEndDate || mStartDate==mEndDate)
-            nextDayButton->setDisabled(true);
-        else
-            nextDayButton->setDisabled(false);
+        configureNavigation();
+        emit(dateChanged(mCurDate));
+        selectedDate->update();
+    }
+}
 
+void DayNavigatorWidget::todayButtonClicked()
+{
+    QDate targetDate = QDate::currentDate();
+    if (targetDate>mStartDate && targetDate<mEndDate)
+    {
+        mCurDate = targetDate;
+        configureNavigation();
         emit(dateChanged(mCurDate));
         selectedDate->update();
     }

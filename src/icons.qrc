@@ -9,5 +9,6 @@
     <file>icons/emblem-new.png</file>
     <file>icons/dialog-warning.png</file>
     <file>icons/search.png</file>
+    <file>icons/today.png</file>
   </qresource>
 </RCC>

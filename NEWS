@@ -3,6 +3,8 @@ fosdem-schedule; cf. docs/fosdem-schedule for the historic documentation.
 
 Version 0.5.3
 //! TODO
+* Add "jump to today" button to date navigator.
+  Thanks to Michael Schutte for the patch.
 
 Version 0.5.2, 2011-07-23
 * Show close button in conference dialog also if there are no conferences
