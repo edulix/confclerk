@@ -89,7 +89,7 @@ void ConferenceEditor::itemSelected(const QModelIndex& current, const QModelInde
 
         conferenceTitle->setText(conf.title());
         conferenceSubtitle->setText(conf.subtitle());
-        conferenceWhere->setText(conf.city() + ", " + conf.venue());
+        conferenceWhere->setText(conf.city() + (!conf.venue().isEmpty() ? ", " + conf.venue() : ""));
         conferenceWhen->setText(
                 conf.start().toString("yyyy-MM-dd")
                 + " - " +
