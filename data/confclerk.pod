@@ -16,9 +16,9 @@ from various views, support searches on various items (speaker, speech topic,
 location, etc.) and enables you to select favorite events and create your own
 schedule.
 
-At the moment B<ConfClerk> is able to import schedules in XML format created by
-the PentaBarf conference management system used by e.g. FOSDEM, DebConf, and
-the CCC.
+At the moment B<ConfClerk> is able to import schedules in XML format created
+by the PentaBarf conference management system used by e.g. FOSDEM, DebConf,
+FrOSCon, and the CCC.
 
 ConfClerk is targetted at mobile devices like the Nokia N810 and N900 but
 works on any sytem running Qt.
