@@ -52,6 +52,7 @@ void ScheduleXmlParser::parseData(const QByteArray &aData, const QString& url)
         QDomElement conferenceElement = scheduleElement.firstChildElement("conference");
         if (!conferenceElement.isNull())
         {
+            emit(parsingScheduleBegin());
             QHash<QString,QString> conference;
             conference["id"] = QString::number(0); // conference ID is assigned automatically, or obtained from the DB
             conference["title"] = conferenceElement.firstChildElement("title").text();
@@ -67,7 +68,6 @@ void ScheduleXmlParser::parseData(const QByteArray &aData, const QString& url)
             SqlEngine::addConferenceToDB(conference);
             confId = conference["id"].toInt();
             conference_title = conference["title"];
-            emit(parsingScheduleBegin());
         }
 
         // we need to get count of all events in order to emit 'progressStatus' signal
