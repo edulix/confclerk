@@ -112,7 +112,7 @@ void SqlEngine::addConferenceToDB(QHash<QString,QString> &aConference)
             // HACK
             // When city is empty, assign a dummy value. We probably want to find a way to change the database scheme ...
             // cf. #32
-            if (aConference["city"] == "") aConference["city"] = "n/a";
+            if (aConference["city"].isEmpty()) aConference["city"] = "n/a";
 
             QSqlQuery query(db);
             query.prepare("INSERT INTO CONFERENCE (title,url,subtitle,venue,city,start,end,days,"
