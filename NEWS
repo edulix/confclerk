@@ -5,6 +5,11 @@ Version 0.5.3
 //! TODO
 * Add "jump to today" button to date navigator.
   Thanks to Michael Schutte for the patch.
+  Fixes: #29
+* Don't die on importing a schedule that does not contain
+  a city field.
+  Thanks to Axel Beckert for the bug report.
+  Fixes: #32
 
 Version 0.5.2, 2011-07-23
 * Show close button in conference dialog also if there are no conferences
