@@ -91,9 +91,9 @@ void ConferenceEditor::itemSelected(const QModelIndex& current, const QModelInde
         conferenceSubtitle->setText(conf.subtitle());
         conferenceWhere->setText(conf.city() + ", " + conf.venue());
         conferenceWhen->setText(
-                conf.start().toString("dd-MM-yyyy")
+                conf.start().toString("yyyy-MM-dd")
                 + " - " +
-                conf.end().toString("dd-MM-yyyy"));
+                conf.end().toString("yyyy-MM-dd"));
         conferenceInfo->setCurrentIndex(0);
         removeBtn->show();
     }
