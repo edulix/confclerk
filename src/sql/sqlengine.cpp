@@ -109,6 +109,11 @@ void SqlEngine::addConferenceToDB(QHash<QString,QString> &aConference)
 
         if(!confId) // conference 'aConference' isn't in the table => insert
         {
+            // HACK
+            // When city is empty, assign a dummy value. We probably want to find a way to change the database scheme ...
+            // cf. #32
+            if (aConference["city"] == "") aConference["city"] = "n/a";
+
             QSqlQuery query(db);
             query.prepare("INSERT INTO CONFERENCE (title,url,subtitle,venue,city,start,end,days,"
                                                     "day_change,timeslot_duration,active) "
