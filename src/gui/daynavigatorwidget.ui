@@ -25,6 +25,9 @@
   <layout class="QGridLayout" name="gridLayout">
    <item row="1" column="0">
     <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="spacing">
+      <number>0</number>
+     </property>
      <item>
       <widget class="QToolButton" name="nextDayButton">
        <property name="text">

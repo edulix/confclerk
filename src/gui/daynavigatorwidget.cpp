@@ -85,7 +85,7 @@ void DayNavigatorWidget::prevDayButtonClicked()
         mCurDate = mCurDate.addDays(-1);
         configureNavigation();
         emit(dateChanged(mCurDate));
-        selectedDate->update();
+        this->update();
     }
 }
 
@@ -96,7 +96,7 @@ void DayNavigatorWidget::nextDayButtonClicked()
         mCurDate = mCurDate.addDays(1);
         configureNavigation();
         emit(dateChanged(mCurDate));
-        selectedDate->update();
+        this->update();
     }
 }
 
@@ -108,7 +108,7 @@ void DayNavigatorWidget::todayButtonClicked()
         mCurDate = targetDate;
         configureNavigation();
         emit(dateChanged(mCurDate));
-        selectedDate->update();
+        this->update();
     }
 }
 
@@ -119,8 +119,27 @@ void DayNavigatorWidget::paintEvent(QPaintEvent *aEvent)
     QString selectedDateStr = mCurDate.toString("dddd\nyyyy-MM-dd");
     QPainter painter(this);
     painter.save();
-    QRect q(y()-height()+16, x(), height(), width()); // today icon size = 32x32
+
+    // rectangle only for the text
+    int marginSize = 9;
+    int buttonSize = 32;
+#ifdef MAEMO
+    QRect q(y()-height()+1*marginSize+2.5*buttonSize, x(), height()-2*marginSize-2.5*buttonSize, width());
+#else
+    QRect q(y()-height()+1*marginSize+2*buttonSize, x(), height()-2*marginSize-3*buttonSize, width());
+#endif
     painter.rotate(270);
+
+    // font size adjustion, static on maemo, dynamically otherwise
+    QFont f = painter.font();
+#ifdef MAEMO
+    qreal factor = 0.8;
+#else
+    qreal factor = (qreal) 2 * q.width() / painter.fontMetrics().width(selectedDateStr);
+#endif
+    if (factor < 1) f.setPointSizeF(f.pointSizeF() * factor);
+    painter.setFont(f);
+
     painter.drawText(q, Qt::AlignCenter, selectedDateStr);
     painter.restore();
 }
