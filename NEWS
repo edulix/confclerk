@@ -1,6 +1,9 @@
 This is the NEWS file for ConfClerk. ConfClerk is the successor of
 fosdem-schedule; cf. docs/fosdem-schedule for the historic documentation.
 
+version 0.5.4
+//!TODO
+
 Version 0.5.3
 * Add "jump to today" button to date navigator.
   Thanks to Michael Schutte for the patch.
