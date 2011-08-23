@@ -51,16 +51,13 @@ Delegate::~Delegate()
 
 void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    if(!mViewPtr)
+    if (!mViewPtr)
         return;
 
     painter->save();
-    QColor bkgrColor = option.palette.color(QPalette::Background);
-    //QColor bkgrColor = QColor(0xAA,0xAA,0xAA);
-    QColor conflictColor = Qt::yellow;
 
     QColor textColor = option.palette.color(QPalette::Text);
-    QPen borderPen(textColor);
+
     if(hasParent(index))
     {
         // entry horizontal layout:
@@ -69,6 +66,7 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         // * rest is text, which is 1 line of title with big letters and 2 lines of Presenter and Track
         int aux = option.rect.height() - SPACER - mControls[FavouriteControlOn]->image()->height();
         Event *event = static_cast<Event*>(index.internalPointer());
+
         // font SMALL
         QFont fontSmall = option.font;
         fontSmall.setBold(false);
@@ -77,63 +75,30 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         // font SMALL bold
         QFont fontSmallB = fontSmall;
         fontSmallB.setBold(true);
-        QFontMetrics fmSmallB(fontSmallB);
 
         // font BIG
         QFont fontBig = option.font;
         fontBig.setBold(false);
         fontBig.setPixelSize(aux*0.33);
         QFontMetrics fmBig(fontBig);
+
         // font BIG bold
         QFont fontBigB = fontBig;
         fontBigB.setBold(true);
         QFontMetrics fmBigB(fontBigB);
 
-        //int spacer = (fmSmall.boundingRect("999").width() < SPACER) ? SPACER : fmSmall.boundingRect("999").width();
-
-        //Time conflicts are colored differently
-        if(event->hasTimeConflict())
-            bkgrColor = conflictColor;
-
-        QLinearGradient itemGradient(option.rect.topLeft(), option.rect.bottomLeft());
-        itemGradient.setColorAt(0.0, bkgrColor);
-        itemGradient.setColorAt(1.0, bkgrColor);
-
-        if(isLast(index))
-        {
-            QPainterPath endPath;
-            endPath.moveTo(option.rect.topLeft());
-            endPath.lineTo(option.rect.bottomLeft()-QPoint(0, RADIUS));
-            endPath.arcTo(option.rect.left(), option.rect.bottom()-2*RADIUS, 2*RADIUS, 2*RADIUS, 180, 90);
-            endPath.lineTo(option.rect.bottomRight()-QPoint(RADIUS, 0));
-            endPath.arcTo(option.rect.right()-2*RADIUS, option.rect.bottom()-2*RADIUS, 2*RADIUS, 2*RADIUS, 270, 90);
-            endPath.lineTo(option.rect.topRight());
-
-            //painter->setBrush( bkgrColor );
-            painter->setBrush(itemGradient);
-            painter->setPen(Qt::NoPen);
-            painter->drawPath(endPath);
-            painter->setPen(borderPen);
-
-            painter->setFont(option.font);
-        }
-        else // middle elements
-        {
-            //painter->setBrush( bkgrColor );
-            painter->setBrush(itemGradient);
+        // background (in case of time conflicts)
+        if(event->hasTimeConflict()) {
+            painter->setBrush(Qt::yellow);
             painter->setPen(Qt::NoPen);
             painter->drawRect(option.rect);
+        }
 
-            painter->setPen(borderPen);
-            /*
-            // vertical lines
-            painter->drawLine(option.rect.topLeft(), option.rect.bottomLeft());
-            painter->drawLine(option.rect.topRight(), option.rect.bottomRight());
-            */
-            // horizontal lines
-            painter->drawLine(option.rect.bottomLeft(), option.rect.bottomRight());
-
-            painter->setFont(option.font);
+        // background (without time conflicts)
+        else {
+            QStyleOption styleOption;
+            styleOption.rect = option.rect;
+            qApp->style()->drawPrimitive(QStyle::PE_PanelItemViewItem, &styleOption, painter, mViewPtr);
         }
 
         // draw Controls
@@ -157,11 +122,13 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         // it starts just below the image
         // ("position of text" is lower-left angle of the first letter,
         //  so the first line is actually at the same height as the image)
+        painter->setPen(QPen(event->hasTimeConflict() ? Qt::black : textColor));
         QPointF titlePointF(option.rect.x() + SPACER,
                             option.rect.y() + SPACER + mControls[FavouriteControlOn]->image()->height());
         QTime start = event->start().time();
         painter->setFont(fontBig);
         painter->drawText(titlePointF,start.toString("hh:mm") + "-" + start.addSecs(event->duration()).toString("hh:mm") + ", " + event->roomName());
+
         // title
         titlePointF.setY(titlePointF.y()+fmBig.height()-fmBig.descent());
         painter->setFont(fontBigB);
@@ -181,17 +148,30 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
             title += "...";
         }
         painter->drawText(titlePointF,title);
+
         // persons
         titlePointF.setY(titlePointF.y()+fmSmall.height()-fmSmall.descent());
         painter->setFont(fontSmall);
         QString presenterPrefix = event->persons().count() < 2 ? "Presenter" : "Presenters";
         painter->drawText(titlePointF,presenterPrefix + ": " + event->persons().join(" and "));
+
         // track
         titlePointF.setY(titlePointF.y()+fmSmall.height()-fmSmall.descent());
         painter->drawText(titlePointF,"Track: " + Track::retrieveTrackName(event->trackId()));
     }
+
     else // doesn't have parent - time-groups' elements (top items)
     {
+        int numFav = numberOfFavourities(index);
+
+        QStyleOptionButton styleOptionButton;
+        styleOptionButton.rect = option.rect;
+        if (isExpanded(index)) styleOptionButton.state = QStyle::State_Sunken;
+        // styleOptionButton.text = qVariantValue<QString>(index.data());
+        qApp->style()->drawPrimitive(QStyle::PE_PanelButtonCommand, &styleOptionButton, painter, mViewPtr);
+        // qApp->style()->drawControl(QStyle::CE_PushButtonLabel, &styleOptionButton, painter, mViewPtr);
+        // qApp->style()->drawPrimitive(QStyle::PE_IndicatorArrowDown, &styleOptionButton, painter, mViewPtr);
+
         QFont fontSmall = option.font;
         fontSmall.setBold(true);
         fontSmall.setPixelSize(option.rect.height()*scaleFactor1);
@@ -204,45 +184,10 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
 
         int spacer = (fmSmall.boundingRect("999").width() < SPACER) ? SPACER : fmSmall.boundingRect("999").width();
 
-        QLinearGradient titleGradient(option.rect.topLeft(), option.rect.topRight());
-        bkgrColor = option.palette.color(QPalette::Highlight);
-        textColor = option.palette.color(QPalette::HighlightedText);
-        titleGradient.setColorAt(0.0, bkgrColor);
-        titleGradient.setColorAt(1.0, bkgrColor);
-
-        QPainterPath titlePath;
-        if(isExpanded(index))
-        {
-            titlePath.moveTo(option.rect.bottomLeft());
-            titlePath.lineTo(option.rect.topLeft()+QPoint(0, RADIUS));
-            titlePath.arcTo(option.rect.left(), option.rect.top(), 2*RADIUS, 2*RADIUS, 180, -90);
-            titlePath.lineTo(option.rect.topRight()-QPoint(RADIUS, 0));
-            titlePath.arcTo(option.rect.right()-2*RADIUS, option.rect.top(), 2*RADIUS, 2*RADIUS, 90, -90);
-            titlePath.lineTo(option.rect.bottomRight());
-            titlePath.closeSubpath();
-        }
-        else
-        {
-            titlePath.lineTo(option.rect.topLeft()+QPoint(0, RADIUS));
-            titlePath.arcTo(option.rect.left(), option.rect.top(), 2*RADIUS, 2*RADIUS, 180, -90);
-            titlePath.lineTo(option.rect.topRight()-QPoint(RADIUS, 0));
-            titlePath.arcTo(option.rect.right()-2*RADIUS, option.rect.top(), 2*RADIUS, 2*RADIUS, 90, -90);
-            titlePath.lineTo(option.rect.bottomRight()-QPoint(0, RADIUS));
-            titlePath.arcTo(option.rect.right()-2*RADIUS, option.rect.bottom()-2*RADIUS, 2*RADIUS, 2*RADIUS, 0, -90);
-            titlePath.lineTo(option.rect.bottomLeft()+QPoint(RADIUS, 0));
-            titlePath.arcTo(option.rect.left(), option.rect.bottom()-2*RADIUS, 2*RADIUS, 2*RADIUS, 270, -90);      
-            titlePath.closeSubpath();
-        }
-
-        painter->setBrush(titleGradient);
-        painter->setPen(borderPen);
-        painter->drawPath(titlePath);
-
         // draw icons
-        borderPen.setColor(textColor);
-        painter->setPen(borderPen);
+        painter->setPen(QPen(textColor));
         painter->setFont(fontSmall);
-        QImage *image = mControls[FavouriteControlOn]->image();
+        QImage *image = mControls[numFav ? FavouriteControlOn : FavouriteControlOff]->image();
         QPoint drawPoint =
             option.rect.topRight()
             - QPoint(
@@ -250,7 +195,7 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
                     - option.rect.height()/2 + image->height()/2);
         painter->drawImage(drawPoint,*image);
         painter->drawText(drawPoint+QPoint(image->width()+2, image->height() - 2),
-                QString::number(numberOfFavourities(index)));
+                QString::number(numFav));
 #ifdef MAEMO
         drawPoint.setX(drawPoint.x() - spacer - image->width());
         painter->drawImage(drawPoint,*mControls[AlarmControlOn]->image());
@@ -267,7 +212,6 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
                 option.rect.x()+SPACER,
                 option.rect.y()+option.rect.height()-fmBig.descent());
         painter->setFont(fontBig);
-
         painter->drawText(titlePointF,qVariantValue<QString>(index.data()));
     }
 

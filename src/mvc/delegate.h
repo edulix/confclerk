@@ -20,9 +20,7 @@
 #ifndef DELEGATE_H
 #define DELEGATE_H
 
-#include <QItemDelegate>
-#include <QTreeView>
-#include <QPointer>
+#include <QtGui>
 
 class Delegate : public QItemDelegate
 {
