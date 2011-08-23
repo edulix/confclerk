@@ -58,6 +58,8 @@ private:
         QString mTitle;
         int mFirstEventIndex;
         int mChildCount;
+
+        void setTitle(const QList<Event>& mEvents);
     };
 
 private:
@@ -72,7 +74,7 @@ public slots:
 private:
     QList<Event> mEvents;
     QList<Group> mGroups;
-    QHash<int, int> mParents;
+    QHash<int, int> mParents; ///< eventId, groupId
 };
 
 #endif // EVENTMODEL_H

@@ -27,40 +27,68 @@ const QString EventModel::COMMA_SEPARATOR = ", ";
 EventModel::EventModel()
 { }
 
+
+void EventModel::Group::setTitle(const QList<Event>& mEvents) {
+    QTime startTime = mEvents.at(mFirstEventIndex).start().time();
+    QTime endTime(0, 0);
+    for (int i = mFirstEventIndex; i != mFirstEventIndex + mChildCount; ++i) {
+        endTime = qMax(mEvents.at(i).start().time().addSecs(mEvents.at(i).duration()), endTime);
+    }
+    mTitle = QString("%1 - %2").arg(startTime.toString("HH:mm")).arg(endTime.toString("HH:mm"));
+}
+
+
+// We want to group the events into "time slots/time groups" that
+// should start at full hours and have the duration of either
+// one hour or (if less than 3 events are in one time slot)
+// multiple of one hour.
 void EventModel::createTimeGroups()
 {
     mGroups.clear();
     mParents.clear();
+    if (mEvents.empty()) return;
 
-    if (mEvents.empty())
-    {
-        return;
-    }
+    const int minTimeSpan = 3600; // one hour
+    const int minChildCount = 3; // minimum number of events in one group
 
-    const int timeSpan = 5400;
+    // Create the first time group. The events have to be sorted by start time at this point!
+    QTime groupStartTime(mEvents.first().start().time().hour(), 0);
+    QTime groupEndTime = groupStartTime.addSecs(mEvents.first().duration());
+    mGroups << EventModel::Group("", 0);
+    int timeSpan = minTimeSpan;
 
-    QTime startTime = mEvents.first().start().time();
-    mGroups << EventModel::Group(QString("%1 - %2").arg(startTime.toString("HH:mm"),
-        startTime.addSecs(timeSpan).toString("HH:mm")), 0);
-    QTime nextGroupTime = mEvents.first().start().time().addSecs(timeSpan);
+    for (int i = 0; i != mEvents.count(); ++i) {
+        QTime eventStartTime = mEvents.at(i).start().time();
+        QTime eventEndTime = eventStartTime.addSecs(mEvents.at(i).duration());
 
-    for (int i=0; i<mEvents.count(); i++)
-    {
-        QTime eventTime = mEvents.at(i).start().time();
+        if (eventStartTime >= groupStartTime.addSecs(timeSpan)) {
+            // a new group could be necessary
+            if (mGroups.last().mChildCount < minChildCount) {
+                // too few events in the group => no new group
+                // except a gap in time would occur that is longer than minTimeSpan
+                if (i > 0 && qMax(mEvents.at(i-1).start().time().addSecs(mEvents.at(i-1).duration()), groupEndTime).secsTo(eventStartTime) < minTimeSpan) {
+                    timeSpan += minTimeSpan;
+                    --i;
+                    continue; // repeat with the same event
+                }
+            }
 
-        if (nextGroupTime <= eventTime)
-        {
-            mGroups.last().mChildCount = i - mGroups.last().mFirstEventIndex;
-            mGroups << EventModel::Group(QString("%1 - %2").arg(nextGroupTime.toString("HH:mm"),
-                nextGroupTime.addSecs(timeSpan).toString("HH:mm")), i);
-            nextGroupTime = nextGroupTime.addSecs(timeSpan);
+            // a new group is necessary
+            mGroups.last().setTitle(mEvents);
+            groupStartTime = groupStartTime.addSecs(timeSpan);
+            groupEndTime = groupStartTime.addSecs(mEvents.at(i).duration());
+            mGroups << EventModel::Group("", i);
+            timeSpan = minTimeSpan;
         }
 
-        // add parent-child relation
+        // insert event into current group
         mParents[mEvents.at(i).id()] = mGroups.count() - 1;
+        mGroups.last().mChildCount += 1;
+        groupEndTime = qMax(eventEndTime, groupEndTime);
     }
 
-    mGroups.last().mChildCount = mEvents.count() - mGroups.last().mFirstEventIndex;
+    // the last group needs a title as well
+    mGroups.last().setTitle(mEvents);
 
     reset();
 }
