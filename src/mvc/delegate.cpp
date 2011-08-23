@@ -215,10 +215,6 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         painter->drawText(titlePointF,qVariantValue<QString>(index.data()));
     }
 
-    //// HIGHLIGHTING SELECTED ITEM
-    //if (option.state & QStyle::State_Selected)
-        //painter->fillRect(option.rect, option.palette.highlight());
-
     painter->restore();
 }
 
@@ -321,11 +317,15 @@ void Delegate::defineControls()
     // off
     mControls.insert(AlarmControlOff,
                     new Control(AlarmControlOff, QString(":icons/appointment-soon-off.png"), mControls[FavouriteControlOff]));
-#endif
-
+    // WARNING ICON
+    mControls.insert(WarningControl,
+                    new Control(WarningControl, QString(":icons/dialog-warning.png"), mControls[AlarmControlOff]));
+#else
     // WARNING ICON
     mControls.insert(WarningControl,
                     new Control(WarningControl, QString(":icons/dialog-warning.png"), mControls[FavouriteControlOn]));
+#endif
+
 }
 
 bool Delegate::isPointFromRect(const QPoint &aPoint, const QRect &aRect) const
