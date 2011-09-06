@@ -130,13 +130,11 @@ void ConferenceEditor::removeClicked()
 
 void ConferenceEditor::changeUrlClicked()
 {
-    if (selected_id < 0) {
-        return;
-    }
-    const Conference& selected = Conference::getById(selected_id);
+    if (selected_id < 0) return;
+    const Conference& selectedConf = Conference::getById(selected_id);
 
     bool ok;
-    QString url = QInputDialog::getText(this, "URL Input", "Enter schedule URL", QLineEdit::Normal, selected.url(), &ok);
+    QString url = QInputDialog::getText(this, "URL Input", "Enter schedule URL", QLineEdit::Normal, selectedConf.url(), &ok);
 
     if (ok) {
         emit changeUrlRequested(selected_id, url);
@@ -145,27 +143,21 @@ void ConferenceEditor::changeUrlClicked()
 
 void ConferenceEditor::refreshClicked()
 {
-    if (selected_id < 0) {
-        return;
-    }
-    const Conference& selected = Conference::getById(selected_id);
+    if (selected_id < 0) return;
+    const Conference& selectedConf = Conference::getById(selected_id);
+    QString url = selectedConf.url();
 
-    QString url = selected.url();
-
-    if (!url.isEmpty()) {
-        emit haveConferenceUrl(url);
-    } else {
+    if (url.isEmpty()) {
         static const QString format("Schedule URL for %1 is not set. Enter the schedule URL:");
         bool ok;
-        QString url = QInputDialog::getText(this, "URL Input", format.arg(selected.title()), QLineEdit::Normal, QString(), &ok);
-
-        if (ok) {
-            // first save it, to remain if fetch fails
-            emit changeUrlRequested(selected_id, url);
-            // then fetch
-            emit haveConferenceUrl(url);
-        }
+        QString url = QInputDialog::getText(this, "URL Input", format.arg(selectedConf.title()), QLineEdit::Normal, QString(), &ok);
+        if (!ok) return;
+        // first save it, to remain if fetch fails
+        emit changeUrlRequested(selected_id, url);
     }
+    // fetch
+    importStarted(); // just to show the progress bar
+    emit haveConferenceUrl(url);
 }
 
 void ConferenceEditor::importStarted()
