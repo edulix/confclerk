@@ -45,23 +45,13 @@ void DayNavigatorWidget::setDates(const QDate &aStartDate, const QDate &aEndDate
 
     mStartDate = aStartDate;
     mEndDate = aEndDate;
-    mCurDate = aStartDate;
+    if (!mCurDate.isValid()) mCurDate = mStartDate;
+    else if (mCurDate < mStartDate) mCurDate = mStartDate;
+    else if (mCurDate > mEndDate) mCurDate = mEndDate;
 
-    // QRect rect = mFontMetrics->boundingRect(mCurDate.toString("MMM dd yyyy"));
-
-    if(mStartDate==mEndDate) // only one day conference
-    {
-        prevDayButton->setDisabled(true);
-        nextDayButton->setDisabled(true);
-        emit(dateChanged(mCurDate));
-    }
-    else
-    {
-        // at least 2-days conference
-        prevDayButton->setDisabled(true);
-        nextDayButton->setDisabled(false);
-        emit(dateChanged(mCurDate));
-    }
+    prevDayButton->setDisabled(mCurDate == mStartDate);
+    nextDayButton->setDisabled(mCurDate == mEndDate);
+    emit(dateChanged(mCurDate));
 }
 
 void DayNavigatorWidget::configureNavigation()

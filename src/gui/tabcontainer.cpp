@@ -96,13 +96,13 @@ void TabContainer::updateTreeViewModel(int aEventId, bool aReloadModel)
     if(aReloadModel)
     {
         // requires special handling
-        // eg. in case of favourities - some favourities may have changed
+        // eg. in case of favourites - some favourites may have changed
         // and so we need to reload them
         int confId = Conference::activeConference();
         QDate startDate = Conference::getById(confId).start();
         QDate endDate = Conference::getById(confId).end();
         dayNavigator->setDates(startDate, endDate);
-        updateTreeView( Conference::getById(confId).start() );
+        updateTreeView(dayNavigator->curDate());
     }
     else
     {

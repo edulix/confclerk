@@ -70,10 +70,7 @@ bool TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
                 Event event = Event::getById(aIndex.data().toInt(),confId);
 
                 QList<Event> conflicts = Event::conflictEvents(event.id(),Conference::activeConference());
-                if(event.isFavourite())
-                    event.setFavourite(false);
-                else
-                    event.setFavourite(true);
+                event.setFavourite(!event.isFavourite());
                 event.update("favourite");
 
                 if(event.isFavourite())
