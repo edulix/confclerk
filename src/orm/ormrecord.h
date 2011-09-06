@@ -93,8 +93,8 @@ T OrmRecord<T>::hydrate(const QSqlRecord& record)
 }
 
 // updates specified column 'col'
-// if the value is not specified  as an argument,
-// it's taken from the reford itself
+// if the value is not specified as an argument,
+// it's taken from the record itself
 // see also: setValue() method for more details
 template <typename T>
 void OrmRecord<T>::update(QString col, QVariant value)
@@ -106,7 +106,6 @@ void OrmRecord<T>::update(QString col, QVariant value)
     else // take 'col' value from the record; see setValue()
         query.bindValue(":col", convertToDb(this->value(col), this->value(col).type()));
     query.bindValue(":id", this->value("id"));
-    //query.bindValue(":id", convertToDb(value("id"), QVariant::Int));
     query.exec();
 }
 
