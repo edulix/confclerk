@@ -11,8 +11,8 @@ location, etc.) and enables you to select favorite events and create your own
 schedule.
 
 At the moment ConfClerk is able to import schedules in XML format created by
-the PentaBarf conference management system used by e.g. FOSDEM, DebConf,
-FrOSCon, and the CCC.
+the PentaBarf conference management system (or frab) used by e.g. FOSDEM,
+DebConf, FrOSCon, Grazer Linuxtage, and the CCC.
 
 ConfClerk is targetted at mobile devices like the Nokia N810 and N900 but
 works on any sytem running Qt.
