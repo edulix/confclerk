@@ -58,8 +58,10 @@ QString SqlEngine::login(const QString &aDatabaseType, const QString &aDatabaseN
         file.open(QIODevice::ReadOnly | QIODevice::Text);
         QString allSqlStatements = file.readAll();
         foreach(QString sql, allSqlStatements.split(";")) {
+            if (sql.trimmed().length() == 0)     // do not execute empty queries like the last character from create_tables.sql
+                continue;
             QSqlQuery query(database);
-            if (!query.exec(sql)) qDebug() << "Could not execute query" << query.lastError();
+            if (!query.exec(sql)) qDebug() << "Could not execute query '" << sql << "' error:" << query.lastError();
         }
     }
     else

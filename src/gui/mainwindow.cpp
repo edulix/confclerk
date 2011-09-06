@@ -154,6 +154,11 @@ void MainWindow::eventHasChanged(int aEventId, bool aReloadModel)
 
 void MainWindow::useConference(int id)
 {
+    if (id == -1)  // in case no conference is active
+    {
+        unsetConference();
+        return;
+    }
     try {
         Conference::getById(Conference::activeConference()).update("active",0);
         Conference new_active = Conference::getById(id);
@@ -178,7 +183,7 @@ void MainWindow::useConference(int id)
         // initTabs();
     } catch (OrmException& e) {
         // cannon set an active conference
-        unsetConference();
+        unsetConference();   // TODO: as no active conference is now correctly managed this should be handled as a fatal error
         return;
     }
 
@@ -187,18 +192,21 @@ void MainWindow::useConference(int id)
 void MainWindow::initTabs()
 {
     int confId = Conference::activeConference();
-    Conference active = Conference::getById(confId);
-    QDate startDate = active.start();
-    QDate endDate = active.end();
+    if (confId != -1)   // only init tabs if a conference is active
+    {
+        Conference active = Conference::getById(confId);
+        QDate startDate = active.start();
+        QDate endDate = active.end();
 
-    // 'dayNavigator' emits signal 'dateChanged' after setting valid START:END dates
-    dayTabContainer->setDates(startDate, endDate);
-    tracksTabContainer->setDates(startDate, endDate);
-    roomsTabContainer->setDates(startDate, endDate);
-    favsTabContainer->setDates(startDate, endDate);
-    searchTabContainer->setDates(startDate, endDate);
-    searchTabContainer->searchAgainClicked();
-    nowTabContainer->updateTreeView(QDate::currentDate());
+        // 'dayNavigator' emits signal 'dateChanged' after setting valid START:END dates
+        dayTabContainer->setDates(startDate, endDate);
+        tracksTabContainer->setDates(startDate, endDate);
+        roomsTabContainer->setDates(startDate, endDate);
+        favsTabContainer->setDates(startDate, endDate);
+        searchTabContainer->setDates(startDate, endDate);
+        searchTabContainer->searchAgainClicked();
+        nowTabContainer->updateTreeView(QDate::currentDate());
+    }
 }
 
 void MainWindow::clearTabs()
