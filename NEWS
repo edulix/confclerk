@@ -1,8 +1,15 @@
 This is the NEWS file for ConfClerk. ConfClerk is the successor of
 fosdem-schedule; cf. docs/fosdem-schedule for the historic documentation.
 
+// TODO
 version 0.5.4
-//!TODO
+* Change displaying events a bit, use system colours (#13).
+* Fix display of conflict and alarm icon on maemo (#35).
+* Improve logic of grouping events into timeslits (#22).
+* Remove warnings without a database or with an empty one (#20).
+* Import/update: show progressbar immediately (#25).
+* Update dates and text for day navigator widget when switching 
+  conference (#36).
 
 Version 0.5.3, 2011-08-16
 * Add "jump to today" button to date navigator.
