@@ -4,7 +4,7 @@ fosdem-schedule; cf. docs/fosdem-schedule for the historic documentation.
 version 0.5.4
 //!TODO
 
-Version 0.5.3
+Version 0.5.3, 2011-08-16
 * Add "jump to today" button to date navigator.
   Thanks to Michael Schutte for the patch.
   Fixes: #29
@@ -20,7 +20,7 @@ Version 0.5.2, 2011-07-23
 * Remove event/room records on import to get rid of "old" room names; this
   avoids duplicates when room names change.
 
-Version 0.5.1
+Version 0.5.1, 2011-07-14
 * Improve search function: split search string on whitespace.
 * Various small UI changes, e.g.:
   - cancel button in settings dialogs
@@ -30,7 +30,7 @@ Version 0.5.1
   - remove status bar
   - clean up some dialogs
 
-Version 0.5.0
+Version 0.5.0, 2011-06-29
 * First release of ConfClerk as the fosdem-schedule successor.
 * Continue the multi-conference feature, make sure persons/tracks/rooms are
   handled separately per conference.
