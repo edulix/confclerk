@@ -46,12 +46,13 @@ void DayNavigatorWidget::setDates(const QDate &aStartDate, const QDate &aEndDate
     mStartDate = aStartDate;
     mEndDate = aEndDate;
     if (!mCurDate.isValid()) mCurDate = mStartDate;
-    else if (mCurDate < mStartDate) mCurDate = mStartDate;
-    else if (mCurDate > mEndDate) mCurDate = mEndDate;
+    // if mCurDate is out of range, set it to mstartDate
+    else if (mCurDate < mStartDate || mCurDate > mEndDate) mCurDate = mStartDate;
 
     prevDayButton->setDisabled(mCurDate == mStartDate);
     nextDayButton->setDisabled(mCurDate == mEndDate);
     emit(dateChanged(mCurDate));
+    this->update();
 }
 
 void DayNavigatorWidget::configureNavigation()
