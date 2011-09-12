@@ -164,14 +164,14 @@ void MainWindow::useConference(int id)
         Conference new_active = Conference::getById(id);
         new_active.update("active",1);
 
-	// looks like it does not work at n900
+        // looks like it does not work at n900
         setWindowTitle(new_active.title());
 
         // optimization.
-	// dont run initTabs() here
+        // dont run initTabs() here
         // it takes much CPU, making travelling between conferences in ConferenceEditor longer
         // and is not seen in maemo WM anyway
-	// instead run it explicitly
+        // instead run it explicitly
         // 1. at startup
         // 2. when ConferenceEditor finished
         // dont forget to protect the calls by try-catch!
