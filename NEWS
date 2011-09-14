@@ -1,8 +1,7 @@
 This is the NEWS file for ConfClerk. ConfClerk is the successor of
 fosdem-schedule; cf. docs/fosdem-schedule for the historic documentation.
 
-// TODO
-version 0.5.4
+version 0.5.4, 2011-09-14
 * Change displaying events a bit, use system colours (#13).
 * Fix display of conflict and alarm icon on maemo (#35).
 * Improve logic of grouping events into timeslits (#22).
