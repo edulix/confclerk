@@ -24,11 +24,21 @@
     <normaloff>:/confclerk.svg</normaloff>:/confclerk.svg</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="DayNavigatorWidget" name="dayNavigator" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>20</width>
+        <height>0</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="nowTab">
        <attribute name="title">
@@ -54,7 +64,7 @@
        <attribute name="title">
         <string>Day View</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_2">
+       <layout class="QGridLayout" name="gridLayout">
         <item row="0" column="0">
          <widget class="DayViewTabContainer" name="dayTabContainer" native="true"/>
         </item>
@@ -110,10 +120,26 @@
      <height>23</height>
     </rect>
    </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
    <addaction name="conferencesAction"/>
    <addaction name="settingsAction"/>
    <addaction name="aboutAction"/>
    <addaction name="quitAction"/>
+  </widget>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>RightToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="reloadAction"/>
+   <addaction name="actionNow"/>
   </widget>
   <action name="conferencesAction">
    <property name="text">
@@ -133,6 +159,33 @@
   <action name="quitAction">
    <property name="text">
     <string>&amp;Quit</string>
+   </property>
+  </action>
+  <action name="reloadAction">
+   <property name="icon">
+    <iconset resource="../icons.qrc">
+     <normaloff>:/icons/reload.png</normaloff>:/icons/reload.png</iconset>
+   </property>
+   <property name="text">
+    <string>Reload Conference</string>
+   </property>
+   <property name="toolTip">
+    <string>Reload Conference</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="actionNow">
+   <property name="icon">
+    <iconset resource="../icons.qrc">
+     <normaloff>:/icons/today.png</normaloff>:/icons/today.png</iconset>
+   </property>
+   <property name="text">
+    <string>Jump to now</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
    </property>
   </action>
  </widget>
@@ -167,14 +220,35 @@
    <extends>QWidget</extends>
    <header>nowtabcontainer.h</header>
   </customwidget>
+  <customwidget>
+   <class>DayNavigatorWidget</class>
+   <extends>QWidget</extends>
+   <header>daynavigatorwidget.h</header>
+  </customwidget>
  </customwidgets>
  <resources>
-  <include location="../icons.qrc"/>
   <include location="../../data/data.qrc"/>
+  <include location="../icons.qrc"/>
  </resources>
  <connections>
   <connection>
    <sender>quitAction</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>451</x>
+     <y>248</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>reloadAction</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
    <slot>close()</slot>
