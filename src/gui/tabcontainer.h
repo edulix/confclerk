@@ -45,6 +45,7 @@ signals:
 
 public slots:
     virtual void updateTreeViewModel(int aEventId, bool aReloadModel = false);
+    void setCurDate(const QDate& curDate);
     void setDates(const QDate &aStart, const QDate &aEnd);
 
 protected slots:

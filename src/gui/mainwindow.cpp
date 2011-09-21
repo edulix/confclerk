@@ -91,6 +91,14 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     connect(nowTabContainer, SIGNAL(eventHasChanged(int,bool)), SLOT(eventHasChanged(int,bool)));
     connect(searchTabContainer, SIGNAL(eventHasChanged(int,bool)), SLOT(eventHasChanged(int,bool)));
 
+    // date has changed
+    connect(dayNavigator, SIGNAL(dateChanged(QDate)), dayTabContainer, SLOT(setCurDate(QDate)));
+    connect(dayNavigator, SIGNAL(dateChanged(QDate)), favsTabContainer, SLOT(setCurDate(QDate)));
+    connect(dayNavigator, SIGNAL(dateChanged(QDate)), tracksTabContainer, SLOT(setCurDate(QDate)));
+    connect(dayNavigator, SIGNAL(dateChanged(QDate)), roomsTabContainer, SLOT(setCurDate(QDate)));
+    connect(dayNavigator, SIGNAL(dateChanged(QDate)), nowTabContainer, SLOT(setCurDate(QDate)));
+    connect(dayNavigator, SIGNAL(dateChanged(QDate)), searchTabContainer, SLOT(setCurDate(QDate)));
+
     connect(aboutAction, SIGNAL(triggered()), SLOT(aboutApp()));
     connect(settingsAction, SIGNAL(triggered()), SLOT(setup()));
     connect(conferencesAction, SIGNAL(triggered()), SLOT(showConferences()));

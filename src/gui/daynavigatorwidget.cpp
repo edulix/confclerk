@@ -29,6 +29,8 @@ DayNavigatorWidget::DayNavigatorWidget(QWidget *aParent): QWidget(aParent) {
     connect(prevDayButton, SIGNAL(clicked()), SLOT(prevDayButtonClicked()));
     connect(nextDayButton, SIGNAL(clicked()), SLOT(nextDayButtonClicked()));
     connect(todayButton, SIGNAL(clicked()), SLOT(todayButtonClicked()));
+
+    configureNavigation();
 }
 
 
@@ -70,8 +72,8 @@ void DayNavigatorWidget::setCurDate(const QDate& curDate) {
 
 
 void DayNavigatorWidget::configureNavigation() {
-    prevDayButton->setDisabled(mCurDate == mStartDate);
-    nextDayButton->setDisabled(mCurDate == mEndDate);
+    prevDayButton->setDisabled(!mStartDate.isValid() || mCurDate == mStartDate);
+    nextDayButton->setDisabled(!mEndDate.isValid() || mCurDate == mEndDate);
 }
 
 
@@ -102,7 +104,7 @@ void DayNavigatorWidget::paintEvent(QPaintEvent *aEvent)
 {
     Q_UNUSED(aEvent);
 
-    QString selectedDateStr = mCurDate.toString("dddd\nyyyy-MM-dd");
+    QString selectedDateStr = mCurDate.isValid() ? mCurDate.toString("dddd\nyyyy-MM-dd") : tr("No date");
     QPainter painter(this);
     painter.save();
 

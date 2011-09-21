@@ -111,6 +111,12 @@ void TabContainer::updateTreeViewModel(int aEventId, bool aReloadModel)
     }
 }
 
+
+void TabContainer::setCurDate(const QDate& curDate) {
+    updateTreeView(curDate);
+}
+
+
 void TabContainer::setDates(const QDate &aStart, const QDate &aEnd)
 {
     dayNavigator->setDates(aStart, aEnd);
