@@ -20,88 +20,83 @@
 #include "daynavigatorwidget.h"
 
 #include <QPainter>
-#include <QFontMetrics>
 #include <QLabel>
 
-#include <QDebug>
 
-DayNavigatorWidget::DayNavigatorWidget(QWidget *aParent)
-    : QWidget(aParent)
-    , mStartDate(QDate())
-    , mEndDate(QDate())
-    , mCurDate(QDate())
-{
-    setupUi(this);
+DayNavigatorWidget::DayNavigatorWidget(QWidget *aParent): QWidget(aParent) {
+    setupUi(this);    
+
     connect(prevDayButton, SIGNAL(clicked()), SLOT(prevDayButtonClicked()));
     connect(nextDayButton, SIGNAL(clicked()), SLOT(nextDayButtonClicked()));
     connect(todayButton, SIGNAL(clicked()), SLOT(todayButtonClicked()));
-
-    mFontMetrics = new QFontMetrics(QLabel().font());
 }
 
-void DayNavigatorWidget::setDates(const QDate &aStartDate, const QDate &aEndDate)
-{
-    Q_ASSERT(aStartDate<=aEndDate);
+
+void DayNavigatorWidget::setDates(const QDate &aStartDate, const QDate &aEndDate) {
+    Q_ASSERT(aStartDate.isValid() && aEndDate.isValid() && aStartDate<=aEndDate);
 
     mStartDate = aStartDate;
     mEndDate = aEndDate;
+
     if (!mCurDate.isValid()) mCurDate = mStartDate;
     // if mCurDate is out of range, set it to mstartDate
     else if (mCurDate < mStartDate || mCurDate > mEndDate) mCurDate = mStartDate;
 
-    prevDayButton->setDisabled(mCurDate == mStartDate);
-    nextDayButton->setDisabled(mCurDate == mEndDate);
+    configureNavigation();
     emit(dateChanged(mCurDate));
     this->update();
 }
 
-void DayNavigatorWidget::configureNavigation()
-{
-    // check start date
-    if(mCurDate==mStartDate || mStartDate==mEndDate)
-        prevDayButton->setDisabled(true);
-    else
-        prevDayButton->setDisabled(false);
-    // check end date
-    if(mCurDate==mEndDate || mStartDate==mEndDate)
-        nextDayButton->setDisabled(true);
-    else
-        nextDayButton->setDisabled(false);
+
+void DayNavigatorWidget::setCurDate(const QDate& curDate) {
+    Q_ASSERT(curDate.isValid());
+    if (curDate == mCurDate) return;
+
+    if (!mStartDate.isValid()) {
+        // the start and end date have not been set
+        mStartDate = curDate;
+        mEndDate = curDate;
+        mCurDate = curDate;
+    }
+
+    else if (curDate < mStartDate) mCurDate = mStartDate;
+    else if (curDate > mEndDate) mCurDate = mEndDate;
+    else mCurDate = curDate;
+
+    configureNavigation();
+    emit(dateChanged(mCurDate));
+    this->update();
 }
 
-void DayNavigatorWidget::prevDayButtonClicked()
-{
-    if(mCurDate>mStartDate)
-    {
-        mCurDate = mCurDate.addDays(-1);
-        configureNavigation();
-        emit(dateChanged(mCurDate));
-        this->update();
-    }
+
+void DayNavigatorWidget::configureNavigation() {
+    prevDayButton->setDisabled(mCurDate == mStartDate);
+    nextDayButton->setDisabled(mCurDate == mEndDate);
 }
 
-void DayNavigatorWidget::nextDayButtonClicked()
-{
-    if(mCurDate<mEndDate)
-    {
-        mCurDate = mCurDate.addDays(1);
-        configureNavigation();
-        emit(dateChanged(mCurDate));
-        this->update();
-    }
+
+void DayNavigatorWidget::prevDayButtonClicked() {
+    if(mCurDate <= mStartDate) return;
+    mCurDate = mCurDate.addDays(-1);
+    configureNavigation();
+    emit(dateChanged(mCurDate));
+    this->update();
 }
 
-void DayNavigatorWidget::todayButtonClicked()
-{
-    QDate targetDate = QDate::currentDate();
-    if (targetDate>mStartDate && targetDate<mEndDate)
-    {
-        mCurDate = targetDate;
-        configureNavigation();
-        emit(dateChanged(mCurDate));
-        this->update();
-    }
+
+void DayNavigatorWidget::nextDayButtonClicked() {
+    if(mCurDate >= mEndDate) return;
+    mCurDate = mCurDate.addDays(1);
+    configureNavigation();
+    emit(dateChanged(mCurDate));
+    this->update();
 }
+
+
+void DayNavigatorWidget::todayButtonClicked() {
+    setCurDate(QDate::currentDate());
+}
+
 
 void DayNavigatorWidget::paintEvent(QPaintEvent *aEvent)
 {
@@ -134,4 +129,3 @@ void DayNavigatorWidget::paintEvent(QPaintEvent *aEvent)
     painter.drawText(q, Qt::AlignCenter, selectedDateStr);
     painter.restore();
 }
-

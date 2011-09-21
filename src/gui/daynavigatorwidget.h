@@ -24,59 +24,16 @@
 #include <QObject>
 #include <QDate>
 
-/*#include <QPainter>*/
-/*#include <QLabel>*/
-
-/*class QFontMetrics;*/
-
-/*class VerticalLabel : public QWidget*/
-/*{*/
-
-/*public:*/
-/*VerticalLabel(QWidget *aParent = NULL)*/
-/*: QWidget(aParent)*/
-/*, mText("")*/
-/*{*/
-/*mFont = QLabel().font();*/
-/*}   */
-
-/*void paintEvent(QPaintEvent *)*/
-/*{   */
-/*QPainter p(this);*/
-/*drawRotatedText(&p, 270, width()/2, height()/2, mText);*/
-/*}   */
-
-/*void drawRotatedText(QPainter *aPainter, qreal aDegrees, int x, int y, const QString &aText)*/
-/*{   */
-
-/*aPainter->save();*/
-/*aPainter->setFont(mFont);*/
-/*aPainter->translate(x, y); */
-/*aPainter->rotate(aDegrees);*/
-/*QFontMetrics fm(mFont);*/
-/*QRect r = fm.boundingRect(aText);*/
-/*aPainter->drawText(-r.width()/2, fm.descent()/2, aText);*/
-/*aPainter->restore();*/
-/*}   */
-
-/*void setText(const QString &aText)*/
-/*{*/
-/*mText = aText;*/
-/*update();*/
-/*}*/
-
-/*private:*/
-/*QString mText;*/
-/*QFont mFont;*/
-/*};*/
-
-class DayNavigatorWidget : public QWidget, private Ui::DayNavigatorWidget
-{
+/** The DayNavigator widget manages three dates, the startDate, curDate and endDate.
+Either startDate, curDate and endDate all have to be valid and startDate <= curDate <= endDate,
+OR all three dates are invalid (representing "no date range", e.g. no conference). */
+class DayNavigatorWidget : public QWidget, private Ui::DayNavigatorWidget {
     Q_OBJECT
     public:
         DayNavigatorWidget(QWidget *aParent = NULL);
         ~DayNavigatorWidget() {}
         void setDates(const QDate &aStartDate, const QDate &aEndDate);
+        void setCurDate(const QDate& curDate);
         QDate curDate() const {return mCurDate;}
     protected:
         void paintEvent(QPaintEvent *);
@@ -91,7 +48,6 @@ class DayNavigatorWidget : public QWidget, private Ui::DayNavigatorWidget
         QDate mStartDate;
         QDate mEndDate;
         QDate mCurDate;
-        QFontMetrics *mFontMetrics;
 };
 
 #endif /* DAYNAVIGATORWIDGET_H */
