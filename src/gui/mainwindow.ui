@@ -40,6 +40,9 @@
       <property name="currentIndex">
        <number>1</number>
       </property>
+      <property name="elideMode">
+       <enum>Qt::ElideRight</enum>
+      </property>
       <widget class="QWidget" name="nowTab">
        <attribute name="title">
         <string>Now</string>
