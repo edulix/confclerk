@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>371</width>
-    <height>88</height>
+    <height>153</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -26,9 +26,6 @@
    <string>SearchHead</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="leftMargin">
-    <number>9</number>
-   </property>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_7">
      <item>
@@ -58,6 +55,10 @@
        </property>
       </widget>
      </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QCheckBox" name="searchTag">
        <property name="text">
@@ -131,6 +132,10 @@
     </spacer>
    </item>
   </layout>
+  <zorder>searchButton</zorder>
+  <zorder>searchEdit</zorder>
+  <zorder>searchTag</zorder>
+  <zorder>searchRoom</zorder>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
