@@ -112,13 +112,6 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
         clearTabs();
     }
 
-    // TODO: open conferences at startup?
-    #if 0
-    if(!confCount)
-        tabWidget->setCurrentIndex(6); // 6 - conference tab
-    }
-    #endif
-
     // open dialog for given Event ID
     // this is used in case Alarm Dialog request application to start
     if(aEventId)
@@ -214,6 +207,7 @@ void MainWindow::initTabs()
         searchTabContainer->setDates(startDate, endDate);
         searchTabContainer->searchAgainClicked();
         nowTabContainer->updateTreeView(QDate::currentDate());
+        dayNavigator->setDates(startDate, endDate);
     }
 }
 
@@ -231,6 +225,7 @@ void MainWindow::clearTabs()
 void MainWindow::unsetConference()
 {
     clearTabs();
+    dayNavigator->unsetDates();
     setWindowTitle(saved_title);
 }
 

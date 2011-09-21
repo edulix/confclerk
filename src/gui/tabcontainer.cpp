@@ -44,7 +44,7 @@ TabContainer::TabContainer(QWidget *aParent)
     treeView->setModel(new EventModel());
     treeView->setItemDelegate(new Delegate(treeView));
 
-    connect(dayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateTreeView(const QDate &)));
+    // connect(dayNavigator, SIGNAL(dateChanged(const QDate &)), SLOT(updateTreeView(const QDate &)));
 
     connect(treeView, SIGNAL(eventHasChanged(int,bool)), SIGNAL(eventHasChanged(int,bool)));
     connect(treeView, SIGNAL(clicked(const QModelIndex &)), SLOT(itemClicked(const QModelIndex &)));

@@ -71,6 +71,17 @@ void DayNavigatorWidget::setCurDate(const QDate& curDate) {
 }
 
 
+void DayNavigatorWidget::unsetDates() {
+    mStartDate= QDate();
+    mEndDate = QDate();
+    mCurDate = QDate();
+
+    configureNavigation();
+    emit(dateChanged(mCurDate));
+    this->update();
+}
+
+
 void DayNavigatorWidget::configureNavigation() {
     prevDayButton->setDisabled(!mStartDate.isValid() || mCurDate == mStartDate);
     nextDayButton->setDisabled(!mEndDate.isValid() || mCurDate == mEndDate);
