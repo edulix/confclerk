@@ -41,11 +41,15 @@ public:
 signals:
     void conferenceRemoved();
 private slots:
-    void aboutApp();
-    void eventHasChanged(int aEventId, bool aReloadModel);
-    void setup();
+    void on_conferencesAction_triggered();
+    void on_settingsAction_triggered();
+    void on_aboutAction_triggered();
+    void on_reloadAction_triggered();
+    void on_nowAction_triggered();
+    void on_searchAction_triggered();
+
+    void redisplayEvent(int aEventId, bool aReloadModel);
     // TODO: remove
-    void showConferences();
     void networkQueryFinished(QNetworkReply*);
     void importFromNetwork(const QString&);
     void importFromFile(const QString&);

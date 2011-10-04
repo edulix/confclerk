@@ -33,42 +33,19 @@ SearchTabContainer::SearchTabContainer(QWidget *aParent) : TabContainer( aParent
     sizePolicy.setHeightForWidth(header->sizePolicy().hasHeightForWidth());
     header->setSizePolicy(sizePolicy);
     header->setMinimumSize(QSize(10, 10));
-
     verticalLayout->insertWidget(0,header);
+    connect(header, SIGNAL(searchClicked()), SLOT(searchButtonClicked()));
+    showSearchDialog();
+}
 
+
+void SearchTabContainer::showSearchDialog() {
     header->show();
-
-    searchAgainButton = new QToolButton(this);
-    searchAgainButton->setObjectName(QString::fromUtf8("button"));
-    QIcon icon;
-    icon.addPixmap(QPixmap(QString::fromUtf8(":/icons/search.png")), QIcon::Normal, QIcon::Off);
-    searchAgainButton->setIcon(icon);
-    QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Minimum);
-    sizePolicy1.setHorizontalStretch(0);
-    sizePolicy1.setVerticalStretch(0);
-    sizePolicy1.setHeightForWidth(searchAgainButton->sizePolicy().hasHeightForWidth());
-    searchAgainButton->setSizePolicy(sizePolicy1);
-
-    verticalLayout_2->insertWidget(0,searchAgainButton);
-
-    searchAgainButton->hide();
     treeView->hide();
-    // do not show 'search' header if there are no conferences in the DB
-    if(Conference::getAll().count()==0)
-    {
-        header->hide();
-    }
-
-    connect( header, SIGNAL(searchClicked()), SLOT(searchButtonClicked()));
-    connect( searchAgainButton, SIGNAL(clicked()), SLOT(searchAgainClicked()));
 }
 
-SearchTabContainer::~SearchTabContainer()
-{
-}
 
-void SearchTabContainer::searchButtonClicked()
-{
+void SearchTabContainer::searchButtonClicked() {
     QHash<QString,QString> columns;
 
     SearchHead *searchHeader = static_cast<SearchHead*>(header);
@@ -118,8 +95,6 @@ void SearchTabContainer::searchButtonClicked()
     {
         // TODO: display some message
         treeView->hide();
-        searchAgainButton->hide();
-        dayNavigator->hide();
         header->show();
         QMessageBox::information(
                 this,
@@ -129,23 +104,13 @@ void SearchTabContainer::searchButtonClicked()
     }
     else
     {
-        searchAgainButton->show();
-        dayNavigator->show();
         treeView->show();
         header->hide();
 
         updateTreeView( firstDateWithFounds );
-        dayNavigator->setDates(firstDateWithFounds, lastDateWithFounds);
     }
 }
 
-void SearchTabContainer::searchAgainClicked()
-{
-    header->show();
-    searchAgainButton->hide();
-    dayNavigator->hide();
-    treeView->hide();
-}
 
 void SearchTabContainer::loadEvents( const QDate &aDate, const int aConferenceId )
 {

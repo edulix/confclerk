@@ -30,7 +30,6 @@ void ConflictDialogContainer::loadEvents( const QDate &aDate, const int aConfere
     Q_UNUSED(aDate);
 
     static_cast<EventModel*>(treeView->model())->loadConflictEvents( mEventId, aConferenceId );
-    dayNavigator->hide();
 }
 
 void ConflictDialogContainer::updateTreeView(const QDate &aDate)

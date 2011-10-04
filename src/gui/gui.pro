@@ -49,7 +49,6 @@ FORMS += searchhead.ui \
     urlinputdialog.ui
 
 HEADERS += roomstabcontainer.h \
-    nowtabcontainer.h \
     trackstabcontainer.h \
     favtabcontainer.h \
     searchtabcontainer.h \
@@ -66,7 +65,6 @@ HEADERS += roomstabcontainer.h \
     urlinputdialog.h
 
 SOURCES += roomstabcontainer.cpp \
-    nowtabcontainer.cpp \
     trackstabcontainer.cpp \
     favtabcontainer.cpp \
     searchtabcontainer.cpp \
@@ -93,3 +91,5 @@ CONFIG(maemo5) {
 #    HEADERS += alarmdialog.h
 #    SOURCES += alarmdialog.cpp
 #}
+
+

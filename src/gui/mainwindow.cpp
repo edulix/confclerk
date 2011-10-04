@@ -84,24 +84,18 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     QNetworkProxy::setApplicationProxy(proxy);
 
     // event details have changed
-    connect(dayTabContainer, SIGNAL(eventHasChanged(int,bool)), SLOT(eventHasChanged(int,bool)));
-    connect(favsTabContainer, SIGNAL(eventHasChanged(int,bool)), SLOT(eventHasChanged(int,bool)));
-    connect(tracksTabContainer, SIGNAL(eventHasChanged(int,bool)), SLOT(eventHasChanged(int,bool)));
-    connect(roomsTabContainer, SIGNAL(eventHasChanged(int,bool)), SLOT(eventHasChanged(int,bool)));
-    connect(nowTabContainer, SIGNAL(eventHasChanged(int,bool)), SLOT(eventHasChanged(int,bool)));
-    connect(searchTabContainer, SIGNAL(eventHasChanged(int,bool)), SLOT(eventHasChanged(int,bool)));
+    connect(dayTabContainer, SIGNAL(eventChanged(int,bool)), SLOT(redisplayEvent(int,bool)));
+    connect(favsTabContainer, SIGNAL(eventChanged(int,bool)), SLOT(redisplayEvent(int,bool)));
+    connect(tracksTabContainer, SIGNAL(eventChanged(int,bool)), SLOT(redisplayEvent(int,bool)));
+    connect(roomsTabContainer, SIGNAL(eventChanged(int,bool)), SLOT(redisplayEvent(int,bool)));
+    connect(searchTabContainer, SIGNAL(eventChanged(int,bool)), SLOT(redisplayEvent(int,bool)));
 
     // date has changed
-    connect(dayNavigator, SIGNAL(dateChanged(QDate)), dayTabContainer, SLOT(setCurDate(QDate)));
-    connect(dayNavigator, SIGNAL(dateChanged(QDate)), favsTabContainer, SLOT(setCurDate(QDate)));
-    connect(dayNavigator, SIGNAL(dateChanged(QDate)), tracksTabContainer, SLOT(setCurDate(QDate)));
-    connect(dayNavigator, SIGNAL(dateChanged(QDate)), roomsTabContainer, SLOT(setCurDate(QDate)));
-    connect(dayNavigator, SIGNAL(dateChanged(QDate)), nowTabContainer, SLOT(setCurDate(QDate)));
-    connect(dayNavigator, SIGNAL(dateChanged(QDate)), searchTabContainer, SLOT(setCurDate(QDate)));
-
-    connect(aboutAction, SIGNAL(triggered()), SLOT(aboutApp()));
-    connect(settingsAction, SIGNAL(triggered()), SLOT(setup()));
-    connect(conferencesAction, SIGNAL(triggered()), SLOT(showConferences()));
+    connect(dayNavigator, SIGNAL(dateChanged(QDate)), dayTabContainer, SLOT(redisplayDate(QDate)));
+    connect(dayNavigator, SIGNAL(dateChanged(QDate)), favsTabContainer, SLOT(redisplayDate(QDate)));
+    connect(dayNavigator, SIGNAL(dateChanged(QDate)), tracksTabContainer, SLOT(redisplayDate(QDate)));
+    connect(dayNavigator, SIGNAL(dateChanged(QDate)), roomsTabContainer, SLOT(redisplayDate(QDate)));
+    connect(dayNavigator, SIGNAL(dateChanged(QDate)), searchTabContainer, SLOT(redisplayDate(QDate)));
 
     useConference(Conference::activeConference());
     // optimization, see useConference() code
@@ -131,7 +125,7 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     connect(mXmlParser, SIGNAL(parsingScheduleEnd(const QString&)), conferenceModel, SLOT(newConferenceEnd(const QString&)));
 }
 
-void MainWindow::aboutApp()
+void MainWindow::on_aboutAction_triggered()
 {
     QDialog dialog(this);
     Ui::AboutDialog ui;
@@ -143,14 +137,31 @@ void MainWindow::aboutApp()
     dialog.exec();
 }
 
-void MainWindow::eventHasChanged(int aEventId, bool aReloadModel)
+
+void MainWindow::on_reloadAction_triggered() {
+
+}
+
+
+void MainWindow::on_nowAction_triggered() {
+
+}
+
+
+void MainWindow::on_searchAction_triggered() {
+    searchTabContainer->showSearchDialog();
+    tabWidget->setCurrentWidget(searchTab);
+}
+
+
+
+void MainWindow::redisplayEvent(int aEventId, bool aReloadModel)
 {
-    dayTabContainer->updateTreeViewModel(aEventId);
-    favsTabContainer->updateTreeViewModel(aEventId,aReloadModel);
-    tracksTabContainer->updateTreeViewModel(aEventId);
-    nowTabContainer->updateTreeViewModel(aEventId);
-    roomsTabContainer->updateTreeViewModel(aEventId);
-    searchTabContainer->updateTreeViewModel(aEventId);
+    dayTabContainer->redisplayEvent(aEventId);
+    favsTabContainer->redisplayEvent(aEventId,aReloadModel);
+    tracksTabContainer->redisplayEvent(aEventId);
+    roomsTabContainer->redisplayEvent(aEventId);
+    searchTabContainer->redisplayEvent(aEventId);
 }
 
 void MainWindow::useConference(int id)
@@ -200,13 +211,6 @@ void MainWindow::initTabs()
         QDate endDate = active.end();
 
         // 'dayNavigator' emits signal 'dateChanged' after setting valid START:END dates
-        dayTabContainer->setDates(startDate, endDate);
-        tracksTabContainer->setDates(startDate, endDate);
-        roomsTabContainer->setDates(startDate, endDate);
-        favsTabContainer->setDates(startDate, endDate);
-        searchTabContainer->setDates(startDate, endDate);
-        searchTabContainer->searchAgainClicked();
-        nowTabContainer->updateTreeView(QDate::currentDate());
         dayNavigator->setDates(startDate, endDate);
     }
 }
@@ -218,8 +222,6 @@ void MainWindow::clearTabs()
     roomsTabContainer->clearModel();
     favsTabContainer->clearModel();
     searchTabContainer->clearModel();
-    searchTabContainer->searchAgainClicked();
-    nowTabContainer->clearModel();
 }
 
 void MainWindow::unsetConference()
@@ -229,7 +231,7 @@ void MainWindow::unsetConference()
     setWindowTitle(saved_title);
 }
 
-void MainWindow::setup()
+void MainWindow::on_settingsAction_triggered()
 {
     SettingsDialog dialog;
     dialog.loadDialogData();
@@ -255,7 +257,7 @@ this:
 this, mXmlParser and mNetworkAccessManager:
  addition and refresh.
 */
-void MainWindow::showConferences()
+void MainWindow::on_conferencesAction_triggered()
 {
     ConferenceEditor dialog(conferenceModel, this);
 

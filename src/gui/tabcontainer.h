@@ -41,12 +41,11 @@ protected:
     virtual void loadEvents( const QDate &aDate, const int aConferenceId ) = 0;
 
 signals:
-    void eventHasChanged(int aEventId, bool aReloadModel);
+    void eventChanged(int aEventId, bool aReloadModel);
 
 public slots:
-    virtual void updateTreeViewModel(int aEventId, bool aReloadModel = false);
-    void setCurDate(const QDate& curDate);
-    void setDates(const QDate &aStart, const QDate &aEnd);
+    virtual void redisplayEvent(int aEventId, bool aReloadModel = false);
+    void redisplayDate(const QDate& curDate);
 
 protected slots:
     virtual void updateTreeView(const QDate &aDate);

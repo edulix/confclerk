@@ -38,24 +38,14 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="elideMode">
        <enum>Qt::ElideRight</enum>
       </property>
-      <widget class="QWidget" name="nowTab">
-       <attribute name="title">
-        <string>Now</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_7">
-        <item row="0" column="0">
-         <widget class="NowTabContainer" name="nowTabContainer" native="true"/>
-        </item>
-       </layout>
-      </widget>
       <widget class="QWidget" name="favouritesTab">
        <attribute name="title">
-        <string>Favourites</string>
+        <string>&amp;Favourites</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="0" column="0">
@@ -65,7 +55,7 @@
       </widget>
       <widget class="QWidget" name="dayViewTab">
        <attribute name="title">
-        <string>Day View</string>
+        <string>&amp;Days</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout">
         <item row="0" column="0">
@@ -75,7 +65,7 @@
       </widget>
       <widget class="QWidget" name="tracksTab">
        <attribute name="title">
-        <string>Tracks</string>
+        <string>&amp;Tracks</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_4">
         <item row="0" column="0">
@@ -85,7 +75,7 @@
       </widget>
       <widget class="QWidget" name="roomsTab">
        <attribute name="title">
-        <string>Rooms</string>
+        <string>&amp;Rooms</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_8">
         <item row="0" column="0">
@@ -95,7 +85,7 @@
       </widget>
       <widget class="QWidget" name="searchTab">
        <attribute name="title">
-        <string>Search</string>
+        <string>&amp;Search</string>
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_1">
         <item>
@@ -142,26 +132,36 @@
     <bool>false</bool>
    </attribute>
    <addaction name="reloadAction"/>
-   <addaction name="actionNow"/>
+   <addaction name="nowAction"/>
+   <addaction name="searchAction"/>
   </widget>
   <action name="conferencesAction">
    <property name="text">
-    <string>Conferences</string>
+    <string>C&amp;onferences</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
    </property>
   </action>
   <action name="settingsAction">
    <property name="text">
-    <string>Settings</string>
+    <string>S&amp;ettings</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+E</string>
    </property>
   </action>
   <action name="aboutAction">
    <property name="text">
-    <string>About</string>
+    <string>&amp;About</string>
    </property>
   </action>
   <action name="quitAction">
    <property name="text">
     <string>&amp;Quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
    </property>
   </action>
   <action name="reloadAction">
@@ -179,7 +179,7 @@
     <string>Ctrl+R</string>
    </property>
   </action>
-  <action name="actionNow">
+  <action name="nowAction">
    <property name="icon">
     <iconset resource="../icons.qrc">
      <normaloff>:/icons/today.png</normaloff>:/icons/today.png</iconset>
@@ -189,6 +189,18 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="searchAction">
+   <property name="icon">
+    <iconset resource="../icons.qrc">
+     <normaloff>:/icons/search.png</normaloff>:/icons/search.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Search</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
    </property>
   </action>
  </widget>
@@ -219,14 +231,10 @@
    <header>roomstabcontainer.h</header>
   </customwidget>
   <customwidget>
-   <class>NowTabContainer</class>
-   <extends>QWidget</extends>
-   <header>nowtabcontainer.h</header>
-  </customwidget>
-  <customwidget>
    <class>DayNavigatorWidget</class>
    <extends>QWidget</extends>
    <header>daynavigatorwidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>

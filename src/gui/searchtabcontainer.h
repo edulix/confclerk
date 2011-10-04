@@ -21,7 +21,7 @@
 #ifndef SEARCHTAB_H_
 #define SEARCHTAB_H_
 
-#include <QWidget>
+#include <QtGui>
 
 #include "tabcontainer.h"
 #include "searchhead.h"
@@ -30,11 +30,13 @@ class SearchTabContainer: public TabContainer {
     Q_OBJECT
 public:
     SearchTabContainer(QWidget *aParent);
-    virtual ~SearchTabContainer();
+    virtual ~SearchTabContainer() {}
 protected:
     virtual void loadEvents( const QDate &aDate, const int aConferenceId );
+
 public slots:
-    void searchAgainClicked(); // made it public - to show header when 1.st conf importing is done successfuly
+    void showSearchDialog();
+
 private slots:
     void searchButtonClicked();
 
