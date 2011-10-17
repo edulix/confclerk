@@ -258,21 +258,5 @@
     </hint>
    </hints>
   </connection>
-  <connection>
-   <sender>reloadAction</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>451</x>
-     <y>248</y>
-    </hint>
-   </hints>
-  </connection>
  </connections>
 </ui>

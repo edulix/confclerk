@@ -139,7 +139,12 @@ void MainWindow::on_aboutAction_triggered()
 
 
 void MainWindow::on_reloadAction_triggered() {
-
+    int confId = Conference::activeConference();
+    if (confId== -1) return;
+    Conference active = Conference::getById(confId);
+    if (active.url().isEmpty()) return;
+    importFromNetwork(active.url());
+    setEnabled(false);
 }
 
 
@@ -296,6 +301,7 @@ void MainWindow::networkQueryFinished(QNetworkReply *aReply)
     {
         importData(aReply->readAll(), aReply->url().toEncoded());
     }
+    setEnabled(true);
 }
 
 void MainWindow::importData(const QByteArray &aData, const QString& url)
