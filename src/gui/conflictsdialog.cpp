@@ -19,18 +19,19 @@
  */
 #include "conflictsdialog.h"
 
-ConflictsDialog::ConflictsDialog(int aEventId, QWidget *aParent)
+ConflictsDialog::ConflictsDialog(int aEventId, int aConferenceId, QWidget *aParent)
     : QDialog(aParent)
 {
     setupUi(this);
-    connect(container, SIGNAL(eventHasChanged(int,bool)), this, SIGNAL(eventHasChanged(int,bool)));
-    connect(container, SIGNAL(eventHasChanged(int,bool)), container, SLOT(updateTreeViewModel(int,bool)));
+    connect(container, SIGNAL(eventChanged(int,bool)), this, SIGNAL(eventChanged(int,bool)));
+    connect(container, SIGNAL(eventChanged(int,bool)), container, SLOT(loadEvents()));
 
-    container->setEventId(aEventId);
+    container->setEventId(aEventId, aConferenceId);
 }
+
 
 ConflictsDialog::~ConflictsDialog()
 {
-    disconnect(container, SIGNAL(eventHasChanged(int,bool)), this, SIGNAL(eventHasChanged(int,bool)));
+    disconnect(container, SIGNAL(eventChanged(int,bool)), this, SIGNAL(eventChanged(int,bool)));
 }
 

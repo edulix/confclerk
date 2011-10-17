@@ -21,20 +21,29 @@
 #include "conflictdialogcontainer.h"
 
 ConflictDialogContainer::ConflictDialogContainer(QWidget *aParent)
-    : TabContainer( aParent )
-{
+    : TabContainer( aParent ), mEventId(-1), mConferenceId(-1)
+{}
+
+
+void ConflictDialogContainer::setEventId(int aEventId, int conferenceId) {
+    mEventId = aEventId;
+    mConferenceId = conferenceId;
+    loadEvents();
 }
 
-void ConflictDialogContainer::loadEvents( const QDate &aDate, const int aConferenceId )
-{
-    Q_UNUSED(aDate);
 
-    static_cast<EventModel*>(treeView->model())->loadConflictEvents( mEventId, aConferenceId );
-}
-
-void ConflictDialogContainer::updateTreeView(const QDate &aDate)
-{
-    TabContainer::updateTreeView(aDate);
+void ConflictDialogContainer::loadEvents() {
+    static_cast<EventModel*>(treeView->model())->loadConflictEvents(mEventId, mConferenceId);
     treeView->setAllExpanded(true);
 }
+
+
+void ConflictDialogContainer::loadEvents(const QDate &aDate, const int aConferenceId) {
+    Q_UNUSED(aDate);
+    Q_ASSERT(aConferenceId == mConferenceId);
+    Q_ASSERT(mConferenceId > 0);
+    Q_ASSERT(mEventId > 0);
+    loadEvents();
+}
+
 

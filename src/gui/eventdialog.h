@@ -34,7 +34,7 @@ private slots:
     void favouriteClicked();
     void alarmClicked();
 signals:
-    void eventHasChanged(int aEventId, bool aReloadModel = false); // emited when user changes some event details, eg. sets it Favourite
+    void eventChanged(int aEventId, bool favouriteChanged); // emited when user changes some event details, eg. sets it Favourite
 private:
     int mEventId;
 };

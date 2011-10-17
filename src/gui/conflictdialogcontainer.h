@@ -28,18 +28,18 @@ class ConflictDialogContainer: public TabContainer
     Q_OBJECT
 public:
     ConflictDialogContainer(QWidget *aParent);
-    virtual ~ConflictDialogContainer(){}
+    virtual ~ConflictDialogContainer() {}
 
-    void setEventId(int aEventId) { mEventId = aEventId; }
+public slots:
+    void setEventId(int aEventId, int conferenceId);
+    void loadEvents(); // update the conflicts
 
 protected:
-    virtual void loadEvents( const QDate &aDate, const int aConferenceId );
-
-protected slots:
-    virtual void updateTreeView(const QDate &aDate);
+    virtual void loadEvents(const QDate &aDate, const int aConferenceId); // the date and conference are ignored
 
 private:
     int mEventId;
+    int mConferenceId;
 };
 
 #endif /* CONFLICTDIALOGCONTAINER_H */

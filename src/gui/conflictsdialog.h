@@ -27,10 +27,10 @@ class ConflictsDialog : public QDialog, Ui::ConflictsDialog
 {
     Q_OBJECT
 public:
-    ConflictsDialog(int aEventId, QWidget *aParent = NULL);
+    ConflictsDialog(int aEventId, int aConferenceId, QWidget *aParent = NULL);
     ~ConflictsDialog();
 signals:
-    void eventHasChanged(int aEventId, bool aReloadModel = false);
+    void eventChanged(int aEventId, bool favouriteChanged);
 };
 
 #endif /* CONFLICTSDIALOG_H */ 

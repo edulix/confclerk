@@ -76,7 +76,8 @@ void TabContainer::itemClicked(const QModelIndex &aIndex)
 
 void TabContainer::displayConflicts(const QModelIndex &aIndex)
 {
-    ConflictsDialog dialog(static_cast<Event*>(aIndex.internalPointer())->id(),this);
+    Event* event = static_cast<Event*>(aIndex.internalPointer());
+    ConflictsDialog dialog(event->id(), event->conferenceId(), this);
 #ifdef N810
     dialog.setFixedWidth(static_cast<QWidget*>(parent())->width());
 #endif
