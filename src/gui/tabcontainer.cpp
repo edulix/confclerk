@@ -86,9 +86,8 @@ void TabContainer::displayConflicts(const QModelIndex &aIndex)
 }
 
 
-void TabContainer::redisplayEvent(int aEventId, bool aReloadModel) {
-    /* if (aReloadModel) updateTreeView(dayNavigator->curDate());
-    else */ static_cast<EventModel*>(treeView->model())->updateModel(aEventId);
+void TabContainer::redisplayEvent(int aEventId) {
+    static_cast<EventModel*>(treeView->model())->updateModel(aEventId);
 }
 
 

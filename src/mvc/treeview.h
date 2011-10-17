@@ -37,7 +37,7 @@ private slots:
     void handleItemClicked(const QModelIndex &index);
 signals:
     void requestForConflicts(const QModelIndex &aIndex);
-    void eventHasChanged(int aEventId, bool aReloadModel = false); // emited when user changes some event details, eg. sets it Favourite
+    void eventChanged(int aEventId, bool favouriteChanged); // emited when user changes some event details, eg. sets it Favourite
 };
 
 #endif /* TREEVIEW_H */

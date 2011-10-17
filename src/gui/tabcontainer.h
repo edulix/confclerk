@@ -44,7 +44,7 @@ signals:
     void eventChanged(int aEventId, bool aReloadModel);
 
 public slots:
-    virtual void redisplayEvent(int aEventId, bool aReloadModel = false);
+    virtual void redisplayEvent(int aEventId);
     void redisplayDate(const QDate& curDate);
 
 protected slots:

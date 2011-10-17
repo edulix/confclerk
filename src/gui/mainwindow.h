@@ -48,7 +48,7 @@ private slots:
     void on_nowAction_triggered();
     void on_searchAction_triggered();
 
-    void redisplayEvent(int aEventId, bool aReloadModel);
+    void onEventChanged(int aEventId, bool favouriteChanged);
     // TODO: remove
     void networkQueryFinished(QNetworkReply*);
     void importFromNetwork(const QString&);

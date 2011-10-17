@@ -84,11 +84,11 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     QNetworkProxy::setApplicationProxy(proxy);
 
     // event details have changed
-    connect(dayTabContainer, SIGNAL(eventChanged(int,bool)), SLOT(redisplayEvent(int,bool)));
-    connect(favsTabContainer, SIGNAL(eventChanged(int,bool)), SLOT(redisplayEvent(int,bool)));
-    connect(tracksTabContainer, SIGNAL(eventChanged(int,bool)), SLOT(redisplayEvent(int,bool)));
-    connect(roomsTabContainer, SIGNAL(eventChanged(int,bool)), SLOT(redisplayEvent(int,bool)));
-    connect(searchTabContainer, SIGNAL(eventChanged(int,bool)), SLOT(redisplayEvent(int,bool)));
+    connect(dayTabContainer, SIGNAL(eventChanged(int,bool)), SLOT(onEventChanged(int,bool)));
+    connect(favsTabContainer, SIGNAL(eventChanged(int,bool)), SLOT(onEventChanged(int,bool)));
+    connect(tracksTabContainer, SIGNAL(eventChanged(int,bool)), SLOT(onEventChanged(int,bool)));
+    connect(roomsTabContainer, SIGNAL(eventChanged(int,bool)), SLOT(onEventChanged(int,bool)));
+    connect(searchTabContainer, SIGNAL(eventChanged(int,bool)), SLOT(onEventChanged(int,bool)));
 
     // date has changed
     connect(dayNavigator, SIGNAL(dateChanged(QDate)), dayTabContainer, SLOT(redisplayDate(QDate)));
@@ -154,15 +154,15 @@ void MainWindow::on_searchAction_triggered() {
 }
 
 
-
-void MainWindow::redisplayEvent(int aEventId, bool aReloadModel)
-{
+void MainWindow::onEventChanged(int aEventId, bool favouriteChanged) {
     dayTabContainer->redisplayEvent(aEventId);
-    favsTabContainer->redisplayEvent(aEventId,aReloadModel);
+    if (favouriteChanged) favsTabContainer->redisplayDate(dayNavigator->curDate());
+    else favsTabContainer->redisplayEvent(aEventId);
     tracksTabContainer->redisplayEvent(aEventId);
     roomsTabContainer->redisplayEvent(aEventId);
     searchTabContainer->redisplayEvent(aEventId);
 }
+
 
 void MainWindow::useConference(int id)
 {
