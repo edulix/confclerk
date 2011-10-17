@@ -300,19 +300,8 @@ void EventModel::loadEventsByRoom(const QDate &aDate, int aConferenceId)
     createRoomGroups();
 }
 
-void EventModel::loadNowEvents(int aConferenceId)
-{
-    clearModel();
-    // check for existence of the conference in the DB
-    if(Conference::getAll().count())
-    {
-        mEvents = Event::nowEvents(aConferenceId, "start");
-    }
-    createTimeGroups();
-}
 
-void EventModel::loadConflictEvents(int aEventId, int aConferenceId)
-{
+void EventModel::loadConflictEvents(int aEventId, int aConferenceId) {
     clearModel();
     // check for existence of the conference in the DB
     if(Conference::getAll().count())

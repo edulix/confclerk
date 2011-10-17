@@ -46,7 +46,6 @@ public:
     static QList<Event> getByDate(const QDate & date, int conferenceId, QString orderBy);
     static QList<Event> getFavByDate(const QDate & date, int conferenceId); // get Favourities by Date
     static QList<Event> getSearchResultByDate(const QDate& date, int conferenceId, QString orderBy);
-    static QList<Event> nowEvents(int conferenceId, QString orderBy); // get events scheduled NOW
     static QList<Event> getByTrack(int id);
     static QList<Event> getByDateAndRoom(const QDate& date, int conferenceId);
     static QList<Event> conflictEvents(int aEventId, int conferenceId);

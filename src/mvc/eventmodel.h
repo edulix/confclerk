@@ -39,7 +39,6 @@ public:
     void loadFavEvents(const QDate &aDate, int aConferenceId); // loads Favourite events from the DB
     void loadEventsByTrack(const QDate &aDate, int aConferenceId); // loads Events sorted by Track id and Event start from the DB
     int loadSearchResultEvents(const QDate &aDate, int aConferenceId);
-    void loadNowEvents(int aConferenceId); // loads Now events from the DB
     void loadEventsByRoom(const QDate &aDate, int aConferenceId);
     void loadConflictEvents(int aEventId, int aConferenceId); // loads events in conflict
     void clearModel();
