@@ -28,7 +28,6 @@ DayNavigatorWidget::DayNavigatorWidget(QWidget *aParent): QWidget(aParent) {
 
     connect(prevDayButton, SIGNAL(clicked()), SLOT(prevDayButtonClicked()));
     connect(nextDayButton, SIGNAL(clicked()), SLOT(nextDayButtonClicked()));
-    connect(todayButton, SIGNAL(clicked()), SLOT(todayButtonClicked()));
 
     configureNavigation();
 }
@@ -103,11 +102,6 @@ void DayNavigatorWidget::nextDayButtonClicked() {
     configureNavigation();
     emit(dateChanged(mCurDate));
     this->update();
-}
-
-
-void DayNavigatorWidget::todayButtonClicked() {
-    setCurDate(QDate::currentDate());
 }
 
 

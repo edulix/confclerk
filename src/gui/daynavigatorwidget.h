@@ -40,7 +40,6 @@ class DayNavigatorWidget : public QWidget, private Ui::DayNavigatorWidget {
         void paintEvent(QPaintEvent *);
         void configureNavigation();
     private slots:
-        void todayButtonClicked();
         void prevDayButtonClicked();
         void nextDayButtonClicked();
     signals:

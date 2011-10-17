@@ -149,7 +149,10 @@ void MainWindow::on_reloadAction_triggered() {
 
 
 void MainWindow::on_nowAction_triggered() {
-
+    int confId = Conference::activeConference();
+    if (confId== -1) return;
+    dayNavigator->setCurDate(QDate::currentDate());
+    dayTabContainer->expandTimeGroup(QTime::currentTime(), confId);
 }
 
 

@@ -53,6 +53,7 @@ public:
     int id() const { return value("id").toInt(); }
     int conferenceId() const { return value("xid_conference").toInt(); }
     QDateTime start() const { return value("start").toDateTime(); }
+    /// duration of the event in seconds
     int duration() const { return value("duration").toInt(); }
     int trackId() const { return value("xid_track").toInt(); }
     QString type() const { return value("type").toString(); }

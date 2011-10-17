@@ -32,7 +32,7 @@ CREATE TABLE PERSON ( id INTEGER NOT NULL
 CREATE TABLE EVENT ( xid_conference INTEGER  NOT NULL
     , id INTEGER NOT NULL
     , start INTEGER NOT NULL
-    , duration INTEGER NOT NULL
+    , duration INTEGER NOT NULL -- duration of the event in seconds
     , xid_track INTEGER NOT NULL REFERENCES TRACK(id)
     , type VARCHAR
     , language VARCHAR

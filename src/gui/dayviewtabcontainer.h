@@ -27,7 +27,11 @@ class DayViewTabContainer: public TabContainer {
     Q_OBJECT
 public:
     DayViewTabContainer(QWidget *aParent);
-    virtual ~DayViewTabContainer();
+    virtual ~DayViewTabContainer() {}
+
+public slots:
+    void expandTimeGroup(QTime time, int conferenceId);
+
 protected:
     virtual void loadEvents(const QDate &aDate, const int aConferenceId );
 };

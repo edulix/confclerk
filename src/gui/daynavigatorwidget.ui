@@ -64,27 +64,11 @@
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QToolButton" name="todayButton">
-       <property name="text">
-        <string>...</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../icons.qrc">
-         <normaloff>:/icons/today.png</normaloff>:/icons/today.png</iconset>
-       </property>
-       <property name="autoRaise">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
     </layout>
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../icons.qrc"/>
- </resources>
+ <resources/>
  <connections/>
  <slots>
   <slot>prevDayButtonClicked()</slot>
