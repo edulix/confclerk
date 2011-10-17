@@ -241,7 +241,7 @@ void EventModel::loadEvents(const QDate &aDate, int aConferenceId)
     // check for existence of the conference in the DB
     if(Conference::getAll().count())
     {
-        mEvents = Event::getByDate(QDate(aDate.year(), aDate.month(), aDate.day()), aConferenceId, "start");
+        mEvents = Event::getByDate(QDate(aDate.year(), aDate.month(), aDate.day()), aConferenceId, "start, duration");
     }
     createTimeGroups();
 }
@@ -264,7 +264,7 @@ int EventModel::loadSearchResultEvents(const QDate &aDate, int aConferenceId)
     if(Conference::getAll().count())
     {
         try{
-            mEvents = Event::getSearchResultByDate(QDate(aDate.year(), aDate.month(), aDate.day()), aConferenceId, "start");
+            mEvents = Event::getSearchResultByDate(QDate(aDate.year(), aDate.month(), aDate.day()), aConferenceId, "start, duration");
         }
         catch( OrmException &e  ){
             qDebug() << "Event::getSearchResultByDate failed: " << e.text();
@@ -285,7 +285,7 @@ void EventModel::loadEventsByTrack(const QDate &aDate, int aConferenceId)
     clearModel();
     if (Conference::getAll().count())
     {
-        mEvents = Event::getByDate(QDate(aDate.year(), aDate.month(), aDate.day()), aConferenceId, "xid_track, start");
+        mEvents = Event::getByDate(QDate(aDate.year(), aDate.month(), aDate.day()), aConferenceId, "xid_track, start, duration");
     }
     createTrackGroups();
 }

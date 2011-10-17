@@ -43,8 +43,7 @@ Event::Event() :
 {
 }
 
-Event Event::getById(int id, int conferenceId)
-{
+Event Event::getById(int id, int conferenceId) {
     QSqlQuery query;
     query.prepare(selectQuery() + "WHERE id = :id AND xid_conference = :conf");
     query.bindValue(":id", id);
@@ -52,14 +51,13 @@ Event Event::getById(int id, int conferenceId)
     return loadOne(query);
 }
 
-QList<Event> Event::getByDate(const QDate& date, int conferenceId, QString orderBy)
-{
+
+QList<Event> Event::getByDate(const QDate& date, int conferenceId, QString orderBy) {
     QSqlQuery query;
     query.prepare(selectQuery() + QString("WHERE xid_conference = :conf AND start >= :start AND start < :end ORDER BY %1").arg(orderBy));
     query.bindValue(":conf", conferenceId);
     query.bindValue(":start", convertToDb(date, QVariant::DateTime));
     query.bindValue(":end", convertToDb(date.addDays(1), QVariant::DateTime));
-
     return load(query);
 }
 
@@ -68,7 +66,7 @@ QList<Event> Event::getByDateAndRoom(const QDate& date, int conferenceId)
     QSqlQuery query;
     QString aliasEvent("E");
     QString aliasEventRoom("R");
-    query.prepare(QString("SELECT %1 FROM %2 %3, %4 %5 WHERE %3.xid_conference = :conf AND %3.start >= :start AND %3.start < :end AND %3.id = R.xid_event ORDER BY %5.xid_room, %3.start").arg(
+    query.prepare(QString("SELECT %1 FROM %2 %3, %4 %5 WHERE %3.xid_conference = :conf AND %3.start >= :start AND %3.start < :end AND %3.id = R.xid_event ORDER BY %5.xid_room, %3.start, %3.duration").arg(
                     columnsForSelect(aliasEvent), Event::sTableName, aliasEvent, "EVENT_ROOM", aliasEventRoom));
     query.bindValue(":conf", conferenceId);
     query.bindValue(":start", convertToDb(date, QVariant::DateTime));
@@ -84,7 +82,7 @@ QList<Event> Event::conflictEvents(int aEventId, int conferenceId) {
     query.prepare(selectQuery() + "WHERE xid_conference = :conf AND ( \
            ( start >= :s1 AND ( start + duration ) < :e1 ) \
         OR ( ( start + duration ) > :s2 AND start < :e2 ) ) \
-        AND favourite = 1 AND NOT id = :id ORDER BY start");
+        AND favourite = 1 AND NOT id = :id ORDER BY start, duration");
     query.bindValue(":conf", event.conferenceId());
     query.bindValue(":s1", convertToDb(event.start(), QVariant::DateTime));
     query.bindValue(":e1", convertToDb(event.start().toTime_t()+event.duration(), QVariant::DateTime));
@@ -99,7 +97,7 @@ QList<Event> Event::conflictEvents(int aEventId, int conferenceId) {
 QList<Event> Event::getFavByDate(const QDate& date, int conferenceId)
 {
     QSqlQuery query;
-    query.prepare(selectQuery() + QString("WHERE xid_conference = :conf AND start >= :start AND start < :end AND favourite = 1 ORDER BY start"));
+    query.prepare(selectQuery() + QString("WHERE xid_conference = :conf AND start >= :start AND start < :end AND favourite = 1 ORDER BY start, duration"));
     query.bindValue(":conf", conferenceId);
     query.bindValue(":start", convertToDb(date, QVariant::DateTime));
     query.bindValue(":end", convertToDb(date.addDays(1), QVariant::DateTime));

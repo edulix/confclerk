@@ -76,7 +76,7 @@ void SearchTabContainer::searchButtonClicked() {
     for(QDate d=startDate; d<=endDate; d=d.addDays(1))
     {
         try{
-            int count = Event::getSearchResultByDate(d, confId, "start").count();
+            int count = Event::getSearchResultByDate(d, confId, "start, duration").count();
             if(count && (firstDateWithFounds==endDate))
                 firstDateWithFounds=d;
             if(count)
