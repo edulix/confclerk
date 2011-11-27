@@ -122,10 +122,9 @@ Toastfreeware
 http://www.toastfreeware.priv.at/confclerk/
 
 
-Tested pentabarf instances:
+Tested pentabarf (or frab) instances:
 
 - FOSDEM (2011): http://fosdem.org/schedule/xml
-- DebConf (2010): http://penta.debconf.org/dc10_schedule/schedule.en.xml
 - DebConf (2011): http://penta.debconf.org/dc11_schedule/schedule.en.xml
-- 27C3: http://events.ccc.de/congress/2010/Fahrplan/schedule.en.xml
+- 28C3: http://events.ccc.de/congress/2011/Fahrplan/schedule.en.xml
 - FrOSCon (2011): http://programm.froscon.org/2011/schedule.xml
