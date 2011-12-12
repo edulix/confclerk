@@ -39,6 +39,11 @@ SearchTabContainer::SearchTabContainer(QWidget *aParent) : TabContainer( aParent
 }
 
 
+bool SearchTabContainer::searchDialogIsVisible() const {
+    return header->isVisible();
+}
+
+
 int SearchTabContainer::searchResultCount(const QDate& date) const {
     int confId = Conference::activeConference();
     if (confId == -1) return 0;
@@ -46,9 +51,9 @@ int SearchTabContainer::searchResultCount(const QDate& date) const {
 }
 
 
-void SearchTabContainer::showSearchDialog() {
-    header->show();
-    treeView->hide();
+void SearchTabContainer::showSearchDialog(bool show) {
+    header->setVisible(show);
+    treeView->setVisible(!show);
 }
 
 

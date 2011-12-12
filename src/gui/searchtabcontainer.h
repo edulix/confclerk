@@ -31,6 +31,7 @@ class SearchTabContainer: public TabContainer {
 public:
     SearchTabContainer(QWidget *aParent);
     virtual ~SearchTabContainer() {}
+    bool searchDialogIsVisible() const;
     int searchResultCount(const QDate& date) const; ///< returns the number of events found on that specific date
 
 protected:
@@ -40,7 +41,7 @@ signals:
     void searchResultChanged();
 
 public slots:
-    void showSearchDialog();
+    void showSearchDialog(bool show=true);
 
 private slots:
     void searchButtonClicked();

@@ -161,8 +161,12 @@ void MainWindow::on_nowAction_triggered() {
 
 
 void MainWindow::on_searchAction_triggered() {
-    searchTabContainer->showSearchDialog();
-    tabWidget->setCurrentWidget(searchTab);
+    if (tabWidget->currentWidget() == searchTab)
+        searchTabContainer->showSearchDialog(!searchTabContainer->searchDialogIsVisible());
+    else {
+        tabWidget->setCurrentWidget(searchTab);
+        searchTabContainer->showSearchDialog();
+    }
 }
 
 
