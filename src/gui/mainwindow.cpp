@@ -97,6 +97,10 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent)
     connect(dayNavigator, SIGNAL(dateChanged(QDate)), roomsTabContainer, SLOT(redisplayDate(QDate)));
     connect(dayNavigator, SIGNAL(dateChanged(QDate)), searchTabContainer, SLOT(redisplayDate(QDate)));
 
+    // search result has changed
+    connect(searchTabContainer, SIGNAL(searchResultChanged()), SLOT(onSearchResultChanged()));
+
+
     useConference(Conference::activeConference());
     // optimization, see useConference() code
     try {
@@ -169,6 +173,28 @@ void MainWindow::onEventChanged(int aEventId, bool favouriteChanged) {
     tracksTabContainer->redisplayEvent(aEventId);
     roomsTabContainer->redisplayEvent(aEventId);
     searchTabContainer->redisplayEvent(aEventId);
+}
+
+
+void MainWindow::onSearchResultChanged() {
+    // Are results found on the current date?
+    QDate date = dayNavigator->curDate();
+    int count = searchTabContainer->searchResultCount(date);
+    if (count > 0) {searchTabContainer->redisplayDate(date); return;}
+
+    // Are results found in the future?
+    for (date = date.addDays(1); date <= dayNavigator->endDate(); date = date.addDays(1)) {
+        int count = searchTabContainer->searchResultCount(date);
+        if (count > 0) {dayNavigator->setCurDate(date); return;}
+    }
+
+    // Are results found in the past?
+    for (date = dayNavigator->startDate(); date < dayNavigator->curDate(); date = date.addDays(1)) {
+        int count = searchTabContainer->searchResultCount(date);
+        if (count > 0) {dayNavigator->setCurDate(date); return;}
+    }
+    // No results were found
+    searchTabContainer->redisplayDate(dayNavigator->curDate());
 }
 
 

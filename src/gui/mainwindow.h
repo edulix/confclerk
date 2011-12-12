@@ -49,6 +49,7 @@ private slots:
     void on_searchAction_triggered();
 
     void onEventChanged(int aEventId, bool favouriteChanged);
+    void onSearchResultChanged();
     // TODO: remove
     void networkQueryFinished(QNetworkReply*);
     void importFromNetwork(const QString&);

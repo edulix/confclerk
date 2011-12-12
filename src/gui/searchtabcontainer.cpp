@@ -39,6 +39,13 @@ SearchTabContainer::SearchTabContainer(QWidget *aParent) : TabContainer( aParent
 }
 
 
+int SearchTabContainer::searchResultCount(const QDate& date) const {
+    int confId = Conference::activeConference();
+    if (confId == -1) return 0;
+    return Event::getSearchResultByDate(date, confId, "start, duration").count();
+}
+
+
 void SearchTabContainer::showSearchDialog() {
     header->show();
     treeView->hide();
@@ -64,36 +71,15 @@ void SearchTabContainer::searchButtonClicked() {
 
     int confId = Conference::activeConference();
     if (confId == -1) return;
+    Conference conf = Conference::getById(confId);
 
     SqlEngine::searchEvent( confId, columns, keyword );
 
-    QDate startDate = Conference::getById(confId).start();
-    QDate endDate = Conference::getById(confId).end();
-
     int nrofFounds = 0;
-    QDate firstDateWithFounds = endDate;
-    QDate lastDateWithFounds = startDate;
-    for(QDate d=startDate; d<=endDate; d=d.addDays(1))
-    {
-        try{
-            int count = Event::getSearchResultByDate(d, confId, "start, duration").count();
-            if(count && (firstDateWithFounds==endDate))
-                firstDateWithFounds=d;
-            if(count)
-                lastDateWithFounds=d;
-            nrofFounds+=count;
-        }
-        catch( OrmException &e  ){
-            qDebug() << "Event::getSearchResultByDate failed: " << e.text();
-        }
-        catch(...){
-            qDebug() << "Event::getSearchResultByDate failed";
-        }
-    }
+    for (QDate d = conf.start(); d <= conf.end(); d = d.addDays(1))
+        nrofFounds += Event::getSearchResultByDate(d, confId, "start, duration").count();
 
-    if(!nrofFounds)
-    {
-        // TODO: display some message
+    if (!nrofFounds) {
         treeView->hide();
         header->show();
         QMessageBox::information(
@@ -101,13 +87,11 @@ void SearchTabContainer::searchButtonClicked() {
                 QString("Keyword '%1' not found!").arg(keyword),
                 QString("No events containing '%1' found!").arg(keyword),
                 QMessageBox::Ok);
-    }
-    else
-    {
+    } else {
         treeView->show();
         header->hide();
 
-        updateTreeView( firstDateWithFounds );
+        emit searchResultChanged();
     }
 }
 

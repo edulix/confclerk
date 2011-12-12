@@ -34,7 +34,9 @@ class DayNavigatorWidget : public QWidget, private Ui::DayNavigatorWidget {
         ~DayNavigatorWidget() {}
         void setDates(const QDate &aStartDate, const QDate &aEndDate);
         void setCurDate(const QDate& curDate);
+        QDate startDate() const {return mStartDate;}
         QDate curDate() const {return mCurDate;}
+        QDate endDate() const {return mEndDate;}
         void unsetDates();
     protected:
         void paintEvent(QPaintEvent *);
