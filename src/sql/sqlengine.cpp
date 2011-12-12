@@ -319,12 +319,12 @@ int SqlEngine::searchEvent(int aConferenceId, const QHash<QString,QString> &aCol
     QString sql = QString("INSERT INTO SEARCH_EVENT ( xid_conference, id ) "
                 "SELECT DISTINCT EVENT.xid_conference, EVENT.id FROM EVENT ");
     if( aColumns.contains("ROOM") ){
-        sql += "INNER JOIN EVENT_ROOM ON ( EVENT.xid_conference = EVENT_ROOM.xid_conference AND EVENT.id = EVENT_ROOM.xid_event ) ";
-        sql += "INNER JOIN ROOM ON ( EVENT_ROOM.xid_room = ROOM.id ) ";
+        sql += "LEFT JOIN EVENT_ROOM ON ( EVENT.xid_conference = EVENT_ROOM.xid_conference AND EVENT.id = EVENT_ROOM.xid_event ) ";
+        sql += "LEFT JOIN ROOM ON ( EVENT_ROOM.xid_room = ROOM.id ) ";
     }
     if( aColumns.contains("PERSON") ){
-        sql += "INNER JOIN EVENT_PERSON ON ( EVENT.xid_conference = EVENT_PERSON.xid_conference AND EVENT.id = EVENT_PERSON.xid_event ) ";
-        sql += "INNER JOIN PERSON ON ( EVENT_PERSON.xid_person = PERSON.id ) ";
+        sql += "LEFT JOIN EVENT_PERSON ON ( EVENT.xid_conference = EVENT_PERSON.xid_conference AND EVENT.id = EVENT_PERSON.xid_event ) ";
+        sql += "LEFT JOIN PERSON ON ( EVENT_PERSON.xid_person = PERSON.id ) ";
     }
     sql += QString("WHERE EVENT.xid_conference = %1 AND (").arg( aConferenceId );
 
