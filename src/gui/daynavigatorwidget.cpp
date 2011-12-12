@@ -105,8 +105,7 @@ void DayNavigatorWidget::nextDayButtonClicked() {
 }
 
 
-void DayNavigatorWidget::paintEvent(QPaintEvent *aEvent)
-{
+void DayNavigatorWidget::paintEvent(QPaintEvent *aEvent) {
     Q_UNUSED(aEvent);
 
     QString selectedDateStr = mCurDate.isValid() ? mCurDate.toString("dddd\nyyyy-MM-dd") : tr("No date");
@@ -114,13 +113,7 @@ void DayNavigatorWidget::paintEvent(QPaintEvent *aEvent)
     painter.save();
 
     // rectangle only for the text
-    int marginSize = 9;
-    int buttonSize = 32;
-#ifdef MAEMO
-    QRect q(y()-height()+1*marginSize+2.5*buttonSize, x(), height()-2*marginSize-2.5*buttonSize, width());
-#else
-    QRect q(y()-height()+1*marginSize+2*buttonSize, x(), height()-2*marginSize-3*buttonSize, width());
-#endif
+    QRect q(-selectedDate->height()-selectedDate->y(), selectedDate->x(), selectedDate->height(), selectedDate->width());
     painter.rotate(270);
 
     // font size adjustion, static on maemo, dynamically otherwise
