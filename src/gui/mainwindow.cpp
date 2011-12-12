@@ -166,6 +166,16 @@ void MainWindow::on_searchAction_triggered() {
 }
 
 
+void MainWindow::on_expandAllAction_triggered() {
+
+}
+
+
+void MainWindow::on_collapseAllAction_triggered() {
+
+}
+
+
 void MainWindow::onEventChanged(int aEventId, bool favouriteChanged) {
     dayTabContainer->redisplayEvent(aEventId);
     if (favouriteChanged) favsTabContainer->redisplayDate(dayNavigator->curDate());

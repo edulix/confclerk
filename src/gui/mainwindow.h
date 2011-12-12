@@ -47,6 +47,8 @@ private slots:
     void on_reloadAction_triggered();
     void on_nowAction_triggered();
     void on_searchAction_triggered();
+    void on_expandAllAction_triggered();
+    void on_collapseAllAction_triggered();
 
     void onEventChanged(int aEventId, bool favouriteChanged);
     void onSearchResultChanged();
