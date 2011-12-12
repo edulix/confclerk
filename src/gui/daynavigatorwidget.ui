@@ -6,40 +6,39 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>52</width>
-    <height>198</height>
+    <width>31</width>
+    <height>138</height>
    </rect>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="0">
-    <layout class="QVBoxLayout" name="verticalLayout" stretch="0,1,0">
-     <property name="spacing">
-      <number>0</number>
+  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,1,0">
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="margin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QToolButton" name="nextDayButton">
+     <property name="autoRaise">
+      <bool>true</bool>
      </property>
-     <item>
-      <widget class="QToolButton" name="nextDayButton">
-       <property name="autoRaise">
-        <bool>true</bool>
-       </property>
-       <property name="arrowType">
-        <enum>Qt::UpArrow</enum>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QWidget" name="selectedDate" native="true"/>
-     </item>
-     <item>
-      <widget class="QToolButton" name="prevDayButton">
-       <property name="autoRaise">
-        <bool>true</bool>
-       </property>
-       <property name="arrowType">
-        <enum>Qt::DownArrow</enum>
-       </property>
-      </widget>
-     </item>
-    </layout>
+     <property name="arrowType">
+      <enum>Qt::UpArrow</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="selectedDate" native="true"/>
+   </item>
+   <item>
+    <widget class="QToolButton" name="prevDayButton">
+     <property name="autoRaise">
+      <bool>true</bool>
+     </property>
+     <property name="arrowType">
+      <enum>Qt::DownArrow</enum>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>
