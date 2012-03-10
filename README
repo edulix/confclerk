@@ -14,7 +14,7 @@ At the moment ConfClerk is able to import schedules in XML format created by
 the PentaBarf conference management system (or frab) used by e.g. FOSDEM,
 DebConf, FrOSCon, Grazer Linuxtage, and the CCC.
 
-ConfClerk is targetted at mobile devices like the Nokia N810 and N900 but
+ConfClerk is targeted at mobile devices like the Nokia N810 and N900 but
 works on any sytem running Qt.
 
 See the file ./INSTALL for building and installation instructions, and
@@ -99,7 +99,7 @@ src/icons/emblem-new*:
 
 History:
 
-ConfClerk started as fosdem-schedule, targetted at Maemo as an operating
+ConfClerk started as fosdem-schedule, targeted at Maemo as an operating
 system and the FOSDEM conference.
 fosdem-schedule was written by Ixonos Plc., maintained at
 http://sourceforge.net/projects/fosdem-maemo/ , and released under the GNU GPL
