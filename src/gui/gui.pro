@@ -86,10 +86,3 @@ CONFIG(maemo5) {
     QT += maemo5
 }
 
-#maemo { 
-#    FORMS += alarmdialog.ui
-#    HEADERS += alarmdialog.h
-#    SOURCES += alarmdialog.cpp
-#}
-
-
