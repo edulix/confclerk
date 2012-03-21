@@ -65,8 +65,8 @@ F<~/.local/share/data/Toastfreeware/ConfClerk/ConfClerk.sqlite>.
 =head2 Main code
 
     Copyright (C) 2010 Ixonos Plc.
-    Copyright (C) 2011, Philipp Spitzer <philipp@toastfreeware.priv.at>
-    Copyright (C) 2011, gregor herrmann <gregor@toastfreeware.priv.at>
+    Copyright (C) 2011-2012, Philipp Spitzer <philipp@toastfreeware.priv.at>
+    Copyright (C) 2011-2012, gregor herrmann <gregor@toastfreeware.priv.at>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

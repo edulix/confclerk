@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2010 Ixonos Plc.
- * Copyright (C) 2011 Philipp Spitzer, gregor herrmann
+ * Copyright (C) 2011-2012 Philipp Spitzer, gregor herrmann
  *
  * This file is part of ConfClerk.
  *
