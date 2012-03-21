@@ -18,12 +18,12 @@
  * ConfClerk.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "eventdialog.h"
-#include <conference.h>
+#include "conference.h"
 
 #include <QScrollBar>
 
 #ifdef MAEMO
-#include <alarm.h>
+#include "alarm.h"
 #endif
 
 EventDialog::EventDialog(const int &aEventId, QWidget *aParent)
@@ -106,7 +106,7 @@ void EventDialog::alarmClicked()
 #ifdef MAEMO
         // remove alarm from the 'alarmd' alrms list
         Alarm alarm;
-        alarm.deleteAlarm(event.id());
+        alarm.deleteAlarm(event.conferenceId(), event.id());
         // TODO: test if removing was successfull
 #endif /* MAEMO */
     }
@@ -117,7 +117,7 @@ void EventDialog::alarmClicked()
 #ifdef MAEMO
         // add alarm to the 'alarmd'
         Alarm alarm;
-        int cookie = alarm.addAlarm(event.id(),event.title(),QDateTime::currentDateTime().addSecs(10));
+        alarm.addAlarm(event.conferenceId(), event.id(), event.title(), event.start().addSecs(PRE_EVENT_ALARM_SEC));
 #endif /* MAEMO */
     }
     event.update("alarm");

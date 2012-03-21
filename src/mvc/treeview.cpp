@@ -26,7 +26,7 @@
 #include "eventmodel.h"
 
 #ifdef MAEMO
-#include <alarm.h>
+#include "alarm.h"
 #endif
 
 #include <QDebug>
@@ -101,8 +101,7 @@ bool TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
 #ifdef MAEMO
                     // remove alarm from the 'alarmd' alrms list
                     Alarm alarm;
-                    alarm.deleteAlarm(event.id());
-                    // TODO: test if removing was successfull
+                    alarm.deleteAlarm(event.conferenceId(), event.id());
 #endif /* MAEMO */
                 }
                 else
@@ -111,8 +110,7 @@ bool TreeView::testForControlClicked(const QModelIndex &aIndex, const QPoint &aP
 #ifdef MAEMO
                     // add alarm to the 'alarmd'
                     Alarm alarm;
-                    //int cookie = alarm.addAlarm(event.id(),QDateTime::currentDateTime().addSecs(10)); // testing
-                    int cookie = alarm.addAlarm(event.id(),event.title(),event.start().addSecs(-15*60)); // 15 minutes before real start
+                    alarm.addAlarm(event.conferenceId(), event.id(), event.title(),event.start().addSecs(PRE_EVENT_ALARM_SEC));
 #endif /* MAEMO */
                 }
                 event.update("alarm");

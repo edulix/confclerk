@@ -29,41 +29,40 @@
 
 //#include <dbus-1.0/dbus/dbus-protocol.h>
 
-int Alarm::addAlarm(int aEventId, QString aEventTitle, const QDateTime &aDateTime)
-{
-    cookie_t cookie = 0;
-    alarm_event_t *eve = 0;
-    alarm_action_t *act = 0;
+int Alarm::addAlarm(int conferenceId, int eventId, QString eventTitle, const QDateTime &alarmDateTime) {
+    cookie_t alarmCookie = 0;
+    alarm_event_t *alarmEvent = 0;
+    alarm_action_t *alarmAction = 0;
 
     /* Create alarm event structure and set application identifier */
-    eve = alarm_event_create();
-    alarm_event_set_alarm_appid(eve, APPID);
+    alarmEvent = alarm_event_create();
+    alarm_event_set_alarm_appid(alarmEvent, APPID);
 
-    /* for Deleting purposes */
-    // ?!
-    //alarm_event_set_message(eve, QString::number(aEventId).toLocal8Bit().data());
-    alarm_event_set_message(eve, aEventTitle.toLocal8Bit().data());
+    // message
+    alarm_event_set_title(alarmEvent, "ConfClerk");
+    alarm_event_set_message(alarmEvent, eventTitle.toLocal8Bit().data());
+
+    // for deleting purposes
+    alarm_event_set_attr_int(alarmEvent, "conferenceId", conferenceId);
+    alarm_event_set_attr_int(alarmEvent, "eventId", eventId);
 
     /* Use absolute time triggering */
-    //eve->alarm_time = time(0) + 5; // for testing (5 seconds from now)
-    QDateTime local( aDateTime);
-    qDebug() << "UTC: " << local.toTime_t();
+    QDateTime local(alarmDateTime);
     local.setTimeSpec(Qt::LocalTime);
-    qDebug() << "LocalTime: " << local.toTime_t();
 
-    eve->alarm_time = local.toTime_t();
-    eve->flags = ALARM_EVENT_BOOT;
+    alarmEvent->alarm_time = local.toTime_t();
+    alarmEvent->flags = ALARM_EVENT_BOOT;
 
     /* Add exec command action */
-    act = alarm_event_add_actions(eve, 1);
-    alarm_action_set_label(act, "ConfClerk");
+    alarmAction = alarm_event_add_actions(alarmEvent, 1);
+    alarm_action_set_label(alarmAction, "ConfClerk");
 
-    QString command = QFileInfo(*qApp->argv()).absoluteFilePath() + QString(" %1").arg(QString::number(aEventId));
+    QString command = QFileInfo(*qApp->argv()).absoluteFilePath() + QString(" %1").arg(QString::number(eventId));
     qDebug() << "Setting alarm: " << command;
-    alarm_action_set_exec_command(act, command.toLocal8Bit().data());
-    act->flags |= ALARM_ACTION_TYPE_EXEC;
-    act->flags |= ALARM_ACTION_WHEN_RESPONDED;
-    act->flags |= ALARM_ACTION_EXEC_ADD_COOKIE; // adds assigned cookie at the end of command string
+    alarm_action_set_exec_command(alarmAction, command.toLocal8Bit().data());
+    alarmAction->flags |= ALARM_ACTION_TYPE_EXEC;
+    alarmAction->flags |= ALARM_ACTION_WHEN_RESPONDED;
+    alarmAction->flags |= ALARM_ACTION_EXEC_ADD_COOKIE; // adds assigned cookie at the end of command string
 
 //    // setup this action to be a "DBus command"
 //    act->flags |= ALARM_ACTION_WHEN_RESPONDED;
@@ -87,115 +86,43 @@ int Alarm::addAlarm(int aEventId, QString aEventTitle, const QDateTime &aDateTim
 
     /* Add stop button action */
     /* TODO: send a DBus message to remove that alarm from database */
-    act = alarm_event_add_actions(eve, 1);
-    alarm_action_set_label(act, "Stop");
-    act->flags |= ALARM_ACTION_WHEN_RESPONDED;
-    act->flags |= ALARM_ACTION_TYPE_NOP;
+    alarmAction = alarm_event_add_actions(alarmEvent, 1);
+    alarm_action_set_label(alarmAction, "Stop");
+    alarmAction->flags |= ALARM_ACTION_WHEN_RESPONDED;
+    alarmAction->flags |= ALARM_ACTION_TYPE_NOP;
 
     /* Add snooze button action */
-    act = alarm_event_add_actions(eve, 1);
-    alarm_action_set_label(act, "Snooze");
-    act->flags |= ALARM_ACTION_WHEN_RESPONDED;
-    act->flags |= ALARM_ACTION_TYPE_SNOOZE;
+    alarmAction = alarm_event_add_actions(alarmEvent, 1);
+    alarm_action_set_label(alarmAction, "Snooze");
+    alarmAction->flags |= ALARM_ACTION_WHEN_RESPONDED;
+    alarmAction->flags |= ALARM_ACTION_TYPE_SNOOZE;
 
     /* Send the alarm to alarmd */
-    cookie = alarmd_event_add(eve);
-
-    // adding alarm failed
-    if (cookie == 0)
-        emit(addAlarmFailed(aEventId));
-    else
-        emit(alarmAdded(aEventId));
+    alarmCookie = alarmd_event_add(alarmEvent);
 
     /* Free all dynamic memory associated with the alarm event */
-    alarm_event_delete(eve);
+    alarm_event_delete(alarmEvent);
 
-    return cookie;
+    return alarmCookie;
 }
 
-void Alarm::deleteAlarm(int aEventId)
-{
-    cookie_t *list = 0;
-    cookie_t cookie = 0;
-    alarm_event_t *event = 0;
+void Alarm::deleteAlarm(int conferenceId, int eventId) {
+    cookie_t *alarmList = 0;
+    cookie_t alarmCookie = 0;
+    alarm_event_t *alarmEvent = 0;
 
     // query the APPID's list of alarms
-    if( (list = alarmd_event_query(0,0, 0,0, APPID)) != 0 ) // query OK
-    {
-        for( int i = 0; (cookie = list[i]) != 0; ++i )
-        {
-            alarm_event_delete(event);
-
+    if( (alarmList = alarmd_event_query(0,0, 0,0, APPID)) != 0) { // query OK
+        for (int i = 0; (alarmCookie = alarmList[i]) != 0; ++i ) {
             // get the event for specified alarm cookie (alarmId)
-            if( (event = alarmd_event_get(cookie)) == 0 )
-            {
-                // should we inform user about it ???
-                continue;
-            }
+            alarmEvent = alarmd_event_get(alarmCookie);
+            Q_ASSERT(alarmEvent);
 
-            if(aEventId==atoi(alarm_event_get_message(event)))
-            {
-                // delete cookie
-                if( alarmd_event_del(cookie) == -1 )
-                {
-                    // was not able to delete alarm for given aEventId
-                    emit(deleteAlarmFailed(aEventId));
-                    break;
-                }
-                else
-                {
-                    emit(alarmDeleted(aEventId));
-                    break;
-                }
-            }
+            bool found = (conferenceId == alarm_event_get_attr_int(alarmEvent, "conferenceId", -1) && eventId == alarm_event_get_attr_int(alarmEvent, "eventId", -1));
+            if (found) alarmd_event_del(alarmCookie); // delete cookie
+            alarm_event_delete(alarmEvent);
+            if (found) break;
         }
     }
-    else
-    {
-        // query failed
-    }
-
-    free(list);
-    alarm_event_delete(event);
+    free(alarmList);
 }
-
-bool Alarm::hasEventAlarm(int aEventId)
-{
-    cookie_t *list = 0;
-    cookie_t cookie = 0;
-    alarm_event_t *event = 0;
-
-    bool eventHasAlarm = false;
-
-    // query the APPID's list of alarms
-    if( (list = alarmd_event_query(0,0, 0,0, APPID)) != 0 ) // query OK
-    {
-        for( int i = 0; (cookie = list[i]) != 0; ++i )
-        {
-            alarm_event_delete(event);
-
-            // get the event for specified alarm cookie (alarmId)
-            if( (event = alarmd_event_get(cookie)) == 0 )
-            {
-                // should we inform user about it ???
-                continue;
-            }
-
-            if(aEventId==atoi(alarm_event_get_message(event)))
-            {
-                eventHasAlarm = true;
-                break;
-            }
-        }
-    }
-    else
-    {
-        // query failed
-    }
-
-    free(list);
-    alarm_event_delete(event);
-
-    return eventHasAlarm;
-}
-

@@ -28,7 +28,8 @@ extern "C"
 #include <alarmd/libalarm.h>
 }
 
-#define APPID "fosdem-alarm"
+#define APPID "confclerk-alarm"
+const int PRE_EVENT_ALARM_SEC = -15*60; // alarm goes off 15 minutes before start of event
 
 class Alarm : public QObject
 {
@@ -36,14 +37,8 @@ class Alarm : public QObject
     public:
         Alarm() {}
         ~Alarm() {}
-        int addAlarm(int aEventId, QString aEventTitle, const QDateTime &aDateTime); 
-        void deleteAlarm(int aEventId);
-        static bool hasEventAlarm(int aEventId);
-    signals:
-        void alarmAdded(int aEventId);
-        void addAlarmFailed(int aEventId);
-        void alarmDeleted(int aEventId);
-        void deleteAlarmFailed(int aEventId);
+        int addAlarm(int conferenceId, int eventId, QString eventTitle, const QDateTime& alarmDateTime);
+        void deleteAlarm(int conferenceId, int eventId);
 };
 
 #endif /* ALARM_H */

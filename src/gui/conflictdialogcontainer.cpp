@@ -40,6 +40,7 @@ void ConflictDialogContainer::loadEvents() {
 
 void ConflictDialogContainer::loadEvents(const QDate &aDate, const int aConferenceId) {
     Q_UNUSED(aDate);
+    Q_UNUSED(aConferenceId);
     Q_ASSERT(aConferenceId == mConferenceId);
     Q_ASSERT(mConferenceId > 0);
     Q_ASSERT(mEventId > 0);
