@@ -6,7 +6,7 @@ Description:
 
 ConfClerk is an application written in Qt, which makes conference
 schedules available offline.  It displays the conference schedule
-from various views, support searches on various items (speaker, speech topic,
+from various views, supports searches on various items (speaker, speech topic,
 location, etc.) and enables you to select favorite events and create your own
 schedule.
 
