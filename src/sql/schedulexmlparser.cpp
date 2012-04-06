@@ -36,8 +36,10 @@ void ScheduleXmlParser::parseData(const QByteArray &aData, const QString& url)
 {
     QDomDocument document;
     QString xml_error;
-    if (!document.setContent (aData, false, &xml_error)) {
-        error_message("Could not parse schedule: " + xml_error);
+    int xml_error_line;
+    int xml_error_column;
+    if (!document.setContent (aData, false, &xml_error, &xml_error_line, &xml_error_column)) {
+        error_message("Could not parse schedule: " + xml_error + " at line " + QString("%1").arg(xml_error_line) + " column " + QString("%1").arg(xml_error_column));
         return;
     }
 
