@@ -334,15 +334,21 @@ void MainWindow::on_conferencesAction_triggered()
     }
 }
 
-void MainWindow::networkQueryFinished(QNetworkReply *aReply)
-{
-    if ( aReply->error() != QNetworkReply::NoError )
-    {
+void MainWindow::networkQueryFinished(QNetworkReply *aReply) {
+    if (aReply->error() != QNetworkReply::NoError) {
         error_message(QString("Error occured during download: ") + aReply->errorString());
-    }
-    else
-    {
-        importData(aReply->readAll(), aReply->url().toEncoded());
+    } else {
+        QUrl redirectUrl = aReply->attribute(QNetworkRequest::RedirectionTargetAttribute).toUrl();
+        if (!redirectUrl.isEmpty()) {
+            if (redirectUrl != aReply->request().url()) {
+                importFromNetwork(redirectUrl.toString());
+                return; // don't enable controls
+            } else {
+                error_message(QString("Error: Cyclic redirection from %1 to itself.").arg(redirectUrl.toString()));
+            }
+        } else {
+            importData(aReply->readAll(), aReply->url().toEncoded());
+        }
     }
     setEnabled(true);
 }
