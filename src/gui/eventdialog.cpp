@@ -54,7 +54,7 @@ EventDialog::EventDialog(const int &aEventId, QWidget *aParent)
 
     if(event.isFavourite())
     {
-        favouriteButton->setIcon(QIcon(":/icons/emblem-new.png"));
+        favouriteButton->setIcon(QIcon(":/icons/favourite-on.png"));
     }
 
     if(event.hasAlarm())
@@ -71,12 +71,12 @@ void EventDialog::favouriteClicked()
     if(event.isFavourite())
     {
         event.setFavourite(false);
-        favouriteButton->setIcon(QIcon(":/icons/emblem-new-off.png"));
+        favouriteButton->setIcon(QIcon(":/icons/favourite-off.png"));
     }
     else
     {
         event.setFavourite(true);
-        favouriteButton->setIcon(QIcon(":/icons/emblem-new.png"));
+        favouriteButton->setIcon(QIcon(":/icons/favourite-on.png"));
     }
     event.update("favourite");
 

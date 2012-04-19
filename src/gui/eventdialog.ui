@@ -66,9 +66,9 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
-          <width>461</width>
-          <height>276</height>
+          <y>-1</y>
+          <width>446</width>
+          <height>262</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout_2">
@@ -290,6 +290,15 @@
           <iconset resource="../icons.qrc">
            <normaloff>:/icons/appointment-soon-off.png</normaloff>:/icons/appointment-soon-off.png</iconset>
          </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="shortcut">
+          <string>CapsLock</string>
+         </property>
         </widget>
        </item>
        <item>
@@ -299,7 +308,13 @@
          </property>
          <property name="icon">
           <iconset resource="../icons.qrc">
-           <normaloff>:/icons/emblem-new-off.png</normaloff>:/icons/emblem-new-off.png</iconset>
+           <normaloff>:/icons/favourite-off.png</normaloff>:/icons/favourite-off.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
          </property>
         </widget>
        </item>

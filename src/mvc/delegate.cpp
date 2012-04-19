@@ -305,9 +305,9 @@ void Delegate::defineControls()
 {
     // FAVOURITE ICONs
     // on
-    mControls.insert(FavouriteControlOn, new Control(FavouriteControlOn, QString(":icons/emblem-new.png"), NULL));
+    mControls.insert(FavouriteControlOn, new Control(FavouriteControlOn, QString(":icons/favourite-on.png"), NULL));
     // off
-    mControls.insert(FavouriteControlOff, new Control(FavouriteControlOff, QString(":icons/emblem-new-off.png"), NULL));
+    mControls.insert(FavouriteControlOff, new Control(FavouriteControlOff, QString(":icons/favourite-off.png"), NULL));
 
 #ifdef MAEMO
     // ALARM ICONs
