@@ -313,10 +313,10 @@ void Delegate::defineControls()
     // ALARM ICONs
     // on
     mControls.insert(AlarmControlOn,
-                    new Control(AlarmControlOn, QString(":icons/appointment-soon.png"), mControls[FavouriteControlOn]));
+                    new Control(AlarmControlOn, QString(":icons/alarm-on.png"), mControls[FavouriteControlOn]));
     // off
     mControls.insert(AlarmControlOff,
-                    new Control(AlarmControlOff, QString(":icons/appointment-soon-off.png"), mControls[FavouriteControlOff]));
+                    new Control(AlarmControlOff, QString(":icons/alarm-off.png"), mControls[FavouriteControlOff]));
     // WARNING ICON
     mControls.insert(WarningControl,
                     new Control(WarningControl, QString(":icons/dialog-warning.png"), mControls[AlarmControlOff]));

@@ -3,12 +3,12 @@
         <file>icons/add.png</file>
         <file>icons/remove.png</file>
         <file>icons/reload.png</file>
-        <file>icons/appointment-soon-off.png</file>
-        <file>icons/appointment-soon.png</file>
         <file>icons/dialog-warning.png</file>
         <file>icons/search.png</file>
         <file>icons/today.png</file>
         <file>icons/favourite-off.png</file>
         <file>icons/favourite-on.png</file>
+        <file>icons/alarm-on.png</file>
+        <file>icons/alarm-off.png</file>
     </qresource>
 </RCC>

@@ -59,7 +59,7 @@ EventDialog::EventDialog(const int &aEventId, QWidget *aParent)
 
     if(event.hasAlarm())
     {
-        alarmButton->setIcon(QIcon(":/icons/appointment-soon.png"));
+        alarmButton->setIcon(QIcon(":/icons/alarm-on.png"));
     }
 }
 
@@ -102,7 +102,7 @@ void EventDialog::alarmClicked()
     if(event.hasAlarm())
     {
         event.setHasAlarm(false); // update DB
-        alarmButton->setIcon(QIcon(":/icons/appointment-soon-off.png"));
+        alarmButton->setIcon(QIcon(":/icons/alarm-off.png"));
 #ifdef MAEMO
         // remove alarm from the 'alarmd' alrms list
         Alarm alarm;
@@ -113,7 +113,7 @@ void EventDialog::alarmClicked()
     else
     {
         event.setHasAlarm(true);
-        alarmButton->setIcon(QIcon(":/icons/appointment-soon.png"));
+        alarmButton->setIcon(QIcon(":/icons/alarm-on.png"));
 #ifdef MAEMO
         // add alarm to the 'alarmd'
         Alarm alarm;
