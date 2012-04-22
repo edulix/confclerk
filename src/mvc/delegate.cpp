@@ -163,6 +163,9 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
     else // doesn't have parent - time-groups' elements (top items)
     {
         int numFav = numberOfFavourities(index);
+#ifdef MAEMO
+        int numAlarm = numberOfAlarms(index);
+#endif
 
         QStyleOptionButton styleOptionButton;
         styleOptionButton.rect = option.rect;
@@ -198,9 +201,10 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
                 QString::number(numFav));
 #ifdef MAEMO
         drawPoint.setX(drawPoint.x() - spacer - image->width());
-        painter->drawImage(drawPoint,*mControls[AlarmControlOn]->image());
+        image = mControls[numAlarm ? AlarmControlOn : AlarmControlOff]->image();
+        painter->drawImage(drawPoint,*image);
         painter->drawText(drawPoint+QPoint(image->width()+2, image->height() - 2),
-                QString::number(numberOfAlarms(index)));
+                QString::number(numAlarm));
 #endif
         // draw texts
         QString numEvents = QString::number(index.model()->rowCount(index)).append("/");
