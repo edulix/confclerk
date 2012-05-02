@@ -215,7 +215,9 @@ QVariant OrmRecord<T>::convertToDb(QVariant value, QVariant::Type colType)
 {
     if (colType == QVariant::DateTime && value.canConvert<QDateTime>())
     {
-        return value.toDateTime().toTime_t();
+        QDateTime dateTime = value.toDateTime();
+        dateTime.setTimeSpec(Qt::UTC); // this is to avoid that dateTime.toTime_t changes the time depending on the local time zone
+        return dateTime.toTime_t();
     }
 
     return value;
