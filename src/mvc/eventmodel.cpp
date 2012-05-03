@@ -52,21 +52,22 @@ void EventModel::createTimeGroups()
     const int minChildCount = 3; // minimum number of events in one group
 
     // Create the first time group. The events have to be sorted by start time at this point!
-    QTime groupStartTime(mEvents.first().start().time().hour(), 0);
-    QTime groupEndTime = groupStartTime.addSecs(mEvents.first().duration());
+    QDateTime groupStartDateTime(mEvents.first().start().date(), mEvents.first().start().time());
+    QDateTime groupEndDateTime = groupStartDateTime.addSecs(mEvents.first().duration());
     mGroups << EventModel::Group("", 0);
     int timeSpan = minTimeSpan;
 
     for (int i = 0; i != mEvents.count(); ++i) {
-        QTime eventStartTime = mEvents.at(i).start().time();
-        QTime eventEndTime = eventStartTime.addSecs(mEvents.at(i).duration());
+        QDateTime eventStartDateTime (mEvents.at(i).start().date(), mEvents.at(i).start().time());
+        QDateTime eventEndDateTime = eventStartDateTime.addSecs(mEvents.at(i).duration());
 
-        if (eventStartTime >= groupStartTime.addSecs(timeSpan)) {
+        if (eventStartDateTime >= groupStartDateTime.addSecs(timeSpan)) {
             // a new group could be necessary
             if (mGroups.last().mChildCount < minChildCount) {
                 // too few events in the group => no new group
                 // except a gap in time would occur that is longer than minTimeSpan
-                if (i > 0 && qMax(mEvents.at(i-1).start().time().addSecs(mEvents.at(i-1).duration()), groupEndTime).secsTo(eventStartTime) < minTimeSpan) {
+                QDateTime prevEventStartDateTime (mEvents.at(i).start().date(), mEvents.at(i).start().time());
+                if (i > 0 && qMax(prevEventStartDateTime.addSecs(mEvents.at(i-1).duration()), groupEndDateTime).secsTo(eventStartDateTime) < minTimeSpan) {
                     timeSpan += minTimeSpan;
                     --i;
                     continue; // repeat with the same event
@@ -75,8 +76,8 @@ void EventModel::createTimeGroups()
 
             // a new group is necessary
             mGroups.last().setTitle(mEvents);
-            groupStartTime = groupStartTime.addSecs(timeSpan);
-            groupEndTime = groupStartTime.addSecs(mEvents.at(i).duration());
+            groupStartDateTime = groupStartDateTime.addSecs(timeSpan);
+            groupEndDateTime = groupStartDateTime.addSecs(mEvents.at(i).duration());
             mGroups << EventModel::Group("", i);
             timeSpan = minTimeSpan;
         }
@@ -84,7 +85,7 @@ void EventModel::createTimeGroups()
         // insert event into current group
         mParents[mEvents.at(i).id()] = mGroups.count() - 1;
         mGroups.last().mChildCount += 1;
-        groupEndTime = qMax(eventEndTime, groupEndTime);
+        groupEndDateTime = qMax(eventEndDateTime, groupEndDateTime);
     }
 
     // the last group needs a title as well
