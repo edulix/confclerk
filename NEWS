@@ -1,8 +1,7 @@
 This is the NEWS file for ConfClerk. ConfClerk is the successor of
 fosdem-schedule; cf. docs/fosdem-schedule for the historic documentation.
 
-version 0.5.5, DATE
-// TODO
+version 0.5.5, 2012-06-12
 * UI changes:
   - button bar on the right side
   - shared "day navigator"
