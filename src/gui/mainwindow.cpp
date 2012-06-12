@@ -171,12 +171,20 @@ void MainWindow::on_searchAction_triggered() {
 
 
 void MainWindow::on_expandAllAction_triggered() {
-
+    if (tabWidget->currentWidget() == favouritesTab) favsTabContainer->treeView->expandAll();
+    if (tabWidget->currentWidget() == dayViewTab) dayTabContainer->treeView->expandAll();
+    if (tabWidget->currentWidget() == tracksTab) tracksTabContainer->treeView->expandAll();
+    if (tabWidget->currentWidget() == roomsTab) roomsTabContainer->treeView->expandAll();
+    if (tabWidget->currentWidget() == searchTab) searchTabContainer->treeView->expandAll();
 }
 
 
 void MainWindow::on_collapseAllAction_triggered() {
-
+    if (tabWidget->currentWidget() == favouritesTab) favsTabContainer->treeView->collapseAll();
+    if (tabWidget->currentWidget() == dayViewTab) dayTabContainer->treeView->collapseAll();
+    if (tabWidget->currentWidget() == tracksTab) tracksTabContainer->treeView->collapseAll();
+    if (tabWidget->currentWidget() == roomsTab) roomsTabContainer->treeView->collapseAll();
+    if (tabWidget->currentWidget() == searchTab) searchTabContainer->treeView->collapseAll();
 }
 
 
