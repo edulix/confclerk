@@ -3,7 +3,12 @@ fosdem-schedule; cf. docs/fosdem-schedule for the historic documentation.
 
 version 0.5.5, DATE
 // TODO
-* Update example URLs in README.
+* UI changes:
+  - button bar on the right side
+  - shared "day navigator"
+  - "Now" tab removed, function integrated into former "today" button
+* Add "reload schedule" button.
+  Fixes: #34
 * Alarms are actually removed now.
   Thanks to Axel Beckert for the bug report.
   Fixes: #38
@@ -15,8 +20,9 @@ version 0.5.5, DATE
   Fixes: #40
 * Improve timezone handling.
   Fixes: #42
-* Add expand/collapse icons/actions.
+* Add expand/collapse buttons/actions.
   Fixes: #31  
+* Update example URLs in README.
 
 version 0.5.4, 2011-09-14
 * Change displaying events a bit, use system colours (#13).
