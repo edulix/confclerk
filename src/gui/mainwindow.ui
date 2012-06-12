@@ -208,7 +208,7 @@
   <action name="expandAllAction">
    <property name="icon">
     <iconset resource="../icons.qrc">
-     <normaloff>:/icons/add.png</normaloff>:/icons/add.png</iconset>
+     <normaloff>:/icons/expand.png</normaloff>:/icons/expand.png</iconset>
    </property>
    <property name="text">
     <string>Expand all</string>
@@ -217,7 +217,7 @@
   <action name="collapseAllAction">
    <property name="icon">
     <iconset resource="../icons.qrc">
-     <normaloff>:/icons/remove.png</normaloff>:/icons/remove.png</iconset>
+     <normaloff>:/icons/collapse.png</normaloff>:/icons/collapse.png</iconset>
    </property>
    <property name="text">
     <string>Collapse all</string>

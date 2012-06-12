@@ -2,6 +2,8 @@
     <qresource prefix="/">
         <file>icons/add.png</file>
         <file>icons/remove.png</file>
+        <file>icons/expand.png</file>
+        <file>icons/collapse.png</file>
         <file>icons/reload.png</file>
         <file>icons/dialog-warning.png</file>
         <file>icons/search.png</file>

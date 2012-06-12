@@ -24,7 +24,7 @@ See the file ./INSTALL for building and installation instructions, and
 Copyright and License:
 
   Copyright (C) 2010 Ixonos Plc.
-  Copyright (C) 2011-2012, Philipp Spitzer, gregor herrmann
+  Copyright (C) 2011-2012, Philipp Spitzer, gregor herrmann, Stefan Strahl
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -58,9 +58,9 @@ data/confclerk.*:
   with this program; if not, write to the Free Software Foundation, Inc.,
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-src/icons/favourite-*, src/icons/alarm-*:
+src/icons/favourite-*, src/icons/alarm-*, src/icons/collapse*, src/icons/expand*:
 
-  Copyright (C) 2012, Philipp Spitzer
+  Copyright (C) 2012, Philipp Spitzer, Stefan Strahl
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
