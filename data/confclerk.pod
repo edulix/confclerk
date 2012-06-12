@@ -67,6 +67,7 @@ F<~/.local/share/data/Toastfreeware/ConfClerk/ConfClerk.sqlite>.
     Copyright (C) 2010 Ixonos Plc.
     Copyright (C) 2011-2012, Philipp Spitzer <philipp@toastfreeware.priv.at>
     Copyright (C) 2011-2012, gregor herrmann <gregor@toastfreeware.priv.at>
+    Copyright (C) 2011-2012, Stefan Strahl <stefan@toastfreeware.priv.at>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -116,9 +117,10 @@ the following notice (as of 2011-06-24):
     GNOME icon theme is distributed under the terms of either
     GNU LGPL v.3 or Creative Commons BY-SA 3.0 license.
 
-=item src/icons/emblem-new*
+=item src/icons/favourite*, src/icons/alarm*, src/icons/collapse*, src/icons/expand*:
 
-    Copyright (C) 2011, Philipp Spitzer <philipp@toastfreeware.priv.at>
+    Copyright (C) 2012, Philipp Spitzer <philipp@toastfreeware.priv.at>
+    Copyright (C) 2012, Stefan Strahl <stefan@toastfreeware.priv.at>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

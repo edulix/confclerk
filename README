@@ -58,7 +58,7 @@ data/confclerk.*:
   with this program; if not, write to the Free Software Foundation, Inc.,
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-src/icons/favourite-*, src/icons/alarm-*, src/icons/collapse*, src/icons/expand*:
+src/icons/favourite*, src/icons/alarm*, src/icons/collapse*, src/icons/expand*:
 
   Copyright (C) 2012, Philipp Spitzer, Stefan Strahl
 
