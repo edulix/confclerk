@@ -48,17 +48,24 @@ void EventModel::createTimeGroups()
     mParents.clear();
     if (mEvents.empty()) return;
 
-    const int minTimeSpan = 3600; // one hour
-    const int minChildCount = 3; // minimum number of events in one group
+    const int minTimeSpan = 3600; // one hour // minimum duration of a group
+    const int minChildCount = 3;  // minimum number of events in one group
 
     // Create the first time group. The events have to be sorted by start time at this point!
-    QDateTime groupStartDateTime(mEvents.first().start().date(), mEvents.first().start().time());
+    //    Remarks for the following non-comment line:
+    //    * As it is right now it could be written as
+    //      QDateTime groupStartDateTime = mEvents.first().start();
+    //    * Before r1444 the minutes were set to zero so that the time groups started at
+    //      whole hours.
+
+    // QDateTime groupStartDateTime(mEvents.first().start().date(), QTime(mEvents.first().start().time().hour(), 0));
+    QDateTime groupStartDateTime = mEvents.first().start();
     QDateTime groupEndDateTime = groupStartDateTime.addSecs(mEvents.first().duration());
     mGroups << EventModel::Group("", 0);
     int timeSpan = minTimeSpan;
 
     for (int i = 0; i != mEvents.count(); ++i) {
-        QDateTime eventStartDateTime (mEvents.at(i).start().date(), mEvents.at(i).start().time());
+        QDateTime eventStartDateTime = mEvents.at(i).start();
         QDateTime eventEndDateTime = eventStartDateTime.addSecs(mEvents.at(i).duration());
 
         if (eventStartDateTime >= groupStartDateTime.addSecs(timeSpan)) {
@@ -66,7 +73,7 @@ void EventModel::createTimeGroups()
             if (mGroups.last().mChildCount < minChildCount) {
                 // too few events in the group => no new group
                 // except a gap in time would occur that is longer than minTimeSpan
-                QDateTime prevEventStartDateTime (mEvents.at(i).start().date(), mEvents.at(i).start().time());
+                QDateTime prevEventStartDateTime = mEvents.at(i).start();
                 if (i > 0 && qMax(prevEventStartDateTime.addSecs(mEvents.at(i-1).duration()), groupEndDateTime).secsTo(eventStartDateTime) < minTimeSpan) {
                     timeSpan += minTimeSpan;
                     --i;
