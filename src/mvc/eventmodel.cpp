@@ -48,18 +48,10 @@ void EventModel::createTimeGroups()
     mParents.clear();
     if (mEvents.empty()) return;
 
-    const int minTimeSpan = 3600; // one hour // minimum duration of a group
+    const int minTimeSpan = 3600; // one hour // minimum duration of a group in seconds
     const int minChildCount = 3;  // minimum number of events in one group
 
-    // Create the first time group. The events have to be sorted by start time at this point!
-    //    Remarks for the following non-comment line:
-    //    * As it is right now it could be written as
-    //      QDateTime groupStartDateTime = mEvents.first().start();
-    //    * Before r1444 the minutes were set to zero so that the time groups started at
-    //      whole hours.
-
-    // QDateTime groupStartDateTime(mEvents.first().start().date(), QTime(mEvents.first().start().time().hour(), 0));
-    QDateTime groupStartDateTime = mEvents.first().start();
+    QDateTime groupStartDateTime(mEvents.first().start().date(), QTime(mEvents.first().start().time().hour(), 0), mEvents.first().start().timeSpec());
     QDateTime groupEndDateTime = groupStartDateTime.addSecs(mEvents.first().duration());
     mGroups << EventModel::Group("", 0);
     int timeSpan = minTimeSpan;
