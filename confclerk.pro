@@ -35,7 +35,7 @@ tarball.commands = \
 	$(DEL_FILE) -r $${TARGET}-$${VERSION} ; \
 	$(MKDIR) $${TARGET}-$${VERSION} ; \
 	$(COPY_DIR) * $${TARGET}-$${VERSION}/ ; \
-	$(DEL_FILE) $${TARGET}-$${VERSION}/*.pro.user \
+	$(DEL_FILE) $${TARGET}-$${VERSION}/*.pro.user* \
 		$${TARGET}-$${VERSION}/$${TARGET}-$${VERSION}.tar.gz \
 		$(DEL_FILE) -r $${TARGET}-$${VERSION}/$${TARGET}-$${VERSION} \
 		$${TARGET}-$${VERSION}/Makefile ; \
