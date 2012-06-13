@@ -1,3 +1,4 @@
 - .pro: maybe add an install target
 - explore src/alarm/calendar*
 - if toolbar is turned off, it can not be turned on anymore.
+- try to de-duplicate README and data/confclerk.pod
