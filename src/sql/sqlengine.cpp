@@ -86,37 +86,20 @@ void SqlEngine::initialize()
     login("QSQLITE",databaseName);
 }
 
-void SqlEngine::addConferenceToDB(QHash<QString,QString> &aConference)
+void SqlEngine::addConferenceToDB(QHash<QString,QString> &aConference, int conferenceId)
 {
     QSqlDatabase db = QSqlDatabase::database();
 
     if (db.isValid() && db.isOpen())
     {
-        int confId = 0;
-        QList<Conference> confsList = Conference::getAll();
-        if(confsList.count())
-        {
-            QListIterator<Conference> i(confsList);
-            while (i.hasNext())
-            {
-                Conference conf = i.next();
-                if( aConference["title"] == conf.title() )
-                {
-                    confId = conf.id();
-                    aConference["id"] = QString::number(confId);
-                    break;
-                }
-            }
-        }
+        // HACK
+        // When city is empty, assign a dummy value. We probably want to find a way to change the database scheme ...
+        // cf. #32
+        if (aConference["city"].isEmpty()) aConference["city"] = "n/a";
 
-        if(!confId) // conference 'aConference' isn't in the table => insert
+        QSqlQuery query(db);
+        if (conferenceId <= 0) // insert conference
         {
-            // HACK
-            // When city is empty, assign a dummy value. We probably want to find a way to change the database scheme ...
-            // cf. #32
-            if (aConference["city"].isEmpty()) aConference["city"] = "n/a";
-
-            QSqlQuery query(db);
             query.prepare("INSERT INTO CONFERENCE (title,url,subtitle,venue,city,start,end,days,"
                                                     "day_change,timeslot_duration,active) "
                             " VALUES (:title,:url,:subtitle,:venue,:city,:start,:end,:days,"
@@ -127,10 +110,27 @@ void SqlEngine::addConferenceToDB(QHash<QString,QString> &aConference)
             query.bindValue(":start", QDateTime(QDate::fromString(aConference["start"],DATE_FORMAT),QTime(0,0),Qt::UTC).toTime_t());
             query.bindValue(":end", QDateTime(QDate::fromString(aConference["end"],DATE_FORMAT),QTime(0,0),Qt::UTC).toTime_t());
             query.bindValue(":day_change", -QTime::fromString(aConference["day_change"],TIME_FORMAT).secsTo(QTime(0,0)));
-            query.bindValue(":day_change", -QTime::fromString(aConference["timeslot_duration"],TIME_FORMAT).secsTo(QTime(0,0)));
-            query.bindValue(":active", confsList.count() > 0 ? 0 : 1);
+            query.bindValue(":timeslot_duration", -QTime::fromString(aConference["timeslot_duration"],TIME_FORMAT).secsTo(QTime(0,0)));
+            query.bindValue(":active", 1);
             if (!query.exec()) qDebug() << "Could not execute query to insert a conference:" << query.lastError();
             aConference["id"] = query.lastInsertId().toString(); // 'id' is assigned automatically
+        }
+        else // update conference
+        {
+            query.prepare("UPDATE CONFERENCE set title=:title, url=:url, subtitle=:subtitle, venue=:venue, city=:city, start=:start, end=:end, days=:days,"
+                                                "day_change=:day_change, timeslot_duration=:timeslot_duration, active=:active "
+                          "WHERE id=:id");
+            foreach (QString prop_name, (QList<QString>() << "title" << "url" << "subtitle" << "venue" << "city" << "days")) {
+                query.bindValue(QString(":") + prop_name, aConference[prop_name]);
+            }
+            query.bindValue(":start", QDateTime(QDate::fromString(aConference["start"],DATE_FORMAT),QTime(0,0),Qt::UTC).toTime_t());
+            query.bindValue(":end", QDateTime(QDate::fromString(aConference["end"],DATE_FORMAT),QTime(0,0),Qt::UTC).toTime_t());
+            query.bindValue(":day_change", -QTime::fromString(aConference["day_change"],TIME_FORMAT).secsTo(QTime(0,0)));
+            query.bindValue(":timeslot_duration", -QTime::fromString(aConference["timeslot_duration"],TIME_FORMAT).secsTo(QTime(0,0)));
+            query.bindValue(":active", 1);
+            query.bindValue(":id", conferenceId);
+            if (!query.exec()) qDebug() << "Could not execute query to update a conference:" << query.lastError();
+            aConference["id"] = conferenceId;
         }
     }
 }

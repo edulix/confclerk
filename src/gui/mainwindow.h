@@ -54,8 +54,8 @@ private slots:
     void onSearchResultChanged();
     // TODO: remove
     void networkQueryFinished(QNetworkReply*);
-    void importFromNetwork(const QString&);
-    void importFromFile(const QString&);
+    void importFromNetwork(const QString&, int conferenceId);
+    void importFromFile(const QString&, int conferenceId);
     void removeConference(int);
     void changeConferenceUrl(int, const QString&);
 
@@ -65,7 +65,7 @@ private:
     void fillAndShowConferenceHeader();
     void initTabs();
     void clearTabs();
-    void importData(const QByteArray &aData, const QString& url);
+    void importData(const QByteArray &aData, const QString& url, int conferenceId);
 
     QString saved_title;
     ConferenceModel* conferenceModel;

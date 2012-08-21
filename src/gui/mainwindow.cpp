@@ -147,7 +147,7 @@ void MainWindow::on_reloadAction_triggered() {
     if (confId== -1) return;
     Conference active = Conference::getById(confId);
     if (active.url().isEmpty()) return;
-    importFromNetwork(active.url());
+    importFromNetwork(active.url(), confId);
     setEnabled(false);
 }
 
@@ -317,8 +317,8 @@ void MainWindow::on_conferencesAction_triggered()
 {
     ConferenceEditor dialog(conferenceModel, this);
 
-    connect(&dialog, SIGNAL(haveConferenceUrl(const QString&)), SLOT(importFromNetwork(const QString&)));
-    connect(&dialog, SIGNAL(haveConferenceFile(const QString&)), SLOT(importFromFile(const QString&)));
+    connect(&dialog, SIGNAL(haveConferenceUrl(const QString&, int)), SLOT(importFromNetwork(const QString&, int)));
+    connect(&dialog, SIGNAL(haveConferenceFile(const QString&, int)), SLOT(importFromFile(const QString&, int)));
     connect(&dialog, SIGNAL(removeConferenceRequested(int)), SLOT(removeConference(int)));
     connect(&dialog, SIGNAL(changeUrlRequested(int, const QString&)),
                     SLOT(changeConferenceUrl(int, const QString&)));
@@ -349,33 +349,34 @@ void MainWindow::networkQueryFinished(QNetworkReply *aReply) {
         QUrl redirectUrl = aReply->attribute(QNetworkRequest::RedirectionTargetAttribute).toUrl();
         if (!redirectUrl.isEmpty()) {
             if (redirectUrl != aReply->request().url()) {
-                importFromNetwork(redirectUrl.toString());
+                importFromNetwork(redirectUrl.toString(), aReply->request().attribute(QNetworkRequest::User).toInt());
                 return; // don't enable controls
             } else {
                 error_message(QString("Error: Cyclic redirection from %1 to itself.").arg(redirectUrl.toString()));
             }
         } else {
-            importData(aReply->readAll(), aReply->url().toEncoded());
+            importData(aReply->readAll(), aReply->url().toEncoded(), aReply->request().attribute(QNetworkRequest::User).toInt());
         }
     }
     setEnabled(true);
 }
 
-void MainWindow::importData(const QByteArray &aData, const QString& url)
+void MainWindow::importData(const QByteArray &aData, const QString& url, int conferenceId)
 {
-    mXmlParser->parseData(aData, url);
+    mXmlParser->parseData(aData, url, conferenceId);
 }
 
-void MainWindow::importFromNetwork(const QString& url)
+void MainWindow::importFromNetwork(const QString& url, int conferenceId)
 {
     QNetworkRequest request;
     request.setUrl(QUrl(url));
+    request.setAttribute(QNetworkRequest::User, conferenceId);
 
     mNetworkAccessManager->setProxy(QNetworkProxy::applicationProxy());
     mNetworkAccessManager->get(request);
 }
 
-void MainWindow::importFromFile(const QString& filename)
+void MainWindow::importFromFile(const QString& filename, int conferenceId)
 {
     QFile file(filename);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {    
@@ -383,7 +384,7 @@ void MainWindow::importFromFile(const QString& filename)
         error_message(format.arg(filename, QString::number(file.error())));
     }
 
-    importData(file.readAll(), "");
+    importData(file.readAll(), "", conferenceId);
 }
 
 void MainWindow::removeConference(int id)

@@ -29,7 +29,7 @@ class ScheduleXmlParser : public QObject
         ScheduleXmlParser (QObject *aParent = NULL);
 
     public slots:
-        void parseData(const QByteArray &aData, const QString& url);
+        void parseData(const QByteArray &aData, const QString& url, int conferenceId);
 
     signals:
         void progressStatus(int aStatus);

@@ -103,8 +103,8 @@ void ConferenceEditor::addClicked()
 {
     UrlInputDialog url_input(this);
     switch (url_input.exec()) {
-    case UrlInputDialog::HaveUrl: emit haveConferenceUrl(url_input.url()); break;
-    case UrlInputDialog::HaveFile: emit haveConferenceFile(url_input.url()); break;
+    case UrlInputDialog::HaveUrl: emit haveConferenceUrl(url_input.url(), 0); break;
+    case UrlInputDialog::HaveFile: emit haveConferenceFile(url_input.url(), 0); break;
     case UrlInputDialog::Cancel: return;
     }
 }
@@ -143,7 +143,7 @@ void ConferenceEditor::changeUrlClicked()
 
 void ConferenceEditor::refreshClicked()
 {
-    if (selected_id < 0) return;
+    if (selected_id <= 0) return;
     const Conference& selectedConf = Conference::getById(selected_id);
     QString url = selectedConf.url();
 
@@ -157,7 +157,7 @@ void ConferenceEditor::refreshClicked()
     }
     // fetch
     importStarted(); // just to show the progress bar
-    emit haveConferenceUrl(url);
+    emit haveConferenceUrl(url, selected_id);
 }
 
 void ConferenceEditor::importStarted()

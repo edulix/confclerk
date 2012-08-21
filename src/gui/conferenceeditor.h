@@ -47,8 +47,8 @@ signals:
     void haveConferenceSelected(int id);
     void noneConferenceSelected();
 
-    void haveConferenceUrl(const QString& url);
-    void haveConferenceFile(const QString& path);
+    void haveConferenceUrl(const QString& url, int conferenceId);
+    void haveConferenceFile(const QString& path, int conferenceId);
     void removeConferenceRequested(int id);
     void changeUrlRequested(int, const QString&);
 
