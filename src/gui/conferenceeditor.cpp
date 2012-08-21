@@ -150,7 +150,7 @@ void ConferenceEditor::refreshClicked()
     if (url.isEmpty()) {
         static const QString format("Schedule URL for %1 is not set. Enter the schedule URL:");
         bool ok;
-        QString url = QInputDialog::getText(this, "URL Input", format.arg(selectedConf.title()), QLineEdit::Normal, QString(), &ok);
+        url = QInputDialog::getText(this, "URL Input", format.arg(selectedConf.title()), QLineEdit::Normal, QString(), &ok);
         if (!ok) return;
         // first save it, to remain if fetch fails
         emit changeUrlRequested(selected_id, url);
