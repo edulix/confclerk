@@ -19,7 +19,7 @@
  */
 #include "delegate.h"
 #include "eventmodel.h"
-#include <track.h>
+#include "track.h"
 
 #include <QDebug>
 #include <QPainter>

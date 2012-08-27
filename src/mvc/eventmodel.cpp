@@ -18,9 +18,9 @@
  * ConfClerk.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "eventmodel.h"
-#include <conference.h>
-#include <track.h>
-#include <room.h>
+#include "conference.h"
+#include "track.h"
+#include "room.h"
 
 const QString EventModel::COMMA_SEPARATOR = ", ";
 
