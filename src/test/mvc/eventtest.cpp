@@ -24,7 +24,7 @@
 
 #include <QDebug>
 
-#include <event.h>
+#include "event.h"
 
 void EventTest::initTestCase()
 {

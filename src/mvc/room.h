@@ -21,7 +21,7 @@
 #ifndef ROOM_H_
 #define ROOM_H_
 
-#include <ormrecord.h>
+#include "ormrecord.h"
 
 class Room : public OrmRecord<Room>
 {

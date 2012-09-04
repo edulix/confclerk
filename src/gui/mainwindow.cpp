@@ -25,27 +25,27 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 
-#include <sqlengine.h>
+#include "sqlengine.h"
 
-#include <track.h>
-#include <eventmodel.h>
-#include <delegate.h>
+#include "track.h"
+#include "eventmodel.h"
+#include "delegate.h"
 
-#include <conference.h>
+#include "conference.h"
 
 #include <QDialog>
 #include <QMessageBox>
 
 #include "ui_about.h"
-#include <eventdialog.h>
+#include "eventdialog.h"
 #include "daynavigatorwidget.h"
 #include "settingsdialog.h"
 #include "conferenceeditor.h"
 #include "schedulexmlparser.h"
 #include "errormessage.h"
 
-#include <tabcontainer.h>
-#include <appsettings.h>
+#include "tabcontainer.h"
+#include "appsettings.h"
 
 const QString PROXY_USERNAME;
 const QString PROXY_PASSWD;

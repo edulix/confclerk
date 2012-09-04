@@ -22,7 +22,7 @@
 
 #include <QtGui/QMainWindow>
 
-#include <ui_mainwindow.h>
+#include "ui_mainwindow.h"
 
 #include "conferencemodel.h"
 

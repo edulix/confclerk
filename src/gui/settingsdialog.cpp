@@ -19,7 +19,7 @@
  */
 #include "settingsdialog.h"
 
-#include <appsettings.h>
+#include "appsettings.h"
 #include <QDebug>
 
 SettingsDialog::SettingsDialog(QWidget *aParent)

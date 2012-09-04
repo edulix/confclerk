@@ -24,7 +24,7 @@
 #include <QVector>
 #include <QStringList>
 
-#include <ormrecord.h>
+#include "ormrecord.h"
 
 class Room;
 

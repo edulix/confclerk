@@ -17,17 +17,17 @@
  * You should have received a copy of the GNU General Public License along with
  * ConfClerk.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <mainwindow.h>
+#include "mainwindow.h"
 
-#include <sqlengine.h>
+#include "sqlengine.h"
 
 #include "eventdialog.h"
 #include "application.h"
 
 #ifdef MAEMO
-//#include <alarmdialog.h>
-#include <alarmdbus.h>
-#include <alarmdbusadaptorp.h>
+//#include "alarmdialog.h"
+#include "alarmdbus.h"
+#include "alarmdbusadaptorp.h"
 #endif /* MAEMO */
 
 

@@ -27,7 +27,7 @@
 
 #include <QDebug>
 
-//#include <dbus-1.0/dbus/dbus-protocol.h>
+//#include "dbus-1.0/dbus/dbus-protocol.h"
 
 int Alarm::addAlarm(int conferenceId, int eventId, QString eventTitle, const QDateTime &alarmDateTime) {
     cookie_t alarmCookie = 0;

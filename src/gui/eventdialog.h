@@ -22,7 +22,7 @@
 
 #include <QDialog>
 #include "ui_eventdialog.h"
-#include <event.h>
+#include "event.h"
 
 class EventDialog : public QDialog, Ui::EventDialog
 { 

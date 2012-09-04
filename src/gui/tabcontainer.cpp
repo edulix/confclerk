@@ -23,8 +23,8 @@
 #include <QMessageBox>
 #include <QTimer>
 
-#include <treeview.h>
-#include <delegate.h>
+#include "treeview.h"
+#include "delegate.h"
 
 #include "eventdialog.h"
 #include "room.h"

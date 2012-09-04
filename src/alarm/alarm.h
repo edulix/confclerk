@@ -25,7 +25,7 @@
 
 extern "C"
 {
-#include <alarmd/libalarm.h>
+#include "alarmd/libalarm.h"
 }
 
 #define APPID "confclerk-alarm"

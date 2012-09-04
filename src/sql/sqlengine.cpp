@@ -27,8 +27,8 @@
 #include <QDir>
 #include <QDesktopServices>
 #include "sqlengine.h"
-#include <track.h>
-#include <conference.h>
+#include "track.h"
+#include "conference.h"
 
 #include <QDebug>
 

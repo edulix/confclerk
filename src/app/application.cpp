@@ -20,7 +20,7 @@
 #include "application.h"
 #include "errormessage.h"
 
-#include <ormrecord.h>
+#include "ormrecord.h"
 
 // if the application uses exceptions,
 // there is always a possibility that some will leak uncached from event handler
