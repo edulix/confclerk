@@ -32,7 +32,7 @@ class SqlEngine : public QObject
         SqlEngine(QObject *aParent = NULL);
         ~SqlEngine();
         static void initialize();
-        // if a conferneceId != 0 is given, the confernece is updated instead of inserted.
+        // if a conferenceId != 0 is given, the confernece is updated instead of inserted.
         static void addConferenceToDB(QHash<QString,QString> &aConference, int conferenceId);
         static void addEventToDB(QHash<QString,QString> &aEvent);
         static void addPersonToDB(QHash<QString,QString> &aPerson);
