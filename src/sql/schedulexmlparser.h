@@ -21,12 +21,15 @@
 #define SCHEDULEXMLPARSER_H_
 
 #include <QObject>
+#include "sqlengine.h"
 
 class ScheduleXmlParser : public QObject
 {
     Q_OBJECT
+    private:
+        SqlEngine* sqlEngine;
     public:
-        ScheduleXmlParser (QObject *aParent = NULL);
+        ScheduleXmlParser(SqlEngine* sqlEngine, QObject *aParent = NULL);
 
     public slots:
         void parseData(const QByteArray &aData, const QString& url, int conferenceId);

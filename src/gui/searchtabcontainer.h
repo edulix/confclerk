@@ -25,12 +25,16 @@
 
 #include "tabcontainer.h"
 #include "searchhead.h"
+#include "sqlengine.h"
 
 class SearchTabContainer: public TabContainer {
     Q_OBJECT
+private:
+    SqlEngine* sqlEngine;
 public:
     SearchTabContainer(QWidget *aParent);
     virtual ~SearchTabContainer() {}
+    void setSqlEngine(SqlEngine* sqlEngine) {this->sqlEngine = sqlEngine;}
     bool searchDialogIsVisible() const;
     int searchResultCount(const QDate& date) const; ///< returns the number of events found on that specific date
 

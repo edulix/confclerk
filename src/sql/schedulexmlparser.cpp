@@ -27,10 +27,9 @@
 
 #include <QDebug>
 
-ScheduleXmlParser::ScheduleXmlParser(QObject *aParent)
-    : QObject(aParent)
-{
+ScheduleXmlParser::ScheduleXmlParser(SqlEngine* sqlEngine, QObject *aParent): QObject(aParent),sqlEngine(sqlEngine) {
 }
+
 
 void ScheduleXmlParser::parseData(const QByteArray &aData, const QString& url, int conferenceId)
 {
@@ -45,7 +44,7 @@ void ScheduleXmlParser::parseData(const QByteArray &aData, const QString& url, i
 
     QDomElement scheduleElement = document.firstChildElement("schedule");
 
-    SqlEngine::beginTransaction();
+    sqlEngine->beginTransaction();
 
     QString conference_title;
     if (!scheduleElement.isNull())
@@ -66,7 +65,7 @@ void ScheduleXmlParser::parseData(const QByteArray &aData, const QString& url, i
             conference["day_change"] = conferenceElement.firstChildElement("day_change").text(); // time
             conference["timeslot_duration"] = conferenceElement.firstChildElement("timeslot_duration").text(); // time
             conference["url"] = url;
-            SqlEngine::addConferenceToDB(conference, conferenceId);
+            sqlEngine->addConferenceToDB(conference, conferenceId);
             conferenceId = conference["id"].toInt();
             conference_title = conference["title"];
         }
@@ -104,7 +103,7 @@ void ScheduleXmlParser::parseData(const QByteArray &aData, const QString& url, i
                         room["name"] = roomElement.attribute("name");
                         room["event_id"] = eventElement.attribute("id");
                         room["conference_id"] = QString::number(conferenceId,10);
-                        SqlEngine::addRoomToDB(room);
+                        sqlEngine->addRoomToDB(room);
 
                         // process event's nodes
                         QHash<QString,QString> event;
@@ -122,7 +121,7 @@ void ScheduleXmlParser::parseData(const QByteArray &aData, const QString& url, i
                         event["language"] = eventElement.firstChildElement("language").text(); // language eg. "English"
                         event["abstract"] = eventElement.firstChildElement("abstract").text(); // string
                         event["description"] = eventElement.firstChildElement("description").text(); // string
-                        SqlEngine::addEventToDB(event);
+                        sqlEngine->addEventToDB(event);
                         // process persons' nodes
                         QDomElement personsElement = eventElement.firstChildElement("persons");
                         QDomNodeList personList = personsElement.elementsByTagName("person");
@@ -132,7 +131,7 @@ void ScheduleXmlParser::parseData(const QByteArray &aData, const QString& url, i
                             person["name"] = personList.at(i).toElement().text();
                             person["event_id"] = eventElement.attribute("id");
                             person["conference_id"] = QString::number(conferenceId, 10);
-                            SqlEngine::addPersonToDB(person);
+                            sqlEngine->addPersonToDB(person);
                         }
                         // process links' nodes
                         QDomElement linksElement = eventElement.firstChildElement("links");
@@ -143,7 +142,7 @@ void ScheduleXmlParser::parseData(const QByteArray &aData, const QString& url, i
                             link["url"] = linkList.at(i).toElement().attribute("href");
                             link["event_id"] = eventElement.attribute("id");
                             link["conference_id"] = QString::number(conferenceId, 10);
-                            SqlEngine::addLinkToDB(link);
+                            sqlEngine->addLinkToDB(link);
                         }
                         // emit signal to inform the user about the current status (how many events are parsed so far - expressed in %)
                         int status = currentEvent * 100 / totalEventsCount;
@@ -153,7 +152,7 @@ void ScheduleXmlParser::parseData(const QByteArray &aData, const QString& url, i
             } // parsing room elements
         } // parsing day elements
     } // schedule element
-    SqlEngine::commitTransaction();
+    sqlEngine->commitTransaction();
     if (!conference_title.isNull()) {
         emit parsingScheduleEnd(conference_title);
     } else {

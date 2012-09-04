@@ -22,8 +22,7 @@
 #include "searchhead.h"
 #include <QMessageBox>
 
-SearchTabContainer::SearchTabContainer(QWidget *aParent) : TabContainer( aParent )
-{
+SearchTabContainer::SearchTabContainer(QWidget *aParent): TabContainer(aParent), sqlEngine(0) {
     header = new SearchHead(this);
     header->setObjectName(QString::fromUtf8("header"));
     QSizePolicy sizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
@@ -58,6 +57,8 @@ void SearchTabContainer::showSearchDialog(bool show) {
 
 
 void SearchTabContainer::searchButtonClicked() {
+    if (!sqlEngine) return;
+
     QHash<QString,QString> columns;
 
     SearchHead *searchHeader = static_cast<SearchHead*>(header);
@@ -78,7 +79,7 @@ void SearchTabContainer::searchButtonClicked() {
     if (confId == -1) return;
     Conference conf = Conference::getById(confId);
 
-    SqlEngine::searchEvent( confId, columns, keyword );
+    sqlEngine->searchEvent( confId, columns, keyword );
 
     int nrofFounds = 0;
     for (QDate d = conf.start(); d <= conf.end(); d = d.addDays(1))

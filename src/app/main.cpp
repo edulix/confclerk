@@ -45,10 +45,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationName("ConfClerk");
     QCoreApplication::setApplicationVersion(VERSION);
  
-    SqlEngine::initialize(); // creates "SQLITE" DB connection
-
     QWidget *window;
-
     window = new MainWindow;
 
 
@@ -76,7 +73,7 @@ int main(int argc, char *argv[])
 
     if(argc > 1)
     {
-        EventDialog dialog(atoi(argv[1]),window);
+        EventDialog dialog(atoi(argv[1]), window);
         dialog.exec();
     }
 #endif

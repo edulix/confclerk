@@ -50,13 +50,19 @@
 const QString PROXY_USERNAME;
 const QString PROXY_PASSWD;
 
-MainWindow::MainWindow(int aEventId, QWidget *aParent)
-    : QMainWindow(aParent)
-    , conferenceModel(new ConferenceModel(this))
-    , mXmlParser(new ScheduleXmlParser(this))
-    , mNetworkAccessManager(new QNetworkAccessManager(this))
-{
+MainWindow::MainWindow(int aEventId, QWidget *aParent): QMainWindow(aParent) {
     setupUi(this);
+
+    // Open database
+    sqlEngine = new SqlEngine(this);
+    searchTabContainer->setSqlEngine(sqlEngine);
+    connect(sqlEngine, SIGNAL(dbError(QString)), this, SLOT(showError(QString)));
+    sqlEngine->open();
+    sqlEngine->createOrUpdateDbSchema();
+
+    conferenceModel = new ConferenceModel(this);
+    mXmlParser = new ScheduleXmlParser(sqlEngine, this);
+    mNetworkAccessManager = new QNetworkAccessManager(this);
 
     saved_title = windowTitle();
 
@@ -287,6 +293,12 @@ void MainWindow::unsetConference()
     setWindowTitle(saved_title);
 }
 
+
+void MainWindow::showError(const QString& message) {
+    error_message(message);
+}
+
+
 void MainWindow::on_settingsAction_triggered()
 {
     SettingsDialog dialog;
@@ -387,16 +399,15 @@ void MainWindow::importFromFile(const QString& filename, int conferenceId)
     importData(file.readAll(), "", conferenceId);
 }
 
-void MainWindow::removeConference(int id)
-{
-    Conference::deleteConference(id);
-    conferenceModel->conferenceRemoved();
 
+void MainWindow::removeConference(int id) {
+    sqlEngine->deleteConference(id);
+    conferenceModel->conferenceRemoved();
     emit conferenceRemoved();
 }
 
-void MainWindow::changeConferenceUrl(int id, const QString& url)
-{
+
+void MainWindow::changeConferenceUrl(int id, const QString& url) {
     Conference::getById(id).setUrl(url);
 }
 

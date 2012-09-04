@@ -1,6 +1,6 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource>
-    <file>create_tables.sql</file>
+    <file>dbschema001.sql</file>
 </qresource>
 </RCC>
 

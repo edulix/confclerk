@@ -22,33 +22,58 @@
 
 #include <QObject>
 #include <QHash>
+#include <QSqlDatabase>
 
-class QSqlDatabase;
 
-class SqlEngine : public QObject
-{
+class SqlEngine : public QObject {
     Q_OBJECT
     public:
+        QString dbFilename; ///< database filename including path
+        QSqlDatabase db; ///< this may be private one day...
+
         SqlEngine(QObject *aParent = NULL);
         ~SqlEngine();
-        static void initialize();
-        // if a conferenceId != 0 is given, the confernece is updated instead of inserted.
-        static void addConferenceToDB(QHash<QString,QString> &aConference, int conferenceId);
-        static void addEventToDB(QHash<QString,QString> &aEvent);
-        static void addPersonToDB(QHash<QString,QString> &aPerson);
-        static void addLinkToDB(QHash<QString,QString> &aLink);
-        static void addRoomToDB(QHash<QString,QString> &aRoom);
-        static void deleteConference(int id);
 
-        static bool beginTransaction();
-        static bool commitTransaction();
+        // Open/Close
+        void open(); ///< emits a database error if failed.
+        bool isOpen() const {return db.isOpen();}
+        void close() {db.close();}
 
-        // search Events for ....
-        static int searchEvent(int conferenceId, const QHash<QString,QString> &columns, const QString &keyword);
+        // Schema version
+        /// returns the "user_version" of the database schema
+        /// we return -1 for an empty database
+        /// the database has to be open
+        /// returns -2 if an error occurs and emits the error message
+        int dbSchemaVersion();
+        /// called by createOrUpdateDbSchema. Do not use directly. true for success.
+        bool updateDbSchemaVersion000To001();
+        /// called by createOrUpdateDbSchma. Do not use directly. true for success.
+        bool createCurrentDbSchema();
+        /// creates the current database schema if an empty database is found,
+        /// otherwise updates the schema if an old one is found. true for success.
+        bool createOrUpdateDbSchema();
+
+        // if a conferneceId != 0 is given, the confernce is updated instead of inserted.
+        void addConferenceToDB(QHash<QString,QString> &aConference, int conferenceId);
+        void addEventToDB(QHash<QString,QString> &aEvent);
+        void addPersonToDB(QHash<QString,QString> &aPerson);
+        void addLinkToDB(QHash<QString,QString> &aLink);
+        void addRoomToDB(QHash<QString,QString> &aRoom);
+        bool deleteConference(int id);
+
+        bool beginTransaction();
+        bool commitTransaction();
+
+        /// search Events for .... returns true if success
+        bool searchEvent(int conferenceId, const QHash<QString,QString> &columns, const QString &keyword);
     private:
         static QString login(const QString &aDatabaseType, const QString &aDatabaseName);
-        static bool execQuery(QSqlDatabase &aDatabase, const QString &aQuery);
-        static bool execQueryWithParameter(QSqlDatabase &aDatabase, const QString &aQuery, const QHash<QString, QVariant>& params);
+        /// emits a possible error message as signal. Does nothing if there was not last error
+        void emitSqlQueryError(const QSqlQuery& query);
+
+    signals:
+        /// emitted when a database errors occur
+        void dbError(const QString& message);
 };
 
 #endif /* SQLENGINE_H */

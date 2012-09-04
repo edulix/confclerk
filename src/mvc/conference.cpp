@@ -73,8 +73,4 @@ int Conference::activeConference()
     return -1;
 }
 
-void Conference::deleteConference(int id)
-{
-    SqlEngine::deleteConference(id);
-}
 

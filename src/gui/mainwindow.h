@@ -61,6 +61,8 @@ private slots:
 
     void useConference(int id);
     void unsetConference();
+
+    void showError(const QString& message);
 private:
     void fillAndShowConferenceHeader();
     void initTabs();
@@ -68,6 +70,7 @@ private:
     void importData(const QByteArray &aData, const QString& url, int conferenceId);
 
     QString saved_title;
+    SqlEngine* sqlEngine;
     ConferenceModel* conferenceModel;
     ScheduleXmlParser *mXmlParser;
     QNetworkAccessManager *mNetworkAccessManager;
