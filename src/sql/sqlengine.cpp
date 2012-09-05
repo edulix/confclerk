@@ -47,7 +47,7 @@ SqlEngine::~SqlEngine() {
 
 void SqlEngine::open() {
     QFileInfo dbFilenameInfo(dbFilename);
-    dbFilenameInfo.absoluteDir().mkpath(""); // TODO ...
+    dbFilenameInfo.absoluteDir().mkpath("."); // TODO: handle error
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(dbFilename);
     db.open();
