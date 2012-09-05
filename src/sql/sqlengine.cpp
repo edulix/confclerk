@@ -46,8 +46,18 @@ SqlEngine::~SqlEngine() {
 
 
 void SqlEngine::open() {
+    // we may have to create the directory of the database
     QFileInfo dbFilenameInfo(dbFilename);
-    dbFilenameInfo.absoluteDir().mkpath("."); // TODO: handle error
+
+    // First possibility (works with Linux, not tested on Windows:
+    // QDir cwd;
+    // cwd.mkpath(dbFilenameInfo.absolutePath());
+
+    // Second possibility (works on Windows)
+    dbFilenameInfo.absoluteDir().mkpath(".");
+
+    // We don't have to handle errors because in worst case, opening the database will fail
+    // and db.isOpen() returns false.
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(dbFilename);
     db.open();
