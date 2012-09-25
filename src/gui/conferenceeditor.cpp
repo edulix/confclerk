@@ -178,8 +178,7 @@ void ConferenceEditor::showParsingProgress(int progress)
     QApplication::processEvents();
 }
 
-void ConferenceEditor::importFinished(const QString& title)
-{
+void ConferenceEditor::importFinished(int conferenceId) {
     addBtn->show();
     // removeItem should be shown later, but it takes some time,
     // and not looks good
@@ -190,14 +189,10 @@ void ConferenceEditor::importFinished(const QString& title)
 
     QApplication::processEvents();
 
-    int num = model->rowCount();
-    for (int i = 0; i < num; i++) {
-        QModelIndex item = model->index(i, 0);
-        if (model->data(item) == title) {
-            emit wantCurrent(item, QItemSelectionModel::SelectCurrent);
-            return;
-        }
-    }
-    itemSelected(QModelIndex(), QModelIndex());
+    QModelIndex item = model->indexFromId(conferenceId);
+    if (item.isValid())
+        emit wantCurrent(item, QItemSelectionModel::SelectCurrent);
+    else
+        itemSelected(QModelIndex(), QModelIndex());
 }
 

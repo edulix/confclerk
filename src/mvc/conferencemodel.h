@@ -46,7 +46,7 @@ public:
     QModelIndex indexFromId(int id) const;
 public slots:
     void newConferenceBegin();
-    void newConferenceEnd(const QString& title);
+    void newConferenceEnd(int conferenceId);
     void conferenceRemoved();
 private:
     // reinitialize list from database

@@ -54,7 +54,7 @@ void ScheduleXmlParser::parseData(const QByteArray &aData, const QString& url, i
         {
             emit(parsingScheduleBegin());
             QHash<QString,QString> conference;
-            conference["id"] = conferenceId; // conference ID is assigned automatically if 0
+            conference["id"] = QVariant(conferenceId).toString(); // conference ID is assigned automatically if 0
             conference["title"] = conferenceElement.firstChildElement("title").text();
             conference["subtitle"] = conferenceElement.firstChildElement("subtitle").text();
             conference["venue"] = conferenceElement.firstChildElement("venue").text();
@@ -153,7 +153,7 @@ void ScheduleXmlParser::parseData(const QByteArray &aData, const QString& url, i
     } // schedule element
     sqlEngine->commitTransaction();
     if (!conference_title.isNull()) {
-        emit parsingScheduleEnd(conference_title);
+        emit parsingScheduleEnd(conferenceId);
     } else {
         error_message("Could not parse schedule");
     }

@@ -132,7 +132,7 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent): QMainWindow(aParent) {
     connect(mNetworkAccessManager, SIGNAL(finished(QNetworkReply*)), SLOT(networkQueryFinished(QNetworkReply*)));
 
     connect(mXmlParser, SIGNAL(parsingScheduleBegin()), conferenceModel, SLOT(newConferenceBegin()));
-    connect(mXmlParser, SIGNAL(parsingScheduleEnd(const QString&)), conferenceModel, SLOT(newConferenceEnd(const QString&)));
+    connect(mXmlParser, SIGNAL(parsingScheduleEnd(int)), conferenceModel, SLOT(newConferenceEnd(int)));
 }
 
 void MainWindow::on_aboutAction_triggered()
@@ -340,7 +340,7 @@ void MainWindow::on_conferencesAction_triggered()
 
     connect(mXmlParser, SIGNAL(parsingScheduleBegin()), &dialog, SLOT(importStarted()));
     connect(mXmlParser, SIGNAL(progressStatus(int)), &dialog, SLOT(showParsingProgress(int)));
-    connect(mXmlParser, SIGNAL(parsingScheduleEnd(const QString&)), &dialog, SLOT(importFinished(const QString&)));
+    connect(mXmlParser, SIGNAL(parsingScheduleEnd(int)), &dialog, SLOT(importFinished(int)));
 
     connect(this, SIGNAL(conferenceRemoved()), &dialog, SLOT(conferenceRemoved()));
 

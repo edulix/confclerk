@@ -162,7 +162,7 @@ void SqlEngine::addConferenceToDB(QHash<QString,QString> &aConference, int confe
         query.bindValue(":id", conferenceId);
         query.exec();
         emitSqlQueryError(query);
-        aConference["id"] = conferenceId;
+        aConference["id"] = QVariant(conferenceId).toString();
     }
 }
 

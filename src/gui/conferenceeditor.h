@@ -55,7 +55,7 @@ signals:
     void wantCurrent(const QModelIndex&, QItemSelectionModel::SelectionFlags);
 public slots:
     void importStarted();
-    void importFinished(const QString& title);
+    void importFinished(int conferenceId);
     void conferenceRemoved();
     void showParsingProgress(int);
 private slots:

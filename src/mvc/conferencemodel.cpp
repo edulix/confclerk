@@ -77,9 +77,8 @@ void ConferenceModel::newConferenceBegin()
 {
 }
 
-void ConferenceModel::newConferenceEnd(const QString& title)
-{
-    Q_UNUSED(title);
+void ConferenceModel::newConferenceEnd(int conferenceId) {
+    Q_UNUSED(conferenceId);
     reinit();
 }
 
