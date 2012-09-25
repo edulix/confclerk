@@ -142,6 +142,7 @@ void SqlEngine::addConferenceToDB(QHash<QString,QString> &aConference, int confe
         query.bindValue(":day_change", -QTime::fromString(aConference["day_change"],TIME_FORMAT).secsTo(QTime(0,0)));
         query.bindValue(":timeslot_duration", -QTime::fromString(aConference["timeslot_duration"],TIME_FORMAT).secsTo(QTime(0,0)));
         query.bindValue(":active", 1);
+        query.exec();
         emitSqlQueryError(query);
         aConference["id"] = query.lastInsertId().toString(); // 'id' is assigned automatically
     }
@@ -159,6 +160,7 @@ void SqlEngine::addConferenceToDB(QHash<QString,QString> &aConference, int confe
         query.bindValue(":timeslot_duration", -QTime::fromString(aConference["timeslot_duration"],TIME_FORMAT).secsTo(QTime(0,0)));
         query.bindValue(":active", 1);
         query.bindValue(":id", conferenceId);
+        query.exec();
         emitSqlQueryError(query);
         aConference["id"] = conferenceId;
     }
@@ -263,6 +265,7 @@ void SqlEngine::addRoomToDB(QHash<QString,QString> &aRoom) {
     query.prepare("SELECT id FROM ROOM WHERE xid_conference=:conference_id and name=:name");
     query.bindValue(":conference_id", aRoom["conference_id"]);
     query.bindValue(":name", aRoom["name"]);
+    query.exec();
     emitSqlQueryError(query);
     // now we have to check whether ROOM record with 'name' exists or not,
     // - if it doesn't exist yet, then we have to add that record to 'ROOM' table
@@ -279,6 +282,7 @@ void SqlEngine::addRoomToDB(QHash<QString,QString> &aRoom) {
         query.prepare("INSERT INTO ROOM (xid_conference,name) VALUES (:xid_conference, :name)");
         query.bindValue(":xid_conference", aRoom["conference_id"]);
         query.bindValue(":xid_name", aRoom["name"]);
+        query.exec();
         emitSqlQueryError(query);
         aRoom["id"]= query.lastInsertId().toString(); // 'id' is assigned automatically
         //LOG_AUTOTEST(query);
@@ -289,6 +293,7 @@ void SqlEngine::addRoomToDB(QHash<QString,QString> &aRoom) {
     query.prepare("DELETE FROM EVENT_ROOM WHERE xid_conference=:conference_id AND xid_event=:event_id");
     query.bindValue(":conference_id", aRoom["conference_id"]);
     query.bindValue(":event_id", aRoom["event_id"]);
+    query.exec();
     emitSqlQueryError(query);
     // and insert new ones
     query = QSqlQuery(db);
@@ -296,6 +301,7 @@ void SqlEngine::addRoomToDB(QHash<QString,QString> &aRoom) {
     query.bindValue(":conference_id", aRoom["conference_id"]);
     query.bindValue(":event_id", aRoom["event_id"]);
     query.bindValue(":room_id", aRoom["id"]);
+    query.exec();
     emitSqlQueryError(query);
 }
 
@@ -308,6 +314,7 @@ void SqlEngine::addLinkToDB(QHash<QString,QString> &aLink) {
     query.bindValue(":xid_conference", aLink["conference_id"]);
     query.bindValue(":name", aLink["name"]);
     query.bindValue(":url", aLink["url"]);
+    query.exec();
     emitSqlQueryError(query);
 }
 
