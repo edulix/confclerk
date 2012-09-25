@@ -276,7 +276,7 @@ void SqlEngine::addRoomToDB(QHash<QString,QString> &aRoom) {
     else // ROOM record doesn't exist yet, need to create it
     {
         query = QSqlQuery(db);
-        query.prepare("INSERT INTO ROOM (xid_conference,name,picture) VALUES (:xid_conference, :name, '')");
+        query.prepare("INSERT INTO ROOM (xid_conference,name) VALUES (:xid_conference, :name)");
         query.bindValue(":xid_conference", aRoom["conference_id"]);
         query.bindValue(":xid_name", aRoom["name"]);
         emitSqlQueryError(query);
