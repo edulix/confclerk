@@ -1,6 +1,6 @@
 BEGIN TRANSACTION;
 
-CREATE TABLE CONFERENCE (
+CREATE TABLE conference (
 	id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 	title VARCHAR NOT NULL,
 	subtitle VARCHAR,
@@ -14,34 +14,34 @@ CREATE TABLE CONFERENCE (
 	url VARCHAR
 );
 
-CREATE TABLE TRACK (
+CREATE TABLE track (
 	id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-	xid_conference INTEGER NOT NULL REFERENCES CONFERENCE(id),
+	xid_conference INTEGER NOT NULL REFERENCES conference(id),
 	name VARCHAR NOT NULL,
 	UNIQUE (xid_conference, name)
 );
 
-CREATE TABLE ROOM (
+CREATE TABLE room (
 	id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-	xid_conference INTEGER NOT NULL REFERENCES CONFERENCE(id),
+	xid_conference INTEGER NOT NULL REFERENCES conference(id),
 	name VARCHAR NOT NULL,
 	picture VARCHAR,
 	UNIQUE (xid_conference, name)
 );
 
-CREATE TABLE PERSON (
+CREATE TABLE person (
 	id INTEGER NOT NULL,
-	xid_conference INTEGER NOT NULL REFERENCES CONFERENCE(id),
+	xid_conference INTEGER NOT NULL REFERENCES conference(id),
 	name VARCHAR NOT NULL,
 	PRIMARY KEY (id, xid_conference)
 ); 
 
-CREATE TABLE EVENT (
-	xid_conference INTEGER NOT NULL REFERENCES CONFERENCE(id),
+CREATE TABLE event (
+	xid_conference INTEGER NOT NULL REFERENCES conference(id),
 	id INTEGER NOT NULL,
 	start INTEGER NOT NULL,
 	duration INTEGER NOT NULL, -- duration of the event in seconds
-	xid_track INTEGER NOT NULL REFERENCES TRACK(id),
+	xid_track INTEGER NOT NULL REFERENCES track(id),
 	type VARCHAR,
 	language VARCHAR,
 	tag VARCHAR,
@@ -54,35 +54,35 @@ CREATE TABLE EVENT (
 	PRIMARY KEY (xid_conference, id)
 );
 
-CREATE TABLE EVENT_PERSON (
+CREATE TABLE event_person (
 	xid_conference INTEGER NOT NULL,
 	xid_event INTEGER NOT NULL,
 	xid_person INTEGER NOT NULL,
 	UNIQUE (xid_conference, xid_event, xid_person ) ON CONFLICT REPLACE,
-	FOREIGN KEY(xid_conference) REFERENCES CONFERENCE(id),
-	FOREIGN KEY(xid_conference, xid_event) REFERENCES EVENT(xid_conference, id),
-	FOREIGN KEY(xid_conference, xid_person) REFERENCES PERSON(xid_conference, id)
+	FOREIGN KEY(xid_conference) REFERENCES conference(id),
+	FOREIGN KEY(xid_conference, xid_event) REFERENCES event(xid_conference, id),
+	FOREIGN KEY(xid_conference, xid_person) REFERENCES person(xid_conference, id)
 );
 
-CREATE TABLE EVENT_ROOM (
+CREATE TABLE event_room (
 	xid_conference INTEGER NOT NULL,
 	xid_event INTEGER NOT NULL,
 	xid_room INTEGER NOT NULL,
 	UNIQUE (xid_conference, xid_event, xid_room) ON CONFLICT REPLACE,
-	FOREIGN KEY(xid_conference) REFERENCES CONFERENCE(id),
-	FOREIGN KEY(xid_conference, xid_event) REFERENCES EVENT(xid_conference, id),
-	FOREIGN KEY(xid_conference, xid_room) REFERENCES ROOM(xid_conference, id)
+	FOREIGN KEY(xid_conference) REFERENCES conference(id),
+	FOREIGN KEY(xid_conference, xid_event) REFERENCES event(xid_conference, id),
+	FOREIGN KEY(xid_conference, xid_room) REFERENCES room(xid_conference, id)
 );
 
-CREATE TABLE LINK (
+CREATE TABLE link (
 	id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 	xid_conference INTEGER NOT NULL,
 	xid_event INTEGER NOT NULL,
 	name VARCHAR,
 	url VARCHAR NOT NULL,
 	UNIQUE (xid_conference, xid_event , url) ON CONFLICT REPLACE,
-	FOREIGN KEY(xid_conference) REFERENCES CONFERENCE(id),
-	FOREIGN KEY(xid_conference, xid_event) REFERENCES EVENT(xid_conference, id)
+	FOREIGN KEY(xid_conference) REFERENCES conference(id),
+	FOREIGN KEY(xid_conference, xid_event) REFERENCES event(xid_conference, id)
 );
 
 PRAGMA user_version=1;
