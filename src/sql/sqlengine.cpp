@@ -81,25 +81,12 @@ int SqlEngine::dbSchemaVersion() {
 
 
 bool SqlEngine::updateDbSchemaVersion000To001() {
-    emit dbError("Upgrade 0 -> 1 not implemented yet");
-    return false;
+    return applySqlFile(":/dbschema000to001.sql");
 }
 
 
 bool SqlEngine::createCurrentDbSchema() {
-    QFile file(":/dbschema001.sql");
-    file.open(QIODevice::ReadOnly | QIODevice::Text);
-    QString allSqlStatements = file.readAll();
-    QSqlQuery query(db);
-    foreach(QString sql, allSqlStatements.split(";")) {
-        if (sql.trimmed().isEmpty())  // do not execute empty queries like the last character from create_tables.sql
-            continue;
-        if (!query.exec(sql)) {
-            emitSqlQueryError(query);
-            return false;
-        }
-    }
-    return true;
+    return applySqlFile(":/dbschema001.sql");
 }
 
 
@@ -123,6 +110,23 @@ bool SqlEngine::createOrUpdateDbSchema() {
         emit dbError(tr("Unsupported database schema version %1.").arg(version));
     }
     return false;
+}
+
+
+bool SqlEngine::applySqlFile(const QString sqlFile) {
+    QFile file(sqlFile);
+    file.open(QIODevice::ReadOnly | QIODevice::Text);
+    QString allSqlStatements = file.readAll();
+    QSqlQuery query(db);
+    foreach(QString sql, allSqlStatements.split(";")) {
+        if (sql.trimmed().isEmpty())  // do not execute empty queries like the last character from create_tables.sql
+            continue;
+        if (!query.exec(sql)) {
+            emitSqlQueryError(query);
+            return false;
+        }
+    }
+    return true;
 }
 
 

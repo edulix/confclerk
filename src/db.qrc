@@ -1,6 +1,7 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource>
     <file>dbschema001.sql</file>
+    <file>dbschema000to001.sql</file>
 </qresource>
 </RCC>
 

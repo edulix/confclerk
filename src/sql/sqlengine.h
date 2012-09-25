@@ -52,6 +52,8 @@ class SqlEngine : public QObject {
         /// creates the current database schema if an empty database is found,
         /// otherwise updates the schema if an old one is found. true for success.
         bool createOrUpdateDbSchema();
+        /// Applies an SQL file
+        bool applySqlFile(const QString sqlFile);
 
         // if a conferneceId != 0 is given, the confernce is updated instead of inserted.
         void addConferenceToDB(QHash<QString,QString> &aConference, int conferenceId);
