@@ -61,7 +61,6 @@ void ScheduleXmlParser::parseData(const QByteArray &aData, const QString& url, i
             conference["city"] = conferenceElement.firstChildElement("city").text();
             conference["start"] = conferenceElement.firstChildElement("start").text(); // date
             conference["end"] = conferenceElement.firstChildElement("end").text(); // date
-            conference["days"] = conferenceElement.firstChildElement("days").text(); // int
             conference["day_change"] = conferenceElement.firstChildElement("day_change").text(); // time
             conference["timeslot_duration"] = conferenceElement.firstChildElement("timeslot_duration").text(); // time
             conference["url"] = url;

@@ -45,7 +45,6 @@ public:
     QString city() const { return value("city").toString(); }
     QDate start() const { return value("start").toDate(); }
     QDate end() const { return value("end").toDate(); }
-    int days() const { return value("days").toInt(); }
     int dayChange() const { return value("day_change").toInt(); } // in seconds from 00:00
     int timeslotDuration() const { return value("timeslot_duration").toInt(); } // in seconds
     bool isActive() const { return value("active").toBool(); }

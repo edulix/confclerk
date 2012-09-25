@@ -130,11 +130,11 @@ void SqlEngine::addConferenceToDB(QHash<QString,QString> &aConference, int confe
     QSqlQuery query(db);
     if (conferenceId <= 0) // insert conference
     {
-        query.prepare("INSERT INTO CONFERENCE (title,url,subtitle,venue,city,start,end,days,"
+        query.prepare("INSERT INTO CONFERENCE (title,url,subtitle,venue,city,start,end,"
                                                 "day_change,timeslot_duration,active) "
-                        " VALUES (:title,:url,:subtitle,:venue,:city,:start,:end,:days,"
+                        " VALUES (:title,:url,:subtitle,:venue,:city,:start,:end,"
                                                 ":day_change,:timeslot_duration,:active)");
-        foreach (QString prop_name, (QList<QString>() << "title" << "url" << "subtitle" << "venue" << "city" << "days")) {
+        foreach (QString prop_name, (QList<QString>() << "title" << "url" << "subtitle" << "venue" << "city")) {
             query.bindValue(QString(":") + prop_name, aConference[prop_name]);
         }
         query.bindValue(":start", QDateTime(QDate::fromString(aConference["start"],DATE_FORMAT),QTime(0,0),Qt::UTC).toTime_t());
@@ -147,10 +147,10 @@ void SqlEngine::addConferenceToDB(QHash<QString,QString> &aConference, int confe
     }
     else // update conference
     {
-        query.prepare("UPDATE CONFERENCE set title=:title, url=:url, subtitle=:subtitle, venue=:venue, city=:city, start=:start, end=:end, days=:days,"
+        query.prepare("UPDATE CONFERENCE set title=:title, url=:url, subtitle=:subtitle, venue=:venue, city=:city, start=:start, end=:end,"
                                             "day_change=:day_change, timeslot_duration=:timeslot_duration, active=:active "
                       "WHERE id=:id");
-        foreach (QString prop_name, (QList<QString>() << "title" << "url" << "subtitle" << "venue" << "city" << "days")) {
+        foreach (QString prop_name, (QList<QString>() << "title" << "url" << "subtitle" << "venue" << "city")) {
             query.bindValue(QString(":") + prop_name, aConference[prop_name]);
         }
         query.bindValue(":start", QDateTime(QDate::fromString(aConference["start"],DATE_FORMAT),QTime(0,0),Qt::UTC).toTime_t());
