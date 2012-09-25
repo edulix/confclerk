@@ -3,33 +3,31 @@ CREATE TABLE CONFERENCE ( id INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL
     , title VARCHAR NOT NULL
     , subtitle VARCHAR
     , venue VARCHAR
-    , city VARCHAR NOT NULL
-    , start INTEGER NOT NULL
-    , end INTEGER NOT NULL
-    , days INTEGER
+    , city VARCHAR
+    , start INTEGER NOT NULL -- timestamp (Unix Epoch)
+    , end INTEGER NOT NULL   -- timestamp (Unix Epoch)
     , day_change INTEGER
     , timeslot_duration INTEGER
     , active INTEGER DEFAULT 0
     , url VARCHAR);
 
 CREATE TABLE TRACK ( id INTEGER  PRIMARY KEY AUTOINCREMENT  NOT NULL
-    , xid_conference INTEGER NOT NULL
+    , xid_conference INTEGER NOT NULL REFERENCES CONFERENCE(id)
     , name VARCHAR NOT NULL
     , UNIQUE (xid_conference, name));
 
 CREATE TABLE ROOM ( id INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL
-    , xid_conference INTEGER NOT NULL
+    , xid_conference INTEGER NOT NULL REFERENCES CONFERENCE(id)
     , name VARCHAR NOT NULL
-    , picture VARCHAR NOT NULL
+    , picture VARCHAR
     , UNIQUE (xid_conference, name));
 
 CREATE TABLE PERSON ( id INTEGER NOT NULL
-    , xid_conference INTEGER NOT NULL
+    , xid_conference INTEGER NOT NULL REFERENCES CONFERENCE(id)
     , name VARCHAR NOT NULL
-    , UNIQUE (xid_conference, name)
     , PRIMARY KEY (id, xid_conference)); 
 
-CREATE TABLE EVENT ( xid_conference INTEGER  NOT NULL
+CREATE TABLE EVENT ( xid_conference INTEGER  NOT NULL REFERENCES CONFERENCE(id)
     , id INTEGER NOT NULL
     , start INTEGER NOT NULL
     , duration INTEGER NOT NULL -- duration of the event in seconds
@@ -43,9 +41,7 @@ CREATE TABLE EVENT ( xid_conference INTEGER  NOT NULL
     , description VARCHAR
     , favourite INTEGER DEFAULT 0
     , alarm INTEGER DEFAULT 0
-    , PRIMARY KEY (xid_conference ,id)
-    , FOREIGN KEY(xid_conference) REFERENCES CONFERENCE(id)
-    , FOREIGN KEY(xid_track) REFERENCES TRACK(id));
+    , PRIMARY KEY (xid_conference ,id));
 
 CREATE TABLE EVENT_PERSON ( xid_conference INTEGER NOT NULL
     , xid_event INTEGER NOT NULL
