@@ -51,19 +51,6 @@ public:
     bool isActive() const { return value("active").toBool(); }
     QString url() const { return stringFromNullable(value("url")); }
 
-    #if 0
-    void setId(int id) { setValue("id", id); }
-    void setTitle(const QString& title) { setValue("title", title); }
-    void setSubtitle(const QString& subtitle) { setValue("subtitle", subtitle); }
-    void setVenue(const QString& venue) { setValue("venue", venue); }
-    void setCity(const QString& city) { setValue("city", city); }
-    void setStart(const QDate& start) { setValue("start", start); }
-    void setEnd(const QDate& end) { setValue("end", end); }
-    void setDays(int days) { setValue("days", days); }
-    void setDayChange(int dayChange) { setValue("day_change", dayChange); }
-    void setTimeslotDuration(int timeslotDuration) { setValue("timeslot_duration", timeslotDuration); }
-    void setActive(bool active) { setValue("active", (int)((active))); }
-    #endif
     void setUrl(const QString& url)
     {
         setValue("url", url.isNull() ? QVariant() : url);
