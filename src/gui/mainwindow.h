@@ -34,10 +34,7 @@ class MainWindow : public QMainWindow, private Ui::MainWindow
 {
     Q_OBJECT
 public:
-    // aEventId is used to inform widget to automatically open
-    // Event dialog for given Event ID
-    MainWindow(int aEventId = 0, QWidget *aParent = NULL);
-    ~MainWindow() {}
+    MainWindow(QWidget *parent = 0);
 signals:
     void conferenceRemoved();
 private slots:
@@ -59,7 +56,7 @@ private slots:
     void removeConference(int);
     void changeConferenceUrl(int, const QString&);
 
-    void useConference(int id);
+    void useConference(int conferenceId);
     void unsetConference();
 
     void showError(const QString& message);

@@ -50,7 +50,7 @@
 const QString PROXY_USERNAME;
 const QString PROXY_PASSWD;
 
-MainWindow::MainWindow(int aEventId, QWidget *aParent): QMainWindow(aParent) {
+MainWindow::MainWindow(QWidget* parent): QMainWindow(parent) {
     setupUi(this);
 
     // Open database
@@ -75,12 +75,6 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent): QMainWindow(aParent) {
     if(!AppSettings::contains("proxyIsDirectConnection"))
         AppSettings::setDirectConnection(true);
 
-    /*
-    if(AppSettings::isDirectConnection())
-    {
-        qDebug() << "Setting-up proxy: " << AppSettings::proxyAddress() << ":" << AppSettings::proxyPort();
-    }
-    */
     QNetworkProxy proxy(
             AppSettings::isDirectConnection() ? QNetworkProxy::NoProxy : QNetworkProxy::HttpProxy,
             AppSettings::proxyAddress(),
@@ -116,21 +110,7 @@ MainWindow::MainWindow(int aEventId, QWidget *aParent): QMainWindow(aParent) {
         clearTabs();
     }
 
-    // open dialog for given Event ID
-    // this is used in case Alarm Dialog request application to start
-    if(aEventId)
-    {
-        try
-        {
-            EventDialog dialog(aEventId,this);
-            dialog.exec();
-        }
-        catch(OrmNoObjectException&) {} // just start application
-        catch(...) {} // just start application
-    }
-
     connect(mNetworkAccessManager, SIGNAL(finished(QNetworkReply*)), SLOT(networkQueryFinished(QNetworkReply*)));
-
     connect(mXmlParser, SIGNAL(parsingScheduleBegin()), conferenceModel, SLOT(newConferenceBegin()));
     connect(mXmlParser, SIGNAL(parsingScheduleEnd(int)), conferenceModel, SLOT(newConferenceEnd(int)));
 }
@@ -226,20 +206,22 @@ void MainWindow::onSearchResultChanged() {
 }
 
 
-void MainWindow::useConference(int id)
+void MainWindow::useConference(int conferenceId)
 {
-    if (id == -1)  // in case no conference is active
+    if (conferenceId == -1)  // in case no conference is active
     {
         unsetConference();
         return;
     }
     try {
-        Conference::getById(Conference::activeConference()).update("active",0);
-        Conference new_active = Conference::getById(id);
-        new_active.update("active",1);
+        int oldActiveConferenceId = Conference::activeConference();
+        bool switchActiveConference = conferenceId != oldActiveConferenceId;
+        if (switchActiveConference) Conference::getById(oldActiveConferenceId).update("active", 0);
+        Conference activeConference = Conference::getById(conferenceId);
+        if (switchActiveConference) activeConference.update("active",1);
 
         // looks like it does not work at n900
-        setWindowTitle(new_active.title());
+        setWindowTitle(activeConference.title());
 
         // optimization.
         // dont run initTabs() here

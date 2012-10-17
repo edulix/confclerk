@@ -65,7 +65,7 @@ void TabContainer::itemClicked(const QModelIndex &aIndex)
     if(!aIndex.parent().isValid()) // time-group
         return;
 
-    EventDialog dialog(static_cast<Event*>(aIndex.internalPointer())->id(),this);
+    EventDialog dialog(Conference::activeConference(), static_cast<Event*>(aIndex.internalPointer())->id(),this);
 #ifdef N810
     dialog.setFixedWidth(static_cast<QWidget*>(parent())->width());
 #endif

@@ -26,10 +26,7 @@
 #include "alarm.h"
 #endif
 
-EventDialog::EventDialog(const int &aEventId, QWidget *aParent)
-    : QDialog(aParent)
-    , mEventId(aEventId)
-{
+EventDialog::EventDialog(int conferenceId, int eventId, QWidget *parent): QDialog(parent), mConferenceId(conferenceId), mEventId(eventId) {
     setupUi(this);
 
 #ifdef MAEMO
@@ -38,7 +35,7 @@ EventDialog::EventDialog(const int &aEventId, QWidget *aParent)
     alarmButton->hide();
 #endif
 
-    Event event = Event::getById(mEventId,Conference::activeConference());
+    Event event = Event::getById(mEventId, mConferenceId);
 
     title->setText(event.title());
     persons->setText(event.persons().join(" and "));
@@ -65,9 +62,9 @@ EventDialog::EventDialog(const int &aEventId, QWidget *aParent)
 
 void EventDialog::favouriteClicked()
 {
-    Event event = Event::getById(mEventId,Conference::activeConference());
+    Event event = Event::getById(mEventId, mConferenceId);
 
-    QList<Event> conflicts = Event::conflictEvents(event.id(),Conference::activeConference());
+    QList<Event> conflicts = Event::conflictEvents(event.id(), mConferenceId);
     if(event.isFavourite())
     {
         event.setFavourite(false);
@@ -83,7 +80,7 @@ void EventDialog::favouriteClicked()
     if(event.isFavourite())
     {
         // event has became 'favourite' and so 'conflicts' list may have changed
-        conflicts = Event::conflictEvents(event.id(),Conference::activeConference());
+        conflicts = Event::conflictEvents(event.id(), mConferenceId);
     }
 
     // have to emit 'eventChanged' signal on all events in conflict
@@ -97,7 +94,7 @@ void EventDialog::favouriteClicked()
 
 void EventDialog::alarmClicked()
 {
-    Event event = Event::getById(mEventId,Conference::activeConference());
+    Event event = Event::getById(mEventId, mConferenceId);
 
     if(event.hasAlarm())
     {

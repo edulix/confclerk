@@ -57,7 +57,7 @@ int Alarm::addAlarm(int conferenceId, int eventId, QString eventTitle, const QDa
     alarmAction = alarm_event_add_actions(alarmEvent, 1);
     alarm_action_set_label(alarmAction, "ConfClerk");
 
-    QString command = QFileInfo(*qApp->argv()).absoluteFilePath() + QString(" %1").arg(QString::number(eventId));
+    QString command = QFileInfo(*qApp->argv()).absoluteFilePath() + QString(" %1 %2").arg(conferenceId, eventId);
     qDebug() << "Setting alarm: " << command;
     alarm_action_set_exec_command(alarmAction, command.toLocal8Bit().data());
     alarmAction->flags |= ALARM_ACTION_TYPE_EXEC;

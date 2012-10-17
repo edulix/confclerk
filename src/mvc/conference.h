@@ -35,7 +35,10 @@ public:
 public:
     static Conference getById(int id);
     static QList<Conference> getAll();
-    static int activeConference(); ///< returns -1 if no conference is active
+
+    /// Returns the active conference. If no active conference can be found, it returns the conference with the lowest id.
+    /// If no conference exists or database errors occur, it returns -1.
+    static int activeConference();
 
 public:
     int id() const { return value("id").toInt(); }

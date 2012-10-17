@@ -44,10 +44,8 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationName("Toastfreeware");
     QCoreApplication::setApplicationName("ConfClerk");
     QCoreApplication::setApplicationVersion(VERSION);
- 
-    QWidget *window;
-    window = new MainWindow;
 
+    QWidget* window = new MainWindow;
 
 #ifdef MAEMO
     // Alarm Dbus
@@ -59,25 +57,26 @@ int main(int argc, char *argv[])
     {
     	if( connection.registerService("at.priv.toastfreeware.confclerk") == false)
     	{
-    		if(argc>1)
+            if(argc==3)
     		{
         		QDBusInterface *interface = new QDBusInterface("at.priv.toastfreeware.confclerk",
         		                                               "/ConfClerk",
         		                                               "at.priv.toastfreeware.confclerk.AlarmInterface",
         		                                               connection);
-        		interface->call("Alarm",atoi(argv[1]));
+                interface->call("Alarm",atoi(argv[2]));
         		return 0;
     		}
     	}
     }
-
-    if(argc > 1)
-    {
-        EventDialog dialog(atoi(argv[1]), window);
-        dialog.exec();
-    }
 #endif
 
+    // If we were started with the parameters confernceid and eventid, show the corresponding event (alarm)
+    if (argc == 3) {
+        QString conferenceIdStr = argv[1];
+        QString eventIdStr = argv[2];
+        EventDialog dialog(conferenceIdStr.toInt(), eventIdStr.toInt(), window);
+        dialog.exec();
+    }
     window->show();
 
     return a.exec();

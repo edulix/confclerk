@@ -28,7 +28,7 @@ class EventDialog : public QDialog, Ui::EventDialog
 { 
     Q_OBJECT
 public:
-    EventDialog(const int &aEventId, QWidget *aParent = NULL);
+    EventDialog(int conferencdId, int eventId, QWidget *parent = 0);
     ~EventDialog() {}
 private slots:
     void favouriteClicked();
@@ -36,6 +36,7 @@ private slots:
 signals:
     void eventChanged(int aEventId, bool favouriteChanged); // emited when user changes some event details, eg. sets it Favourite
 private:
+    int mConferenceId;
     int mEventId;
 };
 

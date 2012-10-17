@@ -51,25 +51,10 @@ QList<Conference> Conference::getAll()
     return load(query);
 }
 
-int Conference::activeConference()
-{
-    {
-        QSqlQuery query("SELECT id FROM conference WHERE active = 1");
-        query.exec();
-
-        // TODO: change it so that it will select somw existing ID
-
-        if (query.next()) {
-            return query.record().value("id").toInt();
-        }
-    }
-
-    QSqlQuery query2("SELECT id FROM conference ORDER BY id");
-    if (query2.next()) {
-        return query2.record().value("id").toInt();
-    }
-
-    return -1;
+int Conference::activeConference() {
+    QSqlQuery query("SELECT id FROM conference ORDER BY active DESC, id LIMIT 1");
+    if (!query.exec() || !query.first()) return -1;
+    return query.record().value("id").toInt();
 }
 
 
