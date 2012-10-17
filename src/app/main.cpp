@@ -24,13 +24,6 @@
 #include "eventdialog.h"
 #include "application.h"
 
-#ifdef MAEMO
-//#include "alarmdialog.h"
-#include "alarmdbus.h"
-#include "alarmdbusadaptorp.h"
-#endif /* MAEMO */
-
-
 int main(int argc, char *argv[])
 {
     Q_INIT_RESOURCE(icons);
@@ -46,29 +39,6 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationVersion(VERSION);
 
     QWidget* window = new MainWindow;
-
-#ifdef MAEMO
-    // Alarm Dbus
-    CAlarmDBus *alarmDBus = new CAlarmDBus(window);
-    new AlarmDBusAdaptor(alarmDBus);
-    QDBusConnection connection = QDBusConnection::sessionBus();
-
-    if(connection.registerObject("/ConfClerk", alarmDBus) == true)
-    {
-    	if( connection.registerService("at.priv.toastfreeware.confclerk") == false)
-    	{
-            if(argc==3)
-    		{
-        		QDBusInterface *interface = new QDBusInterface("at.priv.toastfreeware.confclerk",
-        		                                               "/ConfClerk",
-        		                                               "at.priv.toastfreeware.confclerk.AlarmInterface",
-        		                                               connection);
-                interface->call("Alarm",atoi(argv[2]));
-        		return 0;
-    		}
-    	}
-    }
-#endif
 
     // If we were started with the parameters confernceid and eventid, show the corresponding event (alarm)
     if (argc == 3) {

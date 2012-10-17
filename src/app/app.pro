@@ -4,7 +4,7 @@ TARGET = confclerk
 DESTDIR = ../bin
 QT += sql xml network
 CONFIG(maemo5) {
-    QT += maemo5 dbus
+    QT += maemo5
 }
 
 # module dependencies
@@ -17,10 +17,6 @@ maemo {
     INCLUDEPATH += ../alarm
     DEPENDPATH +=  ../alarm
     POST_TARGETDEPS += $$DESTDIR/libqalarm.a
-    HEADERS += alarmdbus.h \
-        alarmdbusadaptorp.h
-    SOURCES += alarmdbus.cpp \
-        alarmdbusadaptor.cpp
 }
 
 HEADERS += appsettings.h \

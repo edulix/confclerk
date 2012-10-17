@@ -27,8 +27,6 @@
 
 #include <QDebug>
 
-//#include "dbus-1.0/dbus/dbus-protocol.h"
-
 int Alarm::addAlarm(int conferenceId, int eventId, QString eventTitle, const QDateTime &alarmDateTime) {
     cookie_t alarmCookie = 0;
     alarm_event_t *alarmEvent = 0;
@@ -64,28 +62,7 @@ int Alarm::addAlarm(int conferenceId, int eventId, QString eventTitle, const QDa
     alarmAction->flags |= ALARM_ACTION_WHEN_RESPONDED;
     alarmAction->flags |= ALARM_ACTION_EXEC_ADD_COOKIE; // adds assigned cookie at the end of command string
 
-//    // setup this action to be a "DBus command"
-//    act->flags |= ALARM_ACTION_WHEN_RESPONDED;
-//    act->flags |= ALARM_ACTION_TYPE_DBUS;
-//
-//    // DBus params for this action
-//    alarm_action_set_dbus_interface(act, "at.priv.toastfreeware.confclerk.AlarmInterface");
-//    alarm_action_set_dbus_service(act, "at.priv.toastfreeware.confclerk");
-//    alarm_action_set_dbus_path(act, "/ConfClerk");
-//    alarm_action_set_dbus_name(act, "Alarm");
-//
-//    // DBus arguments for the action
-//    alarm_action_set_dbus_args(act,  DBUS_TYPE_INT32, &aEventId, DBUS_TYPE_INVALID);
-
-    //    act->flags |= ALARM_ACTION_TYPE_EXEC;
-    //     alarm_action_set_exec_command(act, command.toLocal8Bit().data());
-    //    alarm_event_set_icon(eve, "fosdem");
-    //    alarm_event_set_title(eve, "ConfClerk");
-    // adds assigned cookie at the end of command string
-    //    act->flags |= ALARM_ACTION_EXEC_ADD_COOKIE;
-
     /* Add stop button action */
-    /* TODO: send a DBus message to remove that alarm from database */
     alarmAction = alarm_event_add_actions(alarmEvent, 1);
     alarm_action_set_label(alarmAction, "Stop");
     alarmAction->flags |= ALARM_ACTION_WHEN_RESPONDED;
