@@ -53,6 +53,7 @@ int SearchTabContainer::searchResultCount(const QDate& date) const {
 void SearchTabContainer::showSearchDialog(bool show) {
     header->setVisible(show);
     treeView->setVisible(!show);
+    if (show) header->searchEdit->setFocus(Qt::OtherFocusReason);
 }
 
 
