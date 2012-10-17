@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
     QWidget* window = new MainWindow;
 
     // If we were started with the parameters confernceid and eventid, show the corresponding event (alarm)
-    if (argc == 3) {
+    if (argc >= 3) {
         QString conferenceIdStr = argv[1];
         QString eventIdStr = argv[2];
         EventDialog dialog(conferenceIdStr.toInt(), eventIdStr.toInt(), window);
