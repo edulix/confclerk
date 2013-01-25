@@ -30,9 +30,12 @@ class EventDialog : public QDialog, Ui::EventDialog
 public:
     EventDialog(int conferencdId, int eventId, QWidget *parent = 0);
     ~EventDialog() {}
+    void closeEvent(QCloseEvent *event);
+
 private slots:
     void favouriteClicked();
     void alarmClicked();
+
 signals:
     void eventChanged(int aEventId, bool favouriteChanged); // emited when user changes some event details, eg. sets it Favourite
 private:

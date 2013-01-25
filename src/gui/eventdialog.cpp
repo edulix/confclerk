@@ -21,6 +21,7 @@
 #include "conference.h"
 
 #include <QScrollBar>
+#include <QSettings>
 
 #ifdef MAEMO
 #include "alarm.h"
@@ -36,6 +37,9 @@ EventDialog::EventDialog(int conferenceId, int eventId, QWidget *parent): QDialo
 #endif
 
     Event event = Event::getById(mEventId, mConferenceId);
+
+    QSettings settings;
+    restoreGeometry(settings.value("EventDialog/geometry").toByteArray());
 
     title->setText(event.title());
     persons->setText(event.persons().join(" and "));
@@ -111,8 +115,7 @@ void EventDialog::alarmClicked()
     {
         event.setHasAlarm(true);
         alarmButton->setIcon(QIcon(":/icons/alarm-on.png"));
-#ifdef MAEMO
-        // add alarm to the 'alarmd'
+#ifdef MAEMO        // add alarm to the 'alarmd'
         Alarm alarm;
         alarm.addAlarm(event.conferenceId(), event.id(), event.title(), event.start().addSecs(PRE_EVENT_ALARM_SEC));
 #endif /* MAEMO */
@@ -123,3 +126,9 @@ void EventDialog::alarmClicked()
     emit eventChanged(event.id(), false);
 }
 
+void EventDialog::closeEvent(QCloseEvent *event)
+{
+    QSettings settings;
+    settings.setValue("EventDialog/geometry", saveGeometry());
+    QWidget::closeEvent(event);
+}
