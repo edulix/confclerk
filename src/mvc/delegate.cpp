@@ -98,7 +98,7 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         else {
             QStyleOption styleOption;
             styleOption.rect = option.rect;
-            qApp->style()->drawPrimitive(QStyle::PE_PanelItemViewItem, &styleOption, painter, mViewPtr);
+            //qApp->style()->drawPrimitive(QStyle::PE_PanelItemViewItem, &styleOption, painter, mViewPtr);
         }
 
         // draw Controls
